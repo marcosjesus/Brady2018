@@ -1,0 +1,156 @@
+unit uCadastroCliente;
+
+interface
+
+uses
+  System.IOUtils,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles, dxSkinsCore,
+  dxSkinscxPCPainter, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, cxCheckBox,
+  cxContainer, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, cxLabel, dxGDIPlusClasses, Vcl.ExtCtrls, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, dxSkinOffice2013White,
+  dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee,
+  dxSkinDarkRoom, dxSkinDarkSide, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinGlassOceans, dxSkinHighContrast,
+  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic,
+  dxSkinSharp, dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinsDefaultPainters,
+  dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint, dxSkinXmas2008Blue;
+
+type
+  TFr_CadastroCliente = class(TForm)
+    cxGridCliente: TcxGrid;
+    cxGridLevelCliente: TcxGridLevel;
+    cxTableViewCliente: TcxGridDBTableView;
+    DataSourceTSOP_Cliente: TDataSource;
+    FDConnection: TFDConnection;
+    FDQueryTSOP_ClienteSAP: TFDQuery;
+    PanelSQLSplashScreen: TPanel;
+    ImageSQLSplashScreen: TImage;
+    cxLabelMensagem: TcxLabel;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPCOD: TFDAutoIncField;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPCLICOD: TStringField;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPCLINOM: TStringField;
+    FDQueryTSOP_ClienteSAPTSOP_USUCODCAD: TIntegerField;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPDATCAD: TSQLTimeStampField;
+    FDQueryTSOP_ClienteSAPTSOP_USUCODALT: TIntegerField;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPDATALT: TSQLTimeStampField;
+    cxTableViewClienteTSOP_CLISAPCLICOD: TcxGridDBColumn;
+    cxTableViewClienteTSOP_CLISAPCLINOM: TcxGridDBColumn;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
+    procedure FormCreate(Sender: TObject);
+    procedure FDQueryTSOP_ClienteSAPNewRecord(DataSet: TDataSet);
+    procedure FDQueryTSOP_ClienteSAPAfterEdit(DataSet: TDataSet);
+  private
+    procedure Mensagem( pMensagem: String );
+    { Private declarations }
+  public
+    procedure AbrirDataset;
+    procedure LoadGridCustomization;
+    { Public declarations }
+  end;
+
+var
+  Fr_CadastroCliente: TFr_CadastroCliente;
+
+implementation
+
+{$R *.dfm}
+
+uses uUtils, uBrady;
+
+procedure TFr_CadastroCliente.AbrirDataset;
+begin
+
+  if not FDConnection.Connected then
+  begin
+
+    Mensagem( 'Abrindo conexão...' );
+    try
+
+      FDConnection.Params.LoadFromFile( MyDocumentsPath + '\DB.ini' );
+      FDConnection.Open;
+
+      Mensagem( 'Obtendo dados (Família)...' );
+      FDQueryTSOP_ClienteSAP.Open;
+
+    finally
+
+      Mensagem( EmptyStr );
+
+    end;
+
+  end;
+
+end;
+
+procedure TFr_CadastroCliente.FDQueryTSOP_ClienteSAPAfterEdit(DataSet: TDataSet);
+begin
+
+  FDQueryTSOP_ClienteSAPTSOP_USUCODALT.AsInteger := 1;
+  FDQueryTSOP_ClienteSAPTSOP_CLISAPDATALT.AsDateTime := Now;
+
+end;
+
+procedure TFr_CadastroCliente.FDQueryTSOP_ClienteSAPNewRecord(DataSet: TDataSet);
+begin
+
+  FDQueryTSOP_ClienteSAPTSOP_USUCODCAD.AsInteger := 1;
+  FDQueryTSOP_ClienteSAPTSOP_USUCODALT.AsInteger := 1;
+  FDQueryTSOP_ClienteSAPTSOP_CLISAPDATCAD.AsDateTime := Now;
+  FDQueryTSOP_ClienteSAPTSOP_CLISAPDATALT.AsDateTime := Now;
+
+end;
+
+procedure TFr_CadastroCliente.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+
+  FDQueryTSOP_ClienteSAP.Close;
+  FDConnection.Close;
+
+  Fr_CadastroCliente := nil;
+  Action := caFree;
+
+end;
+
+procedure TFr_CadastroCliente.FormContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
+begin
+
+  Fr_Brady.PopupGridTools( cxGridCliente.ActiveView );
+
+end;
+
+procedure TFr_CadastroCliente.FormCreate(Sender: TObject);
+begin
+
+  LoadGridCustomization;
+
+end;
+
+procedure TFr_CadastroCliente.LoadGridCustomization;
+begin
+
+  if System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + Name + '_' + cxTableViewCliente.Name + '.ini' ) then
+    cxTableViewCliente.RestoreFromIniFile( MyDocumentsPath + '\' + Name + '_' + cxTableViewCliente.Name + '.ini' );
+
+end;
+
+procedure TFr_CadastroCliente.Mensagem(pMensagem: String);
+begin
+
+  cxLabelMensagem.Caption := pMensagem;
+  PanelSQLSplashScreen.Visible := not pMensagem.IsEmpty;
+  Update;
+  Application.ProcessMessages;
+
+end;
+
+end.

@@ -1,0 +1,128 @@
+**** Log file opened by process 6880 at 2016-04-20 06:00:09 (UTC-05:00 Central Daylight Time)
+
+SAP .NET Connector 3.0 with file version 3.0.10.0 running on 64-bit .NET Framework 4.0.30319.1026
+Program: C:\Brady\CielSapReadTable.exe
+Working directory: C:\Brady
+Operating system: Windows Server 2008 R2 Standard Server 64-bit Service Pack 1
+Processor: 2x AMD64 (or x64)
+SAP release: 720, Kernel release: 720, Kernel patch level: 324
+Hostname: GHOS2024, IP address: 10.240.100.46, IP_v6 address: 
+
+Default trace level: None
+
+>> Info entry 2016-04-20 06:00:09.197 [Thread 1]
+Invalid LZ-compressed data block received, ignored.
+**** Log file opened by process 11352 at 2016-04-24 09:00:02 (UTC-05:00 Central Daylight Time)
+
+SAP .NET Connector 3.0 with file version 3.0.10.0 running on 64-bit .NET Framework 4.0.30319.1026
+Program: C:\Brady\CielSapReadTable.exe
+Working directory: C:\Brady
+Operating system: Windows Server 2008 R2 Standard Server 64-bit Service Pack 1
+Processor: 2x AMD64 (or x64)
+SAP release: 720, Kernel release: 720, Kernel patch level: 324
+Hostname: GHOS2024, IP address: 10.240.100.46, IP_v6 address: 
+
+Default trace level: None
+
+>> Error entry 2016-04-24 09:00:03.010 [Thread 1]
+Failure to create pool for destination Ciel SAP Connector (ORIGINAL) [NAME=Ciel SAP Connector ASHOST=172.20.10.122 SYSNR=30 CLIENT=500 USER=sondapwce PASSWD=********]
+SAP.Middleware.Connector.RfcCommunicationException: 
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       partner '172.20.10.122:3330' not reached
+TIME        Sun Apr 24 09:00:02 2016
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -10
+MODULE      nixxi.cpp
+LINE        3286
+DETAIL      NiPConnect2: 172.20.10.122:3330
+SYSTEM CALL connect
+ERRNO       10061
+ERRNO TEXT  WSAECONNREFUSED: Connection refused
+COUNTER     2
+
+   at SAP.Middleware.Connector.CpicConnection.ConnectAsClient(Dictionary`2 options)
+   at SAP.Middleware.Connector.RfcConnection.ConnectAsClient(RfcDestination destination)
+   at SAP.Middleware.Connector.RfcConnectionPool..ctor(RfcDestination destination, Boolean forRepositoryCalls)
+>> Error entry 2016-04-24 09:00:03.157 [Thread 1]
+[NAME=Ciel SAP Connector ASHOST=172.20.10.122 SYSNR=30 CLIENT=500 USER=sondapwce PASSWD=********]
+SAP.Middleware.Connector.RfcCommunicationException: 
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       partner '172.20.10.122:3330' not reached
+TIME        Sun Apr 24 09:00:02 2016
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -10
+MODULE      nixxi.cpp
+LINE        3286
+DETAIL      NiPConnect2: 172.20.10.122:3330
+SYSTEM CALL connect
+ERRNO       10061
+ERRNO TEXT  WSAECONNREFUSED: Connection refused
+COUNTER     2
+
+   at SAP.Middleware.Connector.CpicConnection.ConnectAsClient(Dictionary`2 options)
+   at SAP.Middleware.Connector.RfcConnection.ConnectAsClient(RfcDestination destination)
+   at SAP.Middleware.Connector.RfcConnectionPool..ctor(RfcDestination destination, Boolean forRepositoryCalls)
+   at SAP.Middleware.Connector.RfcConnectionPool.GetPool(RfcDestination destination, Boolean forRepository, Boolean create)
+   at SAP.Middleware.Connector.RfcDestination.GetClient(Boolean forRepository)
+   at SAP.Middleware.Connector.RfcDestination.Ping()
+**** Log file opened by process 3320 at 2016-05-22 09:00:02 (UTC-05:00 Central Daylight Time)
+
+SAP .NET Connector 3.0 with file version 3.0.10.0 running on 64-bit .NET Framework 4.0.30319.1026
+Program: C:\Brady\CielSapReadTable.exe
+Working directory: C:\Brady
+Operating system: Windows Server 2008 R2 Standard Server 64-bit Service Pack 1
+Processor: 2x AMD64 (or x64)
+SAP release: 720, Kernel release: 720, Kernel patch level: 324
+Hostname: GHOS2024, IP address: 10.240.100.46, IP_v6 address: 
+
+Default trace level: None
+
+>> Error entry 2016-05-22 09:00:02.992 [Thread 1]
+Failure to create pool for destination Ciel SAP Connector (ORIGINAL) [NAME=Ciel SAP Connector ASHOST=172.20.10.122 SYSNR=30 CLIENT=500 USER=sondapwce PASSWD=********]
+SAP.Middleware.Connector.RfcCommunicationException: 
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       partner '172.20.10.122:3330' not reached
+TIME        Sun May 22 09:00:02 2016
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -10
+MODULE      nixxi.cpp
+LINE        3286
+DETAIL      NiPConnect2: 172.20.10.122:3330
+SYSTEM CALL connect
+ERRNO       10061
+ERRNO TEXT  WSAECONNREFUSED: Connection refused
+COUNTER     2
+
+   at SAP.Middleware.Connector.CpicConnection.ConnectAsClient(Dictionary`2 options)
+   at SAP.Middleware.Connector.RfcConnection.ConnectAsClient(RfcDestination destination)
+   at SAP.Middleware.Connector.RfcConnectionPool..ctor(RfcDestination destination, Boolean forRepositoryCalls)
+>> Error entry 2016-05-22 09:00:03.051 [Thread 1]
+[NAME=Ciel SAP Connector ASHOST=172.20.10.122 SYSNR=30 CLIENT=500 USER=sondapwce PASSWD=********]
+SAP.Middleware.Connector.RfcCommunicationException: 
+LOCATION    CPIC (TCP/IP) on local host with Unicode
+ERROR       partner '172.20.10.122:3330' not reached
+TIME        Sun May 22 09:00:02 2016
+RELEASE     720
+COMPONENT   NI (network interface)
+VERSION     40
+RC          -10
+MODULE      nixxi.cpp
+LINE        3286
+DETAIL      NiPConnect2: 172.20.10.122:3330
+SYSTEM CALL connect
+ERRNO       10061
+ERRNO TEXT  WSAECONNREFUSED: Connection refused
+COUNTER     2
+
+   at SAP.Middleware.Connector.CpicConnection.ConnectAsClient(Dictionary`2 options)
+   at SAP.Middleware.Connector.RfcConnection.ConnectAsClient(RfcDestination destination)
+   at SAP.Middleware.Connector.RfcConnectionPool..ctor(RfcDestination destination, Boolean forRepositoryCalls)
+   at SAP.Middleware.Connector.RfcConnectionPool.GetPool(RfcDestination destination, Boolean forRepository, Boolean create)
+   at SAP.Middleware.Connector.RfcDestination.GetClient(Boolean forRepository)
+   at SAP.Middleware.Connector.RfcDestination.Ping()

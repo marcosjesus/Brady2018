@@ -1,0 +1,535 @@
+unit uConsultaNotaFiscal;
+
+interface
+
+uses
+
+  DateUtils,
+  FileCtrl,
+
+  System.IOUtils,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles, dxSkinsCore,
+  dxSkinscxPCPainter, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, cxCheckBox,
+  cxContainer, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, cxLabel, dxGDIPlusClasses, Vcl.ExtCtrls, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, dxSkinOffice2013White, dxBarBuiltInMenu, Vcl.Menus,
+  cxTextEdit, cxButtons, cxPC, Vcl.StdCtrls, Vcl.ComCtrls, ACBrNFeDANFEClass, ACBrNFeDANFeRLClass, ACBrNFe, Vcl.ToolWin,
+  Vcl.ImgList, dxSkinsDefaultPainters, ACBrBase, ACBrDFe, ACBrMail, dxSkinBlack,
+  dxSkinBlue, dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom,
+  dxSkinDarkSide, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
+  dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus,
+  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
+  dxSkinTheAsphaltWorld, dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinXmas2008Blue;
+
+type
+  TFr_ConsultaNotaFiscal = class(TForm)
+    cxGridNotaFiscal: TcxGrid;
+    cxGridLevelNotaFiscal: TcxGridLevel;
+    cxTableViewNotaFiscal: TcxGridDBTableView;
+    FDConnection: TFDConnection;
+    PanelSQLSplashScreen: TPanel;
+    ImageSQLSplashScreen: TImage;
+    cxLabelMensagem: TcxLabel;
+    cxPageControlFiltro: TcxPageControl;
+    cxTabSheetFiltro: TcxTabSheet;
+    cxButtonRefresh: TcxButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    LabeledEditCNPJ: TLabeledEdit;
+    LabeledEditRazaoSocial: TLabeledEdit;
+    LabeledEditNumeroNFeInicial: TLabeledEdit;
+    LabeledEditNumeroNFeFinal: TLabeledEdit;
+    DateTimePickerEmissaoNFeInicial: TDateTimePicker;
+    DateTimePickerEmissaoNFeFinal: TDateTimePicker;
+    LabeledEditPlanta: TLabeledEdit;
+    LabeledEditCodigoCliente: TLabeledEdit;
+    LabeledEditDescricaoItem: TLabeledEdit;
+    LabeledEditInformacaoComplementar: TLabeledEdit;
+    LabeledEditCodigoItem: TLabeledEdit;
+    LabeledEditObservacaoNF: TLabeledEdit;
+    LabeledEditIE: TLabeledEdit;
+    RadioGroupOrdenar: TRadioGroup;
+    FDQuery: TFDQuery;
+    FDQueryCOD_FILIAL: TStringField;
+    FDQueryNUM_NF: TStringField;
+    FDQuerySERIE: TStringField;
+    FDQueryCOD_CLIFOR: TStringField;
+    FDQueryCNPJ: TStringField;
+    FDQueryINSC_ESTADUAL: TStringField;
+    FDQueryRAZAO_SOCIAL: TStringField;
+    FDQueryDT_EMISSAO: TSQLTimeStampField;
+    FDQueryNOME_MUNICIPIO_DEST: TStringField;
+    FDQueryCOD_UF: TStringField;
+    FDQueryENDERECO_ELETRONICO: TStringField;
+    FDQueryTOTAL_NOTA: TBCDField;
+    FDQueryID_NFE: TStringField;
+    FDQueryXML_CAPA: TMemoField;
+    FDQueryXML_DOCUMENTO: TMemoField;
+    ACBrNFeDANFeRL: TACBrNFeDANFeRL;
+    ACBrNFe: TACBrNFe;
+    DataSource: TDataSource;
+    cxTableViewNotaFiscalCOD_FILIAL: TcxGridDBColumn;
+    cxTableViewNotaFiscalNUM_NF: TcxGridDBColumn;
+    cxTableViewNotaFiscalSERIE: TcxGridDBColumn;
+    cxTableViewNotaFiscalCOD_CLIFOR: TcxGridDBColumn;
+    cxTableViewNotaFiscalCNPJ: TcxGridDBColumn;
+    cxTableViewNotaFiscalINSC_ESTADUAL: TcxGridDBColumn;
+    cxTableViewNotaFiscalRAZAO_SOCIAL: TcxGridDBColumn;
+    cxTableViewNotaFiscalDT_EMISSAO: TcxGridDBColumn;
+    cxTableViewNotaFiscalNOME_MUNICIPIO_DEST: TcxGridDBColumn;
+    cxTableViewNotaFiscalCOD_UF: TcxGridDBColumn;
+    cxTableViewNotaFiscalENDERECO_ELETRONICO: TcxGridDBColumn;
+    cxTableViewNotaFiscalTOTAL_NOTA: TcxGridDBColumn;
+    ImageListMenu: TImageList;
+    ToolBarMenu: TToolBar;
+    ToolButtonEmail: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButtonSalvar: TToolButton;
+    ACBrMail: TACBrMail;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
+    procedure FormCreate(Sender: TObject);
+    procedure cxButtonRefreshClick(Sender: TObject);
+    procedure ToolButtonSalvarClick(Sender: TObject);
+    procedure ToolButtonEmailClick(Sender: TObject);
+  private
+    function getXML: String;
+    procedure Mensagem( pMensagem: String );
+    { Private declarations }
+  public
+    procedure AbrirDataset;
+    procedure LoadGridCustomization;
+    { Public declarations }
+  end;
+
+var
+  Fr_ConsultaNotaFiscal: TFr_ConsultaNotaFiscal;
+
+implementation
+
+{$R *.dfm}
+
+uses uUtils, uBrady;
+
+procedure TFr_ConsultaNotaFiscal.AbrirDataset;
+begin
+
+  if not FDConnection.Connected then
+  begin
+
+    Mensagem( 'Abrindo conexão...' );
+    try
+
+      FDConnection.Params.LoadFromFile( MyDocumentsPath + '\DB-SONDA.ini' );
+      FDConnection.Open;
+
+    finally
+
+      Mensagem( EmptyStr );
+
+    end;
+
+  end;
+
+end;
+
+procedure TFr_ConsultaNotaFiscal.cxButtonRefreshClick(Sender: TObject);
+var
+  varSQL: String;
+
+begin
+
+  FDQuery.SQL.Clear;
+
+  varSQL := varSQL + 'SELECT A01.COD_FILIAL'#13#10;
+  varSQL := varSQL + '	  ,A01.NUM_NF'#13#10;
+  varSQL := varSQL + '	  ,A01.SERIE'#13#10;
+  varSQL := varSQL + '	  ,A01.COD_CLIFOR'#13#10;
+  varSQL := varSQL + '	  ,A01.RAZAO_SOCIAL'#13#10;
+  varSQL := varSQL + '	  ,A01.CNPJ'#13#10;
+  varSQL := varSQL + '	  ,A01.INSC_ESTADUAL'#13#10;
+  varSQL := varSQL + '	  ,A01.DT_EMISSAO'#13#10;
+  varSQL := varSQL + '      ,A01.NOME_MUNICIPIO_DEST'#13#10;
+  varSQL := varSQL + '	  ,A01.COD_UF'#13#10;
+  varSQL := varSQL + '	  ,A01.ENDERECO_ELETRONICO'#13#10;
+  varSQL := varSQL + '	  ,A01.TOTAL_NOTA'#13#10;
+  varSQL := varSQL + '      ,A01.ID_NFE'#13#10;
+  varSQL := varSQL + '      ,A01.XML AS XML_CAPA'#13#10;
+  varSQL := varSQL + '	  ,B01.XML AS XML_DOCUMENTO'#13#10;
+  varSQL := varSQL + 'FROM NFE_NF_CAPA (NOLOCK) A01 INNER JOIN NFE_DOCUMENTO_XML (NOLOCK) B01 ON ( A01.ID_REGISTRO = B01.ID_REGISTRO   )'#13#10;
+  varSQL := varSQL + 'WHERE A01.STATUS_PROCESSAMENTO IN ( 99, 98 )'#13#10;
+  varSQL := varSQL + '  AND B01.ID_TP_DOC      = ''XRCON'''#13#10;;
+  varSQL := varSQL + '  AND A01.COD_HOLDING    = ''WHBBRA'''#13#10;
+  varSQL := varSQL + '  AND A01.COD_MATRIZ     = ''4100'''#13#10;
+
+  if LabeledEditPlanta.Text <> EmptyStr then
+    varSQL := varSQL + '  AND A01.COD_FILIAL    LIKE '''+ StringReplace(LabeledEditPlanta.Text,'*','%',[rfReplaceAll]) +''''#13#10;
+
+  varSQL := varSQL + '  AND A01.NUM_NF        >= '+ LabeledEditNumeroNFeInicial.Text +#13#10;
+  varSQL := varSQL + '  AND A01.NUM_NF        <= '+ LabeledEditNumeroNFeFinal.Text +#13#10;
+
+  varSQL := varSQL + '  AND A01.DT_EMISSAO    >= '''+ FormatDateTime( 'yyyymmdd', DateTimePickerEmissaoNFeInicial.Date ) +' 00:00:00.000'''#13#10;
+  varSQL := varSQL + '  AND A01.DT_EMISSAO    <= '''+ FormatDateTime( 'yyyymmdd', DateTimePickerEmissaoNFeFinal.Date ) +' 23:59:59.997'''#13#10;
+
+  if LabeledEditCodigoCliente.Text <> EmptyStr then
+    varSQL := varSQL + '  AND A01.COD_CLIFOR    LIKE '''+ StringReplace(LabeledEditCodigoCliente.Text,'*','%',[rfReplaceAll]) +''''#13#10;
+
+  if LabeledEditCNPJ.Text <> EmptyStr then
+    varSQL := varSQL + '  AND A01.CNPJ          LIKE '''+ StringReplace(LabeledEditCNPJ.Text,'*','%',[rfReplaceAll]) +''''#13#10;
+
+  if LabeledEditIE.Text <> EmptyStr then
+    varSQL := varSQL + '  AND A01.INSC_ESTADUAL LIKE '''+ StringReplace(LabeledEditIE.Text,'*','%',[rfReplaceAll]) +''''#13#10;
+
+  if LabeledEditRazaoSocial.Text <> EmptyStr then
+    varSQL := varSQL + '  AND A01.RAZAO_SOCIAL  LIKE '''+ StringReplace(LabeledEditRazaoSocial.Text,'*','%',[rfReplaceAll]) +''''#13#10;
+
+  if (LabeledEditDescricaoItem.Text+LabeledEditInformacaoComplementar.Text+LabeledEditCodigoItem.Text) <> EmptyStr then
+  begin
+
+    varSQL := varSQL + '  AND EXISTS( SELECT 1'#13#10;
+    varSQL := varSQL + '              FROM NFE_NF_ITEM A02'#13#10;
+    varSQL := varSQL + '			        WHERE A01.COD_HOLDING      = A02.COD_HOLDING'#13#10;
+    varSQL := varSQL + '			          AND A01.COD_MATRIZ       = A02.COD_MATRIZ'#13#10;
+    varSQL := varSQL + '			        	AND A01.COD_FILIAL       = A02.COD_FILIAL'#13#10;
+    varSQL := varSQL + '			        	AND A01.COD_INTERFACE    = A02.COD_INTERFACE'#13#10;
+    varSQL := varSQL + '		        		AND A01.DOCNUM           = A02.DOCNUM'#13#10;
+    varSQL := varSQL + '				        AND A01.TIPO_NOTA        = A02.TIPO_NOTA'#13#10;
+
+    if LabeledEditDescricaoItem.Text <> EmptyStr then
+      varSQL := varSQL + '				        AND A02.DESC_PRODUTO     LIKE '''+ StringReplace(LabeledEditDescricaoItem.Text,'*','%',[rfReplaceAll]) +''''#13#10;
+
+    if LabeledEditInformacaoComplementar.Text <> EmptyStr then
+      varSQL := varSQL + '				        AND A02.INF_COMPLEMENTAR LIKE '''+ StringReplace(LabeledEditInformacaoComplementar.Text,'*','%',[rfReplaceAll]) +''''#13#10;
+
+    if LabeledEditCodigoItem.Text <> EmptyStr then
+      varSQL := varSQL + '				        AND A02.COD_PRODUTO      LIKE '''+ StringReplace(LabeledEditCodigoItem.Text,'*','%',[rfReplaceAll]) +''' )'#13#10;
+
+  end;
+
+  if LabeledEditObservacaoNF.Text <> EmptyStr then
+  begin
+
+    varSQL := varSQL + '  AND EXISTS( SELECT 1'#13#10;
+    varSQL := varSQL + '              FROM NFE_NF_OBSERVACAO A02'#13#10;
+    varSQL := varSQL + '			        WHERE A01.COD_HOLDING       = A02.COD_HOLDING'#13#10;
+    varSQL := varSQL + '			          AND A01.COD_MATRIZ        = A02.COD_MATRIZ'#13#10;
+    varSQL := varSQL + '				        AND A01.COD_FILIAL        = A02.COD_FILIAL'#13#10;
+    varSQL := varSQL + '				        AND A01.COD_INTERFACE     = A02.COD_INTERFACE'#13#10;
+    varSQL := varSQL + '				        AND A01.DOCNUM            = A02.DOCNUM'#13#10;
+    varSQL := varSQL + '				        AND A01.TIPO_NOTA         = A02.TIPO_NOTA'#13#10;
+
+    if LabeledEditObservacaoNF.Text <> EmptyStr then
+      varSQL := varSQL + '				        AND A02.DESC_COMPLEMENTAR LIKE '''+ StringReplace(LabeledEditObservacaoNF.Text,'*','%',[rfReplaceAll]) +''' )'#13#10;
+
+  end;
+
+  if RadioGroupOrdenar.ItemIndex = 0 then
+  begin
+
+    varSQL := varSQL + 'ORDER BY A01.DT_EMISSAO'#13#10;
+    varSQL := varSQL + '        ,A01.COD_FILIAL'#13#10;
+    varSQL := varSQL + '	      ,A01.NUM_NF'#13#10;
+    varSQL := varSQL + '	      ,A01.SERIE';
+
+  end
+  else
+  if RadioGroupOrdenar.ItemIndex = 1 then
+  begin
+
+    varSQL := varSQL + 'ORDER BY A01.COD_FILIAL'#13#10;
+    varSQL := varSQL + '	      ,A01.RAZAO_SOCIAL'#13#10;
+    varSQL := varSQL + '	      ,A01.NUM_NF'#13#10;
+    varSQL := varSQL + '	      ,A01.SERIE';
+
+  end
+  else
+  if RadioGroupOrdenar.ItemIndex = 2 then
+  begin
+
+    varSQL := varSQL + 'ORDER BY A01.COD_FILIAL'#13#10;
+    varSQL := varSQL + '	      ,A01.CNPJ'#13#10;
+    varSQL := varSQL + '	      ,A01.NUM_NF'#13#10;
+    varSQL := varSQL + '	      ,A01.SERIE';
+
+  end;
+
+  FDQuery.SQL.Add(varSQL);
+  FDQuery.Close;
+  FDQuery.Open;
+
+end;
+
+procedure TFr_ConsultaNotaFiscal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+
+  FDQuery.Close;
+  FDConnection.Close;
+
+  Fr_ConsultaNotaFiscal := nil;
+  Action := caFree;
+
+end;
+
+procedure TFr_ConsultaNotaFiscal.FormContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
+begin
+
+  Fr_Brady.PopupGridTools( cxGridNotaFiscal.ActiveView );
+
+end;
+
+procedure TFr_ConsultaNotaFiscal.FormCreate(Sender: TObject);
+begin
+
+  LoadGridCustomization;
+
+  ACBrNFeDANFeRL.Logo := ExtractFileDir(ParamStr(0)) + '\brady-co-logo.jpg';
+
+  DateTimePickerEmissaoNFeInicial.Date := Trunc(StartOfTheMonth(Now));
+  DateTimePickerEmissaoNFeFinal.Date := Trunc(EndOfTheMonth(Now));
+
+end;
+
+function TFr_ConsultaNotaFiscal.getXML: String;
+begin
+
+  Result := StringReplace( FDQuery.FieldByName('XML_CAPA').AsString, '<?xml version="1.0" encoding="UTF-8"?>', '<?xml version="1.0" encoding="UTF-8"?><nfeProc versao="3.10" xmlns="http://www.portalfiscal.inf.br/nfe">', [rfReplaceAll] ) + FDQuery.FieldByName('XML_DOCUMENTO').AsString + '</nfeProc>';
+
+end;
+
+procedure TFr_ConsultaNotaFiscal.LoadGridCustomization;
+begin
+
+  if System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + Name + '_' + cxTableViewNotaFiscal.Name + '.ini' ) then
+    cxTableViewNotaFiscal.RestoreFromIniFile( MyDocumentsPath + '\' + Name + '_' + cxTableViewNotaFiscal.Name + '.ini' );
+
+end;
+
+procedure TFr_ConsultaNotaFiscal.Mensagem(pMensagem: String);
+begin
+
+  cxLabelMensagem.Caption := pMensagem;
+  PanelSQLSplashScreen.Visible := not pMensagem.IsEmpty;
+  Update;
+  Application.ProcessMessages;
+
+end;
+
+procedure TFr_ConsultaNotaFiscal.ToolButtonEmailClick(Sender: TObject);
+var
+  I, X: Integer;
+  varMsg: TStringList;
+  varEmailPara: String;
+  varXML: TStringList;
+  varAnexos: TStringList;
+  varCC: TStringList;
+  varSMTP: TStringList;
+
+begin
+
+  if cxTableViewNotaFiscal.DataController.GetSelectedCount = 0 then
+    raise Exception.Create('Selecione pelo menos uma nota fiscal.');
+
+  varMsg := TStringList.Create;
+  varAnexos := TStringList.Create;
+  varCC := TStringList.Create;
+  varSMTP := TStringList.Create;
+  try
+
+    if FileExists(ExtractFileDir(ParamStr(0)) + '\SMPT-'+ WUserName.Trim.ToUpper +'.ini') then
+    begin
+
+      varSMTP.LoadFromFile(ExtractFileDir(ParamStr(0)) + '\SMPT-'+ WUserName.Trim.ToUpper +'.ini');
+
+    end
+    else
+    begin
+
+      varSMTP.LoadFromFile(ExtractFileDir(ParamStr(0)) + '\SMPT.ini');
+
+    end;
+
+    varMsg.Add('Prezado Cliente, ');
+    varMsg.Add(' ');
+    varMsg.Add('Segue em anexo nota fiscal (DANFE/XML).');
+
+    varEmailPara := InputBox( 'Configuração - use ; para mais de um email', 'Email para', FDQuery.FieldByName('ENDERECO_ELETRONICO').AsString );
+
+    if Trim(varEmailPara) = EmptyStr then
+      raise Exception.Create('Email para não foi informado.');
+
+    for I := 0 to cxTableViewNotaFiscal.DataController.GetSelectedCount -1 do
+    begin
+
+      FDQuery.GotoBookmark(cxTableViewNotaFiscal.DataController.GetSelectedBookmark(I));
+
+      ACBrNFeDANFeRL.PathPDF := MyDocumentsPath + '\';
+
+      ACBrNFe.NotasFiscais.Clear;
+      ACBrNFe.NotasFiscais.LoadFromString(getXML, False);
+      ACBrNFe.NotasFiscais.ImprimirPDF;
+
+      varXML := TStringList.Create;
+      try
+        varXML.Add(getXML);
+        varXML.SaveToFile( MyDocumentsPath + '\' + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.xml');
+      finally
+        FreeAndNil(varXML);
+      end;
+
+      X := 0;
+      while not System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.pdf' ) do
+      begin
+
+        Inc(X);
+        Sleep(1000);
+        Application.ProcessMessages;
+
+        if X = 60 then
+          Break;
+
+      end;
+
+      if System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.pdf' ) then
+        varAnexos.Add( MyDocumentsPath + '\' + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.pdf' );
+
+      if System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.xml' ) then
+        varAnexos.Add( MyDocumentsPath + '\' + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.xml' );
+
+    end;
+
+    if varAnexos.Count > 0 then
+    begin
+
+      ACBrMail.Clear;
+      ACBrMail.Host := varSMTP.Values['HOST'];
+      ACBrMail.Port := varSMTP.Values['PORT'];
+      ACBrMail.SetSSL := varSMTP.Values['SSL'] = 'Sim';
+      ACBrMail.SetTLS := varSMTP.Values['TLS'] = 'Sim';
+
+      ACBrMail.Username := varSMTP.Values['USER'];
+      ACBrMail.Password := varSMTP.Values['PWD'];
+
+      ACBrMail.From := varSMTP.Values['FROM'];
+      ACBrMail.FromName := varSMTP.Values['FROM'];
+
+      Sleep(2000);
+      Application.ProcessMessages;
+
+      for X := 0 to Length(varEmailPara.Split([';']))-1 do
+      begin
+
+        if X = 0 then
+          ACBrMail.AddAddress(varEmailPara.Split([';'])[X])
+        else
+          ACBrMail.AddCC(varEmailPara.Split([';'])[X]);
+
+      end;
+
+      ACBrMail.Subject := varSMTP.Values['ASSUNTO'] + ' - ' + IntToStr(ACBrNFe.NotasFiscais[0].NFe.Ide.nNF);
+      ACBrMail.IsHTML := True;
+      ACBrMail.AltBody.Text := varMsg.Text;
+
+      for X := 0 to varAnexos.Count-1 do
+      begin
+
+        ACBrMail.AddAttachment( varAnexos[X] );
+
+      end;
+
+      try
+
+        ACBrMail.Send;
+
+      except
+
+        on E: Exception do
+        begin
+
+          Writeln( 'Erro ao enviar email: ' + E.Message );
+
+        end;
+
+      end;
+
+    end;
+
+  finally
+
+    FreeAndNil(varMsg);
+    FreeAndNil(varAnexos);
+    FreeAndNil(varCC);
+
+  end;
+
+end;
+
+procedure TFr_ConsultaNotaFiscal.ToolButtonSalvarClick(Sender: TObject);
+var
+  varXML: TStringList;
+  I, X: Integer;
+  varDir: String;
+
+begin
+
+  if cxTableViewNotaFiscal.DataController.GetSelectedCount = 0 then
+    raise Exception.Create('Selecione pelo menos uma nota fiscal.');
+
+  if SelectDirectory('Selecione o Diretório', EmptyStr, varDir, [sdNewUI, sdNewFolder]) then
+  begin
+
+    varDir := varDir + '/';
+
+    for I := 0 to cxTableViewNotaFiscal.DataController.GetSelectedCount -1 do
+    begin
+
+      FDQuery.GotoBookmark(cxTableViewNotaFiscal.DataController.GetSelectedBookmark(I));
+
+      ACBrNFeDANFeRL.PathPDF := MyDocumentsPath + '\';
+
+      ACBrNFe.NotasFiscais.Clear;
+      ACBrNFe.NotasFiscais.LoadFromString(getXML, False);
+      ACBrNFe.NotasFiscais.ImprimirPDF;
+
+      varXML := TStringList.Create;
+      try
+        varXML.Add(getXML);
+        varXML.SaveToFile(MyDocumentsPath + '\' + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.xml');
+      finally
+        FreeAndNil(varXML);
+      end;
+
+      X := 0;
+      while not System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.pdf' ) do
+      begin
+
+        Inc(X);
+        Sleep(1000);
+        Application.ProcessMessages;
+
+        if X = 60 then
+          Break;
+
+      end;
+
+      System.IOUtils.TFile.Copy( MyDocumentsPath + '\' + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.xml', varDir + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.xml', True );
+      System.IOUtils.TFile.Copy( MyDocumentsPath + '\' + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.pdf', varDir + StringReplace(ACBrNFe.NotasFiscais[0].NFe.infNFe.ID,'NFe', '', [rfIgnoreCase]) + '-nfe.pdf', True );
+
+    end;
+
+  end;
+
+end;
+
+//initialization
+//    SetVersion( CommercialVersion, ReleaseVersion, CommentVersion );
+
+end.

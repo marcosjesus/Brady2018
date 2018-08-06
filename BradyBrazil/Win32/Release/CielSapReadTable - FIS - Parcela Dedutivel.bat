@@ -1,0 +1,1 @@
+C:\Brady\CielSapReadTable.exe Q 172.20.10.122 30 500 sondapwce U333Een3 SYSTQV000449 BR-SIOP-011 BR-SIOP-011 \\ghos2024\Brady\Files\FIS\BR-SIOP-011.TXT

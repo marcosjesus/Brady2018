@@ -1,0 +1,1 @@
+C:\Brady\CielSapReadTable.exe BAPI_DELIVERY_GETLIST 172.20.10.122 30 500 sondapwce U333Een3 \\ghos2024\Brady\Files\SOP\Arquivos\BR-SIOP-DELIVERY.TXT

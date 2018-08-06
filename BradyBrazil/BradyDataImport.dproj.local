@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2018/02/20 14:43:30.000.785,C:\Users\K2-User\CIEL-IT-PROJECTS\BradyBrazil\Magento_Homol.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\BradyBrazil\Magento.pas</Transaction>
+    <Transaction>2018/02/22 13:34:22.000.690,=C:\Users\K2-User\CIEL-IT-PROJECTS\BradyBrazil\v2_soap.pas</Transaction>
+    <Transaction>2018/02/22 13:34:40.000.757,C:\Users\K2-User\CIEL-IT-PROJECTS\BradyBrazil\v2_soap.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\BradyBrazil\Magento_Prod.pas</Transaction>
+  </Transactions>
+</BorlandProject>

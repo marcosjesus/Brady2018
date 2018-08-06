@@ -1,0 +1,379 @@
+unit uRelatorioAnaliseApontamento;
+
+interface
+
+uses
+  dxCoreClasses,
+  System.DateUtils,
+  System.Math,
+
+  System.IOUtils,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxStyles, dxSkinsCore,
+  dxSkinscxPCPainter, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB, cxDBData, cxImageComboBox,
+  cxContainer, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+  cxClasses, Vcl.ImgList, FireDAC.Comp.DataSet, FireDAC.Comp.Client, cxLabel, dxGDIPlusClasses, Vcl.ExtCtrls, cxGridLevel,
+  cxGridChartView, cxGridDBChartView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridCustomView, cxGrid,
+  dxSkinOffice2013White, dxBarBuiltInMenu, cxPC, cxCustomPivotGrid, cxDBPivotGrid, Vcl.ComCtrls, dxCore, cxDateUtils,
+  cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar, Vcl.StdCtrls, Vcl.Buttons, Vcl.Menus, cxButtons;
+
+type
+  TFr_RelatorioAnaliseApontamento = class(TForm)
+    cxPageControl: TcxPageControl;
+    cxTabSheetGrid: TcxTabSheet;
+    cxTabSheetPivot: TcxTabSheet;
+    DataSourceTMAQ_Apontamento01: TDataSource;
+    FDConnection: TFDConnection;
+    FDQueryTMAQ_Apontamento01: TFDQuery;
+    cxSmallImages: TcxImageList;
+    cxStyleRepository: TcxStyleRepository;
+    cxStyleSemTurno: TcxStyle;
+    cxStyleSetup: TcxStyle;
+    cxStyleProdutivo: TcxStyle;
+    cxStyleParada: TcxStyle;
+    cxStyleSemApontamento: TcxStyle;
+    PanelSQLSplashScreen: TPanel;
+    ImageSQLSplashScreen: TImage;
+    cxLabelMensagem: TcxLabel;
+    StyleRepository: TcxStyleRepository;
+    styleActiveGroup: TcxStyle;
+    FDQueryTMAQ_Apontamento01TMAQ_SITNOM001: TStringField;
+    FDQueryTMAQ_Apontamento01TMAQ_SITNOM002: TStringField;
+    FDQueryTMAQ_Apontamento01TMAQ_CELNOM001: TStringField;
+    FDQueryTMAQ_Apontamento01TMAQ_CELNOM002: TStringField;
+    FDQueryTMAQ_Apontamento01TMAQ_MAQNOM: TStringField;
+    FDQueryTMAQ_Apontamento01TMAQ_APOCOD: TIntegerField;
+    FDQueryTMAQ_Apontamento01TMAQ_ATITIPSTRSEMTURNO: TIntegerField;
+    FDQueryTMAQ_Apontamento01TMAQ_ATITIPSTRPRODUTIVO: TIntegerField;
+    FDQueryTMAQ_Apontamento01TMAQ_ATITIPSTRSETUP: TIntegerField;
+    FDQueryTMAQ_Apontamento01TMAQ_ATITIPSTRPARADA: TIntegerField;
+    cxTabSheetGrafico: TcxTabSheet;
+    cxGridTMAQ_Apontamento01: TcxGrid;
+    cxTableViewTMAQ_Apontamento01: TcxGridDBTableView;
+    cxTableViewTMAQ_Apontamento01TMAQ_SITNOM001: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento01TMAQ_SITNOM002: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento01TMAQ_CELNOM001: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento01TMAQ_CELNOM002: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento01TMAQ_MAQNOM: TcxGridDBColumn;
+    cxGridLevelTMAQ_Apontamento01: TcxGridLevel;
+    cxGridTMAQ_ApontamentoGrafico01: TcxGrid;
+    cxTableViewTMAQ_ApontamentoGrafico01: TcxGridDBChartView;
+    cxTableViewTMAQ_ApontamentoGrafico01DataGroup1: TcxGridDBChartDataGroup;
+    cxTableViewTMAQ_ApontamentoGrafico01DataGroup2: TcxGridDBChartDataGroup;
+    cxTableViewTMAQ_ApontamentoGrafico01DataGroup3: TcxGridDBChartDataGroup;
+    cxTableViewTMAQ_ApontamentoGrafico01DataGroup4: TcxGridDBChartDataGroup;
+    cxTableViewTMAQ_ApontamentoGrafico01Series1: TcxGridDBChartSeries;
+    cxTableViewTMAQ_ApontamentoGrafico01Series2: TcxGridDBChartSeries;
+    cxTableViewTMAQ_ApontamentoGrafico01Series3: TcxGridDBChartSeries;
+    cxTableViewTMAQ_ApontamentoGrafico01Series4: TcxGridDBChartSeries;
+    cxGridLevelTMAQ_ApontamentoGrafico01: TcxGridLevel;
+    cxGridLevelTMAQ_ApontamentoGrafico02: TcxGridLevel;
+    cxTableViewTMAQ_ApontamentoGrafico02: TcxGridDBChartView;
+    FDQueryTMAQ_Apontamento02: TFDQuery;
+    FDQueryTMAQ_Apontamento02TMAQ_APOCOD: TIntegerField;
+    FDQueryTMAQ_Apontamento02TMAQ_SITNOM001: TStringField;
+    FDQueryTMAQ_Apontamento02TMAQ_SITNOM002: TStringField;
+    FDQueryTMAQ_Apontamento02TMAQ_CELNOM001: TStringField;
+    FDQueryTMAQ_Apontamento02TMAQ_CELNOM002: TStringField;
+    FDQueryTMAQ_Apontamento02TMAQ_MAQNOM: TStringField;
+    DataSourceTMAQ_Apontamento02: TDataSource;
+    FDQueryTMAQ_Apontamento02TMAQ_ATITIPSTR: TStringField;
+    FDQueryTMAQ_Apontamento02TMAQ_ATINOM: TStringField;
+    FDQueryTMAQ_Apontamento02TMAQ_APOMIN: TIntegerField;
+    cxTableViewTMAQ_ApontamentoGrafico02Series1: TcxGridDBChartSeries;
+    cxTableViewTMAQ_ApontamentoGrafico02DataGroup1: TcxGridDBChartDataGroup;
+    cxTableViewTMAQ_ApontamentoGrafico02DataGroup2: TcxGridDBChartDataGroup;
+    cxTableViewTMAQ_ApontamentoGrafico02DataGroup3: TcxGridDBChartDataGroup;
+    cxTableViewTMAQ_ApontamentoGrafico02DataGroup4: TcxGridDBChartDataGroup;
+    cxTableViewTMAQ_ApontamentoGrafico02DataGroup5: TcxGridDBChartDataGroup;
+    cxTableViewTMAQ_ApontamentoGrafico02DataGroup6: TcxGridDBChartDataGroup;
+    cxGridLevelTMAQ_Apontamento02: TcxGridLevel;
+    cxTableViewTMAQ_Apontamento02: TcxGridDBTableView;
+    cxTableViewTMAQ_Apontamento01TMAQ_ATITIPSTRSEMTURNO: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento01TMAQ_ATITIPSTRPRODUTIVO: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento01TMAQ_ATITIPSTRSETUP: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento01TMAQ_ATITIPSTRPARADA: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento02TMAQ_SITNOM001: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento02TMAQ_SITNOM002: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento02TMAQ_CELNOM001: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento02TMAQ_CELNOM002: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento02TMAQ_MAQNOM: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento02TMAQ_ATITIPSTR: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento02TMAQ_ATINOM: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento02TMAQ_APOMIN: TcxGridDBColumn;
+    cxPageControlPivot: TcxPageControl;
+    cxTabSheetPivot01: TcxTabSheet;
+    cxDBPivotGrid0TMAQ_Apontamento01: TcxDBPivotGrid;
+    cxTabSheetPivot02: TcxTabSheet;
+    cxDBPivotGrid0TMAQ_Apontamento02: TcxDBPivotGrid;
+    cxDBPivotGrid01TMAQ_SITNOM001: TcxDBPivotGridField;
+    cxDBPivotGrid01TMAQ_SITNOM002: TcxDBPivotGridField;
+    cxDBPivotGrid01TMAQ_CELNOM001: TcxDBPivotGridField;
+    cxDBPivotGrid01TMAQ_CELNOM002: TcxDBPivotGridField;
+    cxDBPivotGrid01TMAQ_MAQNOM: TcxDBPivotGridField;
+    cxDBPivotGrid01TMAQ_ATITIPSTRSEMTURNO: TcxDBPivotGridField;
+    cxDBPivotGrid01TMAQ_ATITIPSTRPRODUTIVO: TcxDBPivotGridField;
+    cxDBPivotGrid01TMAQ_ATITIPSTRSETUP: TcxDBPivotGridField;
+    cxDBPivotGrid01TMAQ_ATITIPSTRPARADA: TcxDBPivotGridField;
+    cxDBPivotGrid02TMAQ_SITNOM001: TcxDBPivotGridField;
+    cxDBPivotGrid02TMAQ_SITNOM002: TcxDBPivotGridField;
+    cxDBPivotGrid02TMAQ_CELNOM001: TcxDBPivotGridField;
+    cxDBPivotGrid02TMAQ_CELNOM002: TcxDBPivotGridField;
+    cxDBPivotGrid02TMAQ_MAQNOM: TcxDBPivotGridField;
+    cxDBPivotGrid02TMAQ_ATITIPSTR: TcxDBPivotGridField;
+    cxDBPivotGrid02TMAQ_ATINOM: TcxDBPivotGridField;
+    cxDBPivotGrid02TMAQ_APOMIN: TcxDBPivotGridField;
+    FDQueryTMAQ_Apontamento03: TFDQuery;
+    DataSourceTMAQ_Apontamento03: TDataSource;
+    FDQueryTMAQ_Apontamento03TMAQ_APOCOD: TIntegerField;
+    FDQueryTMAQ_Apontamento03TMAQ_MAQNOM: TStringField;
+    FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRSEMTURNO: TIntegerField;
+    FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRPRODUTIVO: TIntegerField;
+    FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRSETUP: TIntegerField;
+    FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRPARADA: TIntegerField;
+    FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRSEMAPONTAMENTO: TIntegerField;
+    FDQueryTMAQ_Apontamento01TMAQ_ATITIPSTRSEMAPONTAMENTO: TIntegerField;
+    FDQueryTMAQ_Apontamento03TMAQ_ATITIPPERSEMTURNO: TFloatField;
+    FDQueryTMAQ_Apontamento03TMAQ_ATITIPPERPRODUTIVO: TFloatField;
+    FDQueryTMAQ_Apontamento03TMAQ_ATITIPPERSETUP: TFloatField;
+    FDQueryTMAQ_Apontamento03TMAQ_ATITIPPERPARADA: TFloatField;
+    FDQueryTMAQ_Apontamento03TMAQ_ATITIPPERSEMAPONTAMENTO: TFloatField;
+    cxTabSheetPivot03: TcxTabSheet;
+    cxGridLevelTMAQ_Apontamento03: TcxGridLevel;
+    cxTableViewTMAQ_Apontamento03: TcxGridDBTableView;
+    cxDBPivotGrid0TMAQ_Apontamento03: TcxDBPivotGrid;
+    cxDBPivotGrid0TMAQ_Apontamento03TMAQ_MAQNOM: TcxDBPivotGridField;
+    cxDBPivotGrid0TMAQ_Apontamento03TMAQ_ATITIPSTRSEMTURNO: TcxDBPivotGridField;
+    cxDBPivotGrid0TMAQ_Apontamento03TMAQ_ATITIPSTRPRODUTIVO: TcxDBPivotGridField;
+    cxDBPivotGrid0TMAQ_Apontamento03TMAQ_ATITIPSTRSETUP: TcxDBPivotGridField;
+    cxDBPivotGrid0TMAQ_Apontamento03TMAQ_ATITIPSTRPARADA: TcxDBPivotGridField;
+    cxDBPivotGrid0TMAQ_Apontamento03TMAQ_ATITIPSTRSEMAPONTAMENTO: TcxDBPivotGridField;
+    cxDBPivotGrid0TMAQ_Apontamento03TMAQ_ATITIPPERSEMTURNO: TcxDBPivotGridField;
+    cxDBPivotGrid0TMAQ_Apontamento03TMAQ_ATITIPPERPRODUTIVO: TcxDBPivotGridField;
+    cxDBPivotGrid0TMAQ_Apontamento03TMAQ_ATITIPPERSETUP: TcxDBPivotGridField;
+    cxDBPivotGrid0TMAQ_Apontamento03TMAQ_ATITIPPERPARADA: TcxDBPivotGridField;
+    cxDBPivotGrid0TMAQ_Apontamento03TMAQ_ATITIPPERSEMAPONTAMENTO: TcxDBPivotGridField;
+    cxTableViewTMAQ_Apontamento03TMAQ_MAQNOM: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento03TMAQ_ATITIPSTRSEMTURNO: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento03TMAQ_ATITIPSTRPRODUTIVO: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento03TMAQ_ATITIPSTRSETUP: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento03TMAQ_ATITIPSTRPARADA: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento03TMAQ_ATITIPSTRSEMAPONTAMENTO: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento03TMAQ_ATITIPPERSEMTURNO: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento03TMAQ_ATITIPPERPRODUTIVO: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento03TMAQ_ATITIPPERSETUP: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento03TMAQ_ATITIPPERPARADA: TcxGridDBColumn;
+    cxTableViewTMAQ_Apontamento03TMAQ_ATITIPPERSEMAPONTAMENTO: TcxGridDBColumn;
+    cxGridLevelTMAQ_ApontamentoGrafico03: TcxGridLevel;
+    cxTableViewTMAQ_ApontamentoGrafico03: TcxGridDBChartView;
+    cxTableViewTMAQ_ApontamentoGrafico03Series1: TcxGridDBChartSeries;
+    cxTableViewTMAQ_ApontamentoGrafico03Series2: TcxGridDBChartSeries;
+    cxTableViewTMAQ_ApontamentoGrafico03Series3: TcxGridDBChartSeries;
+    cxTableViewTMAQ_ApontamentoGrafico03Series4: TcxGridDBChartSeries;
+    cxTableViewTMAQ_ApontamentoGrafico03Series5: TcxGridDBChartSeries;
+    cxTableViewTMAQ_ApontamentoGrafico03DataGroup1: TcxGridDBChartDataGroup;
+    cxTableViewTMAQ_ApontamentoGrafico01Series5: TcxGridDBChartSeries;
+    cxPageControlFiltro: TcxPageControl;
+    cxTabSheetFiltro: TcxTabSheet;
+    cxLabelDataInicial: TcxLabel;
+    cxDateEditTMAQ_APODATINI: TcxDateEdit;
+    cxLabelDataFinal: TcxLabel;
+    cxDateEditTMAQ_APODATFIM: TcxDateEdit;
+    cxButtonRefresh: TcxButton;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
+    procedure FormCreate(Sender: TObject);
+    procedure cxButtonRefreshClick(Sender: TObject);
+    procedure FDQueryTMAQ_Apontamento03CalcFields(DataSet: TDataSet);
+  private
+    procedure Mensagem( pMensagem: String );
+    { Private declarations }
+  public
+    procedure AbrirDataset;
+    procedure LoadGridCustomization;
+    { Public declarations }
+  end;
+
+var
+  Fr_RelatorioAnaliseApontamento: TFr_RelatorioAnaliseApontamento;
+
+implementation
+
+{$R *.dfm}
+
+uses uBrady, uUtils;
+
+procedure TFr_RelatorioAnaliseApontamento.AbrirDataset;
+begin
+
+  Mensagem( 'Abrindo conexão...' );
+  try
+
+    FDConnection.Params.LoadFromFile( MyDocumentsPath + '\DB.ini' );
+    FDConnection.Open;
+
+    Mensagem( 'Obtendo dados (01 - Site)...' );
+    FDQueryTMAQ_Apontamento01.ParamByName('TMAQ_APODATINI').AsDateTime := cxDateEditTMAQ_APODATINI.Date;
+    FDQueryTMAQ_Apontamento01.ParamByName('TMAQ_APODATFIM').AsDateTime := cxDateEditTMAQ_APODATFIM.Date;
+    FDQueryTMAQ_Apontamento01.Open;
+    FDQueryTMAQ_Apontamento01.Open;
+
+    Mensagem( 'Obtendo dados (02 - Atividade)...' );
+    FDQueryTMAQ_Apontamento02.ParamByName('TMAQ_APODATINI').AsDateTime := cxDateEditTMAQ_APODATINI.Date;
+    FDQueryTMAQ_Apontamento02.ParamByName('TMAQ_APODATFIM').AsDateTime := cxDateEditTMAQ_APODATFIM.Date;
+    FDQueryTMAQ_Apontamento02.Open;
+
+    Mensagem( 'Obtendo dados (03 - Tipo Atividade)...' );
+    FDQueryTMAQ_Apontamento03.ParamByName('TMAQ_APODATINI').AsDateTime := cxDateEditTMAQ_APODATINI.Date;
+    FDQueryTMAQ_Apontamento03.ParamByName('TMAQ_APODATFIM').AsDateTime := cxDateEditTMAQ_APODATFIM.Date;
+    FDQueryTMAQ_Apontamento03.Open;
+
+  finally
+
+    Mensagem( EmptyStr );
+
+  end;
+
+end;
+
+procedure TFr_RelatorioAnaliseApontamento.cxButtonRefreshClick(Sender: TObject);
+begin
+
+  FDQueryTMAQ_Apontamento03.Close;
+  FDQueryTMAQ_Apontamento02.Close;
+  FDQueryTMAQ_Apontamento01.Close;
+  FDConnection.Close;
+  AbrirDataset;
+
+end;
+
+procedure TFr_RelatorioAnaliseApontamento.FDQueryTMAQ_Apontamento03CalcFields(DataSet: TDataSet);
+var
+  varTotal: Extended;
+  varResto: Extended;
+  varPercentual: Extended;
+
+begin
+
+  varResto := 100.00;
+  varTotal := ( FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRSEMTURNO.AsInteger +
+                FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRPRODUTIVO.AsInteger +
+                FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRSETUP.AsInteger +
+                FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRPARADA.AsInteger +
+                FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRSEMAPONTAMENTO.AsInteger );
+
+  varPercentual := RoundTo( FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRSEMTURNO.AsInteger  / varTotal * 100.00, -2 );
+  varResto := varResto - varPercentual;
+  FDQueryTMAQ_Apontamento03TMAQ_ATITIPPERSEMTURNO.AsFloat := varPercentual;
+
+  varPercentual := RoundTo( FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRPRODUTIVO.AsInteger  / varTotal * 100.00, -2 );
+  varResto := varResto - varPercentual;
+  FDQueryTMAQ_Apontamento03TMAQ_ATITIPPERPRODUTIVO.AsFloat := varPercentual;
+
+  varPercentual := RoundTo( FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRSETUP.AsInteger  / varTotal * 100.00, -2 );
+  varResto := varResto - varPercentual;
+  FDQueryTMAQ_Apontamento03TMAQ_ATITIPPERSETUP.AsFloat := varPercentual;
+
+  varPercentual := RoundTo( FDQueryTMAQ_Apontamento03TMAQ_ATITIPSTRPARADA.AsInteger  / varTotal * 100.00, -2 );
+  varResto := varResto - varPercentual;
+  FDQueryTMAQ_Apontamento03TMAQ_ATITIPPERPARADA.AsFloat := varPercentual;
+
+  FDQueryTMAQ_Apontamento03TMAQ_ATITIPPERSEMAPONTAMENTO.AsFloat := varResto;
+
+end;
+
+procedure TFr_RelatorioAnaliseApontamento.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+
+  FDQueryTMAQ_Apontamento02.Close;
+  FDQueryTMAQ_Apontamento01.Close;
+  FDConnection.Close;
+
+  Fr_RelatorioAnaliseApontamento := nil;
+  Action := caFree;
+
+end;
+
+procedure TFr_RelatorioAnaliseApontamento.FormContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
+begin
+
+  if cxPageControl.ActivePage = cxTabSheetGrid then
+  begin
+
+    Fr_Brady.PopupGridTools( cxGridTMAQ_Apontamento01.ActiveView );
+
+  end
+  else
+  if cxPageControl.ActivePage = cxTabSheetPivot then
+  begin
+
+    if cxPageControlPivot.ActivePage = cxTabSheetPivot01 then
+    begin
+
+      Fr_Brady.PopupPivotTools( cxDBPivotGrid0TMAQ_Apontamento01 );
+
+    end
+    else
+    if cxPageControlPivot.ActivePage = cxTabSheetPivot02 then
+    begin
+
+      Fr_Brady.PopupPivotTools( cxDBPivotGrid0TMAQ_Apontamento02 );
+
+    end
+    else
+    if cxPageControlPivot.ActivePage = cxTabSheetPivot03 then
+    begin
+
+      Fr_Brady.PopupPivotTools( cxDBPivotGrid0TMAQ_Apontamento03 );
+
+    end;
+
+  end;
+
+end;
+
+procedure TFr_RelatorioAnaliseApontamento.FormCreate(Sender: TObject);
+begin
+
+  LoadGridCustomization;
+
+  cxDateEditTMAQ_APODATINI.Date := StartOfTheWeek(Now);
+  cxDateEditTMAQ_APODATFIM.Date := EndOfTheWeek(Now);
+
+end;
+
+procedure TFr_RelatorioAnaliseApontamento.LoadGridCustomization;
+begin
+
+  if System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + Name + '_' + cxTableViewTMAQ_Apontamento01.Name + '.ini' ) then
+    cxTableViewTMAQ_Apontamento01.RestoreFromIniFile( MyDocumentsPath + '\' + Name + '_' + cxTableViewTMAQ_Apontamento01.Name + '.ini' );
+
+  if System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + Name + '_' + cxTableViewTMAQ_Apontamento02.Name + '.ini' ) then
+    cxTableViewTMAQ_Apontamento02.RestoreFromIniFile( MyDocumentsPath + '\' + Name + '_' + cxTableViewTMAQ_Apontamento02.Name + '.ini' );
+
+  if System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + Name + '_' + cxTableViewTMAQ_Apontamento03.Name + '.ini' ) then
+    cxTableViewTMAQ_Apontamento03.RestoreFromIniFile( MyDocumentsPath + '\' + Name + '_' + cxTableViewTMAQ_Apontamento03.Name + '.ini' );
+
+  if System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + Name + '_' + cxDBPivotGrid0TMAQ_Apontamento01.Name + '.ini' ) then
+    cxDBPivotGrid0TMAQ_Apontamento01.RestoreFromIniFile( MyDocumentsPath + '\' + Name + '_' + cxDBPivotGrid0TMAQ_Apontamento01.Name + '.ini' );
+
+  if System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + Name + '_' + cxDBPivotGrid0TMAQ_Apontamento02.Name + '.ini' ) then
+    cxDBPivotGrid0TMAQ_Apontamento02.RestoreFromIniFile( MyDocumentsPath + '\' + Name + '_' + cxDBPivotGrid0TMAQ_Apontamento02.Name + '.ini' );
+
+  if System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + Name + '_' + cxDBPivotGrid0TMAQ_Apontamento03.Name + '.ini' ) then
+    cxDBPivotGrid0TMAQ_Apontamento03.RestoreFromIniFile( MyDocumentsPath + '\' + Name + '_' + cxDBPivotGrid0TMAQ_Apontamento03.Name + '.ini' );
+
+end;
+
+procedure TFr_RelatorioAnaliseApontamento.Mensagem(pMensagem: String);
+begin
+
+  cxLabelMensagem.Caption := pMensagem;
+  PanelSQLSplashScreen.Visible := not pMensagem.IsEmpty;
+  Update;
+  Application.ProcessMessages;
+
+end;
+
+end.

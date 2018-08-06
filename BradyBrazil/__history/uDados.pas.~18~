@@ -1,0 +1,378 @@
+unit uDados;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Phys, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Stan.Param, FireDAC.DatS,
+  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.VCLUI.Wait, FireDAC.Comp.UI, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  FireDAC.Phys.ODBCBase, FireDAC.Phys.MSSQL, FireDAC.Comp.ScriptCommands, FireDAC.Comp.Script, FireDAC.Phys.MySQL;
+
+type
+  TFr_Dados = class(TDataModule)
+    FDPhysMSSQLDriverLink: TFDPhysMSSQLDriverLink;
+    FDManager: TFDManager;
+    FDConnection: TFDConnection;
+    FDQuery: TFDQuery;
+    FDGUIxWaitCursor: TFDGUIxWaitCursor;
+    FDQueryTSOP_ClienteSAP: TFDQuery;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPCOD: TFDAutoIncField;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPCLICOD: TStringField;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPCLICGC: TStringField;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPCLINOM: TStringField;
+    FDQueryTSOP_ClienteSAPTSOP_USUCODCAD: TIntegerField;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPDATCAD: TSQLTimeStampField;
+    FDQueryTSOP_ClienteSAPTSOP_USUCODALT: TIntegerField;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPDATALT: TSQLTimeStampField;
+    FDQueryTSOP_ItemClienteSAP: TFDQuery;
+    FDQueryTSOP_ItemClienteSAPTSOP_ITECLISAPCOD: TFDAutoIncField;
+    FDQueryTSOP_ItemClienteSAPTSOP_ITECLISAPCAN: TStringField;
+    FDQueryTSOP_ItemClienteSAPTSOP_ITECLISAPCLICOD: TStringField;
+    FDQueryTSOP_ItemClienteSAPTSOP_ITECLISAPITECOD: TStringField;
+    FDQueryTSOP_ItemClienteSAPTSOP_ITECLISAPITECLICOD: TStringField;
+    FDQueryTSOP_ItemClienteSAPTSOP_USUCODCAD: TIntegerField;
+    FDQueryTSOP_ItemClienteSAPTSOP_ITECLISAPDATCAD: TSQLTimeStampField;
+    FDQueryTSOP_ItemClienteSAPTSOP_USUCODALT: TIntegerField;
+    FDQueryTSOP_ItemClienteSAPTSOP_ITECLISAPDATALT: TSQLTimeStampField;
+    FDScriptTSOP_ItemClienteSAP: TFDScript;
+    FDScriptTSOP_ClienteSAP: TFDScript;
+    FDQueryTSOP_ZP00: TFDQuery;
+    FDScriptTSOP_ZP00: TFDScript;
+    FDQueryTSOP_ZP00TSOP_Z00COD: TFDAutoIncField;
+    FDQueryTSOP_ZP00TSOP_Z00CAN: TStringField;
+    FDQueryTSOP_ZP00TSOP_Z00ITECOD: TStringField;
+    FDQueryTSOP_ZP00TSOP_Z00PER: TBCDField;
+    FDQueryTSOP_ZP00TSOP_Z00QTD: TBCDField;
+    FDQueryTSOP_ZP00TSOP_Z00VLF: TBCDField;
+    FDQueryTSOP_ZP00TSOP_Z00UOM: TStringField;
+    FDQueryTSOP_ZP00TSOP_USUCODCAD: TIntegerField;
+    FDQueryTSOP_ZP00TSOP_Z00DATCAD: TSQLTimeStampField;
+    FDQueryTSOP_ZP00TSOP_USUCODALT: TIntegerField;
+    FDQueryTSOP_ZP00TSOP_Z00DATALT: TSQLTimeStampField;
+    FDQueryTSOP_ZP05: TFDQuery;
+    FDScriptTSOP_ZP05: TFDScript;
+    FDQueryTSOP_ZP05TSOP_Z05COD: TFDAutoIncField;
+    FDQueryTSOP_ZP05TSOP_Z05CAN: TStringField;
+    FDQueryTSOP_ZP05TSOP_Z05ITECOD: TStringField;
+    FDQueryTSOP_ZP05TSOP_Z05CLICOD: TStringField;
+    FDQueryTSOP_ZP05TSOP_Z05PER: TBCDField;
+    FDQueryTSOP_ZP05TSOP_Z05QTD: TBCDField;
+    FDQueryTSOP_ZP05TSOP_Z05VLF: TBCDField;
+    FDQueryTSOP_ZP05TSOP_Z05UOM: TStringField;
+    FDQueryTSOP_ZP05TSOP_USUCODCAD: TIntegerField;
+    FDQueryTSOP_ZP05TSOP_Z05DATCAD: TSQLTimeStampField;
+    FDQueryTSOP_ZP05TSOP_USUCODALT: TIntegerField;
+    FDQueryTSOP_ZP05TSOP_Z05DATALT: TSQLTimeStampField;
+    FDQueryTSOP_ItemClienteSAPTSOP_ORICOD: TIntegerField;
+    FDQueryTSOP_ZP00TSOP_ORICOD: TIntegerField;
+    FDQueryTSOP_ZP00TSOP_Z00DATINI: TSQLTimeStampField;
+    FDQueryTSOP_ZP00TSOP_Z00DATFIM: TSQLTimeStampField;
+    FDQueryTSOP_ZP05TSOP_ORICOD: TIntegerField;
+    FDQueryTSOP_ZP05TSOP_Z05DATINI: TSQLTimeStampField;
+    FDQueryTSOP_ZP05TSOP_Z05DATFIM: TSQLTimeStampField;
+    FDQueryTSOP_Item: TFDQuery;
+    FDQueryTSOP_ItemTSOP_ITECOD: TFDAutoIncField;
+    FDQueryTSOP_ItemTSOP_ORICOD: TIntegerField;
+    FDQueryTSOP_ItemTSOP_ITEITECOD: TStringField;
+    FDQueryTSOP_ItemTSOP_USUCODCAD: TIntegerField;
+    FDQueryTSOP_ItemTSOP_ITEDATCAD: TSQLTimeStampField;
+    FDQueryTSOP_ItemTSOP_USUCODALT: TIntegerField;
+    FDQueryTSOP_ItemTSOP_ITEDATALT: TSQLTimeStampField;
+    FDScriptTSOP_Item: TFDScript;
+    FDQueryTSOP_ItemTSOP_ITECAN: TStringField;
+    FDQueryTSOP_ItemTSOP_ITEITENOM: TStringField;
+    FDQueryTSOP_OrderBilling: TFDQuery;
+    FDScriptTSOP_OrderBilling: TFDScript;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILCOD: TFDAutoIncField;
+    FDQueryTSOP_OrderBillingTSOP_ORICOD: TIntegerField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILSITNOM: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILCANNOM: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILDATDOC: TSQLTimeStampField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILNRODOC: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILTIPDOC: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILNRODOCREF: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILDATDOCREQ: TSQLTimeStampField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILCLICOD: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILCLINOM: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILGRUCLINOM: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILREPNOM: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILITECOD: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILITENOM: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILITEUNI: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILITEFAM001: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILITEFAM002: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILITEFAM003: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILITEFAM004: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILITEFAM005: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILVALLIQ: TBCDField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILQTD: TBCDField;
+    FDQueryTSOP_OrderBillingTSOP_USUCODCAD: TIntegerField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILDATCAD: TSQLTimeStampField;
+    FDQueryTSOP_OrderBillingTSOP_USUCODALT: TIntegerField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILDATALT: TSQLTimeStampField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILITESEQ: TIntegerField;
+    FDQueryTMAQ_ItemBOM: TFDQuery;
+    FDScriptTMAQ_ItemBOM: TFDScript;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMCOD: TFDAutoIncField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMITECOD: TStringField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMITEMPRCOD: TStringField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMITEMTRTYP: TStringField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMITEMPRQTDBAS: TBCDField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMITEMPRFIX: TStringField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMITEMPRQTD: TBCDField;
+    FDQueryTMAQ_ItemRouting: TFDQuery;
+    FDScriptTMAQ_ItemRouting: TFDScript;
+    FDQueryTMAQ_OrdemProducao: TFDQuery;
+    FDScriptTMAQ_OrdemProducao: TFDScript;
+    FDQueryTMAQ_OrdemProducaoTMAQ_ORDPROCOD: TFDAutoIncField;
+    FDQueryTMAQ_OrdemProducaoTMAQ_ORDPRONUM: TStringField;
+    FDQueryTMAQ_OrdemProducaoTMAQ_ORDPROSIT: TStringField;
+    FDQueryTMAQ_OrdemProducaoTMAQ_ORDPROITECOD: TStringField;
+    FDQueryTMAQ_OrdemProducaoTMAQ_ORDPROQTDPLA: TBCDField;
+    FDQueryTMAQ_OrdemProducaoTMAQ_ORDPROQTDREP: TBCDField;
+    FDQueryTMAQ_OrdemProducaoTMAQ_ORDPRODATENC: TSQLTimeStampField;
+    FDQueryTMAQ_OrdemProducaoMPR: TFDQuery;
+    FDScriptTMAQ_OrdemProducaoMPR: TFDScript;
+    FDQueryTMAQ_OrdemProducaoMPRTMAQ_ORDPROMPRCOD: TFDAutoIncField;
+    FDQueryTMAQ_OrdemProducaoMPRTMAQ_ORDPROMPRNUM: TStringField;
+    FDQueryTMAQ_OrdemProducaoMPRTMAQ_ORDPROMPRITECOD: TStringField;
+    FDQueryTMAQ_OrdemProducaoMPRTMAQ_ORDPROMPRQTDTEO: TBCDField;
+    FDQueryTMAQ_OrdemProducaoMPRTMAQ_ORDPROMPRQTDREA: TBCDField;
+    FDQueryTMAQ_ItemFolha: TFDQuery;
+    FDScriptTMAQ_ItemFolha: TFDScript;
+    FDQueryTMAQ_ItemFolhaTMAQ_ITEFOLCOD: TFDAutoIncField;
+    FDQueryTMAQ_ItemFolhaTMAQ_ITEFOLITECOD: TStringField;
+    FDQueryTMAQ_ItemFolhaTMAQ_ITEFOLQTDCOR: TIntegerField;
+    FDQueryTMAQ_ItemFaca: TFDQuery;
+    FDScriptTMAQ_ItemFaca: TFDScript;
+    FDQueryTMAQ_Item: TFDQuery;
+    FDScriptTMAQ_Item: TFDScript;
+    FDScriptTMAQ_OrdemProducaoMPR2: TFDScript;
+    FDQueryTMAQ_ItemFolhaTMAQ_ITEFOLETQBOB: TIntegerField;
+    FDQueryTSOP_ItemTSOP_ITEGRUMER: TStringField;
+    FDQueryTSOP_ZD00: TFDQuery;
+    FDScriptTSOP_ZD00: TFDScript;
+    FDQueryTSOP_ZD00TSOP_Z00COD: TFDAutoIncField;
+    FDQueryTSOP_ZD00TSOP_ORICOD: TIntegerField;
+    FDQueryTSOP_ZD00TSOP_Z00CAN: TStringField;
+    FDQueryTSOP_ZD00TSOP_Z000PARCOD: TStringField;
+    FDQueryTSOP_ZD00TSOP_Z000GRUMER: TStringField;
+    FDQueryTSOP_ZD00TSOP_Z00PER: TBCDField;
+    FDQueryTSOP_ZD00TSOP_Z00DATINI: TSQLTimeStampField;
+    FDQueryTSOP_ZD00TSOP_Z00DATFIM: TSQLTimeStampField;
+    FDQueryTSOP_ZD00TSOP_USUCODCAD: TIntegerField;
+    FDQueryTSOP_ZD00TSOP_Z00DATCAD: TSQLTimeStampField;
+    FDQueryTSOP_ZD00TSOP_USUCODALT: TIntegerField;
+    FDQueryTSOP_ZD00TSOP_Z00DATALT: TSQLTimeStampField;
+    FDQueryTSOP_ClienteParceiro: TFDQuery;
+    FDScriptTSOP_ClienteParceiro: TFDScript;
+    FDQueryTSOP_ClienteParceiroTSOP_CLIPARCOD: TFDAutoIncField;
+    FDQueryTSOP_ClienteParceiroTSOP_CLIPARCLICOD: TStringField;
+    FDQueryTSOP_ClienteParceiroTSOP_CLIPARNUM: TStringField;
+    FDQueryTSOP_ClienteParceiroTSOP_USUCODCAD: TIntegerField;
+    FDQueryTSOP_ClienteParceiroTSOP_CLIPARDATCAD: TSQLTimeStampField;
+    FDQueryTSOP_ClienteParceiroTSOP_USUCODALT: TIntegerField;
+    FDQueryTSOP_ClienteParceiroTSOP_CLIPARDATALT: TSQLTimeStampField;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPCLIPRE: TStringField;
+    FDQueryTSOP_ClienteSAPTSOP_CLISAPCLIREG: TStringField;
+    FDQueryTSOP_A800: TFDQuery;
+    FDQueryTSOP_A800TSOP_Z00COD: TFDAutoIncField;
+    FDQueryTSOP_A800TSOP_ORICOD: TIntegerField;
+    FDQueryTSOP_A800TSOP_Z00CAN: TStringField;
+    FDQueryTSOP_A800TSOP_Z00ITECOD: TStringField;
+    FDQueryTSOP_A800TSOP_Z00PER: TBCDField;
+    FDQueryTSOP_A800TSOP_Z00QTD: TBCDField;
+    FDQueryTSOP_A800TSOP_Z00VLF: TBCDField;
+    FDQueryTSOP_A800TSOP_Z00UOM: TStringField;
+    FDQueryTSOP_A800TSOP_Z00DATINI: TSQLTimeStampField;
+    FDQueryTSOP_A800TSOP_Z00DATFIM: TSQLTimeStampField;
+    FDQueryTSOP_A800TSOP_USUCODCAD: TIntegerField;
+    FDQueryTSOP_A800TSOP_Z00DATCAD: TSQLTimeStampField;
+    FDQueryTSOP_A800TSOP_USUCODALT: TIntegerField;
+    FDQueryTSOP_A800TSOP_Z00DATALT: TSQLTimeStampField;
+    FDScriptTSOP_A800: TFDScript;
+    FDQuerySalesRep: TFDQuery;
+    FDQueryTSOP_OrderResquestDate: TFDQuery;
+    FDQueryTSOP_OrderResquestDateTSOP_ORDREQCOD: TFDAutoIncField;
+    FDQueryTSOP_OrderResquestDateTSOP_ORICOD: TIntegerField;
+    FDQueryTSOP_OrderResquestDateTSOP_ORDREQNRODOC: TStringField;
+    FDQueryTSOP_OrderResquestDateTSOP_ORDREQSEQITE: TIntegerField;
+    FDQueryTSOP_OrderResquestDateTSOP_ORDREQDATREQ: TSQLTimeStampField;
+    FDQueryTSOP_OrderResquestDateTSOP_USUCODCAD: TIntegerField;
+    FDQueryTSOP_OrderResquestDateTSOP_ORDREQDATCAD: TSQLTimeStampField;
+    FDQueryTSOP_OrderResquestDateTSOP_USUCODALT: TIntegerField;
+    FDQueryTSOP_OrderResquestDateTSOP_ORDREQDATALT: TSQLTimeStampField;
+    FDScriptTSOP_OrderRequestDate: TFDScript;
+    FDQuerySaldoEstoque: TFDQuery;
+    FDScriptSaldoEstoqueDelete: TFDScript;
+    FDPhysMySQLDriverLink: TFDPhysMySQLDriverLink;
+    FDQueryVSOP_OrderBillingPedidos: TFDQuery;
+    FDQueryVSOP_OrderBillingPedidosTSOP_ORDBILREPNOM: TStringField;
+    FDQueryVSOP_OrderBillingPedidosTSOP_ORDBILGRUCLINOM: TStringField;
+    FDQueryVSOP_OrderBillingPedidosTSOP_ORDBILCANNOM: TStringField;
+    FDQueryVSOP_OrderBillingPedidosTSOP_ORDBILDAT: TMemoField;
+    FDQueryVSOP_OrderBillingPedidosTSOP_ORDBILTYP: TStringField;
+    FDQueryVSOP_OrderBillingPedidosTSOP_ORDBILVALLIQ: TBCDField;
+    FDQuerySalesRepTSIS_USUNOM: TStringField;
+    FDQuerySalesRepTSIS_USUEML: TStringField;
+    FDQueryGrupoCliente: TFDQuery;
+    FDQueryGrupoClienteTSOP_ORDBILCLICOD: TStringField;
+    FDQueryGrupoClienteTSOP_ORDBILCLINOM: TStringField;
+    FDQueryAccOwner: TFDQuery;
+    FDQueryAccOwnerTSOP_ORDBILCLICOD: TStringField;
+    FDQueryAccOwnerTSOP_ORDBILCLINOM: TStringField;
+    FDQueryAccOwnerTSOP_ORDBILDATDOC: TSQLTimeStampField;
+    FDScriptSaldoEstoqueUpdate: TFDScript;
+    FDQueryVSOP_OrderBillingPedidosTSOP_ORDBILORI: TStringField;
+    FDScriptTFIS_ParcelaDedutivel: TFDScript;
+    FDQueryTFIS_ParcelaDedutivel: TFDQuery;
+    FDQueryVSOP_OrderBillingPedidosTSOP_ORDBILSITNOM: TStringField;
+    FDQueryTFIS_ParcelaDedutivelTFIS_PARDEDCOD: TFDAutoIncField;
+    FDQueryTFIS_ParcelaDedutivelTFIS_ITECOD: TStringField;
+    FDQueryTFIS_ParcelaDedutivelTFIS_ITEQTD: TFMTBCDField;
+    FDQueryTFIS_ParcelaDedutivelTFIS_ITEQTDMPR: TFMTBCDField;
+    FDQueryTFIS_ParcelaDedutivelTFIS_ITEORIMPR: TIntegerField;
+    FDQueryTFIS_ParcelaDedutivelTFIS_ITEPREPORMPR: TFMTBCDField;
+    FDQueryTFIS_ParcelaDedutivelTFIS_ITEPREMPR: TFMTBCDField;
+    FDQueryTFIS_ParcelaDedutivelTFIS_PARDEDANOMES: TStringField;
+    FDQueryTFIS_NotaFiscal: TFDQuery;
+    FDScriptTFIS_NotaFiscal: TFDScript;
+    FDQueryTFIS_NotaFiscalTFIS_NOTFISANOMES: TStringField;
+    FDQueryTFIS_NotaFiscalTFIS_NOTFISDATEMI: TSQLTimeStampField;
+    FDQueryTFIS_NotaFiscalTFIS_NOTFISCLI: TStringField;
+    FDQueryTFIS_NotaFiscalTFIS_NOTFISNUM: TStringField;
+    FDQueryTFIS_NotaFiscalTFIS_NOTFISITE: TStringField;
+    FDQueryTFIS_NotaFiscalTFIS_NOTFISCFO: TStringField;
+    FDQueryTFIS_NotaFiscalTFIS_NOTFISQTD: TFMTBCDField;
+    FDQueryTFIS_NotaFiscalTFIS_NOTFISVAL: TFMTBCDField;
+    FDQueryCargaMaquina01: TFDQuery;
+    FDQueryForecast: TFDQuery;
+    FDQueryForecastTSOP_ORDBILGRUCLINOM: TStringField;
+    FDQueryForecastTSOP_ORDBILCLICOD: TStringField;
+    FDQueryForecastTSOP_ORDBILCLINOM: TStringField;
+    FDQueryForecastTSOP_ORDBILDAT: TMemoField;
+    FDQueryForecastTSOP_ORDBILVALLIQ: TBCDField;
+    FDQueryForecastExport: TFDQuery;
+    FDQueryForecastExportTSOP_ORDBILGRUCLINOM: TStringField;
+    FDQueryForecastExportTSOP_ORDBILCLICOD: TStringField;
+    FDQueryForecastExportTSOP_ORDBILCLINOM: TStringField;
+    FDQueryForecastExportTSOP_ORDBILDAT: TMemoField;
+    FDQueryForecastExportTSOP_ORDBILVALLIQ: TBCDField;
+    FDQueryTSOP_GMCustos: TFDQuery;
+    FDQueryTSOP_GMCustosTSOP_GMCCOD: TFDAutoIncField;
+    FDQueryTSOP_GMCustosTSOP_GMCITE: TStringField;
+    FDQueryTSOP_GMCustosTSOP_GMCSIT: TStringField;
+    FDQueryTSOP_GMCustosTSOP_GMCLOT: TBCDField;
+    FDQueryTSOP_GMCustosTSOP_GMCDAT: TSQLTimeStampField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMITEMPRQTDREF: TBCDField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUCOD: TFDAutoIncField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUSIT: TStringField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUITECOD: TStringField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUDATINI: TSQLTimeStampField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUWKCCOD: TStringField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUCCU: TStringField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUCTR: TStringField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUOPE: TIntegerField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUTXT: TStringField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUQTDBAS: TBCDField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUMINSEP: TBCDField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUMINMAC: TBCDField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUMINLAB: TBCDField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUMINOVE: TBCDField;
+    FDQueryTMAQ_ItemRoutingTMAQ_ITEROUDAT: TSQLTimeStampField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMITEMPRCOSREL: TStringField;
+    FDQueryTMAQ_ItemTMAQ_ITECOD: TFDAutoIncField;
+    FDQueryTMAQ_ItemTMAQ_ITEITECOD: TStringField;
+    FDQueryTMAQ_ItemTMAQ_ITENOM: TStringField;
+    FDQueryTMAQ_ItemTMAQ_ITESIT: TStringField;
+    FDQueryTMAQ_ItemTMAQ_ITEMRP: TStringField;
+    FDQueryTMAQ_ItemTMAQ_ITEUNI: TStringField;
+    FDQueryTMAQ_ItemTMAQ_ITEMTRTYP: TStringField;
+    FDQueryTMAQ_ItemTMAQ_ITECOSLOT: TBCDField;
+    FDQueryTSOP_GMCustosTSOP_GMCPRIUNI: TBCDField;
+    FDQueryTMAQ_ItemTMAQ_ITEPROTYP: TStringField;
+    FDQueryTMAQ_ItemTMAQ_ITEMRPCON: TStringField;
+    FDQueryTMAQ_ItemTMAQ_ITEBASMAT: TStringField;
+    FDQueryTMAQ_ItemTMAQ_ITECOP: TStringField;
+    FDQueryTSOP_GMCustosTSOP_GMCCUSSTD: TBCDField;
+    FDQueryTSOP_GMCustosTSOP_GMCCUSMOV: TBCDField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMSIT: TStringField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMITEMPRBUK: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILQTDSKU: TBCDField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMITEMPRUOM: TStringField;
+    FDQueryTMAQ_ItemBOMTMAQ_ITEBOMDAT: TSQLTimeStampField;
+    FDQueryTSOP_UOM: TFDQuery;
+    FDQueryTSOP_UOMTSOP_UOMCOD: TFDAutoIncField;
+    FDQueryTSOP_UOMTSOP_UOMITE: TStringField;
+    FDQueryTSOP_UOMTSOP_UOMSIT: TStringField;
+    FDQueryTSOP_UOMTSOP_UOMSIG: TStringField;
+    FDQueryTSOP_UOMTSOP_UOMNUM: TFMTBCDField;
+    FDQueryTSOP_UOMTSOP_UOMDEM: TFMTBCDField;
+    FDQueryTSOP_GMCustosTSOP_GMCBUD: TStringField;
+    FDScriptTSOP_GMCustos: TFDScript;
+    FD_Insert_EntregaXML: TFDQuery;
+    FD_Consulta_EntregaXML: TFDQuery;
+    FDQueryVSOP_OrderBillingPedidosTSOP_REPACCTYP: TStringField;
+    FDQueryTSOP_EMAIL: TFDQuery;
+    FDQueryTSOP_RepresentanteCanal: TFDQuery;
+    FDQueryTSOP_RepresentanteCanalTSOP_RepresentanteCanalCOD: TFDAutoIncField;
+    FDQueryTSOP_RepresentanteCanalTSOP_REPNOM: TStringField;
+    FDQueryTSOP_RepresentanteCanalTSOP_PLANTA: TStringField;
+    FDQueryTSOP_RepresentanteCanalTSOP_CANAL: TStringField;
+    FDQueryTSOP_SETONFORECAST: TFDQuery;
+    FDQueryTSOP_SETONFORECASTTSOP_DPACANTXTDEP: TStringField;
+    FDQueryTSOP_SETONFORECASTTSOP_PERIODO: TDateField;
+    FDQueryTSOP_SETONFORECASTTSOP_VALOR_LIKELY: TFMTBCDField;
+    FDQueryTSOP_SETONFORECASTTSOP_VALOR_FORECAST: TFMTBCDField;
+    FDQueryVSOP_OrderBillingPedidosTSOP_ORDBILBLOCK: TStringField;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILBLOCK: TStringField;
+    procedure FDQueryTSOP_OrderBillingNewRecord(DataSet: TDataSet);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+   function GetComando(ObjetoQuery: TFDQuery): String;
+  end;
+
+var
+  Fr_Dados: TFr_Dados;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses uUtils;
+
+{$R *.dfm}
+
+procedure TFr_Dados.FDQueryTSOP_OrderBillingNewRecord(DataSet: TDataSet);
+begin
+
+    FDQueryTSOP_OrderBillingTSOP_ORICOD.AsInteger := 1;
+    FDQueryTSOP_OrderBillingTSOP_USUCODCAD.AsInteger := 1;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILDATCAD.AsDateTime := Now;
+    FDQueryTSOP_OrderBillingTSOP_USUCODALT.AsInteger := 1;
+    FDQueryTSOP_OrderBillingTSOP_ORDBILDATALT.AsDateTime := Now;
+
+end;
+
+Function TFr_Dados.GetComando(ObjetoQuery: TFDQuery) : String;
+var
+ i        : Integer;
+ strQuery : String;
+ sGetComando : String;
+begin
+
+  strQuery := UpperCase(ObjetoQuery.SQL.Text);
+
+  For  i := 0 to ObjetoQuery.Params.Count - 1 do
+    strQuery := StrTran(strQuery,':' + UpperCase(ObjetoQuery.Params[i].Name), QuotedStr(ObjetoQuery.Params[i].Value) );
+
+   strQuery :=  StrTran(StrTran(strQuery, ''#$D#$A'', ' '), ''#$D#$A'', '');
+
+
+  result := strQuery;
+
+end;
+
+end.

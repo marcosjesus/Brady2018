@@ -1,0 +1,206 @@
+unit uRelatorioRecuperacaoContas;
+
+interface
+
+uses
+  System.IOUtils,
+  System.DateUtils,
+
+
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore,
+  dxSkinscxPCPainter, dxBarBuiltInMenu, cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, Data.DB,
+  cxDBData, cxContainer, cxClasses, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Stan.Param, FireDAC.DatS,
+  FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client, cxCustomPivotGrid, cxDBPivotGrid, cxLabel,
+  dxGDIPlusClasses, Vcl.ExtCtrls, cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGridCustomView,
+  cxGrid, cxPC, dxSkinsDefaultPainters, dxSkinOffice2013White, Vcl.ComCtrls, dxCore, cxDateUtils, Vcl.Menus, Vcl.StdCtrls,
+  cxButtons, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar, cxCheckBox, cxCheckComboBox, FireDAC.Comp.ScriptCommands,
+  FireDAC.Comp.Script, dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinCaramel,
+  dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinGlassOceans, dxSkinHighContrast,
+  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic,
+  dxSkinSharp, dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinValentine, dxSkinVS2010,
+  dxSkinWhiteprint, dxSkinXmas2008Blue, cxEditRepositoryItems, cxImageComboBox;
+
+type
+  TFr_RelatorioRecuperacaoContas = class(TForm)
+    FDConnection: TFDConnection;
+    PanelSQLSplashScreen: TPanel;
+    ImageSQLSplashScreen: TImage;
+    cxLabelMensagem: TcxLabel;
+    FDQueryVSOP_OrderBilling00: TFDQuery;
+    DataSourceVSOP_OrderBilling00: TDataSource;
+    cxPageControl: TcxPageControl;
+    cxTabSheetGrid: TcxTabSheet;
+    cxPageControlFiltro: TcxPageControl;
+    cxTabSheetFiltro: TcxTabSheet;
+    cxButtonRefresh: TcxButton;
+    cxLabel1: TcxLabel;
+    cxDateEditTSOP_ORDBILDATDOCINI: TcxDateEdit;
+    FDQueryVSOP_OrderBilling00TSOP_ORDBILCLICOD: TStringField;
+    FDQueryVSOP_OrderBilling00TSOP_CLISAPCLINOM: TStringField;
+    FDQueryVSOP_OrderBilling00TSOP_ORDBILITECOD: TStringField;
+    FDQueryVSOP_OrderBilling00TSOP_ITECLISAPITECLICOD: TStringField;
+    FDQueryVSOP_OrderBilling00TSOP_ORDBILDATDOC: TSQLTimeStampField;
+    cxCanal: TcxComboBox;
+    Label1: TLabel;
+    cxGridContas: TcxGrid;
+    cxGridContasDBTableContas: TcxGridDBTableView;
+    cxGridContasDBTableContasTSOP_ORDBILCLICOD: TcxGridDBColumn;
+    cxGridContasDBTableContasTSOP_CLISAPCLINOM: TcxGridDBColumn;
+    cxGridContasDBTableContasTSOP_ORDBILITECOD: TcxGridDBColumn;
+    cxGridContasDBTableContasTSOP_ITECLISAPITECLICOD: TcxGridDBColumn;
+    cxGridContasDBTableContasTSOP_ORDBILDATDOC: TcxGridDBColumn;
+    cxGridContasLevel1: TcxGridLevel;
+    FDQueryVSOP_OrderBilling00TSOP_SUSPEXCLUIDO: TIntegerField;
+    cxGridContasDBTableContasTSOP_SUSPEXCLUIDO: TcxGridDBColumn;
+    FDQueryVSOP_OrderBilling00TSOP_ORDBILCOD: TIntegerField;
+    FDQueryVSOP_OrderBilling00TSOP_DTASUSPENSO: TSQLTimeStampField;
+    FDQueryVSOP_OrderBilling00TSOP_MOTIVOEXCLUSAO: TStringField;
+    cxGridContasDBTableContasTSOP_MOTIVOEXCLUSAO: TcxGridDBColumn;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
+    procedure FormCreate(Sender: TObject);
+    procedure cxButtonRefreshClick(Sender: TObject);
+    procedure FDQueryVSOP_OrderBilling00BeforePost(DataSet: TDataSet);
+  private
+    procedure Mensagem( pMensagem: String );
+    { Private declarations }
+  public
+    procedure AbrirDataset;
+    procedure LoadGridCustomization;
+    { Public declarations }
+  end;
+
+var
+  Fr_RelatorioRecuperacaoContas: TFr_RelatorioRecuperacaoContas;
+
+implementation
+
+{$R *.dfm}
+
+uses uBrady, uUtils, uUtilsOwner;
+
+procedure TFr_RelatorioRecuperacaoContas.AbrirDataset;
+begin
+
+  Mensagem( 'Abrindo conexão...' );
+  try
+
+    if not FDConnection.Connected then
+    begin
+
+      FDConnection.Params.LoadFromFile( MyDocumentsPath + '\DB.ini' );
+      FDConnection.Open;
+
+    end;
+
+    Mensagem( 'Obtendo dados (Recuperação de Contas)...' );
+    FDQueryVSOP_OrderBilling00.ParamByName( 'CANAL' ).AsString := cxCanal.Text;
+    FDQueryVSOP_OrderBilling00.ParamByName( 'DATA' ).AsDateTime := cxDateEditTSOP_ORDBILDATDOCINI.Date;
+
+    if Fr_Brady.SalesRep then
+      FDQueryVSOP_OrderBilling00.MacroByName( 'WHERE' ).AsRaw := 'AND R.TSOP_REPNOM  = ' + QuotedStr(Fr_Brady.TSIS_USUNOM);
+
+    FDQueryVSOP_OrderBilling00.Open;
+
+  finally
+
+    Mensagem( EmptyStr );
+
+  end;
+
+end;
+
+procedure TFr_RelatorioRecuperacaoContas.cxButtonRefreshClick(Sender: TObject);
+begin
+
+  FDQueryVSOP_OrderBilling00.Close;
+  AbrirDataset;
+
+end;
+
+procedure TFr_RelatorioRecuperacaoContas.FDQueryVSOP_OrderBilling00BeforePost(
+  DataSet: TDataSet);
+begin
+   if FDQueryVSOP_OrderBilling00.State in [dsEdit] then
+   begin
+    if ((FDQueryVSOP_OrderBilling00TSOP_SUSPEXCLUIDO.AsInteger = 2) and
+       (FDQueryVSOP_OrderBilling00TSOP_MOTIVOEXCLUSAO.AsString = '')) then
+       begin
+           raise Exception.Create('Informe o motivo da exclusão do item.');
+       end;
+
+    FDQueryVSOP_OrderBilling00TSOP_DTASUSPENSO.AsDateTime := Date;
+   end;
+end;
+
+procedure TFr_RelatorioRecuperacaoContas.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+
+  FDQueryVSOP_OrderBilling00.Close;
+  FDConnection.Close;
+
+  Fr_RelatorioRecuperacaoContas := nil;
+  Action := caFree;
+
+end;
+
+procedure TFr_RelatorioRecuperacaoContas.FormContextPopup(Sender: TObject; MousePos: TPoint; var Handled: Boolean);
+begin
+
+  if cxPageControl.ActivePage = cxTabSheetGrid then
+    Fr_Brady.PopupGridTools( cxGridContas.ActiveView );
+
+end;
+
+procedure TFr_RelatorioRecuperacaoContas.FormCreate(Sender: TObject);
+var
+  I: Integer;
+
+begin
+
+  LoadGridCustomization;
+
+  cxDateEditTSOP_ORDBILDATDOCINI.Date := System.DateUtils.StartOfAYear(1900);
+  cxDateEditTSOP_ORDBILDATDOCINI.Date := Date;
+  cxCanal.ItemIndex := 0;
+  //cxDateEditTSOP_ORDBILDATDOCFIM.Date := System.DateUtils.EndOfAYear(9999);
+
+  if not Fr_Brady.SalesRep then
+  begin
+    for I := 0 to cxGridContasDBTableContas.ColumnCount-1 do
+    begin
+      cxGridContasDBTableContas.Columns[I].VisibleForCustomization := True;
+      cxGridContasDBTableContas.Columns[I].Visible := True;
+    end;
+  end;
+
+end;
+
+procedure TFr_RelatorioRecuperacaoContas.LoadGridCustomization;
+begin
+
+  if System.IOUtils.TFile.Exists( MyDocumentsPath + '\' + Name + '_' + cxGridContasDBTableContas.Name + '.ini' ) then
+    cxGridContasDBTableContas.RestoreFromIniFile( MyDocumentsPath + '\' + Name + '_' + cxGridContasDBTableContas.Name + '.ini' );
+
+end;
+
+procedure TFr_RelatorioRecuperacaoContas.Mensagem(pMensagem: String);
+begin
+
+  cxLabelMensagem.Caption := pMensagem;
+  PanelSQLSplashScreen.Visible := not pMensagem.IsEmpty;
+  Update;
+  Application.ProcessMessages;
+
+end;
+
+end.

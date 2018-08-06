@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{D8C222B1-26F4-4EE6-B893-8768BFC031B1}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="BradyBrazil.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Brady.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="BradyDataImport.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="BradyBrazil">
+        <MSBuild Projects="BradyBrazil.dproj"/>
+    </Target>
+    <Target Name="BradyBrazil:Clean">
+        <MSBuild Projects="BradyBrazil.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="BradyBrazil:Make">
+        <MSBuild Projects="BradyBrazil.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Brady">
+        <MSBuild Projects="Brady.dproj"/>
+    </Target>
+    <Target Name="Brady:Clean">
+        <MSBuild Projects="Brady.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Brady:Make">
+        <MSBuild Projects="Brady.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="BradyDataImport">
+        <MSBuild Projects="BradyDataImport.dproj"/>
+    </Target>
+    <Target Name="BradyDataImport:Clean">
+        <MSBuild Projects="BradyDataImport.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="BradyDataImport:Make">
+        <MSBuild Projects="BradyDataImport.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="BradyBrazil;Brady;BradyDataImport"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="BradyBrazil:Clean;Brady:Clean;BradyDataImport:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="BradyBrazil:Make;Brady:Make;BradyDataImport:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

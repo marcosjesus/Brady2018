@@ -1,0 +1,10 @@
+    <tr style="height:21px">
+      <td style="padding:2px 3px;border-left-width:1px;border-left-style:solid;border-left-color:rgb(0,0,0);font-family:Arial;vertical-align:bottom;background-color:rgb(217,217,217)">Manaus</td>
+      <td style="padding:2px 3px;font-family:Arial;vertical-align:bottom;text-align:right;background-color:rgb(217,217,217)">0,00%</td>
+      <td style="padding:2px 3px;font-family:Arial;vertical-align:bottom;text-align:right;background-color:rgb(217,217,217)">42,72%</td>
+      <td style="padding:2px 3px;font-family:Arial;vertical-align:bottom;text-align:right;background-color:rgb(217,217,217)">33,48%</td>
+      <td style="padding:2px 3px;font-family:Arial;vertical-align:bottom;text-align:right;background-color:rgb(217,217,217)">26,66%</td>
+      <td style="padding:2px 3px;font-family:Arial;vertical-align:bottom;text-align:right;background-color:rgb(217,217,217)">28,30%</td>
+      <td style="padding:2px 3px;font-family:Arial;vertical-align:bottom;text-align:right;background-color:rgb(217,217,217)">0,00%</td>
+      <td style="padding:2px 3px;border-right-width:1px;border-right-style:solid;border-right-color:rgb(0,0,0);font-family:Arial;vertical-align:bottom;text-align:right;background-color:rgb(217,217,217)">0,00%</td>
+    </tr>

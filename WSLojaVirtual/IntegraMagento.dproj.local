@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2017/11/10 08:33:52.000.079,C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\IntegraMagento.dproj=C:\Users\K2-User\Documents\RAD Studio\Projects\Project3.dproj</Transaction>
+    <Transaction>2017/11/10 08:37:31.000.076,=C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\v2_soap.pas</Transaction>
+    <Transaction>2017/11/10 08:37:47.000.444,C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\WSMagento.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\v2_soap.pas</Transaction>
+    <Transaction>2017/12/12 11:39:26.000.325,C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\WSMagento.pas=</Transaction>
+    <Transaction>2017/12/12 11:40:08.000.626,=C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\v2_soap.pas</Transaction>
+    <Transaction>2017/12/12 11:40:29.000.592,C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\v2_soap.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\WSMagento.pas</Transaction>
+    <Transaction>2017/12/12 11:43:28.000.558,C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\WSMagento.pas=</Transaction>
+    <Transaction>2017/12/12 11:44:08.000.793,=C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\v2_soap.pas</Transaction>
+    <Transaction>2017/12/12 11:44:16.000.713,C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\v2_soap.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\WSMagento.pas</Transaction>
+    <Transaction>2017/12/12 11:44:37.000.027,C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\WSMagento.pas=</Transaction>
+    <Transaction>2017/12/12 11:44:51.000.854,=C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\Magento.pas</Transaction>
+    <Transaction>2017/12/12 11:45:24.000.835,C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\Magento.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\WSLojaVirtual\WSMagento.pas</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,319 @@
+object DB_Conect: TDB_Conect
+  OldCreateOrder = False
+  Height = 356
+  Width = 502
+  object FDConnection: TFDConnection
+    Params.Strings = (
+      'SERVER=ALUGACOM-PC\SqlExpress'
+      'User_Name=cte'
+      'Password=cte123'
+      'DATABASE=EntradaXML'
+      'ApplicationName=Brady'
+      'MARS=yes'
+      'LoginTimeout=300'
+      'DriverID=MSSQL')
+    Connected = True
+    LoginPrompt = False
+    Left = 47
+    Top = 25
+  end
+  object sqlAuxiliar: TFDQuery
+    Connection = FDConnection
+    Left = 48
+    Top = 80
+  end
+  object sqlAux: TFDQuery
+    Connection = FDConnection
+    Left = 48
+    Top = 152
+  end
+  object sqlAux180: TFDQuery
+    Connection = FDConnection
+    Left = 48
+    Top = 240
+  end
+  object sqlAux180Itens: TFDQuery
+    Connection = FDConnection
+    Left = 168
+    Top = 208
+  end
+  object sql155: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      '       SELECT '#39'|'#39' + REGISTRO + '#39'|'#39' as REGISTRO, '
+      '              CONTA + '#39'|'#39' AS CONTA,  '
+      '              CCUSTO + '#39'|'#39' AS CCUSTO, '
+      '              CONVERT(VARCHAR,SUM(VALOR1)) + '#39'|'#39'  AS VALOR1,'
+      '              TIPO1 + '#39'|'#39' AS TIPO1, '
+      '              CONVERT(VARCHAR,SUM(VALOR2)) + '#39'|'#39'  AS VALOR2,'
+      '              CONVERT(VARCHAR,SUM(VALOR3)) + '#39'|'#39'  AS VALOR3, '
+      '              CONVERT(VARCHAR,SUM(VALOR4)) + '#39'|'#39'  AS VALOR4, '
+      '              TIPO2 + '#39'|'#39' AS TIPO2 '
+      '       FROM SPCT_155  '
+      '        WHERE DT_INICIAL = :DT_INICIAL AND DT_FINAL = :DT_FINAL '
+      '       GROUP BY REGISTRO,CONTA, CCUSTO,TIPO1, TIPO2  ')
+    Left = 288
+    Top = 72
+    ParamData = <
+      item
+        Name = 'DT_INICIAL'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DT_FINAL'
+        DataType = ftString
+        ParamType = ptInput
+      end>
+    object sql155REGISTRO: TStringField
+      FieldName = 'REGISTRO'
+      Origin = 'REGISTRO'
+      ReadOnly = True
+      Size = 6
+    end
+    object sql155CONTA: TStringField
+      FieldName = 'CONTA'
+      Origin = 'CONTA'
+      ReadOnly = True
+      Size = 11
+    end
+    object sql155CCUSTO: TStringField
+      FieldName = 'CCUSTO'
+      Origin = 'CCUSTO'
+      ReadOnly = True
+      Size = 11
+    end
+    object sql155VALOR1: TStringField
+      FieldName = 'VALOR1'
+      Origin = 'VALOR1'
+      ReadOnly = True
+      Size = 31
+    end
+    object sql155TIPO1: TStringField
+      FieldName = 'TIPO1'
+      Origin = 'TIPO1'
+      ReadOnly = True
+      Size = 2
+    end
+    object sql155VALOR2: TStringField
+      FieldName = 'VALOR2'
+      Origin = 'VALOR2'
+      ReadOnly = True
+      Size = 31
+    end
+    object sql155VALOR3: TStringField
+      FieldName = 'VALOR3'
+      Origin = 'VALOR3'
+      ReadOnly = True
+      Size = 31
+    end
+    object sql155VALOR4: TStringField
+      FieldName = 'VALOR4'
+      Origin = 'VALOR4'
+      ReadOnly = True
+      Size = 31
+    end
+    object sql155TIPO2: TStringField
+      FieldName = 'TIPO2'
+      Origin = 'TIPO2'
+      ReadOnly = True
+      Size = 2
+    end
+  end
+  object sql250: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'SELECT  '#39'|'#39' + REGISTRO + '#39'|'#39' AS REGISTRO, '
+      '        CONTA + '#39'|'#39' AS CONTA,  '
+      '        CCUSTO + '#39'|'#39' AS CCUSTO, '
+      '        CONVERT(VARCHAR, VALOR1) + '#39'|'#39' AS VALOR1, '
+      '        TIPO1 + '#39'|'#39' AS TIPO1, '
+      '        CODIGO + '#39'|'#39' AS CODIGO,  '
+      '        BRANCO1 + '#39'|'#39' AS BRANCO1, '
+      '        DESCRICAO + '#39'|'#39' AS DESCRICAO,  '
+      '        BRANCO2 + '#39'|'#39' AS BRANCO2   '
+      'FROM SPCT_250  '
+      'WHERE   SPCT_200_ID = :SPCT_200_ID  '
+      'ORDER BY SPCT_250_ID ')
+    Left = 288
+    Top = 144
+    ParamData = <
+      item
+        Name = 'SPCT_200_ID'
+        DataType = ftInteger
+        ParamType = ptInput
+      end>
+    object sql250REGISTRO: TStringField
+      FieldName = 'REGISTRO'
+      Origin = 'REGISTRO'
+      ReadOnly = True
+      Size = 6
+    end
+    object sql250CONTA: TStringField
+      FieldName = 'CONTA'
+      Origin = 'CONTA'
+      ReadOnly = True
+      Size = 11
+    end
+    object sql250CCUSTO: TStringField
+      FieldName = 'CCUSTO'
+      Origin = 'CCUSTO'
+      ReadOnly = True
+      Size = 11
+    end
+    object sql250VALOR1: TStringField
+      FieldName = 'VALOR1'
+      Origin = 'VALOR1'
+      ReadOnly = True
+      Size = 31
+    end
+    object sql250TIPO1: TStringField
+      FieldName = 'TIPO1'
+      Origin = 'TIPO1'
+      ReadOnly = True
+      Size = 2
+    end
+    object sql250CODIGO: TStringField
+      FieldName = 'CODIGO'
+      Origin = 'CODIGO'
+      ReadOnly = True
+      Size = 41
+    end
+    object sql250BRANCO1: TStringField
+      FieldName = 'BRANCO1'
+      Origin = 'BRANCO1'
+      ReadOnly = True
+      Size = 41
+    end
+    object sql250DESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Origin = 'DESCRICAO'
+      ReadOnly = True
+      Size = 101
+    end
+    object sql250BRANCO2: TStringField
+      FieldName = 'BRANCO2'
+      Origin = 'BRANCO2'
+      ReadOnly = True
+      Size = 41
+    end
+  end
+  object sqlGeral: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'select * from SPCT_GERAL where 1 = 1')
+    Left = 288
+    Top = 216
+    object sqlGeralSPCT_GERAL_ID: TFDAutoIncField
+      FieldName = 'SPCT_GERAL_ID'
+      Origin = 'SPCT_GERAL_ID'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlGeralLINHA: TStringField
+      FieldName = 'LINHA'
+      Origin = 'LINHA'
+      Size = 500
+    end
+  end
+  object sql200: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'SELECT SPCT_200_ID,  '#39'|'#39' + REGISTRO + '#39'|'#39' AS REGISTRO, '
+      'NUMERO + '#39'|'#39' AS NUMERO,  '
+      'DATA + '#39'|'#39' AS DATA,  '
+      'CONVERT(VARCHAR,VALOR) + '#39'|'#39' AS VALOR,  '
+      'LETRA + '#39'|'#39' as LETRA  '
+      'FROM SPCT_200  '
+      'WHERE Numero = :Numero '
+      'Order by SPCT_200_ID ')
+    Left = 296
+    Top = 272
+    ParamData = <
+      item
+        Name = 'NUMERO'
+        DataType = ftString
+        ParamType = ptInput
+      end>
+    object sql200SPCT_200_ID: TFDAutoIncField
+      FieldName = 'SPCT_200_ID'
+      Origin = 'SPCT_200_ID'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sql200REGISTRO: TStringField
+      FieldName = 'REGISTRO'
+      Origin = 'REGISTRO'
+      ReadOnly = True
+      Size = 6
+    end
+    object sql200NUMERO: TStringField
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      ReadOnly = True
+      Size = 51
+    end
+    object sql200DATA: TStringField
+      FieldName = 'DATA'
+      Origin = 'DATA'
+      ReadOnly = True
+      Size = 11
+    end
+    object sql200VALOR: TStringField
+      FieldName = 'VALOR'
+      Origin = 'VALOR'
+      ReadOnly = True
+      Size = 31
+    end
+    object sql200LETRA: TStringField
+      FieldName = 'LETRA'
+      Origin = 'LETRA'
+      ReadOnly = True
+      Size = 2
+    end
+  end
+  object sql355: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      ' SELECT '#39'|'#39' + REGISTRO AS REGISTRO  ,'
+      '        '#39'|'#39' + CONTA  AS CONTA,'
+      '        '#39'|'#39' + CCUSTO  AS CCUSTO,'
+      '        '#39'|'#39' +  CONVERT(VARCHAR, VALOR) + '#39'|'#39' AS VALOR ,'
+      '        '#39'|'#39' + TIPO AS TIPO'
+      ' FROM SPCT_355'
+      ' ORDER BY SPCT_355_ID')
+    Left = 368
+    Top = 232
+    object sql355REGISTRO: TStringField
+      FieldName = 'REGISTRO'
+      Origin = 'REGISTRO'
+      ReadOnly = True
+      Size = 5
+    end
+    object sql355CONTA: TStringField
+      FieldName = 'CONTA'
+      Origin = 'CONTA'
+      ReadOnly = True
+      Size = 11
+    end
+    object sql355CCUSTO: TStringField
+      FieldName = 'CCUSTO'
+      Origin = 'CCUSTO'
+      ReadOnly = True
+      Size = 11
+    end
+    object sql355VALOR: TStringField
+      FieldName = 'VALOR'
+      Origin = 'VALOR'
+      ReadOnly = True
+      Size = 32
+    end
+    object sql355TIPO: TStringField
+      FieldName = 'TIPO'
+      Origin = 'TIPO'
+      ReadOnly = True
+      Size = 2
+    end
+  end
+end

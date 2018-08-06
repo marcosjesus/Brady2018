@@ -1,0 +1,943 @@
+object frmConsultaDocumento: TfrmConsultaDocumento
+  Left = 0
+  Top = 0
+  Caption = 'Consulta Documentos Fiscal ( NFe/CTe)'
+  ClientHeight = 508
+  ClientWidth = 937
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  OldCreateOrder = False
+  Position = poScreenCenter
+  Visible = True
+  WindowState = wsMaximized
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  DesignSize = (
+    937
+    508)
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 937
+    Height = 89
+    Align = alTop
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    object editCNPJ: TLabeledEdit
+      Left = 24
+      Top = 24
+      Width = 185
+      Height = 21
+      EditLabel.Width = 70
+      EditLabel.Height = 13
+      EditLabel.Caption = 'CNPJ Emitente'
+      TabOrder = 0
+    end
+    object EditDocumento: TLabeledEdit
+      Left = 24
+      Top = 59
+      Width = 185
+      Height = 21
+      EditLabel.Width = 88
+      EditLabel.Height = 13
+      EditLabel.Caption = 'Nr'#186' de Documento'
+      TabOrder = 1
+    end
+    object GroupBox1: TGroupBox
+      Left = 224
+      Top = 7
+      Width = 281
+      Height = 73
+      Caption = 'Data de Emiss'#227'o'
+      TabOrder = 2
+      object Label1: TLabel
+        Left = 24
+        Top = 24
+        Width = 53
+        Height = 13
+        Caption = 'Data Inicial'
+      end
+      object Label2: TLabel
+        Left = 151
+        Top = 24
+        Width = 48
+        Height = 13
+        Caption = 'Data Final'
+      end
+      object DataIni: TDateTimePicker
+        Left = 23
+        Top = 40
+        Width = 106
+        Height = 21
+        Date = 43025.455392349540000000
+        Time = 43025.455392349540000000
+        TabOrder = 0
+      end
+      object DataFim: TDateTimePicker
+        Left = 151
+        Top = 40
+        Width = 106
+        Height = 21
+        Date = 43025.455576562500000000
+        Time = 43025.455576562500000000
+        TabOrder = 1
+      end
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 89
+    Width = 937
+    Height = 359
+    Align = alClient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    object Page: TPageControl
+      Left = 1
+      Top = 1
+      Width = 935
+      Height = 357
+      ActivePage = TabNFe
+      Align = alClient
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      object TabNFe: TTabSheet
+        Caption = 'NF-e'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        object cxGrid1: TcxGrid
+          Left = 0
+          Top = 0
+          Width = 927
+          Height = 329
+          Align = alClient
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          PopupMenu = PopupMenu1
+          TabOrder = 0
+          object cxGrid1DBTableView1: TcxGridDBTableView
+            OnDblClick = cxGrid1DBTableView1DblClick
+            Navigator.Buttons.CustomButtons = <>
+            DataController.DataSource = dsConsultaNFE
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            OptionsData.CancelOnExit = False
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Editing = False
+            OptionsData.Inserting = False
+            object cxGrid1DBTableView1Numero: TcxGridDBColumn
+              Caption = 'Nr'#186' Documento'
+              DataBinding.FieldName = 'Numero'
+              Width = 88
+            end
+            object cxGrid1DBTableView1Serie: TcxGridDBColumn
+              Caption = 'S'#233'rie'
+              DataBinding.FieldName = 'Serie'
+              Width = 40
+            end
+            object cxGrid1DBTableView1Valor: TcxGridDBColumn
+              Caption = 'Valor R$'
+              DataBinding.FieldName = 'Valor'
+              Width = 100
+            end
+            object cxGrid1DBTableView1dhEmi: TcxGridDBColumn
+              Caption = 'Data de Emiss'#227'o'
+              DataBinding.FieldName = 'dhEmi'
+              Width = 132
+            end
+            object cxGrid1DBTableView1NatOp: TcxGridDBColumn
+              Caption = 'Natureza de Opera'#231#227'o'
+              DataBinding.FieldName = 'NatOp'
+              Width = 300
+            end
+            object cxGrid1DBTableView1CNPJEmitente: TcxGridDBColumn
+              Caption = 'CNPJ Emitente'
+              DataBinding.FieldName = 'CNPJEmitente'
+              Width = 95
+            end
+            object cxGrid1DBTableView1Emitente: TcxGridDBColumn
+              Caption = 'Raz'#227'o Social Emitente'
+              DataBinding.FieldName = 'Emitente'
+              Width = 140
+            end
+            object cxGrid1DBTableView1DESC_PLANTA: TcxGridDBColumn
+              Caption = 'Planta'
+              DataBinding.FieldName = 'DESC_PLANTA'
+              Width = 55
+            end
+            object cxGrid1DBTableView1CNPJDEstinatario: TcxGridDBColumn
+              Caption = 'CNPJ Destinatario'
+              DataBinding.FieldName = 'CNPJDEstinatario'
+              Width = 95
+            end
+            object cxGrid1DBTableView1Destinatario: TcxGridDBColumn
+              Caption = 'Raz'#227'o Social Destinatario'
+              DataBinding.FieldName = 'Destinatario'
+              Width = 140
+            end
+            object cxGrid1DBTableView1CHAVE: TcxGridDBColumn
+              Caption = 'Chave'
+              DataBinding.FieldName = 'CHAVE'
+              Width = 279
+            end
+            object cxGrid1DBTableView1Observacao: TcxGridDBColumn
+              Caption = 'Observa'#231#227'o'
+              DataBinding.FieldName = 'Observacao'
+            end
+          end
+          object cxGrid1Level1: TcxGridLevel
+            GridView = cxGrid1DBTableView1
+          end
+        end
+      end
+      object TabCTe: TTabSheet
+        Caption = 'CT-e'
+        ImageIndex = 1
+        object cxGrid2: TcxGrid
+          Left = 0
+          Top = 0
+          Width = 927
+          Height = 329
+          Align = alClient
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          PopupMenu = PopupMenu2
+          TabOrder = 0
+          object cxGrid2DBTableView1: TcxGridDBTableView
+            OnDblClick = cxGrid2DBTableView1DblClick
+            Navigator.Buttons.CustomButtons = <>
+            DataController.DataSource = dsConsultaCTE
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            OptionsData.CancelOnExit = False
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Editing = False
+            OptionsData.Inserting = False
+            object cxGrid2DBTableView1Numero: TcxGridDBColumn
+              Caption = 'Nr'#186' Documento'
+              DataBinding.FieldName = 'Numero'
+              Width = 88
+            end
+            object cxGrid2DBTableView1Serie: TcxGridDBColumn
+              Caption = 'S'#233'rie'
+              DataBinding.FieldName = 'Serie'
+              Width = 40
+            end
+            object cxGrid2DBTableView1Valor: TcxGridDBColumn
+              Caption = 'Valor R$'
+              DataBinding.FieldName = 'Valor'
+              Width = 100
+            end
+            object cxGrid2DBTableView1dhEmi: TcxGridDBColumn
+              Caption = 'Data de Emiss'#227'o'
+              DataBinding.FieldName = 'dhEmi'
+              Width = 132
+            end
+            object cxGrid2DBTableView1NatOp: TcxGridDBColumn
+              Caption = 'Natureza da Opera'#231#227'o'
+              DataBinding.FieldName = 'NatOp'
+              Width = 300
+            end
+            object cxGrid2DBTableView1CNPJEmitente: TcxGridDBColumn
+              Caption = 'CNPJ Emitente'
+              DataBinding.FieldName = 'CNPJEmitente'
+              Width = 95
+            end
+            object cxGrid2DBTableView1Emitente: TcxGridDBColumn
+              Caption = 'Raz'#227'o Social Emitente'
+              DataBinding.FieldName = 'Emitente'
+              Width = 140
+            end
+            object cxGrid2DBTableView1DESC_PLANTA: TcxGridDBColumn
+              Caption = 'Planta'
+              DataBinding.FieldName = 'DESC_PLANTA'
+              Width = 55
+            end
+            object cxGrid2DBTableView1CNPJDestinatario: TcxGridDBColumn
+              Caption = 'CNPJ Destinatario'
+              DataBinding.FieldName = 'CNPJDestinatario'
+              Width = 95
+            end
+            object cxGrid2DBTableView1Destinatario: TcxGridDBColumn
+              Caption = 'Razao Social Destinatario'
+              DataBinding.FieldName = 'Destinatario'
+              Width = 140
+            end
+            object cxGrid2DBTableView1CNPJTomador: TcxGridDBColumn
+              Caption = 'CNPJ Tomador'
+              DataBinding.FieldName = 'CNPJTomador'
+              Width = 95
+            end
+            object cxGrid2DBTableView1Tomador: TcxGridDBColumn
+              Caption = 'Razao Social Tomador'
+              DataBinding.FieldName = 'Tomador'
+              Width = 140
+            end
+            object cxGrid2DBTableView1CHAVE: TcxGridDBColumn
+              Caption = 'Chave'
+              DataBinding.FieldName = 'CHAVE'
+            end
+            object cxGrid2DBTableView1Observacao: TcxGridDBColumn
+              Caption = 'Observa'#231#227'o'
+              DataBinding.FieldName = 'Observacao'
+            end
+          end
+          object cxGrid2Level1: TcxGridLevel
+            GridView = cxGrid2DBTableView1
+          end
+        end
+      end
+    end
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 489
+    Width = 937
+    Height = 19
+    Panels = <>
+  end
+  object Panel3: TPanel
+    Left = 0
+    Top = 448
+    Width = 937
+    Height = 41
+    Align = alBottom
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    object ButPesquisar: TcxButton
+      Left = 5
+      Top = 3
+      Width = 96
+      Height = 34
+      Hint = 'Pesquisar'
+      Caption = ' &Consultar'
+      LookAndFeel.Kind = lfOffice11
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2007Blue'
+      OptionsImage.Glyph.Data = {
+        F6060000424DF606000000000000360000002800000018000000180000000100
+        180000000000C0060000120B0000120B00000000000000000000FF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF02558E0B5B
+        890B669802558EFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        086EA919749C0505050202020D344605649DFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FF02558E1597D523BDFE3C7A88EEB47A664F3A00000016475FFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FF035B930973AF23BDFE23BDFE3C7A88FFBF81FFBF8134291F0A
+        0D0F176A9DFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FF004B820E81BD23BDFE0E81BD24BDFE30C1FE3A8EADEEB4
+        7AFFBF81987452020202417EA0FF00FFFF00FF00386C186C9F004B82FF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FF05649D1AA6E523BDFE26BFFE137DB658CEFF
+        7AD8FF99E0FF97846CFFBF81BF9167020202377598004B822C81B14A87A40B0D
+        0F0D1F2905578BFF00FFFF00FFFF00FFFF00FF0973AF23BDFE2AC0FE41C7FE64
+        D0FF2B84B696D9F7C2EDFFDCF4FFE1EAEF907F6C694F371D34402076A768C5EE
+        60D0FF437481866749010101071924004B82FF00FF02558E096CA631C2FE4DCA
+        FE6FD4FF90DDFFAFE7FFABD8EE3E86AFF2FBFFEBF8FFD3F2FFA9DEF74392BF05
+        7EB23DB1E637C4FE27BFFE3C7A88FFBF8152402E010101044169055D961F93CE
+        359ACE7AD8FF9AE1FFB8EAFFD4F2FFEAF8FFF2FBFF1B86B41984B44BA5CC2D84
+        B4046FA400588F0198CB1CA6E523BDFE23BDFE1C84ACEEB47ABF91670000000D
+        5882004B827BD1F72376A7C2EDFFDDF4FFEFFAFFEFFAFFDCF4FFBFEBFF77C2E6
+        0D84B80189BD0179AF0198CB006BA10193C613A5E123BDFE23BDFE23BDFE6D7A
+        6CBF91670000000B527B004B82CBEFFF6AA5C6609DBFEBF8FFD1F0FFB4E7FF95
+        DEFF75D5FF55CCFF36C4FE0E8BC7015A92017FB4006298018EC10388BF23BDFE
+        23BDFE23BDFE23B2EE3B666C02203102558E004B8272A9C6C2E0EE1767981365
+        9849A1CE46A6D549C9FE2FC1FE24BDFE23BDFE23BDFE1FB6F60E86C20277AD01
+        89BD018EC10A91CA1FB6F60F96D40679B5005B9500386CFF00FFFF00FF004B82
+        004B82FF00FFFF00FF04568E158AC51390CE1390CE1FB6F623BDFE23BDFE23BD
+        FE23BDFE1FB6F61390CE005187005B8F00386CFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF04629A1597D50973AF
+        0E81BD0A88C40679B501659E00518800386CFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FF005991016099004A80FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
+      OptionsImage.Margin = 5
+      TabOrder = 0
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      OnClick = ButPesquisarClick
+    end
+    object cxButton3: TcxButton
+      Left = 108
+      Top = 3
+      Width = 104
+      Height = 34
+      Hint = 'Exportar para Excel (Alt+E)'
+      Caption = '   &Exportar'
+      LookAndFeel.Kind = lfOffice11
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2007Blue'
+      OptionsImage.Glyph.Data = {
+        36090000424D3609000000000000360000002800000018000000180000000100
+        2000000000000009000000000000000000000000000000000000000000090312
+        086B1E542ED771A680D2274F3398081F0E6001060328020202140808082E0202
+        0212000000030000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000184927CA1467
+        2EFF1E793BFEC2E5CDFFB0D8BFFFB4DAC2FFAADBB9FEA4CEB3F8E7EDECFABEC0
+        C0E5848585BF4B4C4C8E1D1D1D590707072A0101010D00000002000000000000
+        00000000000000000000000000000000000000000000000000000F4D23D61C78
+        3AFF208843FFB3DDC0FF7FCB9FFF87D9ABFF82DCA9FFA2D9BBFFFEFFFFFFF8FB
+        F9FFFFFFFFFFFFFFFFFFFDFEFEFEEEF0F0FABBBDBDE27E7F7FB9424343861717
+        1751040404220000000800000000000000000000000000000000115126D42080
+        41FF259149FFB1DBBFFF78C899FF80D6A6FF85DFAEFFAFE3C8FFFBFDFCFF8ECE
+        A9FFA5DCBCFFADDABEFFB1DCBFFFE6F3E9FFF7FBF9FFFCFEFDFFFFFFFFFFFEFF
+        FFFFE8ECECF9B0B4B3DD6E7271B03437367A0F10104501010111125227D32384
+        44FF28954DFFB2DABFFF72C493FF78D19EFF7EDAA7FFB2E1C9FFF2F9F5FF78C9
+        9EFF86D5ACFF79C99CFF64B883FFCBE4D2FFC5E5D2FF9EDBB9FFA6D9BAFFAEDB
+        BDFFEDF6F0FFEFF7F2FFF9FCFAFFFEFFFFFFF8FCFCFE4D52518F135127D12485
+        45FF2A964EFFB2DABFFF6ABE8BFF70CA95FF74D49EFFB6E1CBFFE8F4EDFF8CD9
+        B4FF8ED8B0FF89D2A8FF7DC598FFD9EADEFFB3DEC7FF86D6AEFF7CCC9FFF63B7
+        82FFE0EEE4FFB8E2CBFF95D7B2FF95D0ABFFC7E6D1FF4B4F4E89145229D02685
+        47FF2B9850FFB2D9BFFF62B783FF67C38CFF6ACC93FFBBE0CDFFF4FAF6FFD5F0
+        E0FFCFEBDAFFCBEAD6FFC6E6D0FFEBF4EDFFB9E6CFFFA0E1BFFF9ADAB5FF92D0
+        A8FFECF5EFFFA9DEC3FF86D6ACFF73C594FFACD4BAFF41464580155229CF2887
+        49FF2C9951FFB1D9BFFF5AB07AFF5EBB82FF60C388FFC1E1D0FFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4FAF6FFE3F2E9FFDDF0E4FFD8ED
+        DEFFF9FBF9FFC1E8D4FFAAE0C2FFABDFBFFFD2EADBFF383C3B7716532ACF2A88
+        4AFF2E9A53FFB1D8BEFF52A872FF56B379FF57BA7EFFC9E3D6FFF8FBF9FFF7FB
+        F8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5F9F6FFC7E0CFFFD9E6DDFFF2F6
+        F3FFFFFFFFFFFEFEFEFFFFFFFFFFF8FDFCFFF2FBF9FF2F33326E17522BCE2C89
+        4CFF309B54FFB2D8BFFF4CA26BFF51AD73FF51B376FFD3E7DDFFF8FBF9FFADDD
+        C0FF9CD7B5FF82C69FFF8CC8A5FF98C9AAFF509C68FF228B45FF2C8349FF79B2
+        89FFF1F4F1FFA6DABDFFA0DAB9FF9ED4B2FFCAE9D7FF2A2D2C6518542DCF2E8A
+        4EFF319D56FFB2D7BFFF489D67FF52AA72FF52AE74FFDEECE6FFFFFFFFFFF0F7
+        F3FFA6DCBEFF91DAB5FF75C99CFF31874FFF1C793CFF277F46FF66A278FFEDF3
+        EEFFFFFFFFFF8FD4B1FF83D3A8FF6EC18FFFB3DAC3FF2023235B1A552DCF308B
+        50FF329E57FFB2D6BEFF449962FF51A770FF4FA76FFFEAF3EFFFFFFFFFFFFFFF
+        FFFFE3F1E8FF97D5B2FF398F58FF288347FF338951FF599B6FFF53AA71FFC4E4
+        CDFFFFFFFFFFA2DFC0FF9FDCBAFFAEE2C2FFD1ECDEFF1B1D1D521C5730D1328D
+        52FF34A059FFB1D5BDFF449861FF54A872FF51A46FFFF4F9F8FFFFFFFFFFFFFF
+        FFFFF8FBF9FF509566FF1D7E3EFF228142FF489160FFCBDFD1FFDAECDFFFD5E9
+        DAFFFFFFFFFFFFFFFFFFF9FCFAFFECF5EFFFEDF9F5FF151616481D5931D3348E
+        54FF35A25AFFAED3BBFF449962FF5BAD78FF5BA877FFF9FDFCFFFFFFFFFFF9FB
+        FAFF5F9F73FF208241FF228444FF43915DFF5FB280FF85BF99FFFDFEFEFFFFFF
+        FFFFFFFFFFFFADDDC1FFACDCC0FF9ED4B1FFD5EEE1FF111212401F5A33D5368F
+        56FF35A45AFFAED3BBFF48A168FF68B786FF6DB388FFFBFEFEFFF9FBFAFF7BB7
+        8CFF459860FF48A266FF50A26AFF8EC2A0FF68BB89FF5DB27DFFA8D2B5FFFFFF
+        FFFFFDFEFEFF7ECDA4FF80D0A5FF69BC89FFCAE6D7FF0D0E0E37205C34D73891
+        58FF39A75DFFB2D7BFFF48A76BFF7AC599FF83C29EFFFCFEFEFFDBE9DEFFACD1
+        B6FFA5CAB0FF9FCFAEFFDBECE0FFFBFDFBFF9BC9ABFF8FC4A1FF8DCB9FFFEAF3
+        ECFFFAFDFBFF94DCB8FF9FDEBBFFABE0BFFFDDF0E7FF090A0A2D225D35D83A92
+        59FF42A965FFB9DFC6FF42AB69FF8FD3AEFF98CEB2FFFCFEFEFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFEFEFEFFE9F6EEFFE7F3EBFFE4F0E8FFEAF6F3FE07070724225C36D83C92
+        5BFF4BA86CFFC3EBCFFF40AF68FF9EDEBFFFA8D7C0FFE2F1ECFFE6F3EDFFE3F2
+        EAFFDFEFE6FFDBEDE3FFD7EBE0FFD3E9DCFFCEE7D8FFC9E5D4FFC2E0CEFFB9DB
+        C6FFADD4BDFFAACFB8FFA9BCB1DB616464964F55548F0101010D225232C74A99
+        66FF46A167FF98D9ADFF8ED3A7FF92DDB6FFABE5C9FFA0DDBDFF92D3ADFF83C8
+        9EFF78C193FF74BF8FFF6FBC8AFF68B885FF61B37EFF58AF77FF4FA96FFF3F9F
+        61FF298E4DFF2D884EFF496E54AA000000000000000000000000102C1A95398A
+        56FF459E66FF5FB97EFFD6F1DFFF7DD69FFFB8EAD1FFACE1C4FF9CD7B4FF8DCD
+        A5FF81C59AFF7CC295FF77BF91FF70BB8BFF69B685FF60B17DFF56AC75FF45A0
+        66FF2C8D4EFF298449FF50785BB200000000000000000000000002060436337F
+        4DFE419660FF49A36AFF7FCC99FFD6F0DFFF82CE9FFFA1D9B8FFA2D6B6FF93CC
+        A8FF87C59DFF84C39AFF7FC096FF78BC90FF70B78AFF68B283FF5DAC79FF4CA0
+        6AFF2D8A4EFF2A8149FF567E63B900000000000000000000000000000000112D
+        1A96378553FF429661FF48A068FF73C48EFFC8EDD3FFBCDDC8FF9FCEB0FF92C5
+        A5FF8AC09DFF85BD99FF81BA95FF79B78FFF72B389FF68AC80FF5FA779FF4E9C
+        6AFF358A53FF3A8855FF668A71C0000000000000000000000000000000000000
+        00030F27188D337C4DFB3C8C59FF41935FFF4BA169FF58B476FF74C48DFF80CA
+        97FF85CD9BFF8AD09FFF8FD3A4FF94D5A8FF97D6AAFF9AD8ADFF9BD9AEFF9CD9
+        AFFF9EDAB0FFB1E3C0FF6C9077C7000000000000000000000000000000000000
+        000000000000010302260E241685255335C536744BE732784AF032794BF1347A
+        4DF4347C4DF6357D4EF8357E4EFA35804FFB35804FFB35804FFB35804FFD3980
+        51FD337148F00F26168E0102011F000000000000000000000000}
+      OptionsImage.Margin = 5
+      TabOrder = 1
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      OnClick = cxButton3Click
+    end
+    object btnLimpar: TcxButton
+      Left = 217
+      Top = 3
+      Width = 112
+      Height = 34
+      Hint = 'Limpar &Filtro (Alt + F)'
+      Caption = '   &Limpar Filtro'
+      LookAndFeel.Kind = lfOffice11
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2007Blue'
+      OptionsImage.Glyph.Data = {
+        76060000424D7606000000000000360400002800000018000000180000000100
+        08000000000040020000220B0000220B00000001000000000000EFA53900EFA5
+        5200FFB55200E7AD6B00F7BD6B00AD7B7300AD847300B5847300AD7B7B00AD73
+        84009C7B8400A57B8400AD7B8400B57B8400B5848400BD848400E7B58400BD84
+        8C00C68C8C00CE948C00DEA58C00EFC68C00F7C68C00D6949400D69C9400DE9C
+        9400DEA59400E7A59400B5AD9400EFCE9400B5AD9C00EFCE9C00F7CE9C00F7D6
+        9C00CEADA500BDB5A500DEC6A500EFCEA500F7CEA500F7D6A500CEBDAD00D6C6
+        AD00F7D6AD00F7D6B500F7DEB500DEC6BD00E7CEBD00EFD6BD00F7DEBD00E7CE
+        C600EFCEC600EFD6C600EFDEC600F7DEC600F7E7C600FFE7C600E7D6CE00E7DE
+        CE00F7DECE00F7E7CE00FFE7CE00E7D6D600EFDED600F7E7D600FFE7D600FFEF
+        D600EFDEDE00F7E7DE00F7EFDE00FFEFDE00F7EFE700FFEFE700FFF7E700F7EF
+        EF00FFF7EF00FFF7F700FFFFF700FF00FF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF004D4D4D080E0E
+        0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E4D4D4D4D4D093436302C2B2A271F1F1D
+        1D1D1D1D1D1D1D0E4D4D4D4D4D09343635302B2A2A251F1F1D1D1D1D1D1D1D0E
+        4D4D4D4D4D093A3B3535302B2A2A251F1F1D1D1D1D1D1D0E4D4D4D4D4D093B3F
+        3B3530302B2A2A251F1F1D1D1D1D1D0E4D4D4D4D4D093F443F3B3535302B2A2A
+        251F1F1D1D1D1D0E4D4D4D4D4D0C43443F3B3B3535302B2A2A251F1F1D1D1D0E
+        4D4D4D4D4D0D4646443F3B3B3530302B2A2A251F1F1D1D0E4D4D4D4D4D0E464A
+        46443F3F3B3530302B2A2A251F1F1D0E4D4D4D4D4D0F494A4646443F3B3B3530
+        302B2A2A251F1D0E4D4D4D4D4D114B4C4A4646443F3B3B3535302B2A2A251F0E
+        4D4D4D4D4D124B4E4B4A4646443F3B3B3530302B2A2A250E4D4D4D4D4D124B4E
+        4E4B4A4646443F3B3B3530302B2A250E4D4D4D4D4D124B4E4E4E4B4A4646443F
+        3B3B3530302B2A0E4D4D4D4D4D134B4E4E4E4E4B4A4646443F3B3B353030240B
+        4D4D4D4D4D134B4E4E4E4E4E4B4A4646443F3B3B2F281C0A4D4D4D4D4D184B4E
+        4E4E4E4E4E4B4A464444443928231E0A4D4D4D4D4D184B4E4E4E4E4E4E4E4B4A
+        483E0706050505054D4D4D4D4D1A4B4E4E4E4E4E4E4E4C4B4A3107100301000E
+        4D4D4D4D4D1A4B4E4E4E4E4E4E4E4E4E4C31071504020E4D4D4D4D4D4D1A4B4E
+        4E4E4E4E4E4E4E4E4E380715040E4D4D4D4D4D4D4D1A4E4E4E4E4E4E4E4E4E4E
+        4E3D07150E4D4D4D4D4D4D4D4D142E2F2F322E2E2E2E2D2D2D22070E4D4D4D4D
+        4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D4D}
+      OptionsImage.Margin = 5
+      TabOrder = 2
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -10
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      OnClick = btnLimparClick
+    end
+    object ButSair: TcxButton
+      Left = 333
+      Top = 3
+      Width = 100
+      Height = 34
+      Hint = 'Sair (Alt+S)'
+      Caption = '   &Sair'
+      LookAndFeel.Kind = lfOffice11
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2007Blue'
+      OptionsImage.Glyph.Data = {
+        F6060000424DF606000000000000360000002800000018000000180000000100
+        180000000000C0060000120B0000120B00000000000000000000FF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFDFB096EFD7CBFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFC1693AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFD1916FCC8661FF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFE6C3B0B95C2BE5C2B0FF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFBC5E
+        2DC27147FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFC67B53C26131E4C1AFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFD3997BCA6635C37953FF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFDBAD95CF6837BC5F31FF
+        00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFDBAD
+        95CC6A3AC7683BE3C0AFCE6C34CE6C34CE6C34CE6C34CE6C34CE6C34CE6C34CE
+        6C34CE6C34CE6C34CE6C34CE6C34FF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFFF00FFDAAC95CB6D3FD07345D4A187CE6C34E67F44E57E43E57D42E57D
+        42E47C41E47A40E3793FE2773EDB723BC96F3DF4E2D8FF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFFF00FFDAAC95D17446D87D50C5815FCC6A33E88044
+        E27E3CE27D3BE17C3AE07A39E07939E5793DDE743BCA703DF4E2D8FF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFD1977BD2784CDC8357C4
+        805FCB6933E77D41DE7936DE7836DD7735DD7635E3783CDE743BCA6F3DF4E2D8
+        FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFBF6F
+        48DC8357DB845BC47F5EC96832E67B3FDD7634DC7533DC7432DE7435E3763CCB
+        6833E4BBA4FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+        FF00FFECD6CABE653AE2885DD27C53C88A6CC86732E67D44DC7839DC7738DE76
+        38DA7334E0753ADD733DC66C3DF3E2D8FF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFFF00FFFF00FFFF00FFC6825FD47E54E28B60C7734AD6A994C66631E57D44
+        DD7A3DE37B43E47B43DD783DDB773CE27841D56E3AC36A3BF3E1D8FF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFD4A087C26C41E18A60E18C64BA653DF0
+        DFD7C56430E57A43E37942DD743FD6703BE27840DA753BD9743AE1763FD76E3A
+        BF602EDCAE95FF00FFFF00FFFF00FFFF00FFFF00FFCF977ABD663BDE895FE08A
+        60D78760BA6C47FF00FFC36330E37942DC733EC66C3DC56B3DDB723DE0763ED9
+        7239D87139DF733DDD7340C96838BF693CCD8E6DDAAC95C78260B85E32CA744A
+        DF895FDD8358E08E66BF6D45E0BEAFFF00FFC1622FDB723DC46B3DF3E1D8E6C3
+        B0BF602EDA703CDF743DD87039D66F37DA713CE07A48DE7D4DD6794BD17649D8
+        8055DF875CE0865AD97A4CE18C63CB7B56C17E5EFF00FFFF00FFBD5F2EC46A3D
+        F3E1D8FF00FFFF00FFEED7CBC1683BCF6837E07541DD7440D66E39D46B36D770
+        3CD97543DA7746D97646D6713FD97A4CDF8B63CE7F5ABE7654FF00FFFF00FFFF
+        00FFBE6739F2E1D8FF00FFFF00FFFF00FFFF00FFFF00FFC98461C06132D47243
+        DF7C4DDF7D4DDC7A49DA7847DA7949DD8053E08A61D78760BF6D45BC7350FF00
+        FFFF00FFFF00FFFF00FFF2E1D8FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+        00FFEDD6CAC78260B85D30C3693DCF764BD0784ED07A50C7734ABA653DBA6C47
+        E0BFAEFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+        FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFE7CABCD8AA94D7AA94D7AA94DB
+        B4A1F0DFD7FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
+      OptionsImage.Margin = 5
+      TabOrder = 3
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      OnClick = ButSairClick
+    end
+    object cxButton1: TcxButton
+      Left = 900
+      Top = 3
+      Width = 32
+      Height = 34
+      Caption = ' ?'
+      LookAndFeel.Kind = lfOffice11
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2007Blue'
+      OptionsImage.Margin = 5
+      TabOrder = 4
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 14
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      OnClick = cxButton1Click
+    end
+  end
+  object pnlDica: TPanel
+    Left = 300
+    Top = 2
+    Width = 801
+    Height = 146
+    Anchors = [akTop]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    Visible = False
+    object Memo1: TMemo
+      Left = 1
+      Top = 42
+      Width = 799
+      Height = 103
+      Align = alClient
+      Color = clBlue
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = 16
+      Font.Name = #39#39
+      Font.Style = [fsBold]
+      Lines.Strings = (
+        
+          '1) Clique com o bot'#227'o direito em  cima do documento desejado e c' +
+          'lique em Copiar Chave.'
+        ''
+        
+          '2) Com Duplo-clique o sistema ir'#225' abrir a pagina https://www.dan' +
+          'feonline.com.br.'
+        ''
+        
+          '3) Ao abrir a pagina, cole com CTRL-V ou bot'#227'o direito (Paste/Co' +
+          'lar) no campo indicado referente ao numero do chave.')
+      ParentFont = False
+      TabOrder = 0
+      ExplicitTop = 48
+    end
+    object Panel4: TPanel
+      Left = 1
+      Top = 1
+      Width = 799
+      Height = 41
+      Align = alTop
+      Caption = 'Consultar Documento na WEB'
+      Color = clNavy
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = 16
+      Font.Name = #39#39#39
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 1
+      ExplicitLeft = 153
+      ExplicitTop = 22
+    end
+  end
+  object sqlConsultaNFE: TFDQuery
+    Connection = Dados.FDConnection
+    SQL.Strings = (
+      'Select * from VW_NFE Where 1=2')
+    Left = 181
+    Top = 250
+    object sqlConsultaNFETipoXML: TStringField
+      FieldName = 'TipoXML'
+      Origin = 'TipoXML'
+      Size = 4
+    end
+    object sqlConsultaNFENumero: TStringField
+      FieldName = 'Numero'
+      Origin = 'Numero'
+      Size = 10
+    end
+    object sqlConsultaNFESerie: TStringField
+      FieldName = 'Serie'
+      Origin = 'Serie'
+      Size = 2
+    end
+    object sqlConsultaNFENatOp: TStringField
+      FieldName = 'NatOp'
+      Origin = 'NatOp'
+      Size = 100
+    end
+    object sqlConsultaNFEdhEmi: TSQLTimeStampField
+      FieldName = 'dhEmi'
+      Origin = 'dhEmi'
+    end
+    object sqlConsultaNFECNPJEmitente: TStringField
+      FieldName = 'CNPJEmitente'
+      Origin = 'CNPJEmitente'
+      Size = 14
+    end
+    object sqlConsultaNFEEmitente: TStringField
+      FieldName = 'Emitente'
+      Origin = 'Emitente'
+      Size = 100
+    end
+    object sqlConsultaNFECNPJDEstinatario: TStringField
+      FieldName = 'CNPJDEstinatario'
+      Origin = 'CNPJDEstinatario'
+      Size = 14
+    end
+    object sqlConsultaNFEDestinatario: TStringField
+      FieldName = 'Destinatario'
+      Origin = 'Destinatario'
+      Size = 100
+    end
+    object sqlConsultaNFECHAVE: TStringField
+      FieldName = 'CHAVE'
+      Origin = 'CHAVE'
+      Size = 44
+    end
+    object sqlConsultaNFEValor: TBCDField
+      FieldName = 'Valor'
+      Origin = 'Valor'
+      DisplayFormat = '##,##0.00'
+      Precision = 18
+      Size = 2
+    end
+    object sqlConsultaNFEDESC_PLANTA: TStringField
+      FieldName = 'DESC_PLANTA'
+      Origin = 'DESC_PLANTA'
+      Size = 30
+    end
+    object sqlConsultaNFEObservacao: TStringField
+      FieldName = 'Observacao'
+      Origin = 'Observacao'
+      ReadOnly = True
+      Size = 17
+    end
+  end
+  object sqlConsultaCTE: TFDQuery
+    Connection = Dados.FDConnection
+    SQL.Strings = (
+      'Select * from VW_CTE where 1=2')
+    Left = 229
+    Top = 210
+    object sqlConsultaCTETipoXML: TStringField
+      FieldName = 'TipoXML'
+      Origin = 'TipoXML'
+      Size = 4
+    end
+    object sqlConsultaCTENumero: TStringField
+      FieldName = 'Numero'
+      Origin = 'Numero'
+      Size = 10
+    end
+    object sqlConsultaCTESerie: TStringField
+      FieldName = 'Serie'
+      Origin = 'Serie'
+      Size = 2
+    end
+    object sqlConsultaCTENatOp: TStringField
+      FieldName = 'NatOp'
+      Origin = 'NatOp'
+      Size = 100
+    end
+    object sqlConsultaCTEdhEmi: TSQLTimeStampField
+      FieldName = 'dhEmi'
+      Origin = 'dhEmi'
+    end
+    object sqlConsultaCTECNPJEmitente: TStringField
+      FieldName = 'CNPJEmitente'
+      Origin = 'CNPJEmitente'
+      Size = 14
+    end
+    object sqlConsultaCTEEmitente: TStringField
+      FieldName = 'Emitente'
+      Origin = 'Emitente'
+      Size = 100
+    end
+    object sqlConsultaCTECNPJDestinatario: TStringField
+      FieldName = 'CNPJDestinatario'
+      Origin = 'CNPJDestinatario'
+      Size = 14
+    end
+    object sqlConsultaCTEDestinatario: TStringField
+      FieldName = 'Destinatario'
+      Origin = 'Destinatario'
+      Size = 100
+    end
+    object sqlConsultaCTECNPJTomador: TStringField
+      FieldName = 'CNPJTomador'
+      Origin = 'CNPJTomador'
+      Size = 14
+    end
+    object sqlConsultaCTETomador: TStringField
+      FieldName = 'Tomador'
+      Origin = 'Tomador'
+      Size = 100
+    end
+    object sqlConsultaCTECHAVE: TStringField
+      FieldName = 'CHAVE'
+      Origin = 'CHAVE'
+      Size = 44
+    end
+    object sqlConsultaCTEValor: TBCDField
+      FieldName = 'Valor'
+      Origin = 'Valor'
+      DisplayFormat = '##,##0.00'
+      Precision = 18
+      Size = 2
+    end
+    object sqlConsultaCTEDESC_PLANTA: TStringField
+      FieldName = 'DESC_PLANTA'
+      Origin = 'DESC_PLANTA'
+      Size = 30
+    end
+    object sqlConsultaCTEObservacao: TStringField
+      FieldName = 'Observacao'
+      Origin = 'Observacao'
+      ReadOnly = True
+      Size = 17
+    end
+  end
+  object dsConsultaNFE: TDataSource
+    DataSet = sqlConsultaNFE
+    Left = 133
+    Top = 282
+  end
+  object dsConsultaCTE: TDataSource
+    DataSet = sqlConsultaCTE
+    Left = 221
+    Top = 290
+  end
+  object SaveDialog: TSaveDialog
+    Left = 549
+    Top = 218
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 349
+    Top = 258
+    object CopiarChaveNFe1: TMenuItem
+      Caption = 'Copiar Chave NF-e'
+      OnClick = CopiarChaveNFe1Click
+    end
+  end
+  object PopupMenu2: TPopupMenu
+    Left = 461
+    Top = 266
+    object CopiarChaveCTe1: TMenuItem
+      Caption = 'Copiar Chave CT-e'
+      OnClick = CopiarChaveCTe1Click
+    end
+  end
+end

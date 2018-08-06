@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2014/06/16 11:38:15.000.888,=C:\Users\Rafael\Documents\RAD Studio\Projects\GroupedItems1.pas</Transaction>
+    <Transaction>2014/06/16 11:38:16.000.040,=C:\Users\Rafael\Documents\RAD Studio\Projects\SplitItemDetail1.pas</Transaction>
+    <Transaction>2014/06/16 11:38:50.000.166,=C:\Users\Rafael\Documents\RAD Studio\Projects\ItemDetail1.pas</Transaction>
+    <Transaction>2014/06/16 11:38:50.000.012,=C:\Users\Rafael\Documents\RAD Studio\Projects\GroupedItems1.pas</Transaction>
+    <Transaction>2014/06/16 11:47:24.000.866,D:\Clientes\Brady\Projetos\Inovar\uInovarAuto.pas=C:\Users\Rafael\Documents\RAD Studio\Projects\GroupedItems1.pas</Transaction>
+    <Transaction>2014/06/16 11:47:24.000.866,D:\Clientes\Brady\Projetos\Inovar\uInovarAuto.dfm=C:\Users\Rafael\Documents\RAD Studio\Projects\GroupedItems1.dfm</Transaction>
+    <Transaction>2014/06/16 11:47:36.000.682,D:\Clientes\Brady\Projetos\Inovar\uConexao.pas=C:\Users\Rafael\Documents\RAD Studio\Projects\ItemDetail1.pas</Transaction>
+    <Transaction>2014/06/16 11:47:36.000.682,D:\Clientes\Brady\Projetos\Inovar\uConexao.dfm=C:\Users\Rafael\Documents\RAD Studio\Projects\ItemDetail1.dfm</Transaction>
+    <Transaction>2014/06/16 11:47:41.000.408,D:\Clientes\Brady\Projetos\Inovar\InovarAuto.dproj=C:\Users\Rafael\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2014/06/16 14:25:32.000.928,=D:\Clientes\Brady\Projetos\Inovar\Unit1.pas</Transaction>
+    <Transaction>2014/06/16 14:25:45.000.167,D:\Clientes\Brady\Projetos\Inovar\uDataModule.dfm=D:\Clientes\Brady\Projetos\Inovar\Unit1.dfm</Transaction>
+    <Transaction>2014/06/16 14:25:45.000.167,D:\Clientes\Brady\Projetos\Inovar\uDataModule.pas=D:\Clientes\Brady\Projetos\Inovar\Unit1.pas</Transaction>
+    <Transaction>2014/06/16 15:47:32.000.211,=D:\Clientes\Brady\Projetos\Inovar\uCliente.pas</Transaction>
+    <Transaction>2014/06/16 16:38:44.000.647,=D:\Clientes\Brady\Projetos\Inovar\uGerarXML.pas</Transaction>
+    <Transaction>2014/06/17 11:54:09.000.704,=D:\Clientes\Brady\Projetos\Inovar\uImportaNF.pas</Transaction>
+  </Transactions>
+</BorlandProject>

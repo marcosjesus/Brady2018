@@ -1,0 +1,302 @@
+unit uParticipante;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FCadastro, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.ExtCtrls, Vcl.StdCtrls,
+  cxButtons, dxStatusBar, Vcl.Mask, rsEdit, RseditDB, EditBusca, SetParametro, Constantes,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, cxContainer, cxEdit, Vcl.ComCtrls, dxCore, cxDateUtils,
+  cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar, cxStyles, cxCustomData,
+  cxFilter, cxData, cxDataStorage, cxNavigator, cxDBData, cxGridLevel,
+  cxClasses, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
+  cxGridDBTableView, cxGrid, cxGroupBox, TestFun, MensFun;
+
+type
+  TFrmCadParticipante = class(TFrmCadastro)
+    Panel13: TPanel;
+    EditBuscaParticipante: TEditBusca;
+    EdiCodigo: TrsSuperEdit;
+    Panel2: TPanel;
+    EdiNome: TrsSuperEdit;
+    Panel1: TPanel;
+    ediMatricula: TrsSuperEdit;
+    Panel12: TPanel;
+    EditBuscaFilial: TEditBusca;
+    cxButton4: TcxButton;
+    qryAux: TFDQuery;
+    Panel3: TPanel;
+    EditBuscaCentroCusto: TEditBusca;
+    Panel4: TPanel;
+    EditBuscaCargo: TEditBusca;
+    cxButton1: TcxButton;
+    cxButton2: TcxButton;
+    Panel5: TPanel;
+    editxtDtDesligamento: TrsSuperEdit;
+    EdiDatDesligamento: TcxDateEdit;
+    Panel6: TPanel;
+    cxGroupBox1: TcxGroupBox;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
+    cxGrid1: TcxGrid;
+    sqlHistorico: TFDQuery;
+    dsHistorico: TDataSource;
+    ediFilial: TrsSuperEdit;
+    ediCentroCusto: TrsSuperEdit;
+    ediCargo: TrsSuperEdit;
+    sqlHistoricoFUN_MATRICULA: TStringField;
+    sqlHistoricoALIASEMPRESA: TStringField;
+    sqlHistoricoCENTROCUSTO: TStringField;
+    sqlHistoricoCARGO: TStringField;
+    sqlHistoricoDATA_ATUAL: TSQLTimeStampField;
+    sqlHistoricoDATA_ALTERACAO: TSQLTimeStampField;
+    cxGrid1DBTableView1FUN_MATRICULA: TcxGridDBColumn;
+    cxGrid1DBTableView1ALIASEMPRESA: TcxGridDBColumn;
+    cxGrid1DBTableView1CENTROCUSTO: TcxGridDBColumn;
+    cxGrid1DBTableView1CARGO: TcxGridDBColumn;
+    cxGrid1DBTableView1DATA_ATUAL: TcxGridDBColumn;
+    cxGrid1DBTableView1DATA_ALTERACAO: TcxGridDBColumn;
+    procedure FormCreate(Sender: TObject);
+    procedure EditBuscaParticipanteClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure EditBuscaFilialClick(Sender: TObject);
+    procedure EditBuscaCentroCustoClick(Sender: TObject);
+    procedure EditBuscaCargoClick(Sender: TObject);
+    procedure ButNovoClick(Sender: TObject);
+    procedure ButSalvarClick(Sender: TObject);
+  private
+     varCodCargoAnt, varCentroCustoAnt, varFilialAnt : String;
+    procedure AtualizaHistorico;
+    { Private declarations }
+  public
+    { Public declarations }
+     Procedure Search ; Override;
+     Function  Check : Boolean ; Override ;
+  end;
+
+var
+  FrmCadParticipante: TFrmCadParticipante;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmCadParticipante.ButNovoClick(Sender: TObject);
+begin
+  inherited;
+  varCodCargoAnt := '';
+  varCentroCustoAnt := '';
+  varCodCargoAnt := '';
+end;
+
+procedure TFrmCadParticipante.ButSalvarClick(Sender: TObject);
+begin
+
+
+  if VarOperacao = OPE_ALTERACAO then
+  begin
+      if ((varCodCargoAnt <> '') or (varCentroCustoAnt <> '') or (varFilialAnt <> '' ))then
+      begin
+
+          if ((varCodCargoAnt <> varToStr(EditBuscaCargo.bs_KeyValue)) or
+              (varCentroCustoAnt <> varToStr(EditBuscaCentroCusto.bs_KeyValue)) or
+              (varFilialAnt <> varToStr(EditBuscaFilial.bs_KeyValue))) then
+          begin
+
+            qryAux.Close;
+            qryAux.SQL.Clear;
+            qryAux.SQL.Add('Update TRE_FUNCIONARIO_HISTORICO  ');
+            qryAux.SQL.Add(' Set DATA_ALTERACAO = GETDATE() ');
+            qryAux.SQL.Add(' Where DATA_ALTERACAO IS NULL AND  FUN_MATRICULA = :FUN_MATRICULA ');
+            qryAux.Params.ParamByName('FUN_MATRICULA').AsString := ediMatricula.Text;
+
+             Try
+                qryAux.ExecSQL;
+             Except
+               On E:Exception do
+                begin
+                  Mens_MensInf( 'Falha ao Atualizar Historico de Trabalho: ' + E.Message );
+                end;
+             End;
+
+            qryAux.Close;
+            qryAux.SQL.Clear;
+            qryAux.SQL.Add('Insert Into TRE_FUNCIONARIO_HISTORICO  ');
+            qryAux.SQL.Add('(FUN_MATRICULA,  ');
+            qryAux.SQL.Add('CODFILIAL,  ');
+            qryAux.SQL.Add('TRE_CARGO_ID,  ');
+            qryAux.SQL.Add('TRE_CENTROCENTRO,  ');
+            qryAux.SQL.Add('DATA_ATUAL) ');
+            qryAux.SQL.Add(' Values ');
+            qryAux.SQL.Add('(:FUN_MATRICULA,  ');
+            qryAux.SQL.Add(':CODFILIAL,  ');
+            qryAux.SQL.Add(':TRE_CARGO_ID,  ');
+            qryAux.SQL.Add(':TRE_CENTROCENTRO,  ');
+            qryAux.SQL.Add(':DATA_ATUAL) ');
+            qryAux.Params.ParamByName('FUN_MATRICULA').AsString    := ediMatricula.Text;
+            qryAux.Params.ParamByName('CODFILIAL').AsString        := VarToStr(EditBuscaFilial.bs_KeyValue);
+            qryAux.Params.ParamByName('TRE_CARGO_ID').AsString     := VarToStr(EditBuscaCargo.bs_KeyValue);
+            qryAux.Params.ParamByName('TRE_CENTROCENTRO').AsString := VarToStr(EditBuscaCentroCusto.bs_KeyValue);
+            qryAux.Params.ParamByName('DATA_ATUAL').AsDateTime     := Date;
+
+            Try
+              qryAux.ExecSQL;
+            Except
+             On E:Exception do
+              begin
+                Mens_MensInf( 'Falha ao Inserir Historico de Trabalho: ' + E.Message );
+              end;
+            End;
+
+            AtualizaHistorico;
+
+          end;
+      end;
+
+  end;
+
+  inherited;
+
+
+end;
+
+function TFrmCadParticipante.Check: Boolean;
+begin
+  result := false;
+
+
+   If ( Test_IsEmptyStr(EditBuscaParticipante.Text) ) Then
+	 Begin
+			 Mens_MensInf('É necessário informar o Codigo do Participante ') ;
+			 EditBuscaParticipante.SetFocus ;
+			 Exit ;
+	 End ;
+
+
+
+   If ( Test_IsEmptyStr(EdiNome.Text) ) Then
+	 Begin
+			 Mens_MensInf('É necessário informar o Nome do Participante ') ;
+			 EdiNome.SetFocus ;
+			 Exit ;
+	 End ;
+
+
+   If ( Test_IsEmptyStr(EditBuscaFilial.Text) ) Then
+	 Begin
+			 Mens_MensInf('É necessário informar a Empresa do Participante ') ;
+			 EditBuscaFilial.SetFocus ;
+			 Exit ;
+	 End ;
+   if EdiDatDesligamento.Text = '' then
+      editxtDtDesligamento.value := 0
+   else  editxtDtDesligamento.Text :=  EdiDatDesligamento.Text;
+
+   editxtDtDesligamento.ValidateData;
+
+  result := true;
+end;
+
+procedure TFrmCadParticipante.EditBuscaCargoClick(Sender: TObject);
+begin
+  inherited;
+ if ((EditBuscaCargo.Text <> '') and (EditBuscaCargo.bs_KeyValues.Count > 0)) then
+  begin
+   ediCargo.AsString := VarToStr(EditBuscaCargo.bs_KeyValue);
+  end;
+end;
+
+procedure TFrmCadParticipante.EditBuscaCentroCustoClick(Sender: TObject);
+begin
+  inherited;
+ if ((EditBuscaCentroCusto.Text <> '') and (EditBuscaCentroCusto.bs_KeyValues.Count > 0)) then
+  begin
+   ediCentroCusto.AsString := VarToStr(EditBuscaCentroCusto.bs_KeyValue);
+  end;
+end;
+
+procedure TFrmCadParticipante.EditBuscaFilialClick(Sender: TObject);
+begin
+  inherited;
+ if ((EditBuscaFilial.Text <> '') and (EditBuscaFilial.bs_KeyValues.Count > 0)) then
+  begin
+   ediFilial.AsString := VarToStr(EditBuscaFilial.bs_KeyValue);
+  end;
+end;
+
+procedure TFrmCadParticipante.EditBuscaParticipanteClick(Sender: TObject);
+begin
+  inherited;
+  if ((EditBuscaParticipante.Text <> '') and (EditBuscaParticipante.bs_KeyValues.Count > 0)) then
+  begin
+   EdiCodigo.AsString := VarToStr(EditBuscaParticipante.bs_KeyValue);
+   if VarOperacao <> OPE_INCLUSAO then
+     ButPesquisarClick(Self);
+  end;
+end;
+
+procedure TFrmCadParticipante.FormCreate(Sender: TObject);
+begin
+  LabCadTit.Caption := 'Participante' ;
+  FormOperacao := 'CAD_PARTICIPANTE';
+  FormTabela := 'TRE_FUNCIONARIO' ;
+  FormChaves := 'FUN_FUNCIONARIO_ID' ;
+  FormCtrlFocus := 'EditBuscaParticipante' ;
+  FormDataFocus := 'EdiNome' ;
+
+  SetParametros(EditBuscaParticipante, TipoParticipanteCad );
+  SetParametros(EditBuscaFilial, TipoFilial );
+
+  SetParametros(EditBuscaCentroCusto, TipoCentroCusto );
+  SetParametros(EditBuscaCargo, TipoCargo );
+
+  inherited;
+
+end;
+
+procedure  TFrmCadParticipante.AtualizaHistorico;
+begin
+  sqlHistorico.Close;
+  sqlHistorico.Params.ParamByName('FUN_MATRICULA').AsString := EditBuscaParticipante.bs_KeyValues[2];
+  sqlHistorico.Open;
+end;
+
+procedure TFrmCadParticipante.FormShow(Sender: TObject);
+begin
+  inherited;
+  WindowState := wsMaximized;
+end;
+
+procedure TFrmCadParticipante.Search;
+begin
+   inherited;
+   if ediFilial.AsString <> '' then
+   begin
+     EditBuscaFilial.SetValue('CodFilial = ' +  ediFilial.AsString );
+     varFilialAnt :=   ediFilial.AsString;
+   end;
+
+   if ediCentroCusto.AsString <> '' then
+   begin
+    EditBuscaCentroCusto.SetValue('TRE_CENTROCENTRO = ' + QuotedStr(ediCentroCusto.AsString));
+    varCentroCustoAnt := ediCentroCusto.AsString;
+   end;
+
+   if ediCargo.AsString <> '' then
+   begin
+    EditBuscaCargo.SetValue('TRE_CARGO_ID = ' +  QuotedStr(ediCargo.AsString));
+    varCodCargoAnt :=  ediCargo.AsString;
+   end;
+
+   EdiDatDesligamento.Text :=  editxtDtDesligamento.Text;
+
+
+   AtualizaHistorico;
+
+end;
+
+end.

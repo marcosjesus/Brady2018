@@ -1,0 +1,165 @@
+object dInovarAuto: TdInovarAuto
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  Height = 459
+  Width = 661
+  object FDMemTableParametrosConexao: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired]
+    UpdateOptions.CheckRequired = False
+    Left = 200
+    Top = 80
+    object FDMemTableParametrosConexaoservidor: TStringField
+      FieldName = 'servidor'
+      Size = 50
+    end
+    object FDMemTableParametrosConexaoarquivo: TStringField
+      FieldName = 'arquivo'
+      Size = 50
+    end
+    object FDMemTableParametrosConexaousuario: TStringField
+      FieldName = 'usuario'
+      Size = 50
+    end
+    object FDMemTableParametrosConexaosenha: TStringField
+      FieldName = 'senha'
+      Size = 50
+    end
+  end
+  object BindSourceDBParametrosConexao: TBindSourceDB
+    DataSet = FDMemTableParametrosConexao
+    ScopeMappings = <>
+    Left = 200
+    Top = 144
+  end
+  object FDConnectionFirebird: TFDConnection
+    Params.Strings = (
+      'Server=cec-5cjwbq1'
+      'Database=c:\appdts\bd\STICK.FDB'
+      'User_Name=sysdba'
+      'Password=masterkey'
+      'DriverID=FB')
+    Connected = True
+    Left = 488
+    Top = 88
+  end
+  object FDPhysFBDriverLink: TFDPhysFBDriverLink
+    Left = 488
+    Top = 137
+  end
+  object FDMemTableClientes: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired]
+    UpdateOptions.CheckRequired = False
+    Left = 200
+    Top = 200
+    object FDMemTableClientesCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Required = True
+      OnValidate = FDMemTableClientesCNPJValidate
+      EditMask = '00\.000\.000\/0000\-00;1;_'
+    end
+    object FDMemTableClientesRazaoSocial: TStringField
+      DisplayLabel = 'Raz'#227'o Social'
+      FieldName = 'RazaoSocial'
+      Required = True
+      Size = 60
+    end
+  end
+  object BindSourceDBClientes: TBindSourceDB
+    DataSet = FDMemTableClientes
+    ScopeMappings = <>
+    Left = 200
+    Top = 256
+  end
+  object FDMemTableNotaFiscal: TFDMemTable
+    Filtered = True
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired]
+    UpdateOptions.CheckRequired = False
+    Left = 200
+    Top = 312
+    object FDMemTableNotaFiscalCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Size = 50
+    end
+    object FDMemTableNotaFiscalRazaoSocial: TStringField
+      DisplayLabel = 'Raz'#227'o Social'
+      FieldName = 'RazaoSocial'
+      Size = 50
+    end
+    object FDMemTableNotaFiscalmes: TWordField
+      DisplayLabel = 'M'#234's'
+      FieldName = 'mes'
+      DisplayFormat = '00'
+    end
+    object FDMemTableNotaFiscalano: TIntegerField
+      DisplayLabel = 'Ano'
+      FieldName = 'ano'
+      DisplayFormat = '0,000'
+    end
+    object FDMemTableNotaFiscaltot_nota: TExtendedField
+      DisplayLabel = 'Valor NF'
+      FieldName = 'tot_nota'
+      DisplayFormat = '#,##0.00'
+      Precision = 19
+    end
+    object FDMemTableNotaFiscalparc_dedutivel: TExtendedField
+      DisplayLabel = 'Dedutivel'
+      FieldName = 'parc_dedutivel'
+      DisplayFormat = '#,##0.00'
+      Precision = 19
+    end
+  end
+  object FDQueryNotaFiscal: TFDQuery
+    Connection = FDConnectionFirebird
+    SQL.Strings = (
+      'SELECT SUM(A01.VTOTAL) AS TOTAL_NF'
+      
+        'FROM ENTREGA A01 INNER JOIN NATOPER B01 ON ( A01.CODAUTONATOPER ' +
+        '= B01.CODIGO )'
+      'WHERE 1 = 1'
+      '  AND A01.SAIDA >= :SAIDA_INI AND A01.SAIDA <= :SAIDA_FIM'
+      '  AND A01.STATUS = '#39'EMIT'#39
+      '  AND B01.EMITETIT <> '#39'T'#39
+      '  AND A01.CGCCLIE = :CGCCLIE')
+    Left = 472
+    Top = 232
+    ParamData = <
+      item
+        Name = 'SAIDA_INI'
+        DataType = ftDate
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'SAIDA_FIM'
+        DataType = ftDate
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'CGCCLIE'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+    object FDQueryNotaFiscalTOTAL_NF: TFloatField
+      AutoGenerateValue = arDefault
+      FieldName = 'TOTAL_NF'
+      Origin = 'TOTAL_NF'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+  end
+end

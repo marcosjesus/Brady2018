@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{49E8FFD1-E525-4F16-AE93-F00988EB51E9}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Treinamento.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="C:\Componentes\edtbusca\EdtBusca.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Treinamento">
+        <MSBuild Projects="Treinamento.dproj"/>
+    </Target>
+    <Target Name="Treinamento:Clean">
+        <MSBuild Projects="Treinamento.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Treinamento:Make">
+        <MSBuild Projects="Treinamento.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="EdtBusca">
+        <MSBuild Projects="C:\Componentes\edtbusca\EdtBusca.dproj"/>
+    </Target>
+    <Target Name="EdtBusca:Clean">
+        <MSBuild Projects="C:\Componentes\edtbusca\EdtBusca.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="EdtBusca:Make">
+        <MSBuild Projects="C:\Componentes\edtbusca\EdtBusca.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Treinamento;EdtBusca"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Treinamento:Clean;EdtBusca:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Treinamento:Make;EdtBusca:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

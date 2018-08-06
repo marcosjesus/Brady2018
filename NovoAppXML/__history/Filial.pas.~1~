@@ -1,0 +1,170 @@
+unit Filial ;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  fcadastro, ComCtrls, StdCtrls, Buttons, ToolWin, ExtCtrls, rsEdit, Mask,
+  dbTables, rsFlyovr, RseditDB, GN_RadioGroup, jpeg, DB, Menus,
+  cxLookAndFeelPainters, cxButtons ;
+
+type
+  TFrmFilial = class(TFrmCadastro)
+    Panel5: TPanel;
+    EdiCodFilial: TrsSuperEdit;
+    Panel10: TPanel;
+    Panel11: TPanel;
+    rsSuperEdit7: TrsSuperEdit;
+    Panel12: TPanel;
+    EdiCGC: TrsSuperEdit;
+    Panel13: TPanel;
+    Panel4: TPanel;
+    rsSuperEdit1: TrsSuperEdit;
+    Panel6: TPanel;
+    rsSuperEdit3: TrsSuperEdit;
+    Panel7: TPanel;
+    rsSuperEdit4: TrsSuperEdit;
+    Panel14: TPanel;
+    EdiOutros: TrsSuperEdit;
+    rsSuperEdit5: TrsSuperEdit;
+    rsSuperEdit6: TrsSuperEdit;
+    rsSuperEdit9: TrsSuperEdit;
+    rsSuperEdit8: TrsSuperEdit;
+    EdiProxBoleta: TrsSuperEdit;
+    rsSuperEdit10: TrsSuperEdit;
+    rsSuperEdit12: TrsSuperEdit;
+    rsSuperEdit2: TrsSuperEdit;
+    EdiCodContabil: TrsSuperEdit;
+    rsSuperEdit15: TrsSuperEdit;
+    rsSuperEdit14: TrsSuperEdit;
+    rsSuperEdit16: TrsSuperEdit;
+    rsSuperEdit17: TrsSuperEdit;
+    Panel3: TPanel;
+    EdiContaUS: TrsSuperEdit;
+    EdiContaOM: TrsSuperEdit;
+    EdiContaBR: TrsSuperEdit;
+    rsSuperEdit18: TrsSuperEdit;
+    rsSuperEdit19: TrsSuperEdit;
+    cmbLogo: TComboBox;
+    qryAux: TQuery;
+    rsSuperEdit20: TrsSuperEdit;
+    Bevel1: TBevel;
+    rsSuperEdit11: TrsSuperEdit;
+    rsSuperEdit13: TrsSuperEdit;
+    rsSuperEdit21: TrsSuperEdit;
+    rsSuperEdit22: TrsSuperEdit;
+    rsSuperEdit24: TrsSuperEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure rsSuperEdit8KeyPress(Sender: TObject; var Key: Char);
+    procedure rsSuperEdit19Change(Sender: TObject);
+    procedure ButSalvarClick(Sender: TObject);
+    procedure rsSuperEdit20KeyPress(Sender: TObject; var Key: Char);
+    procedure ButAlterarClick(Sender: TObject);
+    procedure ButNovoClick(Sender: TObject);
+    procedure rsSuperEdit24KeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+    Procedure AtualizaLogo;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmFilial: TFrmFilial;
+
+implementation
+
+{$R *.DFM}
+
+Uses
+   Global, ObjFun, MensFun, TestFun, CConta, CMovCorrente, StrFun,
+   SqlTableFun ;
+
+procedure TFrmFilial.FormCreate(Sender: TObject);
+begin
+    LabCadTit.Caption := 'Filiais' ;
+    FormOperacao := 'FILIAIS' ;
+    FormTabela := 'Filial' ;
+    FormChaves := 'CodFilial' ;
+    FormCtrlFocus := 'EdiCodFilial' ;
+    FormDataFocus := 'EdiDescricao' ;
+    inherited;
+    AtualizaLogo;
+end;
+
+procedure TFrmFilial.rsSuperEdit8KeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if (Key <> 'I') and (Key <> 'i') and (Key <> 'N') and (Key <> 'n') and (Key <> 'T') and (Key <> 't')
+      and (Key <> 'C') and (Key <> 'c') then
+    key := #0;
+end;
+
+procedure TFrmFilial.rsSuperEdit19Change(Sender: TObject);
+begin
+  cmbLogo.ItemIndex := cmbLogo.Items.IndexOf(Copy(Trim(rsSuperEdit19.AsString),5,10));
+end;
+
+procedure TFrmFilial.ButSalvarClick(Sender: TObject);
+begin
+  if (rsSuperEdit20.AsString <> 'S') and (rsSuperEdit20.AsString <> 'N') then
+  begin
+    Mens_MensInf('Campo Robô CPF Inválido !');
+    rsSuperEdit20.SetFocus;
+    Exit;
+  end;
+
+  if Pos('POS_', Trim(cmbLogo.Text)) > 0 then
+    rsSuperEdit19.AsString := Trim(cmbLogo.Text)
+  else
+    rsSuperEdit19.AsString := 'POS_' + Trim(cmbLogo.Text);
+  inherited;
+end;
+
+procedure TFrmFilial.rsSuperEdit20KeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if (Key <> 'S') and (Key <> 's') and (Key <> 'N') and (Key <> 'n') then key := #0;
+end;
+
+procedure TFrmFilial.AtualizaLogo;
+begin
+    qryAux.Close;
+    qryAux.SQL.Clear;
+    qryAux.SQL.Add('Select Distinct DescPosicao From Filial Where RTrim(DescPosicao) <> '''' Order By DescPosicao ');
+    qryAux.Open;
+
+    cmbLogo.Clear;
+    while not qryAux.Eof do
+    begin
+      cmbLogo.Items.Add(Copy(qryAux.FieldByName('DescPosicao').AsString, 5, 10));
+      qryAux.Next;
+    end;
+
+    qryAux.Close;
+end;
+
+procedure TFrmFilial.ButAlterarClick(Sender: TObject);
+begin
+  inherited;
+  AtualizaLogo;
+
+  cmbLogo.ItemIndex := cmbLogo.Items.IndexOf(Copy(Trim(rsSuperEdit19.AsString),5,10));
+end;
+
+procedure TFrmFilial.ButNovoClick(Sender: TObject);
+begin
+  inherited;
+  AtualizaLogo;
+
+  EdiNumero.AsString := LastCodigo('Numero', 'Filial', '');
+end;
+
+procedure TFrmFilial.rsSuperEdit24KeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if (Key <> 'S') and (Key <> 's') and (Key <> 'N') and (Key <> 'n') then key := #0;
+end;
+
+end.
+

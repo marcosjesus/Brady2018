@@ -1,0 +1,376 @@
+unit Usuario ;
+
+interface
+                
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  fcadastro, ComCtrls, StdCtrls, Buttons, ToolWin, ExtCtrls, rsEdit, Mask,
+  rsFlyovr, RseditDB, Db, DBTables, CheckLst, jpeg, Menus,
+  cxLookAndFeelPainters, cxButtons, dxSkinsCore, dxSkinsDefaultPainters,
+  dxSkinscxPCPainter, cxPC, cxControls, cxGraphics,
+  dxSkinsdxStatusBarPainter, dxStatusBar, cxLookAndFeels, dxSkinBlack,
+  dxSkinBlue, dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, FMTBcd,  dxSkinCaramel,
+  dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide, dxSkinFoggy, dxSkinGlassOceans,
+  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
+  dxSkinMcSkin, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Silver, dxSkinPumpkin, dxSkinSeven,
+  dxSkinSharp, dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
+  dxSkinValentine, dxSkinXmas2008Blue, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
+  dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  dxBarBuiltInMenu, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Stan.Param,
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Data.SqlExpr, EditBusca, System.Variants, SetParametro;
+
+type
+  TFrmUsuario = class(TFrmCadastro)
+    PageControl1: tcxpageControl;
+    TabSheet1: tcxtabSheet;
+    Panel1: TPanel;
+    EdiCodigo: TrsSuperEdit;
+    Panel2: TPanel;
+    EdiNome: TrsSuperEdit;
+    Panel3: TPanel;
+    EdiCodPerfil: TrsSuperEdit;
+    Panel4: TPanel;
+    EdiSenha: TrsSuperEdit;
+    Panel6: TPanel;
+    ediCodFilial: TrsSuperEdit;
+    chkAltSenha: TCheckBox;
+    EdiAltera: TrsSuperEdit;
+    qryAux: TFDQuery;
+    EditBuscaUsuario: TEditBusca;
+    EditBuscaPerfil: TEditBusca;
+    EditBuscaFilialOperacao: TEditBusca;
+    Panel5: TPanel;
+    chkAtivo: TCheckBox;
+    ediAtivo: TrsSuperEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure EdiCodPerfilDblClick(Sender: TObject);
+    procedure ButSalvarClick(Sender: TObject);
+    procedure ButNovoClick(Sender: TObject);
+    procedure ButCancelarClick(Sender: TObject);
+    procedure ButAlterarClick(Sender: TObject);
+    procedure PageControl1Changing(Sender: TObject;
+      var AllowChange: Boolean);
+    procedure ediCodFilialExit(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure EditBuscaUsuarioClick(Sender: TObject);
+    procedure ButExcluirClick(Sender: TObject);
+  private
+    { Private declarations }
+    QManut : TFDQuery ;
+    ChPag: Boolean;
+  public
+    { Public declarations }
+    Function Check : Boolean ; Override ;
+    Procedure Inclui ; Override ;
+    Procedure Altera ; Override ;
+    Procedure Search; Override ;
+  end;
+
+var
+  FrmUsuario: TFrmUsuario;
+
+implementation
+
+{$R *.DFM}
+
+Uses
+   DBConect, Global, ObjFun, MensFun, TestFun, ConsTabFun, Perfil, Constantes ;
+
+procedure TFrmUsuario.FormCreate(Sender: TObject);
+begin
+    LabCadTit.Caption := 'Usuários' ;
+    FormOperacao := 'CAD_USUARIO'; 
+    FormTabela := 'Usuario' ;
+    FormChaves := 'CodUsuario' ;
+    FormCtrlFocus := 'EditBuscaUsuario' ;
+    FormDataFocus := 'EdiNome' ;
+
+   // Obj_FillList(TListBox(ListPerOpe),'Select CodFilial From filial order by CodFilial') ;
+
+    ChPag := false;
+
+    SetParametros(EditBuscaUsuario, TipoUsuarioID);
+    SetParametros(EditBuscaFilialOperacao, TipoFilial);
+    SetParametros(EditBuscaPerfil, TipoPerfil);
+
+
+    inherited;
+end;
+
+procedure TFrmUsuario.FormShow(Sender: TObject);
+begin
+  inherited;
+  WindowState := wsMaximized;
+end;
+
+Procedure TFrmUsuario.Inclui ;
+var
+  i: Integer;
+Begin
+//   EdiSenha.Text := Glob_Cript(EdiSenha.Text) ;
+
+  QManut := Tab.ExecSql('delete from UsuarioXFilial where CodUsuario = ''' + EdiCodigo.AsString + '''');
+{
+  for i:=0 To ListPerOpe.Items.Count-1 Do
+  begin
+    if ListPerOpe.Checked[i] then
+       begin
+         QManut := Tab.ExecSql('insert into UsuarioXFilial values(''' + EdiCodigo.AsString + ''', ''' + ListPerOpe.Items.Strings[i] + ''')');
+       end;
+  end;
+ }
+   inherited;
+End ;
+
+Procedure TFrmUsuario.Altera ;
+var
+  i: Integer;
+Begin
+{   If ( EdiSenha.Text <> GSenha ) Then
+   Begin
+       Mens_MensInf('Senha do usuário inválida') ;
+       EdiSenha.SetFocus ;
+       Exit ;
+   End ;}
+
+
+  QManut := Tab.ExecSql('delete from UsuarioXFilial where CodUsuario = ''' + EdiCodigo.AsString + '''');
+
+  for i:=0 To ListPerOpe.Items.Count-1 Do
+  begin
+    if ListPerOpe.Checked[i] then
+       begin
+         QManut := Tab.ExecSql('insert into UsuarioXFilial values(''' + EdiCodigo.AsString + ''', ''' + Copy(ListPerOpe.Items.Strings[i],1,10) + ''')');
+       end;
+  end;
+
+   inherited;
+End ;
+
+Function TFrmUsuario.Check : Boolean ;
+Begin
+   Result := False ;
+
+   if chkAtivo.Checked then
+     ediAtivo.AsString := '1'
+   else
+     ediAtivo.AsString := '0';
+
+   if chkAltSenha.Checked then
+     EdiAltera.AsString := '1'
+   else
+     EdiAltera.AsString := '0';
+
+   If ( Test_IsEmptyStr(EditBuscaUsuario.Text) ) Then
+   Begin
+       Mens_MensInf('É necessário informar o nome do usuário') ;
+       EditBuscaUsuario.SetFocus ;
+       Exit ;
+   End ;
+
+   If ( Test_IsEmptyStr(EdiSenha.Text) ) Then
+   Begin
+       Mens_MensInf('É necessário digitar uma senha') ;
+       EdiSenha.SetFocus ;
+       Exit ;
+   End ;
+
+   if  ((EditBuscaFilialOperacao.Text <> '') and (EditBuscaFilialOperacao.bs_KeyValues.Count > 0)) Then
+       ediCodFilial.AsString := VarToStr(EditBuscaFilialOperacao.bs_KeyValue);
+
+   if  ((EditBuscaPerfil.Text <> '') and (EditBuscaPerfil.bs_KeyValues.Count > 0)) Then
+       EdiCodPerfil.AsString := VarToStr(EditBuscaPerfil.bs_KeyValue);
+   {
+   If ( Test_IsEmptyStr(EdiBanco.Text) ) Then
+   Begin
+       Mens_MensInf('É necessário digitar um caixa interno') ;
+       EdiBanco.SetFocus ;
+       Exit ;
+   End ;
+}
+
+   Result := True ;
+End ;
+
+procedure TFrmUsuario.EdiCodPerfilDblClick(Sender: TObject);
+begin
+    ShowFormByControl('Perfil',Sender) ;
+end;
+
+procedure TFrmUsuario.EditBuscaUsuarioClick(Sender: TObject);
+begin
+  inherited;
+  if ((EditBuscaUsuario.Text <> '') and (EditBuscaUsuario.bs_KeyValues.Count > 0)) then
+  begin
+     EdiCodigo.AsString := VarToStr(EditBuscaUsuario.bs_KeyValue);
+     EdiNome.AsString := EditBuscaUsuario.bs_KeyValues[1];
+     if VarOperacao <> OPE_INCLUSAO then
+       ButPesquisarClick(self);
+  end;
+end;
+
+procedure TFrmUsuario.ButSalvarClick(Sender: TObject);
+var
+  Inclui : Boolean;
+begin
+
+  Inclui := (VarOperacao = OPE_INCLUSAO);
+  PageControl1.ActivePage :=  TabSheet1;
+
+  inherited;
+
+  if (not FormOpeErro) and (Inclui) then
+  begin
+    qryAux.Close;
+    qryAux.Sql.Clear;
+    qryAux.Sql.Add('update Parametros set CodUsuario = CodUsuario + 1 ') ;
+    qryAux.ExecSQL;
+  end;
+
+  EditBuscaUsuario.Text := '';
+  EditBuscaUsuario.bs_KeyValues.Clear;
+
+  EditBuscaPerfil.Text := '';
+  EditBuscaPerfil.bs_KeyValues.Clear;
+
+  EditBuscaFilialOperacao.Text := '';
+  EditBuscaFilialOperacao.bs_KeyValues.Clear;
+
+  ChPag := false;
+//  ListPerOpe.Enabled := false;
+
+end;
+
+procedure TFrmUsuario.Search;
+begin
+  inherited;
+
+  ListPerOpe.Clear ;
+  QManut := Tab.ExecSqlSel('Select CodFilial From filial order by CodFilial');
+  while not QManut.Eof do begin
+    ListPerOpe.Items.Add(QManut.FieldByName('CodFilial').AsString) ;
+    QManut.Next;
+  end;
+  QManut.Close;
+
+  ChkAltSenha.Checked := (EdiAltera.AsString = '1');
+  chkAtivo.Checked    := (ediAtivo.AsString = '1');
+
+
+  QManut := Tab.ExecSqlSel('Select CodFilial from UsuarioXFilial where CodUsuario = ''' + EdiCodigo.AsString + '''');
+  while not QManut.Eof do begin
+    ListPerOpe.Checked[ListPerOpe.Items.IndexOf(QManut.FieldByName('CodFilial').AsString)] := true;
+    QManut.Next;
+  end;
+  QManut.Close;
+
+  EditBuscaPerfil.SetValue('CodPerfil=' + QuotedStr(EdiCodPerfil.AsString));
+
+  EditBuscaFilialOperacao.SetValue('CodFilial=' + QuotedStr(ediCodFilial.AsString));
+
+  ChPag := true;
+  ListPerOpe.Enabled := True;
+end;
+
+procedure TFrmUsuario.ButNovoClick(Sender: TObject);
+begin
+  inherited;
+  qryAux.Close;
+  qryAux.Sql.Clear;
+  qryAux.Sql.Add('Select CodUsuario From Parametros ') ;
+  qryAux.Open;
+  EdiCodigo.AsInteger := qryAux.FieldByName('CodUsuario').AsInteger + 1 ;
+  qryAux.close;
+
+  EditBuscaUsuario.Text := EdiCodigo.AsString;
+  ChPag := true;
+  ListPerOpe.Enabled := true;
+  ListPerOpe.Clear ;
+  QManut := Tab.ExecSqlSel('Select CodFilial From filial order by CodFilial');
+  while not QManut.Eof do begin
+    ListPerOpe.Items.Add(QManut.FieldByName('CodFilial').AsString) ;
+    QManut.Next;
+  end;
+
+
+  QManut.Close;
+
+end;
+
+procedure TFrmUsuario.ButCancelarClick(Sender: TObject);
+begin
+  inherited;
+  ChPag := false;
+  ListPerOpe.Enabled := false;
+  EditBuscaUsuario.Text := '';
+  EditBuscaUsuario.bs_KeyValues.Clear;
+
+  EditBuscaPerfil.Text := '';
+  EditBuscaPerfil.bs_KeyValues.Clear;
+
+  EditBuscaFilialOperacao.Text := '';
+  EditBuscaFilialOperacao.bs_KeyValues.Clear;
+end;
+
+procedure TFrmUsuario.ButExcluirClick(Sender: TObject);
+begin
+  inherited;
+  EditBuscaUsuario.Text := '';
+  EditBuscaUsuario.bs_KeyValues.Clear;
+
+  EditBuscaPerfil.Text := '';
+  EditBuscaPerfil.bs_KeyValues.Clear;
+
+  EditBuscaFilialOperacao.Text := '';
+  EditBuscaFilialOperacao.bs_KeyValues.Clear;
+
+
+end;
+
+procedure TFrmUsuario.ButAlterarClick(Sender: TObject);
+begin
+  inherited;
+  ChPag := true;
+  ListPerOpe.Enabled := true;
+end;
+
+procedure TFrmUsuario.PageControl1Changing(Sender: TObject;
+  var AllowChange: Boolean);
+begin
+  inherited;
+  AllowChange := ChPag;
+end;
+
+procedure TFrmUsuario.ediCodFilialExit(Sender: TObject);
+begin
+ if Trim(ediCodFilial.Text) <> '' then
+ begin
+   ediCodFilial.Text := trim(ediCodFilial.Text) ;
+  // QryAux := TFDQuery.Create(Self);
+  // QryAux.Connection := DB_Conect.SQLConnection ;
+   QryAux.Close;
+   QryAux.Sql.Clear;
+   QryAux.Sql.Add('Select CodFilial from Filial where CodFilial = :CodFilial ');
+   QryAux.ParamByName('CodFilial').AsString := ediCodFilial.Text;
+   QryAux.Open;
+   if QryAux.Eof then
+   begin
+     Mens_MensErro('Filial Inválida!');
+     ediCodFilial.SetFocus;
+     Exit;
+   end;
+   QryAux.Close;
+   inherited;
+ end;
+end;
+
+end.
+

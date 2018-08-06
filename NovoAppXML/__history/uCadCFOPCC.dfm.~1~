@@ -1,0 +1,5 @@
+inherited FrmCadCFOPCC: TFrmCadCFOPCC
+  Caption = 'Cadastro de CFOP x Conta Cont'#225'bil'
+  PixelsPerInch = 96
+  TextHeight = 13
+end

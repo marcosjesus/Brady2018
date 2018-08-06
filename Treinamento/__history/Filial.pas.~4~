@@ -1,0 +1,96 @@
+unit Filial ;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  fcadastro, ComCtrls, StdCtrls, Buttons, ToolWin, ExtCtrls, rsEdit, Mask,
+  dbTables, rsFlyovr, RseditDB, GN_RadioGroup, jpeg, DB, Menus,
+  cxLookAndFeelPainters, cxButtons, cxGraphics, cxControls, cxLookAndFeels,
+  dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinBlueprint,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
+  dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinsdxStatusBarPainter, dxStatusBar ;
+
+type
+  TFrmFilial = class(TFrmCadastro)
+    Panel5: TPanel;
+    EdiCodFilial: TrsSuperEdit;
+    Panel11: TPanel;
+    rsSuperEdit7: TrsSuperEdit;
+    Panel12: TPanel;
+    EdiCGC: TrsSuperEdit;
+    qryAux: TQuery;
+    procedure FormCreate(Sender: TObject);
+    procedure rsSuperEdit8KeyPress(Sender: TObject; var Key: Char);
+    procedure rsSuperEdit20KeyPress(Sender: TObject; var Key: Char);
+    procedure ButNovoClick(Sender: TObject);
+    procedure rsSuperEdit24KeyPress(Sender: TObject; var Key: Char);
+  private
+    { Private declarations }
+    Procedure AtualizaLogo;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmFilial: TFrmFilial;
+
+implementation
+
+{$R *.DFM}
+
+Uses
+   Global, ObjFun, MensFun, TestFun, CConta, CMovCorrente, StrFun,
+   SqlTableFun ;
+
+procedure TFrmFilial.FormCreate(Sender: TObject);
+begin
+    LabCadTit.Caption := 'Filiais' ;
+    FormOperacao := 'FILIAIS' ;
+    FormTabela := 'Filial' ;
+    FormChaves := 'CodFilial' ;
+    FormCtrlFocus := 'EdiCodFilial' ;
+    FormDataFocus := 'EdiDescricao' ;
+    inherited;
+    AtualizaLogo;
+end;
+
+procedure TFrmFilial.rsSuperEdit8KeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if (Key <> 'I') and (Key <> 'i') and (Key <> 'N') and (Key <> 'n') and (Key <> 'T') and (Key <> 't')
+      and (Key <> 'C') and (Key <> 'c') then
+    key := #0;
+end;
+
+procedure TFrmFilial.rsSuperEdit20KeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if (Key <> 'S') and (Key <> 's') and (Key <> 'N') and (Key <> 'n') then key := #0;
+end;
+
+procedure TFrmFilial.AtualizaLogo;
+begin
+
+end;
+
+procedure TFrmFilial.ButNovoClick(Sender: TObject);
+begin
+  inherited;
+
+  EdiNumero.AsString := LastCodigo('Numero', 'Filial', '');
+end;
+
+procedure TFrmFilial.rsSuperEdit24KeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if (Key <> 'S') and (Key <> 's') and (Key <> 'N') and (Key <> 'n') then key := #0;
+end;
+
+end.
+

@@ -1,0 +1,1275 @@
+{******************************************************}
+{                  rsSuperEdit V1.0                    }
+{        Copyright 1997 RealSoft Development           }
+{           support:  www.realsoftdev.com              }
+{******************************************************}
+
+unit rsEdit;
+
+interface
+
+{$I REALSOFT.INC}
+
+uses
+  SysUtils, WinTypes, WinProcs, Messages, Classes, Graphics, Controls,
+  Forms, Dialogs, StdCtrls, Menus, Mask, Realproc, MensFun, ConsTabFun,
+  DBTables, DBConect, SQLExpr, SQLTimSt ;
+
+type
+  TSuperOption = (soAutoAlign, soMinMaxUsed, soRoundValue, soShowZero, soShowGray,
+                  soAllowspaces, soEnterToTab, soSpaceToUnderscore);
+  TSuperOptions = set of TSuperOption;
+  TFormat = ( foText, foReal, foInteger, foDollar, foPercent, foPctNS,
+              foDate, foFullDate, foShortDate, foTime, foMTime, foPhone, foSocial,
+              foZipCode, foPhoneExt, foVisaMC, foAmex, foCustom, foCurrency );
+  TSetOfChar = set of char;
+
+  TrsCustomSuperEdit = class(TCustomMaskEdit)
+  private
+    FOptions: TSuperOptions;
+    FFormat: TFormat;
+    FTagName: String ;
+    // ----- ConsTab
+    FCTAspas : String[1] ;
+    FCTTitulo : String ;
+//    FCTSql : TStrings ;
+    FCTTabName : String ;
+    FCTDataBaseName : String ;
+    FCTNumFields : Integer ;
+    FCTColTit : String ;
+    FCTColField : String ;
+    FCTRetField1 : Integer ;
+    FCTRetControl1 : TWinControl ;
+    FCTRetField2 : Integer ;
+    FCTRetControl2 : TWinControl ;
+    FCTTest : Boolean ;
+    FCTKeyValue : TWinControl ;
+    FCTConsTab : Boolean ;
+    FCTMensErro : String ;
+    FCTSearch : Boolean ;
+    FCTSql : TStrings;
+    FCTOrder : Integer ;
+    // --------------------------------- End ConsTab
+    FValue: Extended;
+    FDecimals: smallint;
+    FDigits: smallint;
+    FAlignment: TAlignment;
+    FOldFontColor: TColor;
+    FCustomMask: string;
+    FMaskUpdating: boolean;
+    FOnReturn: TNotifyEvent;
+    FMinValue: Extended;
+    FMaxValue: Extended;
+    FLocator: boolean;
+    FLocColor: TColor;
+    FOldColor: TColor;
+{$IFNDEF WIN32}
+    HEditDS: THandle;
+    FValue: Extended;
+{$ENDIF}
+    procedure SetAlignment(AValue: TAlignment);
+    procedure SetOptions(AValue: TSuperOptions);
+    procedure SetFormat(AValue: TFormat);
+    procedure SetValue(AValue: Extended);
+    procedure SetMinValue(AValue: Extended);
+    procedure SetMaxValue(AValue: Extended);
+    procedure SetDecimals(AValue: smallint);
+    procedure SetDigits(AValue: smallint);
+    procedure SetCustomMask(AValue : String);
+    procedure SetFieldName(AValue : String);
+    procedure SetCTSql(Value: TStrings);
+    procedure UpdateMask;
+    procedure FormatDate;
+    procedure FormatNum;
+    procedure UnFormatNum;
+    function  IsNumeric: boolean;
+    function  Pow10(n: extended): extended;
+    function  TrueRound(number : extended) : longint;
+    function  RoundDigits(number : extended; decimals : smallint) : extended;
+    function  RemoveChars(Text : string; ValidChars : TSetOfChar) : string;
+    Function  GetFieldName : String ;
+    function  GetAsSingle: single;
+    function  GetAsDouble: double;
+    function  GetAsInteger: integer;
+    function  GetAsDateTime: TDateTime;
+    function  GetAsString: string;
+    function  GetAsRawString: string;
+    procedure SetAsString(AValue: string);
+    procedure SetAsSingle(AValue: Single);
+    procedure SetAsDouble(AValue: Double);
+    procedure SetAsInteger(AValue: integer);
+    procedure SetAsDateTime(AValue: TDateTime);
+  protected
+    procedure WMSetText(var Message: TWMSetText); message WM_SETTEXT;
+    procedure CMSetEnabled(var Message: TMessage); message CM_ENABLEDCHANGED;
+    procedure WMSetColor(var Message: TMessage); message CM_COLORCHANGED;
+    procedure WMPaint(var Message: TWMPaint); message WM_PAINT;
+    procedure WMNCDestroy(var Message: TWMNCDestroy); message WM_NCDESTROY;
+    procedure CMTextChanged(var Message: TMessage); message CM_TEXTCHANGED;
+    procedure DoEnter; override;
+    procedure DoExit; override;
+    procedure DoValue; virtual;
+    procedure CreateParams(var Params: TCreateParams); override;
+    procedure CreateWindowHandle(const Params: TCreateParams); override;
+    procedure KeyPress(var Key: Char); override;
+    procedure KeyUp(var Key: Word; Shift: TShiftState); override;
+    Procedure DblClick ; override ;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override ;
+    procedure Loaded; override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    Function ValidateData : Boolean ;
+    Function SeekGet : Boolean ;
+    Function GetOrder : Integer ;
+    property AsRawString: string        read GetAsRawString;
+    property AsString: 	string	        read GetAsString	write SetAsString;
+    property AsSingle: 	single		read GetAsSingle	write SetAsSingle;
+    property AsDouble: 	double		read GetAsDouble	write SetAsDouble;
+    property AsInteger: integer	        read GetAsInteger	write SetAsInteger;
+    property AsDateTime: TDateTime	read GetAsDateTime	write SetAsDateTime;
+    property Options: TSuperOptions     read FOptions        write SetOptions
+             default [soAutoAlign, soShowGray,soAllowspaces, soEnterToTab];
+    property Alignment: TAlignment      read FAlignment      write SetAlignment      default taLeftJustify;
+    property OldColor: TColor           read FOldColor       write FOldColor         default clWindow;
+    property Format: TFormat            read FFormat         write SetFormat         default foText;
+    property TagName: String            read GetFieldName    write SetFieldName ;
+    // ----- ConsTab
+    property CT_Titulo : String         read FCTTitulo       write FCTTitulo ;
+    property CT_DataBaseName : String   read FCTDataBaseName write FCTDatabaseName ;
+    property CT_TableName : String      read FCTTabName    write FCTTabName ;
+    property CT_NumFields : Integer     read FCTNumFields    write FCTNumFields ;
+    property CT_ColTit : String         read FCTColTit       write FCTColTit ;
+    property CT_ColField : String       read FCTColField     write FCTColField ;
+    property CT_RetField1 : Integer     read FCTRetField1    write FCTRetField1 ;
+    property CT_RetControl1 : TWinControl read FCTRetControl1  write FCTRetControl1 ;
+    property CT_RetField2 : Integer     read FCTRetField2    write FCTRetField2 ;
+    property CT_RetControl2 : TWinControl read FCTRetControl2  write FCTRetControl2 ;
+    property CT_Test : Boolean          read FCTTest         write FCTTest ;
+    property CT_ConsTab : Boolean       read FCTConsTab      write FCTConsTab ;
+    property CT_Search : Boolean        read FCTSearch       write FCTSearch ;
+    property CT_KeyValue : TWinControl  read FCTKeyValue     write FCTKeyValue ;
+    property CT_MensErro : String       read FCTMensErro     write FCTMensErro ;
+    property CT_Sql : TStrings          read FCTSql          write SetCTSql ;
+    // --------------------------------- End ConsTab
+    property Value: Extended            read FValue          write SetValue;
+    property MinValue: Extended         read FMinValue       write SetMinValue;
+    property MaxValue: Extended         read FMaxValue       write SetMaxValue;
+    property Decimals: smallint         read FDecimals       write SetDecimals       default 2;
+    property Digits: smallint           read FDigits         write SetDigits         default 8;
+    property Locator: boolean           read FLocator        write FLocator          default false;
+    property LocColor: TColor           read FLocColor       write FLocColor         default clAqua;
+    property CustomMask: string         read FCustomMask     write SetCustomMask;
+    property AutoSelect;
+    property AutoSize;
+    property MaxLength;
+    property Text;
+    property BorderStyle;
+    property CharCase;
+    property Color;
+    property Ctl3D;
+    property DragCursor;
+    property DragMode;
+    property Enabled;
+    property Font;
+    property ParentColor;
+    property ParentCtl3D;
+    property ParentFont;
+    property ParentShowHint;
+    property PasswordChar;
+    property PopupMenu;
+    property ReadOnly;
+    property ShowHint;
+    property TabOrder;
+    property TabStop;
+    property Visible;
+    property OnChange;
+    property OnClick;
+    property OnDblClick;
+    property OnDragDrop;
+    property OnDragOver;
+    property OnEndDrag;
+    property OnEnter;
+    property OnExit;
+    property OnKeyDown;
+    property OnKeyPress;
+    property OnKeyUp;
+    property OnMouseDown;
+    property OnMouseMove;
+    property OnMouseUp;
+    property OnReturn: TNotifyEvent	read FOnReturn	write FOnReturn;
+  published
+  end;
+
+  TrsSuperEdit = class(TrsCustomSuperEdit)
+  private
+  protected
+  public
+  published
+    property Options;
+    property Alignment;
+    property Format;
+    property TagName ;
+    // ----- ConsTab
+    property CT_Titulo ;
+    property CT_TableName ;
+    property CT_DataBaseName ;
+    property CT_NumFields ;
+    property CT_ColTit ;
+    property CT_ColField ;
+    property CT_RetField1 ;
+    property CT_RetControl1 ;
+    property CT_RetField2 ;
+    property CT_RetControl2 ;
+    property CT_Test ;
+    property CT_ConsTab ;
+    property CT_KeyValue ;
+    property CT_MensErro ;
+    property CT_Search ;
+    property CT_Sql ;
+    // --------------------------------- End ConsTab
+    property Value;
+    property MinValue;
+    property MaxValue;
+    property Decimals;
+    property Digits;
+    property Locator;
+    property LocColor;
+    property CustomMask;
+    property AutoSelect;
+    property AutoSize;
+    property MaxLength;
+    property Text;
+    property BorderStyle;
+    property CharCase;
+    property Color;
+    property Ctl3D;
+    property DragCursor;
+    property DragMode;
+    property Enabled;
+    property Font;
+    property ParentColor;
+    property ParentCtl3D;
+    property ParentFont;
+    property ParentShowHint;
+    property PasswordChar;
+    property PopupMenu;
+    property ReadOnly;
+    property ShowHint;
+    property TabOrder;
+    property TabStop;
+    property Visible;
+    property OnChange;
+    property OnClick;
+    property OnDblClick;
+    property OnDragDrop;
+    property OnDragOver;
+    property OnEndDrag;
+    property OnEnter;
+    property OnExit;
+    property OnKeyDown;
+    property OnKeyPress;
+    property OnKeyUp;
+    property OnMouseDown;
+    property OnMouseMove;
+    property OnMouseUp;
+    property OnReturn;
+  end;
+
+
+procedure Register;
+
+Const
+
+   DBTYPE_PARADOX      = 1 ;
+   DBTYPE_SQLSERVER_65 = 2 ;
+   DBTYPE_ACCESS       = 3 ;
+   DBTYPE_SQLSERVER_70 = 4 ;
+
+implementation
+
+Uses
+   StrFun, TestFun, ObjFun, FCadastro ;
+
+procedure Register;
+begin
+  RegisterComponents('RSD', [TrsSuperEdit]);
+end;
+
+{$IFDEF DEMO}
+function DelphiRunning : boolean;
+begin
+ if((FindWindow('TApplication','Delphi') = 0) and (FindWindow('TApplication','Delphi 2.0') = 0) and
+    (FindWindow('TApplication','Delphi 3') = 0) and (FindWindow('TApplication','Delphi 4') = 0)) or
+    (FindWindow('TPropertyInspector',nil) = 0) or (FindWindow('TAppBuilder',nil) = 0) then
+    result:= false
+ else
+    result:= true;
+end;
+{$ENDIF}
+
+Function Str_ChangeDecPoint ( Value : String ; OldDec, NewDec : String ) : String ;
+Var
+   p : Integer ;
+Begin
+   p := Pos(OldDec,Value) ;
+   If ( p = 0 ) Then
+   Begin
+       Result := Value ;
+       Exit ;
+   End ;
+   Result := Copy(Value,1,p-1) + NewDec + Copy(Value,p+1,Length(Value)) ;
+End ;
+
+function TrsCustomSuperEdit.Pow10(n: extended): extended;
+begin
+  Result:= Exp(n * Ln(10));
+end;
+
+function TrsCustomSuperEdit.TrueRound(number : extended) : longint;
+begin
+  Result:= Trunc(Number) + Trunc( Frac(Number) * 2)
+end;
+
+function TrsCustomSuperEdit.RoundDigits(number : extended; decimals : smallint) : extended;
+begin
+  number:= number * pow10(decimals);
+  number:= trueround(number);
+  number:= number / pow10(decimals);
+  result:= number;
+end;
+
+function TrsCustomSuperEdit.RemoveChars(Text : string; ValidChars : TSetOfChar) : string;
+var
+  S : string;
+  i : smallint;
+begin
+  S := '';
+  for i := 1 to length ( Text ) do
+  begin
+    if Text [ i ] = '(' then Text[i]:= '-';
+    if Text [ i ] in ValidChars then S := S + Text [ i ];
+  end;
+  Result := S;
+end;
+
+Function Str_Zeros ( Len : Integer ) : String ;
+Var
+   i : Integer ;
+Begin
+   Result := '' ;
+   For i:=1 To Len Do
+      Result := Result + '0' ;
+End ;
+
+{******************************}
+{     TrsSuperEdit Component   }
+{******************************}
+procedure TrsCustomSuperEdit.CreateParams(var Params: TCreateParams);
+const
+  Alignments: array[TAlignment] of WORD = (ES_LEFT, ES_RIGHT, ES_CENTER);
+begin
+  inherited CreateParams(Params);
+  if PasswordChar = #0 then
+    Params.Style := Params.Style or ES_MULTILINE or Alignments[FAlignment]
+  else
+    Params.Style := Params.Style or Alignments[FAlignment];
+end;
+
+procedure TrsCustomSuperEdit.CreateWindowHandle(const Params: TCreateParams);
+begin
+{$IFDEF WIN32}
+  inherited CreateWindowHandle(Params);
+{$ELSE}
+  HEditDS := GlobalAlloc(GMEM_MOVEABLE or GMEM_ZEROINIT or GMEM_SHARE, 256);
+  if HEditDS = 0 then HEditDS := HInstance;
+  with Params do
+  begin
+    WindowHandle := CreateWindowEx(ExStyle, WinClassName, '', Style,
+      X, Y, Width, Height, WndParent, 0, HEditDS, Param);
+    SendMessage(WindowHandle, WM_SETTEXT, 0, Longint(Caption));
+  end;
+{$ENDIF}
+end;
+
+procedure TrsCustomSuperEdit.WMNCDestroy(var Message: TWMNCDestroy);
+begin
+  inherited;
+{$IFNDEF WIN32}
+  if HEditDS <> HInstance then GlobalFree(HEditDS);
+{$ENDIF}
+end;
+
+constructor TrsCustomSuperEdit.Create(AOwner: TComponent);
+begin
+
+  inherited Create(AOwner);
+
+  ControlStyle:= 	ControlStyle - [csSetCaption];
+  FOptions:=		[soAutoAlign, soShowGray, soAllowSpaces, soEnterToTab];
+  FAlignment:=		taLeftJustify;
+  FFormat:=		foText;
+  FValue:= 		0;
+  FDecimals:= 		2;
+  FDigits:= 		8;
+  FMinValue:= 		0;
+  FMaxValue:= 		0;
+  FLocator:= 		false;
+  FLocColor:= 		clAqua;
+  FOldColor:= 		clWindow;
+  FMaskUpdating:= 	false;
+  FCustomMask:=		'';
+  FTagName := '' ;
+
+  FCTTabName := '' ;
+  FCTDataBaseName := '' ;
+  FCTTest := False ;
+  FCTConsTab := False ;
+  FCTSearch := False ;
+  FCTNumFields := 0 ;
+  FCTRetField1 := 0 ;
+  FCTRetControl1 := Nil ;
+  FCTRetField2 := 0 ;
+  FCTRetControl2 := Nil ;
+
+  FCTSql := TStringList.Create;
+
+  FOnReturn:=	        nil;
+
+  FCTAspas := '''' ;
+
+end;
+
+destructor TrsCustomSuperEdit.Destroy;
+begin
+  FCTSql.Free;
+  inherited Destroy;
+end;
+
+procedure TrsCustomSuperEdit.Loaded;
+var
+  F: TWinControl;
+begin
+  inherited Loaded;
+  {$IFNDEF WIN32}
+  AutoSize:= false;
+  if Height < 22 then Height:= 22;
+  {$ENDIF}
+  F := GetParentForm( Self );
+  {$IFDEF LOCATOR}
+  if F.Tag > 32767 then FLocator:= true;
+  {$ENDIF}
+  UpdateMask;
+  FormatNum;
+  ValidateData;
+  {$IFDEF DEMO}
+  if not DelphiRunning then  {for trial version only}
+    showmessage('This program is using an unregistered copy of the TrsSuperEdit' + #13 +
+                'component from RealSoft.  Please register at www.realsoftdev.com' + #13 +
+                'or call (949) 831-7879.');
+  {$ENDIF}
+end;
+
+procedure TrsCustomSuperEdit.SetFormat(AValue : TFormat);
+begin
+  FFormat:= AValue;
+  if IsNumeric and (not (soShowZero in FOptions)) and (FValue = 0) then Text:= '';
+  if (FFormat in [foDate, foShortDate, foFullDate, foTime, foMTime]) and (FValue = 0) then Text:= '';
+  UpdateMask;
+  SetValue(Value);
+  ValidateData;
+end;
+
+procedure TrsCustomSuperEdit.SetOptions(AValue: TSuperOptions);
+begin
+  FOptions:= AValue;
+  UpdateMask;
+  FormatNum;
+  if IsNumeric and (not (soShowZero in FOptions)) and (FValue = 0) then Text:= '';
+  Invalidate;
+end;
+
+procedure TrsCustomSuperEdit.SetAlignment(AValue : TAlignment);
+begin
+  FAlignment:= AValue;
+  if not (csLoading in componentstate) then ReCreateWnd;
+end;
+
+procedure TrsCustomSuperEdit.SetCustomMask(AValue : String);
+begin
+  FCustomMask:= AValue;
+  UpdateMask;
+end;
+
+procedure TrsCustomSuperEdit.SetFieldName(AValue : String);
+begin
+  FTagName := AValue;
+end;
+
+Function TrsCustomSuperEdit.GetFieldName : String ;
+Begin
+   Result := FTagName ;
+End ;
+
+procedure TrsCustomSuperEdit.SetValue(AValue : Extended);
+begin
+  if AValue = FValue then Exit;
+  FValue:= AValue;
+  if (soMinMaxUsed in FOptions) and (FValue < FMinValue) then FValue:= FMinValue;
+  if (soMinMaxUsed in FOptions) and (FValue > FMaxValue) then FValue:= FMaxValue;
+  FormatNum;
+  if IsNumeric and (not (soShowZero in FOptions)) and (FValue = 0) then Text:= '';
+  (* ----- PCVendra *)
+  If ( (IsNumeric) And (FFormat in [foReal, foInteger, foCurrency]) And (FValue = 0) ) Then
+    Text := '0' ;
+  (* ----- *)
+  if (FFormat in [foDate, foShortDate, foFullDate, foTime, foMTime]) and (FValue = 0) then
+    Text:= ''
+  else
+    FormatDate;
+  DoValue;
+end;
+
+procedure TrsCustomSuperEdit.SetMinValue(AValue : Extended);
+begin
+  FMinValue:= AValue;
+  SetValue(FValue);
+end;
+
+procedure TrsCustomSuperEdit.SetMaxValue(AValue : Extended);
+begin
+  FMaxValue:= AValue;
+  SetValue(FValue);
+end;
+
+procedure TrsCustomSuperEdit.CMTextChanged(var Message: TMessage);
+begin
+  if FMaskUpdating then Exit;
+  inherited;
+end;
+
+procedure TrsCustomSuperEdit.WMSetText(var Message: TWMSetText);
+begin
+  inherited ;
+end;
+
+procedure TrsCustomSuperEdit.CMSetEnabled(var Message: TMessage);
+begin
+  inherited;
+  Invalidate;
+end;
+
+procedure TrsCustomSuperEdit.WMSetColor(var Message: TMessage);
+begin
+  inherited;
+  if (Color <> clGray) and (Color <> LocColor) then FOldColor:= Color;
+end;
+
+
+procedure TrsCustomSuperEdit.SetDecimals(AValue : smallint);
+begin
+  FDecimals:= AValue;
+  FormatNum;
+  if IsNumeric and (not (soShowZero in FOptions)) and (FValue = 0) then Text:= '';
+end;
+
+procedure TrsCustomSuperEdit.SetDigits(AValue : smallint);
+begin
+  FDigits:= AValue;
+  FormatNum;
+  if IsNumeric and (not (soShowZero in FOptions)) and (FValue = 0) then Text:= '';
+end;
+
+procedure TrsCustomSuperEdit.KeyPress(var Key: Char);
+var
+   F: TWinControl;
+begin
+
+  // ----- Testar se é para executar a pesquisa
+  F := GetParentForm( Self );
+  If ( F Is TFrmCadastro ) Then
+  Begin
+     If ( (Key = #13) And (TFrmCadastro(F).NumFields = 1) And (Tag = -2)
+           And (TFrmCadastro(F).VarOperacao <> 1) ) Then
+     Begin
+        TFrmCadastro(F).Search() ;
+        Key := #0;
+        ValidateData;
+        if assigned(FOnReturn) then FOnReturn(Self);
+        Exit ;
+     End ;
+  End ;
+
+  {Handle enter like TAB}
+  if (Key = #13) then
+  begin
+    if (soEnterToTab in FOptions) then
+    begin
+      F := GetParentForm( Self );
+      SendMessage(F.Handle, WM_NEXTDLGCTL, 0, 0);
+    end;
+    Key := #0;
+    ValidateData;
+    if assigned(FOnReturn) then FOnReturn(Self);
+    Exit;
+  end;
+
+  {Map spaces to underscore}
+  if (Key = #32) and (not (soAllowSpaces in FOptions)) then
+  begin
+    if soSpaceToUnderscore in FOptions then
+      Key := #95
+    else
+      Key:= #0;
+  end;
+
+(* --
+  {Handle Escape}
+  if (Key = #27) then
+  begin
+    F := GetParentForm( Self );
+    F.Perform(CM_DIALOGKEY,VK_ESCAPE,0);
+    Exit;
+  end;
+-- *)
+
+  {if Numeric, then filter keys}
+  if IsNumeric then
+  begin
+    If ( (FFormat <> foCurrency) And (FFormat <> foReal) ) Then
+    Begin
+        If Key in [ '0'..'9', '-', '.', #8 ] Then
+           inherited KeyPress(Key)
+        else Key := #0;
+    End
+    Else Begin
+        If Key in [ '0'..'9', '-', ',', '.', #8 ] Then
+        Begin
+           If ( Key = '.' ) Then Key := ',' ;
+           If ( Key = ',' ) Then
+              If ( Pos(',',Text) <> 0 ) Then Key := #0 ;
+           inherited KeyPress(Key) ;
+        End
+        else Key := #0;
+    End
+  end
+  Else
+    inherited KeyPress(Key);
+end;
+
+procedure TrsCustomSuperEdit.KeyUp(var Key: Word; Shift: TShiftState);
+var
+   F: TCustomForm ;
+   aFields : Array[0..5] Of String ;
+   aTitulos : Array[0..5] Of String ;
+   Comp : TComponent ;
+   i : Integer ;
+Begin
+
+  Comp := Obj_GetCompByName(Nil,'EdiDatabaseName') ;
+
+  If ( FCTDatabaseName = '' ) Then
+  Begin
+     If ( Comp <> NIl ) Then
+        FCTDatabaseName := TEdit(Comp).Text
+     Else
+        FCTDatabaseName := '' ;
+  End ;
+
+  If ( (Not Test_IsEmptyStr(FCTTabName))      And
+       (Not Test_IsEmptyStr(FCTColField))     And
+       (Not Test_IsEmptyStr(FCTDataBaseName)) And
+       (Not Test_IsEmptyStr(FCTTitulo))       And
+       (FCTNumFields > 0)                     And
+       ( FCTConsTab )                        And
+       (FCTRetControl1 <> Nil) ) Then
+  Begin
+      If ( Key = VK_F1 ) Then
+      Begin
+         For i:=0 To FCTNumFields-1 Do
+         Begin
+            aFields[i]  := Str_GetToken(FCTColField,';',i+1) ;
+            aTitulos[i] := Str_GetToken(FCTColTit,';',i+1) ;
+         End ;
+         If ( FCTRetField1 = 0 ) Then
+             FCTRetControl1 := Self ;
+         F := GetParentForm( Self );
+         FCTOrder := ConsTab_Show(TForm(F),FCTTitulo,FCTTabName,aFields,aTitulos,
+                    FCTRetField1,FCTRetControl1,FCTRetField2,FCTRetControl2,FCTSql.Text,FCTDatabaseName) ;
+         If ( F Is TFrmCadastro ) Then
+         Begin
+            TFrmCadastro(F).FormOrder := FCTOrder ;
+            If ( (Tag = -2) And (TFrmCadastro(F).NumFields = 1) ) Then
+               TFrmCadastro(F).ButPesquisarClick(Self) ;
+         End ;
+      End ;
+  End
+  Else
+    inherited KeyUp(Key,Shift);
+
+End ;
+
+Procedure TrsCustomSuperEdit.DblClick ;
+(*
+Var
+   F: TCustomForm ;
+*)   
+Begin
+(*
+   F := GetParentForm( Self );
+   TFrmCadastro(F).ShowFormByControl('') ;
+*)
+   inherited ;
+End ;
+
+procedure TrsCustomSuperEdit.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+   F: TCustomForm ;
+   aFields : Array[0..5] Of String ;
+   aTitulos : Array[0..5] Of String ;
+   Comp : TComponent ;
+   i : Integer ;
+Begin
+  Comp := Obj_GetCompByName(Nil,'EdiDatabaseName') ;
+  If ( FCTDatabaseName = '' ) Then
+  Begin
+     If ( Comp <> NIl ) Then
+        FCTDatabaseName := TEdit(Comp).Text
+     Else
+        FCTDatabaseName := '' ;
+  End ;
+  If ( (Not Test_IsEmptyStr(FCTTabName))      And
+       (Not Test_IsEmptyStr(FCTColField))     And
+       (Not Test_IsEmptyStr(FCTDataBaseName)) And
+       (Not Test_IsEmptyStr(FCTTitulo))       And
+       (FCTNumFields > 0)                     And
+       ( FCTConsTab )                         And
+       (Button = mbRight)                     And
+       (FCTRetControl1 <> Nil) ) Then
+  Begin
+       For i:=0 To FCTNumFields-1 Do
+       Begin
+          aFields[i]  := Str_GetToken(FCTColField,';',i+1) ;
+          aTitulos[i] := Str_GetToken(FCTColTit,';',i+1) ;
+       End ;
+       If ( FCTRetField1 = 0 ) Then
+           FCTRetControl1 := Self ;
+       F := GetParentForm( Self );
+       FCTOrder := ConsTab_Show(TForm(F),FCTTitulo,FCTTabName,aFields,aTitulos,
+                    FCTRetField1,FCTRetControl1,FCTRetField2,FCTRetControl2,FCTSql.Text,FCTDatabaseName) ;
+       If ( F Is TFrmCadastro ) Then
+       Begin
+          TFrmCadastro(F).FormOrder := FCTOrder ;
+          If ( (Tag = -2) And (TFrmCadastro(F).NumFields = 1) ) Then
+             TFrmCadastro(F).ButPesquisarClick(Self) ;
+       End ;
+  End ;
+  inherited MouseDown(Button,Shift,X,Y) ;
+End ;
+
+procedure TrsCustomSuperEdit.DoEnter;
+begin
+  FMaskUpdating:= true;
+  {Locator}
+  if FLocator = true then Color:= FLocColor;
+  UnFormatNum;
+  If ( IsNumeric ) Then
+     FValue := Str_MoneyToFloat(Text,FDecimals) ;
+  if IsNumeric and (not (soShowZero in FOptions)) and (FValue = 0) then Text:= '';
+  FMaskUpdating:= false;
+  Update;
+  SelectAll;
+  FMaskUpdating:= false;
+  inherited DoEnter;
+end;
+
+procedure TrsCustomSuperEdit.DoValue;
+begin {virtual-- meant to be blank}
+end;
+
+Function TrsCustomSuperEdit.GetOrder : Integer ;
+Begin
+   Result := FCTOrder ;
+End ;
+
+Function TrsCustomSuperEdit.SeekGet : Boolean ;
+Var
+  sField1, sField2, sField3, sField4 : String ;
+  Q : TSQLQuery ;
+  Sql : String ;
+  Comp : TComponent ;
+Begin
+  If ( FCTDatabaseName = '' ) Then
+  Begin
+     Comp := Obj_GetCompByName(Nil,'EdiDatabaseName') ;
+     If ( Comp <> NIl ) Then
+        FCTDatabaseName := TEdit(Comp).Text
+     Else
+        FCTDatabaseName := '' ;
+  End ;
+  Result := True ;
+  If ( (Not Test_IsEmptyStr(FCTTabName))      And
+       (Not Test_IsEmptyStr(FCTColField))     And
+       (Not Test_IsEmptyStr(FCTDataBaseName)) And
+       (FCTNumFields > 0)                     And
+       (FCTSearch)                            And
+       (FCTRetControl1 <> Nil) ) Then
+  Begin
+     If ( FCTKeyValue = Nil ) Then
+        FCTKeyValue := Self ;
+     Q := TSQLQuery.Create(Self) ;
+     Q.SQLConnection := DB_Conect.SQLConnection;
+//     Q.DatabaseName := FCTDatabaseName ;
+     sField1 := Str_GetToken(FCTColField,';',1) ;
+     sField2 := Str_GetToken(FCTColField,';',2) ;
+     sField3 := Str_GetToken(FCTColField,';',3) ;
+     sField4 := Str_GetToken(FCTColField,';',3) ;
+     Case FCTNumFields Of
+       1 : Sql := 'Select ' + sField1 + ' From ' ;
+       2 : Sql := 'Select ' + sField1 + ', ' + sField2 + ' From ' ;
+       3 : Sql := 'Select ' + sField1 + ', ' + sField2 + ', ' + sField3 + ' From ' ;
+       4 : Sql := 'Select ' + sField1 + ', ' + sField2 + ', ' + sField3 + ', ' + sField4 + ' From ' ;
+     End;
+     Sql := Sql + FCTTabName + ' Where ' + sField1 + ' = :ParValue' ;
+     Q.Sql.Clear ;
+     Q.Sql.Add(Sql) ;
+     Case FFormat of
+        foText     : Q.ParamByName('ParValue').AsString := TEdit(FCTKeyValue).Text ;
+        foInteger  : Q.ParamByName('ParValue').AsInteger := Str_StrToInt(TEdit(FCTKeyValue).Text) ;
+        foReal     : Q.ParamByName('ParValue').AsFloat := Str_StrToFloat(TEdit(FCTKeyValue).Text) ;
+        foFullDate,
+        foDate     : Q.ParamByName('ParValue').AsSQLTimeStamp := DateTimeToSQLTimeStamp(Str_StrToDate(TEdit(FCTKeyValue).Text)) ;
+     End;
+     Try
+        if Q.ParamByName('ParValue').AsString <> '' then
+           begin
+             Q.Open ;
+             TEdit(FCTRetControl1).Text := Q.FieldByName(sField1).AsString ;
+             If ( Not Q.Eof ) Then
+             Begin
+                 Result := True ;
+                 If ( (FCTRetControl2 <> Nil) And (FCTRetField1 <> FCTRetField2) ) Then
+                    TEdit(FCTRetControl2).Text := Q.FieldByName(sField2).AsString ;
+             End
+             Else Begin
+                 Result := False ;
+                 If ( (FCTRetControl2 <> Nil) And (FCTRetField1 <> FCTRetField2) ) Then
+                    TEdit(FCTRetControl2).Text := '**********' ;
+     (*
+                 If ( FCTCheck ) Then
+                 Begin
+                    If ( FCTMensErro <> '' ) Then
+                       Mens_MensInf(FCTMensErro)
+                    Else
+                       Mens_MensInf('Valor inválido') ;
+                    TEdit(FCTRetControl1).SetFocus ;
+                 End ;
+     *)
+             End ;
+           end;
+     Except
+        on E: Exception do
+        Begin
+           Mens_MensInf(E.Message) ;
+           TEdit(FCTRetControl1).Text := ''  ;
+           Result := False ;
+        End ;
+     End ;
+     Q.Destroy ;
+  End ;
+End ;
+
+procedure TrsCustomSuperEdit.DoExit;
+Var
+  d : Double ;
+  p, i : Integer ;
+  F : TWinControl ;
+  aKey : Array[0..0] of Variant ;
+ begin
+
+  If ( (IsNumeric) And (FFormat in [foReal, foCurrency, foPercent]) ) Then
+  Begin
+     If ( FFormat = foCurrency ) Then
+     Begin
+        p := Pos(',',Text) ;
+        If ( p = 0 ) Then
+           Text := Text + ',' + Str_Zeros(FDecimals)
+        Else Begin
+           i := Length(Copy(Text,p+1,Length(Text))) ;
+           If ( i < FDecimals ) Then
+              Text := Text + Str_Zeros(FDecimals-i) ;
+        End ;
+        d := Str_MoneyToFloat(Text,FDecimals) ;
+        Text := Str_FloatToStr(d,FDecimals) ;
+     End ;
+     Text := Str_ChangeDecPoint(Text,'.',',') ;
+  End ;
+
+  FMaskUpdating:= true;
+  {Locator}
+  if FLocator = true then Color:= FOldColor;
+  If ( Not ValidateData ) Then
+  Begin
+     SetFocus ;
+     Exit ;
+  End;
+  FMaskUpdating:= false;
+
+  inherited DoExit;
+
+  // ----- Testar se está incluindo alguem que ja existe
+  F := GetParentForm( Self );
+  If ( F Is TFrmCadastro ) Then
+  Begin
+     If ( (TFrmCadastro(F).NumFields = 1) And (Tag = -2) And
+          (TFrmCadastro(F).VarOperacao = 1)  And (Not Test_IsEmptyStr(Text)) ) Then
+     Begin
+        aKey[0] := Text ;
+        TFrmCadastro(F).Tab.SetKey(aKey) ;
+        If ( TFrmCadastro(F).Tab.Find(True) ) Then
+        Begin
+           TFrmCadastro(F).VarOperacao := 2 ; // Alteracao
+           TFrmCadastro(F).Search() ;
+           Exit ;
+        End ;
+     End ;
+  End ;
+
+  SeekGet() ;
+
+end;
+
+Function TrsCustomSuperEdit.ValidateData : Boolean ;
+var
+   X : Extended;
+begin
+  Result := True ;
+  {if Numeric, then convert}
+  if IsNumeric then
+  begin
+    if Text = '' then Text:= '0';
+    UnFormatNum;
+    X := StrToFloatDef ( Text, 0.0 );
+    {if percent then divide}
+    if (FFormat = foPercent) or (FFormat = foPctNS) then FValue:= X / 100
+    else FValue:= X;
+    {min/max}
+    if ((soMinMaxUsed in FOptions)) and (FValue < FMinValue) then FValue:= FMinValue;
+    if ((soMinMaxUsed in FOptions)) and (FValue > FMaxValue) then FValue:= FMaxValue;
+  end;
+  FormatNum;
+  {take away zero}
+  if IsNumeric and (not (soShowZero in FOptions)) and (FValue = 0) then Text:= '';
+  {datetime}
+  if FFormat in [foDate, foFullDate, foShortDate] then
+  begin
+    FValue:= -1; {force validation}
+    (*----- PCVendra *)
+    If ( (Text <> '  /  /  ') And (Text <> '  /  /    ') )   Then
+    Begin
+       Try
+           StrToDate(Text) ;
+       Except
+           Result := False ;
+           Exit ;
+       End ;
+    End ;
+    (* ----- *)
+    Value := StrToDateDef(Text, 0);
+    If ( (Value = 0) And (Text <> '  /  /  ') And (Text <> '  /  /    ') ) Then
+       Result := False ;
+  end;
+End;
+
+procedure TrsCustomSuperEdit.WMPaint(var Message: TWMPaint);
+var Gray: boolean;
+begin
+  Gray:= ((not Enabled) or (not parent.Enabled) or Readonly) and (soShowGray in FOptions) and (not Focused);
+//  if Gray then Color:= clbtnFace;
+  if Gray then Color:= clInactiveCaptionText ;
+  if (not Gray) and (not (Color = LocColor)) then Color:= clWindow;
+  inherited;
+end;
+
+procedure TrsCustomSuperEdit.UpdateMask;
+begin
+  case FFormat of
+    foText:     begin
+                EditMask:= '';
+                {if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;}
+                end;
+    foReal:     begin
+                EditMask:= '';
+                if (soAutoAlign in FOptions) then Alignment:= taRightJustify;
+                FormatNum;
+                end;
+    foInteger:  begin
+                EditMask:= '';
+                if (soAutoAlign in FOptions) then Alignment:= taRightJustify;
+                FormatNum;
+                end;
+    foDollar:   begin
+                EditMask:= '';
+                if (soAutoAlign in FOptions) then Alignment:= taRightJustify;
+                FormatNum;
+                end;
+    foCurrency: begin
+                EditMask:= '';
+                if (soAutoAlign in FOptions) then Alignment:= taRightJustify;
+                FormatNum;
+                end;
+    foPercent:  begin
+                EditMask:= '';
+                if (soAutoAlign in FOptions) then Alignment:= taRightJustify;
+                FormatNum;
+                end;
+    foPctNS:    begin
+                EditMask:= '';
+                if (soAutoAlign in FOptions) then Alignment:= taRightJustify;
+                FormatNum;
+                end;
+    foDate:     begin
+                EditMask:= '!99/99/99;1; ';
+                if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;
+                end;
+    foShortDate:begin
+                EditMask:= '!99/99;1; ';
+                if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;
+                end;
+    foFullDate: begin
+                EditMask:= '!99/99/9999;1; ';
+                if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;
+                end;
+    foTime:     begin
+                EditMask:= '!99:99l;1; ';
+                if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;
+                end;
+    foMTime:    begin
+                EditMask:= '!99:99:99;1; ';
+                if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;
+                end;
+    foPhone:    begin
+                EditMask:= '!\(999\)999\-9999;1; ';
+                if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;
+                end;
+    foSocial:   begin
+                EditMask:= '!999\-99\-9999;1; ';
+                if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;
+                end;
+    foZipCode:  begin
+                EditMask:= '!99999-999;1; ';
+                if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;
+                end;
+    foPhoneExt: begin
+                EditMask:= '!\(999\)999\-9999 \x9999;1; ';
+                if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;
+                end;
+    foVisaMC:   begin
+                EditMask:= '!9999\-9999\-9999\-9999;1; ';
+                if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;
+                end;
+    foAmex:     begin
+                EditMask:= '!9999\-999999\-99999;1; ';
+                if (soAutoAlign in FOptions) then Alignment:= taLeftJustify;
+                end;
+    foCustom:   EditMask:= FCustomMask;
+    end;
+end;
+
+function Str_FloatToMonetary ( V : Extended ; Dec : Integer ) : String ;
+Var
+  fmt : String ;
+begin
+  ThousandSeparator := '.' ;
+  DecimalSeparator  := ',' ;
+  CurrencyString := '';
+  CurrencyFormat := 0;
+  NegCurrFormat  := 2;
+  CurrencyDecimals := Dec ;
+  fmt := '%.' + Str_IntToStr(Dec) + 'm' ;
+  FmtStr ( Result,fmt,[V] );
+end;
+
+function Str_FloatToStr ( V : Extended ; Dec : Integer ) : String ;
+Var
+  Mask : String ;
+begin
+  ThousandSeparator := '.' ;
+  DecimalSeparator  := ',' ;
+  CurrencyString := '';
+  CurrencyFormat := 0;
+  NegCurrFormat  := 2;
+  CurrencyDecimals := Dec ;
+  Mask := '%.' + IntToStr(Dec) + 'f' ;
+  FmtStr( Result,Mask,[V] );
+end;
+
+procedure TrsCustomSuperEdit.FormatNum;
+var
+   X : extended;
+   Y : Double ;
+begin
+  if csLoading in componentstate then Exit; {autosize fix}
+
+  (*----- PCVendra *)
+  if IsNumeric then
+  begin
+    Y := Pow10(FDecimals) ;
+    try
+      if (FFormat = FoPercent)  or (FFormat = FoPctNS) or
+         (FFormat = foCurrency) or (FFormat = foReal) then
+        X := FValue * Y
+      else
+        X := FValue;
+      if (soRoundValue in FOptions) then
+        X := rounddigits ( X, FDecimals );
+    except
+      X := FValue;
+    end;
+
+    case FFormat of
+      foReal ,
+      foCurrency : Begin
+         Y := Pow10(FDecimals) ;
+         If ( Y <> 0 ) Then
+            X := X / Y ;
+         If ( FFormat = foCurrency ) Then
+            Text := Str_FloatToMonetary(X,FDecimals)
+         Else
+            Text := Str_FloatToStr(X,FDecimals) ;
+      End ;
+(* ----- *)
+      foDollar: Text := FloatToStrF ( X, ffCurrency, FDigits, FDecimals );
+      foPercent: Text := FloatToStrF ( X, ffFixed, FDigits, FDecimals ) + '%';
+      foPctNS:   Text := FloatToStrF ( X, ffFixed, FDigits, FDecimals );
+      foInteger: Text := FloatToStrF ( X, ffFixed, FDigits, 0 );
+    end;
+
+    if FValue < 0 then
+      Font.Color:= clMaroon
+    else
+      Font.Color:= FOldFontColor;
+  end;
+end;
+
+procedure TrsCustomSuperEdit.UnFormatNum;
+begin
+  {if Numeric, then unformat}
+  if IsNumeric then
+  begin
+    if Text = '' then FormatNum;
+    Text := RemoveChars ( Text, [ '0'..'9', '-', ',' ] );
+  end;
+end;
+
+procedure TrsCustomSuperEdit.FormatDate;
+begin
+  if csLoading in componentstate then Exit; {autosize fix}
+  if not (FFormat in [foDate, foFullDate, foShortdate, foTime, foMTime]) then Exit;
+
+  case FFormat of
+    foDate      : Text := FormatDateTime ( 'DD/MM/YY', FValue );
+    foShortDate : Text := FormatDateTime ( 'MM/YY', FValue );
+    foFullDate  : Text := FormatDateTime ( 'DD/MM/YYYY', FValue );
+    foTime      : Text := FormatDateTime ( 'hh:mm', FValue );
+    foMTime     : Text := FormatDateTime ( 'hh:mm', FValue );
+  end;
+end;
+
+function TrsCustomSuperEdit.IsNumeric: boolean;
+begin
+  if (FFormat in [foReal, foInteger, foDollar, foCurrency, foPercent, foPctNS]) then
+    Result:= true
+  else
+    Result:= false;
+end;
+
+function TrsCustomSuperEdit.GetAsString: string;
+begin
+  result:= Text;
+end;
+
+function TrsCustomSuperEdit.GetAsRawString: string;
+var tmpmask: string;
+begin
+  tmpmask:= EditMask;
+  EditMask:= '';
+  result:= Text;
+  EditMask:= tmpmask;
+end;
+
+function TrsCustomSuperEdit.GetAsSingle: single;
+begin
+  if (FValue < 3.4E38) and (FValue > -1.5E45) then
+    result:= FValue
+  else
+    result:= 0;
+end;
+
+function TrsCustomSuperEdit.GetAsDouble: double;
+begin
+  if (FValue < 1.7E308) and (FValue > -5.0E324) then
+//    result:= FValue
+      result := Str_MoneyToFloat(Text,FDecimals)
+  else
+    result:= 0;
+end;
+
+function TrsCustomSuperEdit.GetAsInteger: integer;
+begin
+  result:= trunc(FValue);
+end;
+
+function TrsCustomSuperEdit.GetAsDateTime: TDateTime;
+begin
+  if (FValue < 1.7E308) and (FValue > -5.0E324) then
+  Begin
+    result := FValue ;
+    If ( Result = 0 ) Then
+    Begin
+       If ( Text <> '' ) Then
+         result := Str_StrToDate(Text) ;
+    End ;
+  End
+  else
+     result := 0 ;
+end;
+
+procedure TrsCustomSuperEdit.SetAsString(AValue: string);
+begin
+  Text:= AValue;
+end;
+
+procedure TrsCustomSuperEdit.SetAsSingle(AValue: Single);
+begin
+  Value:= AValue;
+end;
+
+procedure TrsCustomSuperEdit.SetAsDouble(AValue: Double);
+begin
+  Value := AValue;
+  If ( (IsNumeric) And (FFormat = foCurrency) ) Then
+     Text := Str_FloatToMoney(Value,FDecimals) ;
+end;
+
+procedure TrsCustomSuperEdit.SetAsInteger(AValue: integer);
+begin
+  Value:= AValue;
+  Text := Str_IntToStr(AValue) ;
+end;
+
+procedure TrsCustomSuperEdit.SetAsDateTime(AValue: TDateTime);
+begin
+  Value:= AValue;
+  Text := Str_DateToStr(AValue) ;
+end;
+
+procedure TrsCustomSuperEdit.SetCTSql(Value: TStrings);
+begin
+  CT_Sql.Assign(Value);
+end;
+
+
+end.
+
+

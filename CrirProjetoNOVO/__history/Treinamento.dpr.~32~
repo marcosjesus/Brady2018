@@ -1,0 +1,28 @@
+program Treinamento;
+
+uses
+  Forms,
+  Vcl.Dialogs,
+  Winapi.Windows,
+  System.SysUtils,
+  UPrincipal in 'UPrincipal.pas' {frmPrincipal},
+  DBConect in 'DBConect.pas' {DB_Conect: TDataModule},
+  FCadastro in 'FCadastro.pas' {FrmCadastro},
+  Login in 'Login.pas' {FrmLogin},
+  FGrid in 'FGrid.pas' {FrmGrid},
+  FrmPrBs in 'FrmPrBs.pas';
+
+{$R *.RES}
+
+  begin
+  Application.Initialize;
+
+
+  Application.Title := 'Treinamento';
+  Application.CreateForm(TDB_Conect, DB_Conect);
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.Run;
+
+
+
+end.

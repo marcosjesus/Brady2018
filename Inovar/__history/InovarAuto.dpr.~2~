@@ -1,0 +1,23 @@
+program InovarAuto;
+
+uses
+  Vcl.Forms,
+  Vcl.Themes,
+  Vcl.Styles,
+  uInovarAuto in 'uInovarAuto.pas' {GridForm},
+  uConexao in 'uConexao.pas' {DetailForm},
+  uDataModule in 'uDataModule.pas' {DataModule1: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.UseMetropolisUI;
+  TStyleManager.TrySetStyle('Metropolis UI Dark');
+  Application.MainFormOnTaskbar := True;
+  Application.Title := 'Metropolis UI Application';
+  Application.CreateForm(TGridForm, GridForm);
+  Application.CreateForm(TDetailForm, DetailForm);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.Run;
+end.

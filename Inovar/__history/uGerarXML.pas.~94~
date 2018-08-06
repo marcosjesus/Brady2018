@@ -1,0 +1,267 @@
+unit uGerarXML;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
+  Vcl.Imaging.pngimage, Vcl.Imaging.jpeg, System.Actions, Vcl.ActnList,
+  Vcl.Styles, Vcl.Themes, Vcl.Touch.GestureMgr, System.Rtti,
+  System.Bindings.Outputs, Vcl.Bind.Editors, Data.Bind.EngExt,
+  Vcl.Bind.DBEngExt, Data.Bind.Components, Vcl.Buttons, Vcl.Imaging.GIFImg,
+  Vcl.Grids, Vcl.DBGrids, Data.DB, Vcl.DBCtrls, System.DateUtils, Xml.xmldom,
+  Xml.XMLIntf, Xml.Win.msxmldom, Xml.XMLDoc;
+
+type
+  TGerarXMLForm = class(TForm)
+    Panel1: TPanel;
+    TitleLabel: TLabel;
+    Image1: TImage;
+    ScrollBox1: TScrollBox;
+    TextPanel: TPanel;
+    ItemTitle: TLabel;
+    ItemSubtitle: TLabel;
+    Image2: TImage;
+    AppBar: TPanel;
+    GestureManager1: TGestureManager;
+    ActionList1: TActionList;
+    Action1: TAction;
+    CloseButton: TImage;
+    ListBox1: TListBox;
+    Label1: TLabel;
+    ListBox2: TListBox;
+    Label2: TLabel;
+    SpeedButtonConexao: TSpeedButton;
+    procedure BackToMainForm(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Action1Execute(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormGesture(Sender: TObject; const EventInfo: TGestureEventInfo;
+      var Handled: Boolean);
+    procedure SpeedButtonConexaoClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure AppBarResize;
+    procedure AppBarShow(mode: integer);
+  public
+    { Public declarations }
+  end;
+
+var
+  GerarXMLForm: TGerarXMLForm = nil;
+
+implementation
+
+{$R *.dfm}
+
+uses uInovarAuto, uDataModule;
+
+procedure TGerarXMLForm.Action1Execute(Sender: TObject);
+begin
+  AppBarShow(-1);
+end;
+
+const
+  AppBarHeight = 75;
+
+procedure TGerarXMLForm.AppBarResize;
+begin
+  AppBar.SetBounds(0, AppBar.Parent.Height - AppBarHeight,
+    AppBar.Parent.Width, AppBarHeight);
+end;
+
+procedure TGerarXMLForm.AppBarShow(mode: integer);
+begin
+  if mode = -1 then // Toggle
+    mode := integer(not AppBar.Visible );
+
+  if mode = 0 then
+    AppBar.Visible := False
+  else
+  begin
+    AppBar.Visible := True;
+    AppBar.BringToFront;
+  end;
+end;
+
+procedure TGerarXMLForm.FormCreate(Sender: TObject);
+var
+  LStyle: TCustomStyleServices;
+  MemoColor, MemoFontColor: TColor;
+
+begin
+
+  //Set background color for memos to the color of the form, from the active style.
+  LStyle := TStyleManager.ActiveStyle;
+  MemoColor := LStyle.GetStyleColor(scGenericBackground);
+  MemoFontColor := LStyle.GetStyleFontColor(sfButtonTextNormal);
+
+  //Fill image
+  GridForm.PickImageColor(Image2, clBtnShadow);
+
+end;
+
+procedure TGerarXMLForm.FormGesture(Sender: TObject;
+  const EventInfo: TGestureEventInfo; var Handled: Boolean);
+begin
+
+  AppBarShow(0);
+
+end;
+
+procedure TGerarXMLForm.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+
+  if Key = VK_ESCAPE then
+    AppBarShow(-1)
+  else
+    AppBarShow(0);
+
+end;
+
+procedure TGerarXMLForm.FormResize(Sender: TObject);
+begin
+
+  AppBarResize;
+
+end;
+
+procedure TGerarXMLForm.FormShow(Sender: TObject);
+var
+  iAno, iMes: Integer;
+
+begin
+
+  AppBarShow(0);
+
+  ListBox1.Items.Clear;
+  for iAno := YearOf(Now)-5 to YearOf(Now) do
+    for iMes := 1 to 12 do
+      if EncodeDate(iAno, iMes, 1) <= Now then
+        ListBox1.Items.Add(FormatDateTime('yyyy-mmm',EncodeDate(iAno, iMes, 1)));
+
+  ListBox1.Selected[ListBox1.Count-1] := True;
+
+  ListBox2.Items.Clear;
+  dInovarAuto.FDMemTableClientes.First;
+  while not dInovarAuto.FDMemTableClientes.Eof do
+  begin
+
+    ListBox2.Items.Add(dInovarAuto.FDMemTableClientesCNPJ.AsString + ' - ' + dInovarAuto.FDMemTableClientesRazaoSocial.AsString);
+    dInovarAuto.FDMemTableClientes.Next;
+
+  end;
+
+
+end;
+
+procedure TGerarXMLForm.SpeedButtonConexaoClick(Sender: TObject);
+var
+  HeaderFile: TStringList;
+  ItemFile: TStringList;
+  XML, Items: TStringList;
+  DataInicial, DataFinal: TDateTime;
+  varCNPJ: String;
+  Indice, Index: Integer;
+
+  function getMes(str: string): Integer;
+  begin
+
+    str := copy( str, 6, 3 );
+
+    if str = 'jan' then result := 01 else
+    if str = 'fev' then result := 02 else
+    if str = 'mar' then result := 03 else
+    if str = 'abr' then result := 04 else
+    if str = 'mai' then result := 05 else
+    if str = 'jun' then result := 06 else
+    if str = 'jul' then result := 07 else
+    if str = 'ago' then result := 08 else
+    if str = 'set' then result := 09 else
+    if str = 'out' then result := 10 else
+    if str = 'nov' then result := 11 else
+    if str = 'dez' then result := 12;
+
+  end;
+
+begin
+
+  for Indice := 0 to ListBox1.Count-1 do
+  begin
+
+    if ListBox1.Selected[Indice] then
+    begin
+
+      DataInicial := EncodeDate( StrToInt(Copy(ListBox1.Items[Indice], 1, 4)), getMes(ListBox1.Items[Indice]), 01 );
+      DataFinal := IncMonth(DataInicial)-1;
+
+      HeaderFile := TStringList.Create;
+      HeaderFile.LoadFromFile(ExtractFilePath(Application.ExeName) + 'InovarXML.part1.txt');
+
+      ItemFile := TStringList.Create;
+      ItemFile.LoadFromFile(ExtractFilePath(Application.ExeName) + 'InovarXML.part2.txt');
+
+      Items := TStringList.Create;
+
+      for Index := 0 to ListBox2.Count-1 do
+      begin
+
+        if ListBox2.Selected[Index] then
+        begin
+
+          varCNPJ := Copy(ListBox2.Items[Index], 1, 18);
+
+          dInovarAuto.FDMemTableNotaFiscal.Filter := 'CNPJ = ' + QuotedStr( varCNPJ ) + ' AND mes = ' + IntToStr( MonthOf(DataInicial) ) + ' AND tot_nota > 0.00 AND ano = ' + IntToStr( YearOf(DataInicial) );
+          dInovarAuto.FDMemTableNotaFiscal.First;
+          while not dInovarAuto.FDMemTableNotaFiscal.Eof do
+          begin
+
+            Items.AddStrings(ItemFile);
+
+            Items.Text := StringReplace( Items.Text, '%razao_social%', dInovarAuto.FDMemTableNotaFiscalRazaoSocial.AsString, [rfReplaceAll] );
+            Items.Text := StringReplace( Items.Text, '%cnpj%', StringReplace(StringReplace(StringReplace(dInovarAuto.FDMemTableNotaFiscalCNPJ.AsString,'.','',[rfReplaceAll]),'/','',[rfReplaceAll]),'-','',[rfReplaceAll]), [rfReplaceAll] );
+            Items.Text := StringReplace( Items.Text, '%mes_ref%', dInovarAuto.FDMemTableNotaFiscalmes.AsString, [rfReplaceAll] );
+            Items.Text := StringReplace( Items.Text, '%ano_ref%', dInovarAuto.FDMemTableNotaFiscalano.AsString, [rfReplaceAll] );
+            Items.Text := StringReplace( Items.Text, '%vl_total_notas%', StringReplace(StringReplace(FormatFloat('#,##0.00', StrToFloat(dInovarAuto.FDMemTableNotaFiscaltot_nota.AsString)),'.','',[rfReplaceAll]),',','.',[rfReplaceAll]), [rfReplaceAll] );
+            Items.Text := StringReplace( Items.Text, '%vl_parc_dedutivel%', StringReplace(StringReplace(FormatFloat('#,##0.00', StrToFloat(dInovarAuto.FDMemTableNotaFiscalparc_dedutivel.AsString)),'.','',[rfReplaceAll]),',','.',[rfReplaceAll]), [rfReplaceAll] );
+
+            dInovarAuto.FDMemTableNotaFiscal.Next;
+
+          end;
+
+        end;
+
+      end;
+
+      XML := TStringList.Create;
+      XML.AddStrings(HeaderFile);
+
+      XML.Text := StringReplace( XML.Text, '%%itens%%', Items.Text, [rfReplaceAll] );
+
+      XML.SaveToFile( ExtractFilePath(Application.ExeName) + 'Inovar-' + FormatDateTime( 'yyyymm' , DataInicial ) + Copy(StringReplace(StringReplace(StringReplace(varCNPJ,'.','',[rfReplaceAll]),'/','',[rfReplaceAll]),'-','',[rfReplaceAll]),1,8) + '.XML' );
+
+      ShowMessage('Arquivo gerado com sucesso.'#13#10#13#10 + ExtractFilePath(Application.ExeName) + 'Inovar-' + FormatDateTime( 'yyyymm' , DataInicial ) + Copy(StringReplace(StringReplace(StringReplace(varCNPJ,'.','',[rfReplaceAll]),'/','',[rfReplaceAll]),'-','',[rfReplaceAll]),1,8) + '.XML' );
+
+      FreeAndNil(XML);
+      FreeAndNil(Items);
+      FreeAndNil(ItemFile);
+      FreeAndNil(HeaderFile);
+
+    end;
+
+  end;
+
+end;
+
+procedure TGerarXMLForm.BackToMainForm(Sender: TObject);
+begin
+
+  Hide;
+  GridForm.BringToFront;
+
+end;
+
+end.

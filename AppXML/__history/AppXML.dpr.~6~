@@ -1,0 +1,19 @@
+program AppXML;
+
+uses
+  Vcl.Forms,
+  uPrincipal in 'uPrincipal.pas' {FR_Principal},
+  uLeitorXML in 'uLeitorXML.pas' {FR_LeitorXML},
+  udmDados in 'udmDados.pas' {Dados: TDataModule},
+  Login in 'Login.pas' {FrmLogin};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFR_Principal, FR_Principal);
+  Application.CreateForm(TDados, Dados);
+  Application.CreateForm(TFrmLogin, FrmLogin);
+  Application.Run;
+end.

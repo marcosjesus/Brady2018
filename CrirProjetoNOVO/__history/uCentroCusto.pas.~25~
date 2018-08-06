@@ -1,0 +1,173 @@
+unit uCentroCusto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FCadastro, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.ExtCtrls, Vcl.StdCtrls,
+  cxButtons, dxStatusBar, Vcl.Mask, rsEdit, RseditDB, EditBusca, SetParametro, Constantes,
+  MensFun, TestFun, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
+
+type
+  TFrmCentroCusto = class(TFrmCadastro)
+    Panel1: TPanel;
+    EdiCodigo: TrsSuperEdit;
+    EditBuscaCentroCusto: TEditBusca;
+    Panel3: TPanel;
+    ediAtivo: TrsSuperEdit;
+    Panel2: TPanel;
+    ediDescricao: TrsSuperEdit;
+    Panel4: TPanel;
+    ediCentroCusto: TrsSuperEdit;
+    chkStatus: TCheckBox;
+    qryAux: TFDQuery;
+    procedure FormShow(Sender: TObject);
+    procedure ButNovoClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure ButExcluirClick(Sender: TObject);
+    procedure ButSalvarClick(Sender: TObject);
+    procedure ButCancelarClick(Sender: TObject);
+    procedure EditBuscaCentroCustoClick(Sender: TObject);
+  private
+    { Private declarations }
+     Function Check : Boolean ; Override ;
+     Procedure Search; Override ;
+    procedure LimpaTela;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCentroCusto: TFrmCentroCusto;
+
+implementation
+
+{$R *.dfm}
+
+uses DBConect;
+
+procedure  TFrmCentroCusto.LimpaTela;
+begin
+    EditBuscaCentroCusto.Text := '';
+    EditBuscaCentroCusto.bs_KeyValues.Clear;
+    chkStatus.Checked := False;
+end;
+
+procedure TFrmCentroCusto.ButCancelarClick(Sender: TObject);
+begin
+  inherited;
+  LimpaTela;
+end;
+
+procedure TFrmCentroCusto.ButExcluirClick(Sender: TObject);
+begin
+  if ((EditBuscaCentroCusto.bs_KeyValues.Count > 0)and (EditBuscaCentroCusto.Text <> '')) then
+  begin
+    qryAux.Close;
+    qryAux.SQL.Clear;
+    qryAux.SQL.Add('SELECT * FROM TRE_FUNCIONARIO WHERE TRE_CENTROCENTRO = :TRE_CENTROCENTRO');
+    qryAux.Params.ParamByName('TRE_CENTROCENTRO').AsString := VarToStr(EditBuscaCentroCusto.bs_KeyValue);
+    qryAux.Open;
+    if not qryAux.IsEmpty then
+    begin
+      Mens_MensInf('Há participante relacionado a este Centro de Custo. Exclusão não permitidida.') ;        //EdiApelido
+      exit;
+    end;
+
+    inherited;
+    LimpaTela;
+  end;
+end;
+
+procedure TFrmCentroCusto.ButNovoClick(Sender: TObject);
+begin
+  inherited;
+  EdiCodigo.AsString := LastCodigo('TRE_CENTROCENTRO_ID', 'TRE_CENTROCUSTO', '');
+  LimpaTela;
+
+  EditBuscaCentroCusto.Text := EdiCodigo.AsString;
+  ediCentroCusto.SetFocus; // foco no campo de Codigo.
+end;
+
+procedure TFrmCentroCusto.ButSalvarClick(Sender: TObject);
+begin
+  inherited;
+  LimpaTela;
+end;
+
+function TFrmCentroCusto.Check: Boolean;
+begin
+
+	 Result := False ;
+
+   If ( Test_IsEmptyStr(ediCentroCusto.Text) ) Then
+	 Begin
+			 Mens_MensInf('É necessário informar o Codigo do Centro de Custo !') ;        //EdiApelido
+			 ediCentroCusto.SetFocus ;
+			 Exit ;
+	 End ;
+
+
+   If ( Test_IsEmptyStr(ediDescricao.Text) ) Then
+	 Begin
+			 Mens_MensInf('É necessário informar a Descrição do Centro de Custo !') ;        //EdiApelido
+			 ediDescricao.SetFocus ;
+			 Exit ;
+	 End ;
+
+   if chkStatus.Checked then
+     ediAtivo.AsString := 'S'
+   else
+     ediAtivo.AsString := 'N';
+
+   Result := True;
+end;
+
+procedure TFrmCentroCusto.EditBuscaCentroCustoClick(Sender: TObject);
+begin
+  inherited;
+  if ((EditBuscaCentroCusto.Text <> '') and (EditBuscaCentroCusto.bs_KeyValues.Count > 0)) then
+  begin
+   EdiCodigo.AsString := VarToStr(EditBuscaCentroCusto.bs_KeyValue);
+   if VarOperacao <> OPE_INCLUSAO then
+     ButPesquisarClick(Self);
+  end;
+end;
+
+procedure TFrmCentroCusto.FormCreate(Sender: TObject);
+begin
+		LabCadTit.Caption := 'Cadastro de Centro de Custo ' ;
+		FormOperacao      := 'CAD_CENTROCUSTO';
+		FormTabela        := 'TRE_CENTROCUSTO' ;
+		FormChaves        := 'TRE_CENTROCENTRO' ;
+		FormCtrlFocus     := 'EditBuscaCentroCusto' ;
+		FormDataFocus     := 'ediCentroCusto' ;
+
+    SetParametros(EditBuscaCentroCusto, TipoCentroCusto);
+  inherited;
+
+end;
+
+procedure TFrmCentroCusto.FormShow(Sender: TObject);
+begin
+  inherited;
+  WindowState := wsMaximized;
+end;
+
+procedure TFrmCentroCusto.Search;
+begin
+  inherited;
+
+  if   ediAtivo.AsString = 'S' then
+     chkStatus.Checked := true
+  else chkStatus.Checked := false;
+
+end;
+
+end.
+
+

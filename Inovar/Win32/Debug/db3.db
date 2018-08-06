@@ -1,0 +1,1853 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FDBS Version="9">
+  <Manager UpdatesRegistry="True">
+    <TableList>
+      <Table Name="FDMemTableNotaFiscal" TabID="0" EnforceConstraints="False" MinimumCapacity="50" CheckNotNull="False" CheckReadOnly="False">
+        <ColumnList>
+          <Column Name="CNPJ" SourceID="1" DataType="AnsiString" Size="50" Searchable="True" AllowNull="True" Base="True" OAllowNull="True" OInUpdate="True" OInWhere="True" OriginColName="CNPJ" SourceSize="50"/>
+          <Column Name="RazaoSocial" SourceID="2" DataType="AnsiString" Size="50" Searchable="True" AllowNull="True" Base="True" Caption="Razão Social" OAllowNull="True" OInUpdate="True" OInWhere="True" OriginColName="RazaoSocial" SourceSize="50"/>
+          <Column Name="mes" SourceID="3" DataType="UInt16" Searchable="True" AllowNull="True" Base="True" Caption="Mês" OAllowNull="True" OInUpdate="True" OInWhere="True" OriginColName="mes"/>
+          <Column Name="ano" SourceID="4" DataType="Int32" Searchable="True" AllowNull="True" Base="True" Caption="Ano" OAllowNull="True" OInUpdate="True" OInWhere="True" OriginColName="ano"/>
+          <Column Name="tot_nota" SourceID="5" DataType="Extended" Searchable="True" AllowNull="True" Base="True" Caption="Valor NF" OAllowNull="True" OInUpdate="True" OInWhere="True" OriginColName="tot_nota"/>
+          <Column Name="parc_dedutivel" SourceID="6" DataType="Extended" Searchable="True" AllowNull="True" Base="True" Caption="Dedutivel" OAllowNull="True" OInUpdate="True" OInWhere="True" OriginColName="parc_dedutivel"/>
+        </ColumnList>
+        <ConstraintList Enforce="False"/>
+        <ViewList/>
+        <TableRowList_Updates>
+          <Row RowID="57" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="1" ano="2015" tot_nota="4078.09000000000015" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="58" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="1" ano="2015" tot_nota="45318.760000000002" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="59" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="1" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="60" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="1" ano="2015" tot_nota="4498.84000000000015" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="61" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="1" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="62" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="1" ano="2015" tot_nota="18.0100000000000016" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="63" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="1" ano="2015" tot_nota="19285.7299999999996" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="64" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="1" ano="2015" tot_nota="12477.2199999999993" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="65" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0018-06" RazaoSocial="VOLKSWAGEN AUTO - Vinhedo - SP" mes="1" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="66" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTO REPOSIÇÃO" mes="1" ano="2015" tot_nota="222.009999999999991" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="67" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="1" ano="2015" tot_nota="2931.69000000000005" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="68" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="1" ano="2015" tot_nota="104232.979999999996" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="69" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2015" tot_nota="7877.02999999999975" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="70" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2015" tot_nota="52360.6500000000015" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="71" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2015" tot_nota="39181.6200000000026" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="72" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="73" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="1" ano="2015" tot_nota="13870.1000000000004" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="74" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0007-06" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="1" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="93" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="12" ano="2014" tot_nota="3375.98999999999978" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="94" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="12" ano="2014" tot_nota="3744.40000000000009" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="95" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="12" ano="2014" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="96" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="12" ano="2014" tot_nota="28718.1599999999999" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="97" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="12" ano="2014" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="98" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="12" ano="2014" tot_nota="11346" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="99" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="12" ano="2014" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="100" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="12" ano="2014" tot_nota="14810.6399999999994" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="101" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0018-06" RazaoSocial="VOLKSWAGEN AUTO - Vinhedo - SP" mes="12" ano="2014" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="102" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTO REPOSIÇÃO" mes="12" ano="2014" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="103" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="12" ano="2014" tot_nota="1953.3900000000001" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="104" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="12" ano="2014" tot_nota="50948.8799999999974" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="105" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2014" tot_nota="4919.96000000000004" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="106" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2014" tot_nota="50387.3899999999994" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="107" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2014" tot_nota="35018.6200000000026" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="108" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2014" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="109" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="12" ano="2014" tot_nota="1836.54999999999995" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="110" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0007-06" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="12" ano="2014" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="111" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="2" ano="2015" tot_nota="21203.2799999999988" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="112" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="2" ano="2015" tot_nota="114780.169999999998" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="113" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="2" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="114" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="2" ano="2015" tot_nota="4461.92000000000007" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="115" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="2" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="116" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="2" ano="2015" tot_nota="12696" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="117" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="2" ano="2015" tot_nota="41992.3600000000006" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="118" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="2" ano="2015" tot_nota="34662.9499999999971" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="119" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0018-06" RazaoSocial="VOLKSWAGEN AUTO - Vinhedo - SP" mes="2" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="120" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTO REPOSIÇÃO" mes="2" ano="2015" tot_nota="349.649999999999977" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="121" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="2" ano="2015" tot_nota="-2922.01999999999998" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="122" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="2" ano="2015" tot_nota="109951.160000000004" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="123" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2015" tot_nota="7895.81999999999971" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="124" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2015" tot_nota="40441.5400000000009" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="125" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2015" tot_nota="54353.2099999999991" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="126" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="127" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="2" ano="2015" tot_nota="5820.15999999999985" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="128" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0007-06" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="2" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="147" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="3" ano="2015" tot_nota="27139.8499999999985" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="148" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="3" ano="2015" tot_nota="163193.420000000013" parc_dedutivel="702"/>
+          </Row>
+          <Row RowID="149" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="3" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="150" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="3" ano="2015" tot_nota="13392.3099999999995" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="151" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="3" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="152" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="3" ano="2015" tot_nota="486" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="153" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="3" ano="2015" tot_nota="38045.9100000000035" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="154" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="3" ano="2015" tot_nota="28261.3899999999994" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="155" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0018-06" RazaoSocial="VOLKSWAGEN AUTO - Vinhedo - SP" mes="3" ano="2015" tot_nota="1128.68000000000006" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="156" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTO REPOSIÇÃO" mes="3" ano="2015" tot_nota="4659.94999999999982" parc_dedutivel="45.3599999999999994"/>
+          </Row>
+          <Row RowID="157" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="3" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="158" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="3" ano="2015" tot_nota="201303.309999999998" parc_dedutivel="4612.26000000000022"/>
+          </Row>
+          <Row RowID="159" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2015" tot_nota="12.6799999999999997" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="160" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2015" tot_nota="54183.6600000000035" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="161" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2015" tot_nota="37924.5599999999977" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="162" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="163" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="3" ano="2015" tot_nota="6222.13000000000011" parc_dedutivel="71.3299999999999983"/>
+          </Row>
+          <Row RowID="164" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0007-06" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="3" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="417" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="5" ano="2015" tot_nota="42771.5500000000029" parc_dedutivel="4823.30000000000018"/>
+          </Row>
+          <Row RowID="418" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="5" ano="2015" tot_nota="47404.7300000000032" parc_dedutivel="693.82000000000005"/>
+          </Row>
+          <Row RowID="419" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="5" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="420" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="5" ano="2015" tot_nota="1125.34999999999991" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="421" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="5" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="422" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="5" ano="2015" tot_nota="2933.5300000000002" parc_dedutivel="0.0500000000000000028"/>
+          </Row>
+          <Row RowID="423" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="5" ano="2015" tot_nota="30037.4500000000007" parc_dedutivel="520.460000000000036"/>
+          </Row>
+          <Row RowID="424" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="5" ano="2015" tot_nota="28920.6500000000015" parc_dedutivel="2660.05999999999995"/>
+          </Row>
+          <Row RowID="425" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0018-06" RazaoSocial="VOLKSWAGEN AUTO - Vinhedo - SP" mes="5" ano="2015" tot_nota="3681.46000000000004" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="426" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTO REPOSIÇÃO" mes="5" ano="2015" tot_nota="2777.15999999999985" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="427" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="5" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="428" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="5" ano="2015" tot_nota="137332.670000000013" parc_dedutivel="3803.90000000000009"/>
+          </Row>
+          <Row RowID="429" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="430" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2015" tot_nota="54883.8899999999994" parc_dedutivel="2507.44000000000005"/>
+          </Row>
+          <Row RowID="431" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2015" tot_nota="9412.94000000000051" parc_dedutivel="4.70999999999999996"/>
+          </Row>
+          <Row RowID="432" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="433" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="5" ano="2015" tot_nota="7251.26000000000022" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="434" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0007-06" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="5" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="435" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="4" ano="2015" tot_nota="39142.4599999999991" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="436" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="4" ano="2015" tot_nota="90171.1199999999953" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="437" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="4" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="438" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="4" ano="2015" tot_nota="25891.0900000000001" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="439" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="4" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="440" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="4" ano="2015" tot_nota="126.010000000000005" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="441" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="4" ano="2015" tot_nota="37649.9599999999991" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="442" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="4" ano="2015" tot_nota="27760.5800000000017" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="443" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0018-06" RazaoSocial="VOLKSWAGEN AUTO - Vinhedo - SP" mes="4" ano="2015" tot_nota="2416.38000000000011" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="444" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTO REPOSIÇÃO" mes="4" ano="2015" tot_nota="1533.75999999999999" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="445" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="4" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="446" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="4" ano="2015" tot_nota="101983.009999999995" parc_dedutivel="5533.51000000000022"/>
+          </Row>
+          <Row RowID="447" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="448" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2015" tot_nota="51298.3300000000017" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="449" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2015" tot_nota="50225.9700000000012" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="450" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="451" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="4" ano="2015" tot_nota="16063.3199999999997" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="452" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0007-06" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="4" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="469" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="6" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="470" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="6" ano="2015" tot_nota="126022.479999999996" parc_dedutivel="815.029999999999973"/>
+          </Row>
+          <Row RowID="471" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="6" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="472" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="6" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="473" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="6" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="474" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="6" ano="2015" tot_nota="4152.31999999999971" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="475" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="6" ano="2015" tot_nota="12001.1800000000003" parc_dedutivel="108.319999999999993"/>
+          </Row>
+          <Row RowID="476" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="6" ano="2015" tot_nota="15228.0499999999993" parc_dedutivel="275.810000000000002"/>
+          </Row>
+          <Row RowID="477" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="6" ano="2015" tot_nota="1036" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="478" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="6" ano="2015" tot_nota="115568.020000000004" parc_dedutivel="9143.81999999999971"/>
+          </Row>
+          <Row RowID="479" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2015" tot_nota="27146.2299999999996" parc_dedutivel="1044.80999999999995"/>
+          </Row>
+          <Row RowID="480" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2015" tot_nota="42672.3199999999997" parc_dedutivel="0.489999999999999991"/>
+          </Row>
+          <Row RowID="481" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2015" tot_nota="47810.8499999999985" parc_dedutivel="0.540000000000000036"/>
+          </Row>
+          <Row RowID="482" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="483" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="6" ano="2015" tot_nota="4923.72999999999956" parc_dedutivel="409.120000000000005"/>
+          </Row>
+          <Row RowID="484" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0007-06" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="6" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="485" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="7" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="486" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="7" ano="2015" tot_nota="72341.1199999999953" parc_dedutivel="1040.43000000000006"/>
+          </Row>
+          <Row RowID="487" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="7" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="488" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="7" ano="2015" tot_nota="19096.6899999999987" parc_dedutivel="420"/>
+          </Row>
+          <Row RowID="489" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="7" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="490" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="7" ano="2015" tot_nota="2551.5300000000002" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="491" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="7" ano="2015" tot_nota="9996.65999999999985" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="492" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="7" ano="2015" tot_nota="36837.0500000000029" parc_dedutivel="209.780000000000001"/>
+          </Row>
+          <Row RowID="493" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="7" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="494" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="7" ano="2015" tot_nota="198587.220000000001" parc_dedutivel="9927.11000000000058"/>
+          </Row>
+          <Row RowID="495" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2015" tot_nota="4421.8100000000004" parc_dedutivel="0.179999999999999993"/>
+          </Row>
+          <Row RowID="496" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2015" tot_nota="54121.1500000000015" parc_dedutivel="0.770000000000000018"/>
+          </Row>
+          <Row RowID="497" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2015" tot_nota="47810.5599999999977" parc_dedutivel="0.299999999999999989"/>
+          </Row>
+          <Row RowID="498" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="499" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="7" ano="2015" tot_nota="5350.6899999999996" parc_dedutivel="175.569999999999993"/>
+          </Row>
+          <Row RowID="500" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0007-06" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="7" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="516" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0007-06" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="9" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="532" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0007-06" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="8" ano="2015" tot_nota="301.29000000000002" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="533" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="8" ano="2015" tot_nota="-7837.5" parc_dedutivel="-126.439999999999998"/>
+          </Row>
+          <Row RowID="534" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="8" ano="2015" tot_nota="119396.669999999998" parc_dedutivel="1.85000000000000009"/>
+          </Row>
+          <Row RowID="535" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="8" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="536" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="8" ano="2015" tot_nota="3917.90999999999985" parc_dedutivel="210"/>
+          </Row>
+          <Row RowID="537" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="8" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="538" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="8" ano="2015" tot_nota="5638.10000000000036" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="539" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="8" ano="2015" tot_nota="12754.1700000000001" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="540" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="8" ano="2015" tot_nota="22830.7000000000007" parc_dedutivel="104.890000000000001"/>
+          </Row>
+          <Row RowID="541" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="8" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="542" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="8" ano="2015" tot_nota="150676.450000000012" parc_dedutivel="9334.23999999999978"/>
+          </Row>
+          <Row RowID="543" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2015" tot_nota="20659.7999999999993" parc_dedutivel="916.860000000000014"/>
+          </Row>
+          <Row RowID="544" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2015" tot_nota="39131.9499999999971" parc_dedutivel="0.800000000000000044"/>
+          </Row>
+          <Row RowID="545" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2015" tot_nota="33111.8799999999974" parc_dedutivel="0.380000000000000004"/>
+          </Row>
+          <Row RowID="546" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="547" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="8" ano="2015" tot_nota="4326.9399999999996" parc_dedutivel="471.860000000000014"/>
+          </Row>
+          <Row RowID="628" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="9" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="629" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="9" ano="2015" tot_nota="44229.5299999999988" parc_dedutivel="0.23000000000000001"/>
+          </Row>
+          <Row RowID="630" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="9" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="631" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="9" ano="2015" tot_nota="17282.7400000000016" parc_dedutivel="355.740000000000009"/>
+          </Row>
+          <Row RowID="632" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="9" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="633" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="9" ano="2015" tot_nota="470.490000000000009" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="634" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="9" ano="2015" tot_nota="10751.9699999999993" parc_dedutivel="6.08000000000000007"/>
+          </Row>
+          <Row RowID="635" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="9" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="636" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="9" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="637" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="9" ano="2015" tot_nota="144103.410000000003" parc_dedutivel="8202.93000000000029"/>
+          </Row>
+          <Row RowID="638" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2015" tot_nota="1450" parc_dedutivel="210"/>
+          </Row>
+          <Row RowID="639" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2015" tot_nota="37219.2900000000009" parc_dedutivel="0.609999999999999987"/>
+          </Row>
+          <Row RowID="640" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2015" tot_nota="62172.8600000000006" parc_dedutivel="0.560000000000000053"/>
+          </Row>
+          <Row RowID="641" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="642" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="9" ano="2015" tot_nota="581.090000000000032" parc_dedutivel="37.75"/>
+          </Row>
+          <Row RowID="643" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="9" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="644" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="9" ano="2015" tot_nota="336.170000000000016" parc_dedutivel="0.520000000000000018"/>
+          </Row>
+          <Row RowID="661" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="10" ano="2015" tot_nota="24.3900000000000006" parc_dedutivel="6.66999999999999993"/>
+          </Row>
+          <Row RowID="662" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="10" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="663" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="10" ano="2015" tot_nota="6971.97999999999956" parc_dedutivel="195.990000000000009"/>
+          </Row>
+          <Row RowID="664" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="10" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="665" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="10" ano="2015" tot_nota="5321.40999999999985" parc_dedutivel="484.259999999999991"/>
+          </Row>
+          <Row RowID="666" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="10" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="667" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="10" ano="2015" tot_nota="4186.02999999999975" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="668" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="10" ano="2015" tot_nota="9981.06999999999971" parc_dedutivel="37.25"/>
+          </Row>
+          <Row RowID="669" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="10" ano="2015" tot_nota="6573.5" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="670" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="10" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="671" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="10" ano="2015" tot_nota="156238.029999999999" parc_dedutivel="7919.05000000000018"/>
+          </Row>
+          <Row RowID="672" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2015" tot_nota="10670.2900000000009" parc_dedutivel="0.400000000000000022"/>
+          </Row>
+          <Row RowID="673" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2015" tot_nota="50648.9599999999991" parc_dedutivel="0.790000000000000036"/>
+          </Row>
+          <Row RowID="674" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2015" tot_nota="45333.2900000000009" parc_dedutivel="0.299999999999999989"/>
+          </Row>
+          <Row RowID="675" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="676" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="10" ano="2015" tot_nota="1625.96000000000004" parc_dedutivel="79.2800000000000011"/>
+          </Row>
+          <Row RowID="677" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="10" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="678" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="11" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="679" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="11" ano="2015" tot_nota="67249.2299999999959" parc_dedutivel="568.389999999999986"/>
+          </Row>
+          <Row RowID="680" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="11" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="681" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="11" ano="2015" tot_nota="25789.3600000000006" parc_dedutivel="210"/>
+          </Row>
+          <Row RowID="682" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="11" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="683" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="11" ano="2015" tot_nota="2562.13999999999987" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="684" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="11" ano="2015" tot_nota="16664.3300000000017" parc_dedutivel="73.2900000000000062"/>
+          </Row>
+          <Row RowID="685" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="11" ano="2015" tot_nota="961.029999999999973" parc_dedutivel="125.870000000000005"/>
+          </Row>
+          <Row RowID="686" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="11" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="687" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="11" ano="2015" tot_nota="65981.1900000000023" parc_dedutivel="3388.90999999999985"/>
+          </Row>
+          <Row RowID="688" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2015" tot_nota="2033.77999999999997" parc_dedutivel="0.67000000000000004"/>
+          </Row>
+          <Row RowID="689" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2015" tot_nota="50839.6299999999974" parc_dedutivel="0.489999999999999991"/>
+          </Row>
+          <Row RowID="690" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2015" tot_nota="31226.0800000000017" parc_dedutivel="0.380000000000000004"/>
+          </Row>
+          <Row RowID="691" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="692" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="11" ano="2015" tot_nota="1193.16000000000008" parc_dedutivel="52.5799999999999983"/>
+          </Row>
+          <Row RowID="693" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="11" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="710" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="12" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="711" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="12" ano="2015" tot_nota="28514.1899999999987" parc_dedutivel="0.110000000000000001"/>
+          </Row>
+          <Row RowID="712" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="12" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="713" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="12" ano="2015" tot_nota="3881.40000000000009" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="714" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="12" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="715" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="12" ano="2015" tot_nota="4184.42000000000007" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="716" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="12" ano="2015" tot_nota="1213.15000000000009" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="717" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="12" ano="2015" tot_nota="7643.18000000000029" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="718" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="12" ano="2015" tot_nota="208.800000000000011" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="719" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="12" ano="2015" tot_nota="135277.76999999999" parc_dedutivel="5672.02999999999975"/>
+          </Row>
+          <Row RowID="720" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2015" tot_nota="5189.47999999999956" parc_dedutivel="112.280000000000001"/>
+          </Row>
+          <Row RowID="721" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2015" tot_nota="53959.5500000000029" parc_dedutivel="0.46000000000000002"/>
+          </Row>
+          <Row RowID="722" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2015" tot_nota="40477.8000000000029" parc_dedutivel="0.330000000000000016"/>
+          </Row>
+          <Row RowID="723" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="724" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="12" ano="2015" tot_nota="-1166.04999999999995" parc_dedutivel="-61.0499999999999972"/>
+          </Row>
+          <Row RowID="725" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="12" ano="2015" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="726" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="1" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="727" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="1" ano="2016" tot_nota="47024.2300000000032" parc_dedutivel="994.940000000000055"/>
+          </Row>
+          <Row RowID="728" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="1" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="729" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="1" ano="2016" tot_nota="43099.1900000000023" parc_dedutivel="420"/>
+          </Row>
+          <Row RowID="730" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="1" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="731" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="1" ano="2016" tot_nota="10606.1100000000006" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="732" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="1" ano="2016" tot_nota="12386.5599999999995" parc_dedutivel="25.9400000000000013"/>
+          </Row>
+          <Row RowID="733" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="1" ano="2016" tot_nota="7699.51000000000022" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="734" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="1" ano="2016" tot_nota="540" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="735" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="1" ano="2016" tot_nota="158324.950000000012" parc_dedutivel="3615.44000000000005"/>
+          </Row>
+          <Row RowID="736" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2016" tot_nota="719.080000000000041" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="737" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2016" tot_nota="60002.489999999998" parc_dedutivel="0.969999999999999973"/>
+          </Row>
+          <Row RowID="738" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2016" tot_nota="31356.75" parc_dedutivel="0.46000000000000002"/>
+          </Row>
+          <Row RowID="739" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="740" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="1" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="741" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="1" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="790" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="2" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="791" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="2" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="792" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="2" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="793" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="2" ano="2016" tot_nota="18738.5699999999997" parc_dedutivel="0.100000000000000006"/>
+          </Row>
+          <Row RowID="794" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="2" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="795" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="2" ano="2016" tot_nota="871.539999999999964" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="796" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="2" ano="2016" tot_nota="8381.48999999999978" parc_dedutivel="0.179999999999999993"/>
+          </Row>
+          <Row RowID="797" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="2" ano="2016" tot_nota="5681.92000000000007" parc_dedutivel="0.0200000000000000004"/>
+          </Row>
+          <Row RowID="798" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="2" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="799" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="2" ano="2016" tot_nota="116674.270000000004" parc_dedutivel="2.64999999999999991"/>
+          </Row>
+          <Row RowID="800" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2016" tot_nota="759.149999999999977" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="801" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2016" tot_nota="39989.8199999999997" parc_dedutivel="0.220000000000000001"/>
+          </Row>
+          <Row RowID="802" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2016" tot_nota="41709.3199999999997" parc_dedutivel="0.23000000000000001"/>
+          </Row>
+          <Row RowID="803" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="804" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="2" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="805" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="2" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="968" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="3" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="969" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="3" ano="2016" tot_nota="18827.9599999999991" parc_dedutivel="290.138050000000021"/>
+          </Row>
+          <Row RowID="970" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="3" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="971" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="3" ano="2016" tot_nota="40932.5800000000017" parc_dedutivel="420"/>
+          </Row>
+          <Row RowID="972" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="3" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="973" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="3" ano="2016" tot_nota="11768.6700000000001" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="974" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="3" ano="2016" tot_nota="27533.619999999999" parc_dedutivel="58.0544280000000015"/>
+          </Row>
+          <Row RowID="975" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="3" ano="2016" tot_nota="34996.5500000000029" parc_dedutivel="104.890000000000001"/>
+          </Row>
+          <Row RowID="976" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="3" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="977" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="3" ano="2016" tot_nota="118248.309999999998" parc_dedutivel="5774.70581399999992"/>
+          </Row>
+          <Row RowID="978" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2016" tot_nota="5425.63000000000011" parc_dedutivel="226.112500000000011"/>
+          </Row>
+          <Row RowID="979" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2016" tot_nota="34716.6399999999994" parc_dedutivel="0.514759999999999995"/>
+          </Row>
+          <Row RowID="980" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2016" tot_nota="44451.4300000000003" parc_dedutivel="0.722643999999999953"/>
+          </Row>
+          <Row RowID="981" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="982" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="3" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="983" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="3" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1032" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="4" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1033" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="4" ano="2016" tot_nota="33612.6999999999971" parc_dedutivel="240.330900000000014"/>
+          </Row>
+          <Row RowID="1034" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="4" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1035" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="4" ano="2016" tot_nota="78899.2599999999948" parc_dedutivel="378"/>
+          </Row>
+          <Row RowID="1036" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="4" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1037" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="4" ano="2016" tot_nota="8861.20000000000073" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1038" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="4" ano="2016" tot_nota="11343.9400000000005" parc_dedutivel="109.765789999999996"/>
+          </Row>
+          <Row RowID="1039" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="4" ano="2016" tot_nota="3374.42000000000007" parc_dedutivel="141.722880000000004"/>
+          </Row>
+          <Row RowID="1040" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="4" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1041" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="4" ano="2016" tot_nota="157771.989999999991" parc_dedutivel="7154.80069600000024"/>
+          </Row>
+          <Row RowID="1042" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2016" tot_nota="3791.59999999999991" parc_dedutivel="0.182324999999999987"/>
+          </Row>
+          <Row RowID="1043" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2016" tot_nota="99879.8000000000029" parc_dedutivel="1.96267199999999997"/>
+          </Row>
+          <Row RowID="1044" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2016" tot_nota="15025.0300000000007" parc_dedutivel="0.527374000000000009"/>
+          </Row>
+          <Row RowID="1045" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1046" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="4" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1047" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="4" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1048" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="5" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1049" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="5" ano="2016" tot_nota="49521.4400000000023" parc_dedutivel="227.361799999999988"/>
+          </Row>
+          <Row RowID="1050" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="5" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1051" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="5" ano="2016" tot_nota="55922.4499999999971" parc_dedutivel="756"/>
+          </Row>
+          <Row RowID="1052" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="5" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1053" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="5" ano="2016" tot_nota="1478.51999999999998" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1054" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="5" ano="2016" tot_nota="3422.61999999999989" parc_dedutivel="1.41282700000000006"/>
+          </Row>
+          <Row RowID="1055" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="5" ano="2016" tot_nota="11286.8799999999992" parc_dedutivel="265.199999999999989"/>
+          </Row>
+          <Row RowID="1056" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="5" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1057" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="5" ano="2016" tot_nota="127624.539999999994" parc_dedutivel="5765.23125999999957"/>
+          </Row>
+          <Row RowID="1058" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2016" tot_nota="1650.6099999999999" parc_dedutivel="0.0607769999999999977"/>
+          </Row>
+          <Row RowID="1059" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2016" tot_nota="39081.5" parc_dedutivel="244.38660999999999"/>
+          </Row>
+          <Row RowID="1060" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2016" tot_nota="51699.3099999999977" parc_dedutivel="1.48853400000000002"/>
+          </Row>
+          <Row RowID="1061" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1062" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="5" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1063" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="5" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1102" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="6" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1103" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="6" ano="2016" tot_nota="22042.5900000000001" parc_dedutivel="367.933299999999974"/>
+          </Row>
+          <Row RowID="1104" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="6" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1105" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="6" ano="2016" tot_nota="11428.0300000000007" parc_dedutivel="378"/>
+          </Row>
+          <Row RowID="1106" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="6" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1107" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="6" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1108" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="6" ano="2016" tot_nota="5498.02000000000044" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1109" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="6" ano="2016" tot_nota="1803.99000000000001" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1110" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="6" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1111" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="6" ano="2016" tot_nota="79141.1999999999971" parc_dedutivel="2429.99536399999988"/>
+          </Row>
+          <Row RowID="1112" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2016" tot_nota="19511.4900000000016" parc_dedutivel="1701.3125"/>
+          </Row>
+          <Row RowID="1113" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2016" tot_nota="68652.5399999999936" parc_dedutivel="-120.369123999999999"/>
+          </Row>
+          <Row RowID="1114" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2016" tot_nota="47910.3099999999977" parc_dedutivel="1.63790799999999992"/>
+          </Row>
+          <Row RowID="1115" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1116" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="6" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1117" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="6" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1150" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="7" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1151" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="7" ano="2016" tot_nota="18742.4000000000015" parc_dedutivel="366.544500000000028"/>
+          </Row>
+          <Row RowID="1152" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="7" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1153" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="7" ano="2016" tot_nota="25945.5699999999997" parc_dedutivel="756"/>
+          </Row>
+          <Row RowID="1154" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="7" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1155" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="7" ano="2016" tot_nota="14658.6700000000001" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1156" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="7" ano="2016" tot_nota="5999.77000000000044" parc_dedutivel="29.7780459999999998"/>
+          </Row>
+          <Row RowID="1157" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="7" ano="2016" tot_nota="2882.71000000000004" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1158" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="7" ano="2016" tot_nota="657.600000000000023" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1159" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="7" ano="2016" tot_nota="174563.5" parc_dedutivel="7818.19869999999992"/>
+          </Row>
+          <Row RowID="1160" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2016" tot_nota="495.819999999999993" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1161" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2016" tot_nota="85490.7599999999948" parc_dedutivel="1.59800999999999993"/>
+          </Row>
+          <Row RowID="1162" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2016" tot_nota="45364.4700000000012" parc_dedutivel="0.716373999999999955"/>
+          </Row>
+          <Row RowID="1163" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1164" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="7" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1165" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="7" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1166" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="8" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1167" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="8" ano="2016" tot_nota="29724.5499999999993" parc_dedutivel="970.815950000000044"/>
+          </Row>
+          <Row RowID="1168" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="8" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1169" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="8" ano="2016" tot_nota="7217.84000000000015" parc_dedutivel="756"/>
+          </Row>
+          <Row RowID="1170" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="8" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1171" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="8" ano="2016" tot_nota="9977.8700000000008" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1172" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="8" ano="2016" tot_nota="25029.9900000000016" parc_dedutivel="436.128827000000001"/>
+          </Row>
+          <Row RowID="1173" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="8" ano="2016" tot_nota="22397.5600000000013" parc_dedutivel="265.199999999999989"/>
+          </Row>
+          <Row RowID="1174" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="8" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1175" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="8" ano="2016" tot_nota="90933.8399999999965" parc_dedutivel="10268.5929649999998"/>
+          </Row>
+          <Row RowID="1176" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2016" tot_nota="2121.57999999999993" parc_dedutivel="158.025000000000006"/>
+          </Row>
+          <Row RowID="1177" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2016" tot_nota="52342.7200000000012" parc_dedutivel="1.30642999999999998"/>
+          </Row>
+          <Row RowID="1178" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2016" tot_nota="37079.0299999999988" parc_dedutivel="1.29953399999999997"/>
+          </Row>
+          <Row RowID="1179" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1180" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="8" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1181" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="8" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1182" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="9" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1183" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="9" ano="2016" tot_nota="8821.54000000000087" parc_dedutivel="143.113"/>
+          </Row>
+          <Row RowID="1184" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="9" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1185" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="9" ano="2016" tot_nota="6265.85999999999967" parc_dedutivel="756"/>
+          </Row>
+          <Row RowID="1186" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="9" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1187" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="9" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1188" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="9" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1189" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="9" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1190" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="9" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1191" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="9" ano="2016" tot_nota="136310.200000000012" parc_dedutivel="5975.69071600000007"/>
+          </Row>
+          <Row RowID="1192" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2016" tot_nota="4503.85000000000036" parc_dedutivel="182.893554999999992"/>
+          </Row>
+          <Row RowID="1193" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2016" tot_nota="57667.6999999999971" parc_dedutivel="1.32708200000000009"/>
+          </Row>
+          <Row RowID="1194" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2016" tot_nota="52049.1999999999971" parc_dedutivel="1.67753400000000008"/>
+          </Row>
+          <Row RowID="1195" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1196" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="9" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1197" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="9" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1198" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="10" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1199" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="10" ano="2016" tot_nota="6356.71000000000004" parc_dedutivel="61.5191500000000033"/>
+          </Row>
+          <Row RowID="1200" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="10" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1201" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="10" ano="2016" tot_nota="8095.06999999999971" parc_dedutivel="756"/>
+          </Row>
+          <Row RowID="1202" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="10" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1203" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="10" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1204" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="10" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1205" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="10" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1206" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="10" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1207" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="10" ano="2016" tot_nota="195172.910000000004" parc_dedutivel="8592.02155999999923"/>
+          </Row>
+          <Row RowID="1208" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2016" tot_nota="803.539999999999964" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1209" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2016" tot_nota="36774.0199999999968" parc_dedutivel="0.995245999999999964"/>
+          </Row>
+          <Row RowID="1210" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2016" tot_nota="26338.2400000000016" parc_dedutivel="0.716373999999999955"/>
+          </Row>
+          <Row RowID="1211" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1212" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="10" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1213" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="10" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1214" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="11" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1215" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="11" ano="2016" tot_nota="25481.7900000000009" parc_dedutivel="33.3710999999999984"/>
+          </Row>
+          <Row RowID="1216" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="11" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1217" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="11" ano="2016" tot_nota="8514.76000000000022" parc_dedutivel="558"/>
+          </Row>
+          <Row RowID="1218" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="11" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1219" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="11" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1220" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="11" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1221" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="11" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1222" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="11" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1223" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="11" ano="2016" tot_nota="98250.5" parc_dedutivel="4472.67727600000035"/>
+          </Row>
+          <Row RowID="1224" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2016" tot_nota="64411.8099999999977" parc_dedutivel="4.01625000000000032"/>
+          </Row>
+          <Row RowID="1225" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2016" tot_nota="45548.6500000000015" parc_dedutivel="0.979620000000000046"/>
+          </Row>
+          <Row RowID="1226" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2016" tot_nota="37517.7900000000009" parc_dedutivel="0.957940000000000014"/>
+          </Row>
+          <Row RowID="1227" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1228" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="11" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1229" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="11" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1278" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="12" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1279" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="12" ano="2016" tot_nota="15025.2299999999996" parc_dedutivel="5.48000000000000043"/>
+          </Row>
+          <Row RowID="1280" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="12" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1281" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="12" ano="2016" tot_nota="37688.5" parc_dedutivel="279"/>
+          </Row>
+          <Row RowID="1282" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="12" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1283" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="12" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1284" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="12" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1285" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="12" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1286" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="12" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1287" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="12" ano="2016" tot_nota="903.620000000000005" parc_dedutivel="24.6479999999999997"/>
+          </Row>
+          <Row RowID="1288" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2016" tot_nota="454.769999999999982" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1289" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2016" tot_nota="64815.989999999998" parc_dedutivel="1.1745000000000001"/>
+          </Row>
+          <Row RowID="1290" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2016" tot_nota="49512.9700000000012" parc_dedutivel="0.957940000000000014"/>
+          </Row>
+          <Row RowID="1291" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1292" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="12" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1293" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="12" ano="2016" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1294" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="1" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1295" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="1" ano="2017" tot_nota="32595.8400000000001" parc_dedutivel="94.1179000000000059"/>
+          </Row>
+          <Row RowID="1296" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="1" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1297" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="1" ano="2017" tot_nota="13601.2800000000007" parc_dedutivel="631.91858000000002"/>
+          </Row>
+          <Row RowID="1298" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="1" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1299" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="1" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1300" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="1" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1301" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="1" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1302" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="1" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1303" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="1" ano="2017" tot_nota="226568.369999999995" parc_dedutivel="10364.3250609999996"/>
+          </Row>
+          <Row RowID="1304" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2017" tot_nota="1933.95000000000005" parc_dedutivel="160.175000000000011"/>
+          </Row>
+          <Row RowID="1305" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2017" tot_nota="29560.0800000000017" parc_dedutivel="0.677409999999999957"/>
+          </Row>
+          <Row RowID="1306" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2017" tot_nota="23356.7900000000009" parc_dedutivel="0.666399999999999992"/>
+          </Row>
+          <Row RowID="1307" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="1" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1308" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="1" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1309" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="1" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1310" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="2" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1311" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="2" ano="2017" tot_nota="10135.5599999999995" parc_dedutivel="163.520600000000002"/>
+          </Row>
+          <Row RowID="1312" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="2" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1313" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="2" ano="2017" tot_nota="37390.0999999999985" parc_dedutivel="558"/>
+          </Row>
+          <Row RowID="1314" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="2" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1315" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="2" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1316" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="2" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1317" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="2" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1318" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="2" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1319" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="2" ano="2017" tot_nota="95570.2400000000052" parc_dedutivel="6069.64483999999993"/>
+          </Row>
+          <Row RowID="1320" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2017" tot_nota="8290.02000000000044" parc_dedutivel="137.199786999999986"/>
+          </Row>
+          <Row RowID="1321" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2017" tot_nota="58897.1900000000023" parc_dedutivel="0.58725000000000005"/>
+          </Row>
+          <Row RowID="1322" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2017" tot_nota="45580.3099999999977" parc_dedutivel="1.23051200000000005"/>
+          </Row>
+          <Row RowID="1323" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="2" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1324" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="2" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1325" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="2" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1422" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="4" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1423" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="4" ano="2017" tot_nota="25184.8100000000013" parc_dedutivel="550.384000000000015"/>
+          </Row>
+          <Row RowID="1424" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="4" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1425" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="4" ano="2017" tot_nota="18208.0800000000017" parc_dedutivel="348.75"/>
+          </Row>
+          <Row RowID="1426" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="4" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1427" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="4" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1428" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="4" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1429" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="4" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1430" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="4" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1431" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="4" ano="2017" tot_nota="185018.220000000001" parc_dedutivel="5810.58478800000012"/>
+          </Row>
+          <Row RowID="1432" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2017" tot_nota="10709.75" parc_dedutivel="0.646352000000000038"/>
+          </Row>
+          <Row RowID="1433" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2017" tot_nota="48648.9100000000035" parc_dedutivel="0.979620000000000046"/>
+          </Row>
+          <Row RowID="1434" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2017" tot_nota="34173.4599999999991" parc_dedutivel="1.39791200000000004"/>
+          </Row>
+          <Row RowID="1435" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="4" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1436" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="4" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1437" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="4" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1438" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="3" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1439" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="3" ano="2017" tot_nota="25947.869999999999" parc_dedutivel="373.629900000000021"/>
+          </Row>
+          <Row RowID="1440" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="3" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1441" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="3" ano="2017" tot_nota="74434.2799999999988" parc_dedutivel="837"/>
+          </Row>
+          <Row RowID="1442" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="3" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1443" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="3" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1444" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="3" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1445" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="3" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1446" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="3" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1447" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="3" ano="2017" tot_nota="142174.260000000009" parc_dedutivel="5580.76113999999961"/>
+          </Row>
+          <Row RowID="1448" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2017" tot_nota="1701.79999999999995" parc_dedutivel="0.00117800000000000001"/>
+          </Row>
+          <Row RowID="1449" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2017" tot_nota="74799.8500000000058" parc_dedutivel="1.15199000000000007"/>
+          </Row>
+          <Row RowID="1450" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2017" tot_nota="54025.1800000000003" parc_dedutivel="1.23051200000000005"/>
+          </Row>
+          <Row RowID="1451" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="3" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1452" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="3" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1453" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="3" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1454" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="5" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1455" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="5" ano="2017" tot_nota="12391.3500000000004" parc_dedutivel="372.185600000000022"/>
+          </Row>
+          <Row RowID="1456" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="5" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1457" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="5" ano="2017" tot_nota="19963.2799999999988" parc_dedutivel="1116"/>
+          </Row>
+          <Row RowID="1458" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="5" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1459" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="5" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1460" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="5" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1461" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="5" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1462" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="5" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1463" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="5" ano="2017" tot_nota="183373.26999999999" parc_dedutivel="7104.3978360000001"/>
+          </Row>
+          <Row RowID="1464" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2017" tot_nota="36283.4599999999991" parc_dedutivel="2.27785599999999988"/>
+          </Row>
+          <Row RowID="1465" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2017" tot_nota="55235.75" parc_dedutivel="1.28449999999999998"/>
+          </Row>
+          <Row RowID="1466" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2017" tot_nota="35804.8600000000006" parc_dedutivel="0.889599999999999946"/>
+          </Row>
+          <Row RowID="1467" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="5" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1468" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="5" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1469" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="5" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1470" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="6" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1471" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="6" ano="2017" tot_nota="13438.6499999999996" parc_dedutivel="177.069449999999989"/>
+          </Row>
+          <Row RowID="1472" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="6" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1473" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="6" ano="2017" tot_nota="34988.7699999999968" parc_dedutivel="279"/>
+          </Row>
+          <Row RowID="1474" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="6" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1475" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="6" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1476" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="6" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1477" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="6" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1478" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="6" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1479" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="6" ano="2017" tot_nota="96528.0500000000029" parc_dedutivel="3456.49241200000006"/>
+          </Row>
+          <Row RowID="1480" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2017" tot_nota="136695.23000000001" parc_dedutivel="8.7158010000000008"/>
+          </Row>
+          <Row RowID="1481" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2017" tot_nota="52879.489999999998" parc_dedutivel="0.959779999999999966"/>
+          </Row>
+          <Row RowID="1482" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2017" tot_nota="50539.4599999999991" parc_dedutivel="1.2288619999999999"/>
+          </Row>
+          <Row RowID="1483" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="6" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1484" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="6" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1485" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="6" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1502" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="7" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1503" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="7" ano="2017" tot_nota="22344.4000000000015" parc_dedutivel="406.476499999999987"/>
+          </Row>
+          <Row RowID="1504" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="7" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1505" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="7" ano="2017" tot_nota="52148.6900000000023" parc_dedutivel="552"/>
+          </Row>
+          <Row RowID="1506" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="7" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1507" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="7" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1508" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="7" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1509" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="7" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1510" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="7" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1511" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="7" ano="2017" tot_nota="61469.4599999999991" parc_dedutivel="7928.48692000000028"/>
+          </Row>
+          <Row RowID="1512" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2017" tot_nota="54712.510000000002" parc_dedutivel="161.379106000000007"/>
+          </Row>
+          <Row RowID="1513" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2017" tot_nota="56675.6500000000015" parc_dedutivel="1.27611600000000003"/>
+          </Row>
+          <Row RowID="1514" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2017" tot_nota="54552.5500000000029" parc_dedutivel="1.6089119999999999"/>
+          </Row>
+          <Row RowID="1515" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="7" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1516" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="7" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1517" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="7" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1534" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="8" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1535" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="8" ano="2017" tot_nota="6801.81999999999971" parc_dedutivel="7.34239999999999959"/>
+          </Row>
+          <Row RowID="1536" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="8" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1537" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="8" ano="2017" tot_nota="-17940.0699999999997" parc_dedutivel="828"/>
+          </Row>
+          <Row RowID="1538" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="8" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1539" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="8" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1540" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="8" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1541" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="8" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1542" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="8" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1543" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="8" ano="2017" tot_nota="122115.5" parc_dedutivel="5856.70064000000002"/>
+          </Row>
+          <Row RowID="1544" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2017" tot_nota="4863.60999999999967" parc_dedutivel="134.201074000000006"/>
+          </Row>
+          <Row RowID="1545" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2017" tot_nota="47934.5699999999997" parc_dedutivel="0.955392000000000019"/>
+          </Row>
+          <Row RowID="1546" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2017" tot_nota="55405.4100000000035" parc_dedutivel="277.320111999999995"/>
+          </Row>
+          <Row RowID="1547" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="8" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1548" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="8" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1549" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="8" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1550" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="9" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1551" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="9" ano="2017" tot_nota="18629.9099999999999" parc_dedutivel="65.0421500000000066"/>
+          </Row>
+          <Row RowID="1552" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="9" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1553" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="9" ano="2017" tot_nota="21678.880000000001" parc_dedutivel="276"/>
+          </Row>
+          <Row RowID="1554" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="9" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1555" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="9" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1556" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="9" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1557" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="9" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1558" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="9" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1559" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="9" ano="2017" tot_nota="56310.0500000000029" parc_dedutivel="6608.38921399999981"/>
+          </Row>
+          <Row RowID="1560" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2017" tot_nota="52931.260000000002" parc_dedutivel="3.34687499999999982"/>
+          </Row>
+          <Row RowID="1561" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2017" tot_nota="62365.2300000000032" parc_dedutivel="1.69495799999999996"/>
+          </Row>
+          <Row RowID="1562" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2017" tot_nota="24817.9900000000016" parc_dedutivel="0.606800000000000006"/>
+          </Row>
+          <Row RowID="1563" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="9" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1564" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="9" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1565" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="9" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1841" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="10" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1842" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="10" ano="2017" tot_nota="21331.8400000000001" parc_dedutivel="310.454250000000002"/>
+          </Row>
+          <Row RowID="1843" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="10" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1844" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="10" ano="2017" tot_nota="32208.4000000000015" parc_dedutivel="6487.46146800000042"/>
+          </Row>
+          <Row RowID="1845" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="10" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1846" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="10" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1847" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="10" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1848" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="10" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1849" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="10" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1850" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="10" ano="2017" tot_nota="51164.5400000000009" parc_dedutivel="5839.09559999999965"/>
+          </Row>
+          <Row RowID="1851" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2017" tot_nota="4050.4699999999998" parc_dedutivel="0.00170600000000000005"/>
+          </Row>
+          <Row RowID="1852" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2017" tot_nota="147657.48000000001" parc_dedutivel="1.31152399999999991"/>
+          </Row>
+          <Row RowID="1853" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2017" tot_nota="41908.1399999999994" parc_dedutivel="2.16131200000000012"/>
+          </Row>
+          <Row RowID="1854" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="10" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1855" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="10" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1856" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="10" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1857" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTOMÓVEIS  DO BRASIL LTDA." mes="10" ano="2017" tot_nota="28.2899999999999991" parc_dedutivel="6.2370000000000001"/>
+          </Row>
+          <Row RowID="1926" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="11" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1927" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="11" ano="2017" tot_nota="22155.2599999999984" parc_dedutivel="626.557750000000056"/>
+          </Row>
+          <Row RowID="1928" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="11" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1929" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="11" ano="2017" tot_nota="32614.3199999999997" parc_dedutivel="828"/>
+          </Row>
+          <Row RowID="1930" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="11" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1931" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="11" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1932" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="11" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1933" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="11" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1934" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="11" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1935" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="11" ano="2017" tot_nota="40855.4800000000032" parc_dedutivel="5610.89449599999989"/>
+          </Row>
+          <Row RowID="1936" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2017" tot_nota="5552.51000000000022" parc_dedutivel="292.225000000000023"/>
+          </Row>
+          <Row RowID="1937" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2017" tot_nota="28848.6100000000006" parc_dedutivel="0.681957999999999953"/>
+          </Row>
+          <Row RowID="1938" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2017" tot_nota="39044.2900000000009" parc_dedutivel="1.66451199999999999"/>
+          </Row>
+          <Row RowID="1939" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="11" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1940" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="11" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1941" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="11" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1942" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTOMÓVEIS  DO BRASIL LTDA." mes="11" ano="2017" tot_nota="14.6699999999999999" parc_dedutivel="4.26139500000000027"/>
+          </Row>
+          <Row RowID="1943" RowState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA" mes="12" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1944" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO" mes="12" ano="2017" tot_nota="8985.89999999999964" parc_dedutivel="261.31065000000001"/>
+          </Row>
+          <Row RowID="1945" RowState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP" mes="12" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1946" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto " mes="12" ano="2017" tot_nota="6220.94999999999982" parc_dedutivel="276"/>
+          </Row>
+          <Row RowID="1947" RowState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP" mes="12" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1948" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR" mes="12" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1949" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP" mes="12" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1950" RowState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP" mes="12" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1951" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP" mes="12" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1952" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP" mes="12" ano="2017" tot_nota="130.5" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1953" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2017" tot_nota="11088.8400000000002" parc_dedutivel="0.669375000000000053"/>
+          </Row>
+          <Row RowID="1954" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2017" tot_nota="100439.309999999998" parc_dedutivel="1.03919600000000001"/>
+          </Row>
+          <Row RowID="1955" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2017" tot_nota="43902.3000000000029" parc_dedutivel="1.32089199999999996"/>
+          </Row>
+          <Row RowID="1956" RowState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA" mes="12" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1957" RowState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA " mes="12" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1958" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT" mes="12" ano="2017" tot_nota="0" parc_dedutivel="0"/>
+          </Row>
+          <Row RowID="1959" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTOMÓVEIS  DO BRASIL LTDA." mes="12" ano="2017" tot_nota="41.3999999999999986" parc_dedutivel="0"/>
+          </Row>
+        </TableRowList_Updates>
+      </Table>
+    </TableList>
+    <RelationList/>
+    <UpdatesJournal SavePoint="3444"/>
+  </Manager>
+</FDBS>

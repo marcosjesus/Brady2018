@@ -1,0 +1,43 @@
+inherited frmVisualizarTexto: TfrmVisualizarTexto
+  Caption = 'Visualizar'
+  WindowState = wsMaximized
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited PanFundo: TPanel
+    inherited ToolBar: TToolBar
+      inherited ButEscape: TcxButton
+        Visible = False
+      end
+      inherited ButImprimir: TcxButton
+        Visible = False
+      end
+    end
+    object mmVisualizar: TMemo
+      Left = 2
+      Top = 37
+      Width = 730
+      Height = 377
+      Align = alClient
+      ReadOnly = True
+      TabOrder = 3
+      ExplicitTop = 62
+      ExplicitHeight = 352
+    end
+    object pnTitulo: TPanel
+      Left = 2
+      Top = 4
+      Width = 730
+      Height = 33
+      Align = alTop
+      Color = clNavy
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -10
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 4
+    end
+  end
+end

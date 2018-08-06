@@ -1,0 +1,141 @@
+unit Natureza ;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  fcadastro, ComCtrls, StdCtrls, Buttons, ToolWin, ExtCtrls, rsEdit, Mask,
+  rsFlyovr, RseditDB, Db, DBTables, CheckLst, jpeg, Menus,
+  cxLookAndFeelPainters, cxGraphics, dxSkinsCore, dxSkinsDefaultPainters,
+  dxSkinsdxStatusBarPainter, cxControls, dxStatusBar, cxButtons, cxLookAndFeels,
+  dxSkinBlack, dxSkinBlue, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2010Black, dxSkinOffice2010Blue, FMTBcd,
+  SqlExpr, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit,
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxCheckBox ;
+
+type
+  TFrmNatureza = class(TFrmCadastro)
+    qryAux: TSQLQuery;
+    Panel1: TPanel;
+    EdiCodigo: TrsSuperEdit;
+    Panel2: TPanel;
+    EdiNome: TrsSuperEdit;
+    Panel3: TPanel;
+    rdbEntrada: TRadioButton;
+    rdbSaida: TRadioButton;
+    Panel10: TPanel;
+    Label7: TLabel;
+    chkDifal: TCheckBox;
+    editDifal: TrsSuperEdit;
+    Panel12: TPanel;
+    Label10: TLabel;
+    chkDifAliq: TCheckBox;
+    editDifAliq: TrsSuperEdit;
+    editTipo: TrsSuperEdit;
+    Panel4: TPanel;
+    EdiCfop: TrsSuperEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure ButNovoClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure Search ; Override ;
+  public
+    { Public declarations }
+    Function Check : Boolean ; Override ;
+  end;
+
+var
+  FrmNatureza: TFrmNatureza;
+
+implementation
+
+{$R *.DFM}
+
+Uses
+   Global, ObjFun, MensFun, TestFun, ConsTabFun, Perfil, Constantes ;
+
+procedure TFrmNatureza.FormCreate(Sender: TObject);
+begin
+    LabCadTit.Caption := 'CFOP' ;
+    FormOperacao  := 'CAD_NATUREZA' ;
+    FormTabela    := 'CTE_CFOP' ;
+    FormChaves    := 'CTE_CFOP_ID' ;
+    FormCtrlFocus := 'EdiCodigo' ;
+    FormDataFocus := 'EdiNome' ;
+
+    inherited;
+
+end;
+
+
+
+Function TFrmNatureza.Check : Boolean ;
+Begin
+   Result := False ;
+
+
+   if rdbEntrada.Checked then
+     EdiTipo.AsString := 'E'
+   else
+     EdiTipo.AsString := 'S';
+
+
+   if chkCalcularDifal.Checked  then
+      edtCalcularDifal.AsString := 'S'
+   else edtCalcularDifal.AsString := 'N';
+
+   if chkGerarEstoque.Checked then
+      edtGerarEstoque.AsString := 'S'
+   else edtGerarEstoque.AsString := 'N';
+
+
+
+   If ( Test_IsEmptyStr(EdiCodigo.Text) ) Then
+   Begin
+       Mens_MensInf('É Necessário Informar Código !') ;
+       EdiCodigo.SetFocus ;
+       Exit ;
+   End ;
+
+   If ( Test_IsEmptyStr(EdiNome.Text) ) Then
+   Begin
+       Mens_MensInf('É necessário informar a Descrição da Natureza de Operação !') ;
+       EdiNome.SetFocus ;
+       Exit ;
+   End ;
+
+   If ( Test_IsEmptyStr(EdiCFOP.Text) ) Then
+   Begin
+       Mens_MensInf('É necessário informar Código C.F.O.P !') ;
+       EdiCFOP.SetFocus ;
+       Exit ;
+   End ;
+
+
+   Result := True ;
+
+End ;
+
+
+procedure TFrmNatureza.search ;
+begin
+  inherited;
+
+  if Not FormOpeErro then
+  begin
+    rdbEntrada.Checked       := editTipo.AsString          = 'E';
+    rdbSaida.Checked         := editTipo.AsString          = 'S';
+    chkDifal.Checked         := editDifal.AsString = 'S';
+    chkDifAliq.Checked       := editDifAliq.AsString  = 'S';
+  end;
+
+end;
+
+procedure TFrmNatureza.ButNovoClick(Sender: TObject);
+begin
+  inherited;
+  EdiCodigo.AsString := LastCodigo('CTE_CFOP_ID', 'CTE_CFOP', '');
+  EdiNome.SetFocus;
+end;
+
+end.

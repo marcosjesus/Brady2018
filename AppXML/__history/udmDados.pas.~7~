@@ -1,0 +1,34 @@
+unit udmDados;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.ODBCBase,
+  FireDAC.Phys.MSSQL, FireDAC.Comp.Client, Data.DB, FireDAC.Stan.Param,
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet;
+
+type
+  TDados = class(TDataModule)
+    FDConnection: TFDConnection;
+    sqlAuxiliar: TFDQuery;
+    sqlAux: TFDQuery;
+    sqlAux180: TFDQuery;
+    sqlAux180Itens: TFDQuery;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Dados: TDados;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

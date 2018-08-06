@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+<tns:AutoDeclaracao 
+ xmlns:tns="http://www.tarea.com.br/InovarAuto/AutoDeclaracao" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> 
+<tns:retificadora>false</tns:retificadora> 
+ <tns:declarante> 
+ <tns:tipo_declarante>F</tns:tipo_declarante> 
+ <tns:razao_social>Fornecedor Matriz</tns:razao_social> 
+ <tns:cnpj>27385953000414</tns:cnpj> 
+ <tns:matriz>true</tns:matriz> 
+ <tns:operacao> 
+ <tns:natureza_operacao>V</tns:natureza_operacao> 
+ <tns:empresa> 
+ <tns:razao_social>Razão Social Montadora A</tns:razao_social> 
+ <tns:cnpj>67285189000934</tns:cnpj> 
+ </tns:empresa> 
+ <tns:mes_ref>1</tns:mes_ref> 
+ <tns:ano_ref>2014</tns:ano_ref> 
+ <tns:vl_total_notas>100000.00</tns:vl_total_notas> 
+ <tns:vl_parc_dedutivel>20000.00</tns:vl_parc_dedutivel> 
+ </tns:operacao> 
+ <tns:operacao> 
+ <tns:natureza_operacao>V</tns:natureza_operacao> 
+ <tns:empresa> 
+ <tns:razao_social>Razão Social Filial 01 Montadora A</tns:razao_social> 
+ <tns:cnpj>69952297000787</tns:cnpj> 
+ </tns:empresa> 
+ <tns:mes_ref>1</tns:mes_ref> 
+ <tns:ano_ref>2014</tns:ano_ref> 
+ <tns:vl_total_notas>120000.00</tns:vl_total_notas> 
+ <tns:vl_parc_dedutivel>30000.00</tns:vl_parc_dedutivel> 
+ </tns:operacao> 
+ <tns:operacao> 
+ <tns:natureza_operacao>V</tns:natureza_operacao> 
+ <tns:empresa> 
+ <tns:razao_social>Razão Social Montadora B</tns:razao_social> 
+ <tns:cnpj>23913212000670</tns:cnpj> 
+ </tns:empresa> 
+ <tns:mes_ref>1</tns:mes_ref> 
+ <tns:ano_ref>2014</tns:ano_ref> 
+ <tns:vl_total_notas>80000.00</tns:vl_total_notas> 
+ <tns:vl_parc_dedutivel>12000.00</tns:vl_parc_dedutivel> 
+ </tns:operacao> 
+ </tns:declarante> 
+<tns:declarante> 
+ <tns:tipo_declarante>F</tns:tipo_declarante> 
+ <tns:razao_social> Fornecedor Filial A</tns:razao_social> 
+ <tns:cnpj>82456614000147</tns:cnpj> 
+ <tns:matriz>false</tns:matriz> Versão 5 de 11/02/2014 
+ 
+7 
+ 
+ <tns:operacao> 
+ <tns:natureza_operacao>V</tns:natureza_operacao> 
+ <tns:empresa> 
+ <tns:razao_social>Razão Social Filial 01 Montadora B</tns:razao_social> 
+ <tns:cnpj>35151367000514</tns:cnpj> 
+ </tns:empresa> 
+ <tns:mes_ref>1</tns:mes_ref> 
+ <tns:ano_ref>2014</tns:ano_ref> 
+ <tns:vl_total_notas>120000.00</tns:vl_total_notas> 
+ <tns:vl_parc_dedutivel>3000.00</tns:vl_parc_dedutivel> 
+ </tns:operacao> 
+ <tns:operacao> 
+ <tns:natureza_operacao>V</tns:natureza_operacao> 
+ <tns:empresa> 
+ <tns:razao_social>Razão Social Filial 02 Montadora B</tns:razao_social> 
+ <tns:cnpj> 62220602000101</tns:cnpj> 
+ </tns:empresa> 
+ <tns:mes_ref>1</tns:mes_ref> 
+ <tns:ano_ref>2014</tns:ano_ref> 
+ <tns:vl_total_notas>150000.00</tns:vl_total_notas> 
+ <tns:vl_parc_dedutivel>3700.00</tns:vl_parc_dedutivel> 
+ </tns:operacao> 
+ <tns:operacao> 
+ <tns:natureza_operacao>V</tns:natureza_operacao> 
+ <tns:empresa> 
+ <tns:razao_social>Razão Social Filial 03 Montadora B</tns:razao_social> 
+ <tns:cnpj>77603507000164</tns:cnpj> 
+ </tns:empresa> 
+ <tns:mes_ref>1</tns:mes_ref> 
+ <tns:ano_ref>2014</tns:ano_ref> 
+ <tns:vl_total_notas>160000.00</tns:vl_total_notas> 
+ <tns:vl_parc_dedutivel>3000.00</tns:vl_parc_dedutivel> 
+ </tns:operacao> 
+ </tns:declarante> 
+<tns:declarante> 
+ <tns:tipo_declarante>F</tns:tipo_declarante> 
+ <tns:razao_social> Fornecedor Filial B</tns:razao_social> 
+ <tns:cnpj>42277705000796</tns:cnpj> 
+ <tns:matriz>false</tns:matriz> 
+ <tns:operacao> 
+ <tns:natureza_operacao>V</tns:natureza_operacao> 
+ <tns:empresa> 
+ <tns:razao_social>Razão Social Montadora B</tns:razao_social> 
+ <tns:cnpj>35151367000514</tns:cnpj> 
+ </tns:empresa> 
+ <tns:mes_ref>1</tns:mes_ref> 
+ <tns:ano_ref>2014</tns:ano_ref> 
+ <tns:vl_total_notas>120000.00</tns:vl_total_notas> 
+ <tns:vl_parc_dedutivel>3000.00</tns:vl_parc_dedutivel> 
+ </tns:operacao> 
+ <tns:operacao> 
+ <tns:natureza_operacao>V</tns:natureza_operacao> 
+ <tns:empresa> 
+ <tns:razao_social>Razão Social Montadora C</tns:razao_social> 
+ <tns:cnpj>25511797000201</tns:cnpj> 
+ </tns:empresa> 
+ <tns:mes_ref>1</tns:mes_ref> 
+ <tns:ano_ref>2014</tns:ano_ref> 
+ <tns:vl_total_notas>150000.00</tns:vl_total_notas> 
+ <tns:vl_parc_dedutivel>3700.00</tns:vl_parc_dedutivel> 
+ </tns:operacao> 
+ <tns:operacao> 
+ <tns:natureza_operacao>V</tns:natureza_operacao> 
+ <tns:empresa> 
+ <tns:razao_social>Razão Social Montadora D</tns:razao_social> 
+ <tns:cnpj>06904319000985</tns:cnpj> 
+ </tns:empresa> 
+ <tns:mes_ref>1</tns:mes_ref> 
+ <tns:ano_ref>2014</tns:ano_ref> 
+ <tns:vl_total_notas>160000.00</tns:vl_total_notas> 
+ <tns:vl_parc_dedutivel>3000.00</tns:vl_parc_dedutivel> 
+ </tns:operacao>
+ </tns:declarante> 
+</tns:AutoDeclaracao>

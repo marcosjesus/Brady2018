@@ -1,0 +1,306 @@
+unit uRelParticipante;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FGrid, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Vcl.Menus, dxSkinsCore, dxSkinBlack, dxSkinBlue,
+  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinHighContrast, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxControls,
+  dxSkinsdxStatusBarPainter, Data.FMTBcd, Datasnap.DBClient, Datasnap.Provider,
+  Vcl.ExtCtrls, Data.DB, Data.SqlExpr, dxStatusBar, Vcl.StdCtrls, cxButtons,
+  Vcl.ToolWin, Vcl.ComCtrls, Vcl.Imaging.jpeg, cxContainer, cxEdit, Vcl.Mask,
+  rsEdit, cxGroupBox, cxRadioGroup, DateFun, dxCore, cxDateUtils, cxTextEdit,
+  cxMaskEdit, cxDropDownEdit, cxCalendar, dxSkinscxPCPainter, dxBarBuiltInMenu,
+  cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator,
+  cxDBData, cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxGrid, cxPC, cxLookupEdit,
+  cxDBLookupEdit, cxDBLookupComboBox, cxGridExportLink, dxPSGlbl, dxPSUtl,
+  dxPSEngn, dxPrnPg, dxBkgnd, dxWrap, dxPrnDev, dxPSCompsProvider,
+  dxPSFillPatterns, dxPSEdgePatterns, dxPSPDFExportCore, dxPSPDFExport,
+  cxDrawTextUtils, dxPSPrVwStd, dxPSPrVwAdv, dxPSPrVwRibbon,
+  dxPScxPageControlProducer, dxPScxPivotGridLnk, dxPScxEditorProducers,
+  dxPScxExtEditorProducers, dxSkinsdxBarPainter, dxSkinsdxRibbonPainter,
+  dxPSCore, dxPScxCommon, MensFun, dxPScxGridLnk, dxPScxGridLayoutViewLnk,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  EditBusca, SetParametro;
+
+type
+  TFrmRelParticipante = class(TFrmGrid)
+    cxFiltro: TcxGroupBox;
+    Panel5: TPanel;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Panel11: TPanel;
+    rgObrigacao: TcxRadioGroup;
+    EdiDatIni: TcxDateEdit;
+    EdiDatFim: TcxDateEdit;
+    ButExcel: TcxButton;
+    cxPageControl1: TcxPageControl;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
+    cxGrid1: TcxGrid;
+    Panel10: TPanel;
+    editxtPeriodicidade: TrsSuperEdit;
+    spbLimpaData: TcxButton;
+    spbLimpaTreinamento: TcxButton;
+    spbLimpaCentroCusto: TcxButton;
+    spbLimpaCargo: TcxButton;
+    spbLimpaPeriodicidade: TcxButton;
+    cdsGridFUN_MATRICULA: TStringField;
+    cdsGridFUN_NOME: TStringField;
+    cdsGridCUR_NOMCURSO: TStringField;
+    cdsGridTRE_DTREALIZACAO: TSQLTimeStampField;
+    cdsGridTRE_DTTERMINO: TSQLTimeStampField;
+    cdsGridFUN_CARGO: TStringField;
+    cdsGridFUN_CODCENTRO: TStringField;
+    cdsGridFUN_NOMCENTRO: TStringField;
+    cdsGridDESCRICAO: TStringField;
+    cdsGridPER_DIAS: TIntegerField;
+    cdsGridTRE_OBRIGATORIO: TStringField;
+    cxGrid1DBTableView1FUN_MATRICULA: TcxGridDBColumn;
+    cxGrid1DBTableView1FUN_NOME: TcxGridDBColumn;
+    cxGrid1DBTableView1CUR_NOMCURSO: TcxGridDBColumn;
+    cxGrid1DBTableView1TRE_DTREALIZACAO: TcxGridDBColumn;
+    cxGrid1DBTableView1TRE_DTTERMINO: TcxGridDBColumn;
+    cxGrid1DBTableView1FUN_CARGO: TcxGridDBColumn;
+    cxGrid1DBTableView1FUN_NOMCENTRO: TcxGridDBColumn;
+    cxGrid1DBTableView1DESCRICAO: TcxGridDBColumn;
+    cxGrid1DBTableView1TRE_OBRIGATORIO: TcxGridDBColumn;
+    SaveDialog: TSaveDialog;
+    dxComponentPrinter: TdxComponentPrinter;
+    dxPrinterGrid: TdxGridReportLink;
+    EditBuscaCurso: TEditBusca;
+    EditBuscaCargo: TEditBusca;
+    EditBuscaCentroCusto: TEditBusca;
+    EditBuscaPeriodo: TEditBusca;
+    QGridFUN_MATRICULA: TStringField;
+    QGridFUN_NOME: TStringField;
+    QGridCUR_NOMCURSO: TStringField;
+    QGridTRE_DTREALIZACAO: TSQLTimeStampField;
+    QGridTRE_DTTERMINO: TSQLTimeStampField;
+    QGridFUN_CARGO: TStringField;
+    QGridFUN_CODCENTRO: TStringField;
+    QGridFUN_NOMCENTRO: TStringField;
+    QGridDESCRICAO: TStringField;
+    QGridPER_DIAS: TIntegerField;
+    QGridTRE_OBRIGATORIO: TStringField;
+    procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure ButPesquisarClick(Sender: TObject);
+    procedure spbLimpaDataClick(Sender: TObject);
+    procedure spbLimpaTreinamentoClick(Sender: TObject);
+    procedure spbLimpaCentroCustoClick(Sender: TObject);
+    procedure spbLimpaCargoClick(Sender: TObject);
+    procedure spbLimpaPeriodicidadeClick(Sender: TObject);
+    procedure ButEscapeClick(Sender: TObject);
+    procedure ButExcelClick(Sender: TObject);
+    procedure ButImprimirClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmRelParticipante: TFrmRelParticipante;
+
+implementation
+
+{$R *.dfm}
+
+uses DBConect;
+
+Var
+   DtIni, DtFim : TDateTime ;
+
+
+procedure TFrmRelParticipante.ButEscapeClick(Sender: TObject);
+begin
+  inherited;
+  spbLimpaDataClick(Self);
+  spbLimpaTreinamentoClick(Self);
+  spbLimpaCentroCustoClick(self);
+  spbLimpaCargoClick(Self);
+  spbLimpaPeriodicidadeClick(Self);
+  cdsGrid.Close;
+end;
+
+procedure TFrmRelParticipante.ButExcelClick(Sender: TObject);
+begin
+  inherited;
+  if QGrid.IsEmpty then
+  begin
+      Mens_MensInf('Não há dados para serem exportados ao Excel.') ;
+      Exit;
+  end;
+
+
+  SaveDialog.InitialDir := GetCurrentDir;
+
+  if SaveDialog.Execute then
+     ExportGridToExcel(SaveDialog.FileName, cxGrid1, True, True);
+
+end;
+
+procedure TFrmRelParticipante.ButImprimirClick(Sender: TObject);
+begin
+  inherited;
+  if QGrid.IsEmpty then
+  begin
+      Mens_MensInf('Não há dados para serem visualizados.') ;
+      Exit;
+  end;
+
+  dxPrinterGrid.Preview;
+end;
+
+procedure TFrmRelParticipante.ButPesquisarClick(Sender: TObject);
+Var
+ Parametros : String;
+begin
+  inherited;
+
+    if EdiDatIni.EditValue <> null then
+      DtIni := Date_TransfDate(EdiDatIni.Date) ;
+    if EdiDatFim.EditValue <> null then
+      DtFim := Date_TransfDate(EdiDatFim.Date) ;
+
+    Parametros := EmptyStr;
+
+    QGrid.Close ;
+
+    QGrid.Sql.Clear;
+
+    QGrid.Sql.Add(' Select F.FUN_MATRICULA,  ');
+    QGrid.Sql.Add('     F.FUN_NOME, ');
+    QGrid.Sql.Add('     T.CUR_NOMCURSO, ');
+    QGrid.Sql.Add('     T.TRE_DTREALIZACAO, ');
+    QGrid.Sql.Add('     T.TRE_DTTERMINO, ');
+    QGrid.Sql.Add('     C.DESCRICAO AS FUN_CARGO, ');
+    QGrid.Sql.Add('     F.TRE_CENTROCENTRO_ID AS FUN_CODCENTRO, ');
+    QGrid.Sql.Add('     CC.DESCRICAO AS FUN_NOMCENTRO, ');
+    QGrid.Sql.Add('     PR.DESCRICAO, ');
+    QGrid.Sql.Add('     PR.PER_DIAS, ');
+    QGrid.Sql.Add('     T.TRE_OBRIGATORIO ');
+    QGrid.Sql.Add(' From TRE_TREINAMENTO T  ');
+    QGrid.Sql.Add(' INNER JOIN TRE_PARTICIPANTES P ON P.TRE_TREINAMENTO_ID = T.TRE_TREINAMENTO_ID ');
+    QGrid.Sql.Add(' INNER JOIN TRE_FUNCIONARIO F ON F.FUN_MATRICULA = P.FUN_MATRICULA ');
+    QGrid.Sql.Add(' INNER JOIN TRE_PERIODICIDADE PR ON PR.PERIODICIDADE_ID = T.TRE_PERIODICIDADE ');
+    QGrid.Sql.Add(' INNER JOIN TRE_CARGO C ON C.TRE_CARGO_ID = F.TRE_CARGO_ID ');
+    QGrid.Sql.Add(' INNER JOIN TRE_CENTROCUSTO CC ON CC.TRE_CENTROCENTRO_ID = F.TRE_CENTROCENTRO_ID ');
+
+    QGrid.Sql.Add(' Where 1 = 1 ');
+
+    if ((EdiDatIni.EditValue <> null)  and (EdiDatFim.EditValue = null)) Then
+        Parametros :=  ' and  T.TRE_DTREALIZACAO  = ' + QuotedStr(FormatDateTime('dd/mm/yyyy', EdiDatIni.Date))
+
+    else if ((EdiDatIni.EditValue = null)  and (EdiDatFim.EditValue <> null)) Then
+        Parametros :=  ' and  T.TRE_DTTERMINO  = ' + QuotedStr(FormatDateTime('dd/mm/yyyy', EdiDatFim.Date))
+
+    else if  ((EdiDatIni.EditValue <> null)  and (EdiDatFim.EditValue <> null)) Then
+        Parametros :=  ' and  T.TRE_DTREALIZACAO  >= ' +
+                        QuotedStr(FormatDateTime('dd/mm/yyyy', EdiDatIni.Date)) +  ' and  T.TRE_DTTERMINO <= ' +
+                        QuotedStr(FormatDateTime('dd/mm/yyyy', EdiDatFim.Date));
+
+    if  ((EditBuscaCurso.Text <> '') and (EditBuscaCurso.bs_KeyValues.Count > 0)) Then
+        Parametros := Parametros + ' and T.CUR_ID = ' + QuotedStr(VarToStr(EditBuscaCurso.bs_KeyValue));
+
+    if  ((EditBuscaCentroCusto.Text <> '') and (EditBuscaCentroCusto.bs_KeyValues.Count > 0)) Then
+        Parametros := Parametros + ' and F.TRE_CENTROCENTRO_ID = ' +  QuotedStr(VarToStr(EditBuscaCentroCusto.bs_KeyValue));
+
+    if  ((EditBuscaCargo.Text <> '') and (EditBuscaCargo.bs_KeyValues.Count > 0)) Then
+        Parametros := Parametros + ' and F.TRE_CARGO_ID = ' + QuotedStr(VarToStr(EditBuscaCargo.bs_KeyValues[1]));
+
+    if  ((EditBuscaPeriodo.Text <> '') and (EditBuscaPeriodo.bs_KeyValues.Count > 0)) Then
+        Parametros := Parametros + ' and T.TRE_PERIODICIDADE = ' +  QuotedStr(VarToStr(EditBuscaPeriodo.bs_KeyValue));
+
+
+    if rgObrigacao.ItemIndex = 0 then
+        Parametros := Parametros + '  and T.TRE_OBRIGATORIO = ''S'''
+    else if  rgObrigacao.ItemIndex = 1 then
+        Parametros := Parametros + '  and T.TRE_OBRIGATORIO = ''N''';
+
+
+    QGrid.Sql.Add(Parametros);
+
+    QGrid.Open;
+
+
+
+   {
+where T.TRE_DTREALIZACAO >= '2018-25-02' and T.TRE_DTTERMINO <= '2018-27-04'
+AND F.FUN_CODCENTRO = '0'
+AND F.FUN_CARGO = 'GERENTE GERAL DE OPERAÇÕES AMERICA'
+and T.CUR_ID = 2
+}
+
+end;
+
+procedure TFrmRelParticipante.FormCreate(Sender: TObject);
+begin
+  FormOperacao :=  'REL-PARTICIPANTE';
+  inherited;
+  QGrid.Connection := DB_Conect.SQLConnection;
+  EdiDatIni.Date := Date() ;
+  EdiDatFim.Date := Date()+30 ;
+
+  SetParametros(EditBuscaCurso, TipoCurso);
+  SetParametros(EditBuscaCargo, TipoCargo);
+  SetParametros(EditBuscaCentroCusto, TipoCentroCusto);
+  SetParametros(EditBuscaPeriodo, TipoPeriodicidade);
+
+
+
+end;
+
+procedure TFrmRelParticipante.FormShow(Sender: TObject);
+begin
+  inherited;
+  WindowState := wsMaximized;
+end;
+
+procedure TFrmRelParticipante.spbLimpaCargoClick(Sender: TObject);
+begin
+  inherited;
+  EditBuscaCargo.Text := '';
+  EditBuscaCargo.bs_KeyValues.Clear;
+end;
+
+procedure TFrmRelParticipante.spbLimpaCentroCustoClick(Sender: TObject);
+begin
+  inherited;
+  EditBuscaCentroCusto.Text := '';
+  EditBuscaCentroCusto.bs_KeyValues.Clear;
+end;
+
+procedure TFrmRelParticipante.spbLimpaDataClick(Sender: TObject);
+begin
+  inherited;
+  EdiDatIni.Clear;
+  EdiDatFim.Clear;
+end;
+
+procedure TFrmRelParticipante.spbLimpaPeriodicidadeClick(Sender: TObject);
+begin
+  inherited;
+  EditBuscaPeriodo.Text := '';
+  EditBuscaPeriodo.bs_KeyValues.Clear;
+end;
+
+procedure TFrmRelParticipante.spbLimpaTreinamentoClick(Sender: TObject);
+begin
+  inherited;
+  EditBuscaCurso.Text := '';
+  EditBuscaCurso.bs_KeyValues.Clear;
+end;
+
+end.

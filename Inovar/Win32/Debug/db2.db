@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FDBS Version="9">
+  <Manager UpdatesRegistry="True">
+    <TableList>
+      <Table Name="FDMemTableClientes" TabID="0" EnforceConstraints="False" MinimumCapacity="50" CheckNotNull="False">
+        <ColumnList>
+          <Column Name="CNPJ" SourceID="1" DataType="AnsiString" Size="20" Searchable="True" Base="True" OInUpdate="True" OInWhere="True" OriginColName="CNPJ" SourceSize="20"/>
+          <Column Name="RazaoSocial" SourceID="2" DataType="AnsiString" Size="60" Searchable="True" Base="True" Caption="Razão Social" OInUpdate="True" OInWhere="True" OriginColName="RazaoSocial" SourceSize="60"/>
+        </ColumnList>
+        <ConstraintList Enforce="False"/>
+        <ViewList/>
+        <TableRowList_Updates>
+          <Row RowID="0" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="04.463.193/0001-78" RazaoSocial="SVB AUTOMOTORES DO BRASIL LTDA"/>
+          </Row>
+          <Row RowID="1" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="54.305.743/0011-70" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - GO"/>
+          </Row>
+          <Row RowID="2" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="54.305.743/0001-07" RazaoSocial="MMC AUTOMOTORES DO BRASIL LTDA - SP"/>
+          </Row>
+          <Row RowID="3" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="67.405.936/0001-73" RazaoSocial="PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto Real-RJ"/>
+          </Row>
+          <Row RowID="4" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="67.405.936/0009-20" RazaoSocial="PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA. - SP"/>
+          </Row>
+          <Row RowID="5" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="59.104.422/0103-84" RazaoSocial="VOLKS AUDI / Curitiba - PR"/>
+          </Row>
+          <Row RowID="6" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="59.104.422/0057-04" RazaoSocial="VOLKSWAGEN SBC - SP"/>
+          </Row>
+          <Row RowID="7" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="59.104.422/0024-46" RazaoSocial="VOLKSWAGEN TAUBATÉ - SP"/>
+          </Row>
+          <Row RowID="10" RowState="Unchanged">
+            <Original CNPJ="01.192.333/0001-22" RazaoSocial="HONDA AUTOMÓVEIS - Sumaré  - SP"/>
+          </Row>
+          <Row RowID="11" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="01.192.333/0013-66" RazaoSocial="HONDA AUTOMÓVEIS - Paulinia - SP"/>
+          </Row>
+          <Row RowID="12" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="59.104.760/0001-91" RazaoSocial="TOYOTA DO BRASIL LTDA"/>
+          </Row>
+          <Row RowID="13" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="59.104.760/0003-53" RazaoSocial="TOYOTA DO BRASIL LTDA"/>
+          </Row>
+          <Row RowID="14" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="59.104.760/0006-04" RazaoSocial="TOYOTA DO BRASIL LTDA"/>
+          </Row>
+          <Row RowID="15" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="59.104.760/0009-49" RazaoSocial="TOYOTA DO BRASIL LTDA"/>
+          </Row>
+          <Row RowID="16" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="06.020.318/0005-44" RazaoSocial="MAN LATIN AMERICA IND E COMÉRCIO DE VEÍCULOS LTDA (Resende)"/>
+          </Row>
+          <Row RowID="17" RowState="Unchanged">
+            <Original CNPJ="00.913.443/0001-73" RazaoSocial="RENAULT"/>
+          </Row>
+          <Row RowID="18" RowState="Unchanged" RowPriorState="Unchanged">
+            <Original CNPJ="01.192.333/0003-94" RazaoSocial="HONDA AUTOMÓVEIS  DO BRASIL LTDA."/>
+          </Row>
+        </TableRowList_Updates>
+      </Table>
+    </TableList>
+    <RelationList/>
+    <UpdatesJournal SavePoint="50"/>
+  </Manager>
+</FDBS>

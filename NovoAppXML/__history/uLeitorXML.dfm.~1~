@@ -1,0 +1,238 @@
+object FR_LeitorXML: TFR_LeitorXML
+  Left = 0
+  Top = 0
+  Caption = 'Leitor de XML'
+  ClientHeight = 429
+  ClientWidth = 815
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  OldCreateOrder = False
+  Position = poScreenCenter
+  Visible = True
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object cxPageControl1: TcxPageControl
+    Left = 0
+    Top = 0
+    Width = 815
+    Height = 409
+    Align = alClient
+    TabOrder = 0
+    Properties.ActivePage = cxTabSheet1
+    Properties.CustomButtons.Buttons = <>
+    ClientRectBottom = 405
+    ClientRectLeft = 4
+    ClientRectRight = 811
+    ClientRectTop = 24
+    object cxTabSheet1: TcxTabSheet
+      Caption = 'Leitor'
+      ImageIndex = 0
+      object Panel1: TPanel
+        Left = 0
+        Top = 0
+        Width = 807
+        Height = 73
+        Align = alTop
+        TabOrder = 0
+        object Label1: TLabel
+          Left = 16
+          Top = 8
+          Width = 142
+          Height = 13
+          Caption = 'E-mails recebidos a partir de :'
+        end
+        object btnConsultaEmail: TButton
+          Left = 304
+          Top = 3
+          Width = 97
+          Height = 25
+          Caption = 'Consultar E-mail'
+          TabOrder = 0
+          OnClick = btnConsultaEmailClick
+        end
+        object DtInicio: TcxDateEdit
+          Left = 164
+          Top = 5
+          TabOrder = 1
+          Width = 121
+        end
+      end
+      object Panel2: TPanel
+        Left = 0
+        Top = 73
+        Width = 807
+        Height = 308
+        Align = alClient
+        TabOrder = 1
+        object tlNFe: TcxTreeList
+          Left = 1
+          Top = 1
+          Width = 805
+          Height = 306
+          Align = alClient
+          Bands = <
+            item
+            end>
+          Navigator.Buttons.CustomButtons = <>
+          OptionsData.Editing = False
+          OptionsData.Deleting = False
+          OptionsSelection.CellSelect = False
+          TabOrder = 0
+          ExplicitLeft = -23
+          ExplicitTop = 33
+          object cxTreeList1Column1: TcxTreeListColumn
+            Caption.Text = 'Tp. Nota'
+            DataBinding.ValueType = 'String'
+            Width = 80
+            Position.ColIndex = 0
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+          object cxTreeList1Column2: TcxTreeListColumn
+            Caption.Text = 'Emiss'#227'o'
+            DataBinding.ValueType = 'String'
+            Width = 125
+            Position.ColIndex = 1
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+          object cxTreeList1Column3: TcxTreeListColumn
+            Caption.Text = 'Nr'#186
+            DataBinding.ValueType = 'String'
+            Width = 105
+            Position.ColIndex = 2
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+          object cxTreeList1Column4: TcxTreeListColumn
+            Caption.Text = 'Chave'
+            DataBinding.ValueType = 'String'
+            Width = 349
+            Position.ColIndex = 3
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+          object cxTreeList1Column5: TcxTreeListColumn
+            Caption.Text = 'Arquivo'
+            DataBinding.ValueType = 'String'
+            Width = 311
+            Position.ColIndex = 4
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+          object cxTreeList1Column6: TcxTreeListColumn
+            Caption.Text = 'Situa'#231#227'o'
+            DataBinding.ValueType = 'String'
+            Width = 136
+            Position.ColIndex = 5
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+        end
+      end
+    end
+  end
+  object dxStatusBar1: TdxStatusBar
+    Left = 0
+    Top = 409
+    Width = 815
+    Height = 20
+    Panels = <>
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ExplicitLeft = 8
+    ExplicitTop = 193
+  end
+  object IdSMTP1: TIdSMTP
+    SASLMechanisms = <>
+    Left = 632
+    Top = 112
+  end
+  object msgxml: TIdMessage
+    AttachmentEncoding = 'UUE'
+    BccList = <>
+    CCList = <>
+    Encoding = meDefault
+    FromList = <
+      item
+      end>
+    Recipients = <>
+    ReplyTo = <>
+    ConvertPreamble = True
+    Left = 632
+    Top = 168
+  end
+  object IdIMAP41: TIdIMAP4
+    IOHandler = IdSSLIOHandlerSocketOpenSSL1
+    SASLMechanisms = <>
+    MilliSecsToWaitToClearBuffer = 10
+    Left = 632
+    Top = 224
+  end
+  object IdSSLIOHandlerSocketOpenSSL1: TIdSSLIOHandlerSocketOpenSSL
+    Destination = ':143'
+    MaxLineAction = maException
+    Port = 143
+    DefaultPort = 0
+    SSLOptions.Mode = sslmUnassigned
+    SSLOptions.VerifyMode = []
+    SSLOptions.VerifyDepth = 0
+    Left = 632
+    Top = 288
+  end
+  object ACBrCTe: TACBrCTe
+    Configuracoes.Geral.SSLLib = libNone
+    Configuracoes.Geral.SSLCryptLib = cryNone
+    Configuracoes.Geral.SSLHttpLib = httpNone
+    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 0
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Left = 744
+    Top = 112
+  end
+  object ACBrNFe: TACBrNFe
+    Configuracoes.Geral.SSLLib = libCapicomDelphiSoap
+    Configuracoes.Geral.SSLCryptLib = cryCapicom
+    Configuracoes.Geral.SSLHttpLib = httpIndy
+    Configuracoes.Geral.SSLXmlSignLib = xsMsXmlCapicom
+    Configuracoes.Geral.FormaEmissao = teContingencia
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Geral.IncluirQRCodeXMLNFCe = False
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 15000
+    Configuracoes.WebServices.AjustaAguardaConsultaRet = True
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Left = 747
+    Top = 169
+  end
+  object XMLDoc: TXMLDocument
+    Left = 484
+    Top = 48
+    DOMVendorDesc = 'MSXML'
+  end
+end

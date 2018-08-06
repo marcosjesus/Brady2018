@@ -1,0 +1,81 @@
+unit uTipoTreinamento;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FCadastro, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue,
+  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinHighContrast, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinsdxStatusBarPainter, Vcl.Menus, Vcl.ExtCtrls, Vcl.StdCtrls, cxButtons,
+  dxStatusBar, Vcl.Mask, rsEdit, RseditDB, MensFun,TestFun,Constantes,
+  Data.FMTBcd, Data.DB, Data.SqlExpr;
+
+type
+  TFrmCadTipoTreinamento = class(TFrmCadastro)
+    Panel1: TPanel;
+    EdiCodigo: TrsSuperEdit;
+    Panel2: TPanel;
+    EdiNome: TrsSuperEdit;
+    qryAux: TSQLQuery;
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure ButSalvarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCadTipoTreinamento: TFrmCadTipoTreinamento;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmCadTipoTreinamento.ButSalvarClick(Sender: TObject);
+var
+  Inclui : Boolean;
+begin
+
+  Inclui := (VarOperacao = OPE_INCLUSAO);
+  inherited;
+
+   if (not FormOpeErro) and (Inclui) then
+  begin
+    qryAux.Close;
+    qryAux.Sql.Clear;
+    qryAux.Sql.Add('update Parametros set CodigoCurso = CodigoCurso + 1 ') ;
+    qryAux.ExecSQL;
+  end;
+
+
+end;
+
+procedure TFrmCadTipoTreinamento.FormCreate(Sender: TObject);
+begin
+
+  LabCadTit.Caption := 'Cadastro de Tipo de Treinamento ' ;
+  FormOperacao := 'CAD_TIPOTREINAMENTO';
+  FormTabela := 'TRE_TIPOTREINAMENTO' ;
+  FormChaves := 'TRE_TIPOTREINAMENTO_ID' ;
+  FormCtrlFocus := 'EdiCodigo' ;
+  FormDataFocus := 'EdiNome' ;
+
+  inherited;
+
+end;
+
+procedure TFrmCadTipoTreinamento.FormShow(Sender: TObject);
+begin
+  inherited;
+  WindowState := wsMaximized;
+end;
+
+end.

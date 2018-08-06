@@ -1,0 +1,115 @@
+unit Operacao ;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  fcadastro, ComCtrls, StdCtrls, Buttons, ToolWin, ExtCtrls, rsEdit, Mask,
+  dbtables, rsFlyovr, RseditDB, jpeg, Menus, cxLookAndFeelPainters,
+  cxGraphics, dxSkinsCore, dxSkinsDefaultPainters,
+  dxSkinsdxStatusBarPainter, cxControls, dxStatusBar, cxButtons, cxLookAndFeels,
+  dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinHighContrast, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray, dxSkinOffice2013White,
+  dxSkinSevenClassic, dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010,
+  dxSkinWhiteprint, EditBusca, SetParametro, System.Variants ;
+
+type
+  TFrmOperacao = class(TFrmCadastro)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    EdiNome: TrsSuperEdit;
+    EdiCodigo: TrsSuperEdit;
+    EditBuscaOperacao: TEditBusca;
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure EditBuscaOperacaoClick(Sender: TObject);
+    procedure ButExcluirClick(Sender: TObject);
+    procedure ButSalvarClick(Sender: TObject);
+    procedure ButCancelarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+//    Function Check : Boolean ; Override ;
+  end;
+
+var
+  FrmOperacao: TFrmOperacao;
+
+implementation
+
+{$R *.DFM}
+
+Uses
+   Global, ObjFun, MensFun, TestFun, ConsTabFun, StrFun, Constantes ;
+
+procedure TFrmOperacao.ButCancelarClick(Sender: TObject);
+begin
+  inherited;
+  EditBuscaOperacao.Text := '';
+  EditBuscaOperacao.bs_KeyValues.Clear;
+end;
+
+procedure TFrmOperacao.ButExcluirClick(Sender: TObject);
+begin
+  inherited;
+  EditBuscaOperacao.Text := '';
+  EditBuscaOperacao.bs_KeyValues.Clear;
+end;
+
+procedure TFrmOperacao.ButSalvarClick(Sender: TObject);
+begin
+  inherited;
+  EditBuscaOperacao.Text := '';
+  EditBuscaOperacao.bs_KeyValues.Clear;
+end;
+
+procedure TFrmOperacao.EditBuscaOperacaoClick(Sender: TObject);
+begin
+  inherited;
+  if ((EditBuscaOperacao.Text <> '') and (EditBuscaOperacao.bs_KeyValues.Count > 0)) then
+  begin
+     EdiCodigo.AsString := VarToStr(EditBuscaOperacao.bs_KeyValue);
+     if VarOperacao <> OPE_INCLUSAO then
+       ButPesquisarClick(self);
+  end;
+end;
+
+procedure TFrmOperacao.FormCreate(Sender: TObject);
+begin
+    LabCadTit.Caption := 'Cadastro das Operações' ;
+    FormOperacao := 'SIS_OPERACAO' ;
+    FormTabela := 'Operacao' ;
+    FormChaves := 'CodOperacao' ;
+    FormCtrlFocus := 'EditBuscaOperacao' ;
+    FormDataFocus := 'EdiNome' ;
+
+    SetParametros(EditBuscaOperacao, TipoOperacao);
+    inherited;
+end;
+
+(*
+Function TFrmOperacao.Check : Boolean ;
+Begin
+    Result := False ;
+    If ( Test_IsEmptyStr(EdiNome.Text) ) Then
+    Begin
+        Mens_MensInf('Informe a descrição da operação') ;
+        EdiNome.SetFocus ;
+        Exit ;
+    End ;
+    Result := True ;
+End ;
+*)
+
+procedure TFrmOperacao.FormShow(Sender: TObject);
+begin
+  inherited;
+  WindowState := wsMaximized;
+end;
+
+end.
+

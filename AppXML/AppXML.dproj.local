@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2017/10/05 13:14:41.000.980,=C:\Users\K2-User\Documents\RAD Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2017/10/05 13:28:40.000.578,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\uPrincipal.dfm=C:\Users\K2-User\Documents\RAD Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2017/10/05 13:28:40.000.578,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\uPrincipal.pas=C:\Users\K2-User\Documents\RAD Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2017/10/05 13:28:45.000.983,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\AppXML.dproj=C:\Users\K2-User\Documents\RAD Studio\Projects\Project2.dproj</Transaction>
+    <Transaction>2017/10/05 13:46:48.000.603,=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit1.pas</Transaction>
+    <Transaction>2017/10/05 13:47:08.000.068,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\uLeitorXML.dfm=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit1.dfm</Transaction>
+    <Transaction>2017/10/05 13:47:08.000.068,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\uLeitorXML.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit1.pas</Transaction>
+    <Transaction>2017/10/06 12:47:23.000.714,=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit2.pas</Transaction>
+    <Transaction>2017/10/06 12:47:38.000.486,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\udmDados.dfm=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit2.dfm</Transaction>
+    <Transaction>2017/10/06 12:47:38.000.486,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\udmDados.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit2.pas</Transaction>
+    <Transaction>2017/10/09 09:01:25.000.165,=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Login.pas</Transaction>
+    <Transaction>2017/10/17 10:50:18.000.340,=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit2.pas</Transaction>
+    <Transaction>2017/10/17 10:55:13.000.185,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit2.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\uConsultaDocumento.pas</Transaction>
+    <Transaction>2017/10/17 10:55:13.000.185,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit2.dfm=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\uConsultaDocumento.dfm</Transaction>
+    <Transaction>2017/10/17 11:12:32.000.833,=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit2.pas</Transaction>
+    <Transaction>2017/10/17 11:13:42.000.783,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit2.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\uUsuario.pas</Transaction>
+    <Transaction>2017/10/17 11:13:42.000.783,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\Unit2.dfm=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\uUsuario.dfm</Transaction>
+    <Transaction>2017/10/24 11:45:07.000.688,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\EntradaXML.dproj=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\AppXML.dproj</Transaction>
+    <Transaction>2017/10/24 13:15:06.000.201,C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\EntradaXML.dproj=C:\Users\K2-User\CIEL-IT-PROJECTS\AppXML\AppXML.dproj</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="Login.pas"/>
+    <File Path="Login.dfm"/>
+    <File Path="uConsultaDocumento.pas"/>
+    <File Path="uConsultaDocumento.dfm"/>
+    <File Path="udmDados.pas"/>
+    <File Path="udmDados.dfm"/>
+    <File Path="uPrincipal.pas"/>
+    <File Path="uPrincipal.dfm"/>
+    <File Path="uUsuario.pas"/>
+    <File Path="uUsuario.dfm"/>
+  </ProjectSortOrder>
+</BorlandProject>

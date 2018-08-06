@@ -1,0 +1,24 @@
+
+SIGAPME-RAFAEL (Client)	Mon Jun 16 15:37:18 2014
+	INET/inet_error: connect errno = 10061
+
+
+SIGAPME-RAFAEL (Client)	Mon Jun 16 15:37:21 2014
+	INET/inet_error: connect errno = 10061
+
+
+SIGAPME-RAFAEL (Client)	Fri Jul 11 16:16:37 2014
+	INET/INET_connect: gethostbyname (cec-5cjwbq1) failed, error code = 11001
+
+
+SIGAPME-RAFAEL (Client)	Fri Jul 11 16:16:39 2014
+	INET/INET_connect: gethostbyname (cec-5cjwbq1) failed, error code = 11001
+
+
+SIGAPME-RAFAEL (Client)	Fri Jul 11 16:20:57 2014
+	INET/INET_connect: gethostbyname (cec-5cjwbq1) failed, error code = 11001
+
+
+SIGAPME-RAFAEL (Client)	Fri Jul 11 16:21:01 2014
+	INET/INET_connect: gethostbyname (cec-5cjwbq1) failed, error code = 11001
+

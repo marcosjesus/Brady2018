@@ -1,0 +1,329 @@
+object FR_LeitorXML: TFR_LeitorXML
+  Left = 0
+  Top = 0
+  Caption = 'Leitor de XML'
+  ClientHeight = 429
+  ClientWidth = 815
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  OldCreateOrder = False
+  Position = poScreenCenter
+  Visible = True
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object cxPageControl1: TcxPageControl
+    Left = 0
+    Top = 0
+    Width = 815
+    Height = 409
+    Align = alClient
+    TabOrder = 0
+    Properties.ActivePage = cxTabSheet1
+    Properties.CustomButtons.Buttons = <>
+    ClientRectBottom = 405
+    ClientRectLeft = 4
+    ClientRectRight = 811
+    ClientRectTop = 24
+    object cxTabSheet1: TcxTabSheet
+      Caption = 'Leitor'
+      ImageIndex = 0
+      object Panel1: TPanel
+        Left = 0
+        Top = 0
+        Width = 807
+        Height = 73
+        Align = alTop
+        TabOrder = 0
+        object Label1: TLabel
+          Left = 16
+          Top = 8
+          Width = 142
+          Height = 13
+          Caption = 'E-mails recebidos a partir de :'
+        end
+        object btnConsultaEmail: TButton
+          Left = 304
+          Top = 3
+          Width = 97
+          Height = 25
+          Caption = 'Consultar E-mail'
+          TabOrder = 0
+          OnClick = btnConsultaEmailClick
+        end
+        object DtInicio: TcxDateEdit
+          Left = 164
+          Top = 5
+          TabOrder = 1
+          Width = 121
+        end
+      end
+      object Panel2: TPanel
+        Left = 0
+        Top = 73
+        Width = 807
+        Height = 308
+        Align = alClient
+        TabOrder = 1
+        object tlNFe: TcxTreeList
+          Left = 1
+          Top = 1
+          Width = 805
+          Height = 306
+          Align = alClient
+          Bands = <
+            item
+            end>
+          Navigator.Buttons.CustomButtons = <>
+          OptionsData.Editing = False
+          OptionsData.Deleting = False
+          OptionsSelection.CellSelect = False
+          TabOrder = 0
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          object cxTreeList1Column1: TcxTreeListColumn
+            Caption.Text = 'Tp. Nota'
+            DataBinding.ValueType = 'String'
+            Width = 80
+            Position.ColIndex = 0
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+          object cxTreeList1Column2: TcxTreeListColumn
+            Caption.Text = 'Emiss'#227'o'
+            DataBinding.ValueType = 'String'
+            Width = 125
+            Position.ColIndex = 1
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+          object cxTreeList1Column3: TcxTreeListColumn
+            Caption.Text = 'Nr'#186
+            DataBinding.ValueType = 'String'
+            Width = 105
+            Position.ColIndex = 2
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+          object cxTreeList1Column4: TcxTreeListColumn
+            Caption.Text = 'Chave'
+            DataBinding.ValueType = 'String'
+            Width = 349
+            Position.ColIndex = 3
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+          object cxTreeList1Column5: TcxTreeListColumn
+            Caption.Text = 'Arquivo'
+            DataBinding.ValueType = 'String'
+            Width = 311
+            Position.ColIndex = 4
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+          object cxTreeList1Column6: TcxTreeListColumn
+            Caption.Text = 'Situa'#231#227'o'
+            DataBinding.ValueType = 'String'
+            Width = 136
+            Position.ColIndex = 5
+            Position.RowIndex = 0
+            Position.BandIndex = 0
+            Summary.FooterSummaryItems = <>
+            Summary.GroupFooterSummaryItems = <>
+          end
+        end
+      end
+    end
+  end
+  object dxStatusBar1: TdxStatusBar
+    Left = 0
+    Top = 409
+    Width = 815
+    Height = 20
+    Panels = <>
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+  end
+  object IdSMTP1: TIdSMTP
+    SASLMechanisms = <>
+    Left = 632
+    Top = 112
+  end
+  object msgxml: TIdMessage
+    AttachmentEncoding = 'UUE'
+    BccList = <>
+    CCList = <>
+    Encoding = meDefault
+    FromList = <
+      item
+      end>
+    Recipients = <>
+    ReplyTo = <>
+    ConvertPreamble = True
+    Left = 632
+    Top = 168
+  end
+  object IdIMAP41: TIdIMAP4
+    IOHandler = IdSSLIOHandlerSocketOpenSSL1
+    SASLMechanisms = <>
+    MilliSecsToWaitToClearBuffer = 10
+    Left = 632
+    Top = 224
+  end
+  object IdSSLIOHandlerSocketOpenSSL1: TIdSSLIOHandlerSocketOpenSSL
+    Destination = ':143'
+    MaxLineAction = maException
+    Port = 143
+    DefaultPort = 0
+    SSLOptions.Mode = sslmUnassigned
+    SSLOptions.VerifyMode = []
+    SSLOptions.VerifyDepth = 0
+    Left = 632
+    Top = 288
+  end
+  object ACBrCTe: TACBrCTe
+    Configuracoes.Geral.SSLLib = libNone
+    Configuracoes.Geral.SSLCryptLib = cryNone
+    Configuracoes.Geral.SSLHttpLib = httpNone
+    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 0
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Left = 744
+    Top = 112
+  end
+  object ACBrNFe: TACBrNFe
+    Configuracoes.Geral.SSLLib = libCapicomDelphiSoap
+    Configuracoes.Geral.SSLCryptLib = cryCapicom
+    Configuracoes.Geral.SSLHttpLib = httpIndy
+    Configuracoes.Geral.SSLXmlSignLib = xsMsXmlCapicom
+    Configuracoes.Geral.FormaEmissao = teContingencia
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Geral.IncluirQRCodeXMLNFCe = False
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 15000
+    Configuracoes.WebServices.AjustaAguardaConsultaRet = True
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Left = 747
+    Top = 169
+  end
+  object XMLDoc: TXMLDocument
+    Active = True
+    XML.Strings = (
+      '<?xml version="1.0"?>'
+      
+        '<procEventoNFe xmlns="http://www.portalfiscal.inf.br/nfe" versao' +
+        '="1.00"><evento xmlns="http://www.portalfiscal.inf.br/nfe" versa' +
+        'o="1.00"><infEvento Id="ID11011041170261144150000678550010004475' +
+        '84100086229401"><cOrgao>41</cOrgao><tpAmb>1</tpAmb><CNPJ>6114415' +
+        '0000678</CNPJ><chNFe>4117026114415000067855001000447584100086229' +
+        '4</chNFe><dhEvento>2017-02-13T19:01:48-02:00</dhEvento><tpEvento' +
+        '>110110</tpEvento><nSeqEvento>1</nSeqEvento><verEvento>1.00</ver' +
+        'Evento><detEvento versao="1.00"><descEvento>Carta de Correcao</d' +
+        'escEvento><xCorrecao>Transportadora alterada para "ALFA TRANSPOR' +
+        'TES ESPECIAIS LTDA - CNPJ: 82.110.818/0002-02 - ROD BR 116 KM. 1' +
+        '15 B01 27341 - CURITIBA - PR - I.E.: 101.79203-04"</xCorrecao><x' +
+        'CondUso>A Carta de Correcao e disciplinada pelo paragrafo 1o-A d' +
+        'o art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser ' +
+        'utilizada para regularizacao de erro ocorrido na emissao de docu' +
+        'mento fiscal, desde que o erro nao esteja relacionado com: I - a' +
+        's variaveis que determinam o valor do imposto tais como: base de' +
+        ' calculo, aliquota, diferenca de preco, quantidade, valor da ope' +
+        'racao ou da prestacao; II - a correcao de dados cadastrais que i' +
+        'mplique mudanca do remetente ou do destinatario; III - a data de' +
+        ' emissao ou de saida.</xCondUso></detEvento></infEvento><Signatu' +
+        're xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><Canon' +
+        'icalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c' +
+        '14n-20010315"/><SignatureMethod Algorithm="http://www.w3.org/200' +
+        '0/09/xmldsig#rsa-sha1"/><Reference URI="#ID110110411702611441500' +
+        '0067855001000447584100086229401"><Transforms><Transform Algorith' +
+        'm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><Tran' +
+        'sform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315' +
+        '"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/' +
+        '09/xmldsig#sha1"/><DigestValue>7VlxdhVgFDjJsFJ+2dSIQ/eHZls=</Dig' +
+        'estValue></Reference></SignedInfo><SignatureValue>TfoAUc6tfqG8K7' +
+        '0SEALw7jDrH+GqmcaWj4biFkG7tVn1wAjbdguyqas3heKjYd9p7JjoVDJXZ5R6wg' +
+        'F/J+rVVJoqNpRQp9l+VhEllyz1v7KcTGCusumqrbQvpsui291vvDOTfP8uq8G7Oz' +
+        'SMGkuH6M9UhcUArWkGBbft2JGZPXLGip/xK8Yz7YnUarvMzbohjCeIYyPgKmt8LI' +
+        'upCnW9ZZ6J7GPQe9fHOR3jfdmkNu3YjBeDd9Faobcjgxnq0bb826AQ5XwYwS109D' +
+        'zM5SgCTo77rLQJcIvPE6sZA0Bkp+CpT7Uu5bGVZ4lhWmMQFRy1W9YDKiqJhJKtnk' +
+        'Klh/qfhQ==</SignatureValue><KeyInfo><X509Data><X509Certificate>M' +
+        'IIH5TCCBc2gAwIBAgIINSPVqhd34yEwDQYJKoZIhvcNAQELBQAwTDELMAkGA1UEB' +
+        'hMCQlIxEzARBgNVBAoTCklDUC1CcmFzaWwxKDAmBgNVBAMTH1NFUkFTQSBDZXJ0a' +
+        'WZpY2Fkb3JhIERpZ2l0YWwgdjIwHhcNMTYwMzAxMTEwMDAwWhcNMTcwMzAxMTEwM' +
+        'DAwWjCB9jELMAkGA1UEBhMCQlIxEzARBgNVBAoTCklDUC1CcmFzaWwxFDASBgNVB' +
+        'AsTCyhFTSBCUkFOQ08pMRgwFgYDVQQLEw8wMDAwMDEwMDY3OTEwMDYxFDASBgNVB' +
+        'AsTCyhFTSBCUkFOQ08pMRQwEgYDVQQLEwsoRU0gQlJBTkNPKTEUMBIGA1UECxMLK' +
+        'EVNIEJSQU5DTykxFDASBgNVBAsTCyhFTSBCUkFOQ08pMRQwEgYDVQQLEwsoRU0gQ' +
+        'lJBTkNPKTE0MDIGA1UEAxMrUEFETyBTIEEgSU5EVVNUUklBTCBDT01FUkNJQUwgR' +
+        'SBJTVBPUlRBRE9SQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKfUj' +
+        'yrPj1As2i8JDZm7b3uxEglih9fHvXDk+01zeAMtcQGt9BHHtkVceXfTMFIUd0PgL' +
+        'FfsMZcfaqEjSdopXdzHh36DoD5huYrQGb5UWse+KL9K9kVa6aCDhjMH6JYoxJhvl' +
+        'Ranj5+B4HBOhUiaUbbv1uLOJTk7isR07DrZGVYuxrcrtkH4lnJvm3aKgeFOd+VPh' +
+        'yHAUtbd/DOB+'
+      
+        '0SAtHOZMwr22NhQgoFxZ0fG7mdwtBiaA7zYD0wodOVvj1QEFPlkaxWRxIFpdkRzf' +
+        'gflJC3tPpcOtegUuvBG5drbGE9cdYg2eV78tsKL3Fg+sRlaH5yTYugl8BTtyhFTJ' +
+        'nN09JsCAwEAAaOCAx4wggMaMIGXBggrBgEFBQcBAQSBijCBhzBHBggrBgEFBQcwA' +
+        'oY7aHR0cDovL3d3dy5jZXJ0aWZpY2Fkb2RpZ2l0YWwuY29tLmJyL2NhZGVpYXMvc' +
+        '2VyYXNhY2R2Mi5wN2IwPAYIKwYBBQUHMAGGMGh0dHA6Ly9vY3NwLmNlcnRpZmljY' +
+        'WRvZGlnaXRhbC5jb20uYnIvc2VyYXNhY2R2MjAfBgNVHSMEGDAWgBSa4IMQ1yab6' +
+        'bragrKBzjka04dwhjBxBgNVHSAEajBoMGYGBmBMAQIBBjBcMFoGCCsGAQUFBwIBF' +
+        'k5odHRwOi8vcHVibGljYWNhby5jZXJ0aWZpY2Fkb2RpZ2l0YWwuY29tLmJyL3Jlc' +
+        'G9zaXRvcmlvL2RwYy9kZWNsYXJhY2FvLXNjZC5wZGYwgfAGA1UdHwSB6DCB5TBJo' +
+        'EegRYZDaHR0cDovL3d3dy5jZXJ0aWZpY2Fkb2RpZ2l0YWwuY29tLmJyL3JlcG9za' +
+        'XRvcmlvL2xjci9zZXJhc2FjZHYyLmNybDBDoEGgP4Y9aHR0cDovL2xjci5jZXJ0a' +
+        'WZpY2Fkb3MuY29tLmJyL3JlcG9zaXRvcmlvL2xjci9zZXJhc2FjZHYyLmNybDBTo' +
+        'FGgT4ZNaHR0cDovL3JlcG9zaXRvcmlvLmljcGJyYXNpbC5nb3YuYnIvbGNyL1Nlc' +
+        'mFzYS9yZXBvc2l0b3Jpby9sY3Ivc2VyYXNhY2R2Mi5jcmwwDgYDVR0PAQH/BAQDA' +
+        'gXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDCBxwYDVR0RBIG/MIG8g' +
+        'RlDT05UUk9MQURPUklBQFBBRE8uQ09NLkJSoD8GBWBMAQMEoDYTNDIwMTExOTc1M' +
+        'jU5NDI2Njg4NDEwMDAwMDAwMDAwMDAwMDAwMDAyNTc2MDgzMlNFU1AgU1CgKgYFY' +
+        'EwBAwKgIRMfQU5EUkVBIE5PUkEgRkVMSUNJVEFTIEdBUkRFTUFOTqAZBgVgTAEDA' +
+        '6AQEw42MTE0NDE1MDAwMDY3OKAXBgVgTAEDB6AOEwwwMDAwMDAwMDAwMDAwDQYJK' +
+        'oZIhvcNAQELBQADggIBAGX/JKQWzd8BwG11BTxACgMonoYNKiMcGaMUYzfEMCPUG' +
+        'xnsDK7e4di0JD18M5qq1LP7Duu4aaHlt7+AB1P0McHY/6TFq/s5IJf6WdFFQ1wvp' +
+        'Czs1U0t0KZJnn3PBR+U0rHDCaiqy5K6GUqq7VVb6uvqlpqgH55wEBpclCpSzOhLC' +
+        '/zcrTicgg0IummRTiAZfkgkrJFcfXpZV4eXmWTrxP1CMcDozfgFeXEINXO7tfAS3' +
+        'QwqhHjGI76BLb3P9BZ1Y2oYS8YFGJcY/Ob6ciSbJKoIUDVj0lI1QRScUQ02rIGXq' +
+        'jlJPdGB5OUSVsE6R9hyrfELOLixzfPoGRyLp4Dd/pKvcG6mYUkSMKKToffNN3bRE' +
+        'JGQ78Fvx4XAENkvkpQYo57cInrSzJ5J6duijNV+ZGuUhINgTjD5dsO+L2n5T5Wxb' +
+        'IOJQwRtf4kRdgBSE9Qdi+2t/jREKuwSVhyLMX0M88sOnO1mtUPfhctnHwbpAWzob' +
+        '/eP1s0l2RiihehspmjGNqwKuaR4qjaetZF4ONDBnK7vpxXXB2f2dJhlSMQCgIigh' +
+        'z5umKl1tsXQs0W7tvCyefCx/vO5AvnXRo95zmu6IOBkPho8hJBGmNIqFAyAqI9Zu' +
+        'jxJNrGuySsryvQKQXZsQKZkVsjtTOQCs0nZrjxoEgYiWEZ3vN5prGTzMO8KNCex<' +
+        '/X509Certificate></X509Data></KeyInfo></Signature></evento><retE' +
+        'vento xmlns="http://www.portalfiscal.inf.br/nfe" versao="1.00"><' +
+        'infEvento><tpAmb>1</tpAmb><verAplic>PR-v3_7_8</verAplic><cOrgao>' +
+        '41</cOrgao><cStat>135</cStat><xMotivo>Evento registrado e vincul' +
+        'ado a NF-e</xMotivo><chNFe>4117026114415000067855001000447584100' +
+        '0862294</chNFe><tpEvento>110110</tpEvento><xEvento>Carta de Corr' +
+        'e'#231#227'o</xEvento><nSeqEvento>1</nSeqEvento><dhRegEvento>2017-02-13T' +
+        '19:01:52-02:00</dhRegEvento><nProt>141170024011888</nProt></infE' +
+        'vento></retEvento></procEventoNFe>')
+    Left = 484
+    Top = 48
+    DOMVendorDesc = 'MSXML'
+  end
+end

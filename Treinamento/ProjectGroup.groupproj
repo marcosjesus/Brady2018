@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{717525A7-D5ED-40E0-8685-03D938386355}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Treinamento.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="DataImport\MLDataImport.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Treinamento">
+        <MSBuild Projects="Treinamento.dproj"/>
+    </Target>
+    <Target Name="Treinamento:Clean">
+        <MSBuild Projects="Treinamento.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Treinamento:Make">
+        <MSBuild Projects="Treinamento.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MLDataImport">
+        <MSBuild Projects="DataImport\MLDataImport.dproj"/>
+    </Target>
+    <Target Name="MLDataImport:Clean">
+        <MSBuild Projects="DataImport\MLDataImport.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MLDataImport:Make">
+        <MSBuild Projects="DataImport\MLDataImport.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Treinamento;MLDataImport"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Treinamento:Clean;MLDataImport:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Treinamento:Make;MLDataImport:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

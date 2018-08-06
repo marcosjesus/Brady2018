@@ -1,0 +1,90 @@
+unit udmDados;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.ODBCBase,
+  FireDAC.Phys.MSSQL, FireDAC.Comp.Client, Data.DB, FireDAC.Stan.Param,
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet;
+
+type
+  TDados = class(TDataModule)
+    FDConnection: TFDConnection;
+    sqlAuxiliar: TFDQuery;
+    sqlAux: TFDQuery;
+    sqlAux180: TFDQuery;
+    sqlAux180Itens: TFDQuery;
+  private
+    function GetComando(ObjetoQuery: TFDQuery; bMostra: Boolean): String;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Dados: TDados;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+
+function StrTran(sOrigem: string; sLoc: string; sSub: string): string;
+var
+  Aux: string;
+  Calc: integer;
+  Posicao: integer;
+begin
+//Localiza um conjunto de strings e subtitui por outro
+  Aux := sOrigem;
+  Calc := 0;
+  Posicao := Pos(sLoc, Aux);
+  while Posicao > 0 do
+  begin
+
+    Delete(Aux, Posicao, Length(sLoc));
+    Posicao := Posicao + Calc;
+    sOrigem := Copy(sOrigem, 1, Posicao - 1) + sSub +
+      Copy(sOrigem, Posicao + Length(sLoc), Length(sOrigem));
+    Calc := Calc + Length(sSub);
+    Posicao := Pos(sLoc, Aux);
+  end;
+  Result := sOrigem;
+end;
+
+Function TDados.GetComando(ObjetoQuery: TFDQuery; bMostra : Boolean = false) : String;
+var
+ i        : Integer;
+ strQuery : String;
+ sGetComando : String;
+begin
+
+  strQuery := UpperCase(ObjetoQuery.SQL.Text);
+
+  For  i := 0 to ObjetoQuery.Params.Count - 1 do
+    strQuery := StrTran(strQuery,':' + UpperCase(ObjetoQuery.Params[i].Name), QuotedStr(ObjetoQuery.Params[i].Value) );
+
+   strQuery :=  StrTran(StrTran(strQuery, ''#$D#$A'', ' '), ''#$D#$A'', '');
+
+  {
+  sGetComando := ExisteRegistroComValor('PARAMETROS', 'VL_PARAM', 'NM_PARAM = ''GETCOMANDONATELA'' ');
+
+  if (sGetComando = 'S') or (sGetComando = '') Then
+     MostrarScriptnaTela := True;
+
+  if not MostrarScriptnaTela Then
+     LogWriter(GUsuario, strQuery, Tela)
+  else
+  }
+  if bMostra  then
+     ShowMessage(strQuery);
+
+  result := strQuery;
+
+end;
+
+end.

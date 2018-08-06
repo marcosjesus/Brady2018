@@ -1,0 +1,703 @@
+unit UPrincipal;
+
+interface
+
+uses
+  Windows, Messages, System.SysUtils, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinBlueprint,
+  dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
+  dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic,
+  dxSkinSharp, dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinsDefaultPainters,
+  dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint, dxSkinXmas2008Blue,
+  dxSkinsdxNavBarPainter, FireDAC.UI.Intf, FireDAC.VCLUI.Wait,
+  FireDAC.Stan.Intf, FireDAC.Comp.UI, Vcl.Menus, dxSkinsForm, System.Classes,
+  System.Actions, Vcl.ActnList, Vcl.ImgList, Vcl.Controls, Vcl.ExtCtrls,
+  Vcl.Dialogs, dxNavBarCollns, cxClasses, dxNavBarBase, dxNavBar, dxStatusBar,
+  dxRibbonStatusBar, dxGDIPlusClasses,  Graphics,  Forms,
+   ComCtrls,   ToolWin,  StdCtrls, Variants,
+  ActnMan, ActnCtrls, ActnMenus, UrlMon, jpeg, Registry, Shellapi,
+  DB, DBTables,  IdBaseComponent,  IniFiles,  IdComponent, IdTCPConnection,
+  IdTCPClient, IdFTP,  System.IOUtils;
+
+type
+  TfrmPrincipal = class(TForm)
+    dlpImprime: TPrintDialog;
+    Timer: TTimer;
+    ImageList1: TImageList;
+    popJanela: TPopupMenu;
+    OrganizarJanelasemCascata1: TMenuItem;
+    JanelasLadoaLado1: TMenuItem;
+    Horizontal1: TMenuItem;
+    Vertical1: TMenuItem;
+    stb: TdxRibbonStatusBar;
+    ActionList: TActionList;
+    MainImage: TImage;
+    cxImageList1: TcxImageList;
+    dxn: TdxNavBar;
+    dxnConsulta: TdxNavBarGroup;
+    dxnSair: TdxNavBarGroup;
+    dxnUsuarios: TdxNavBarItem;
+    cxLookAndFeelController1: TcxLookAndFeelController;
+    dxSkinController1: TdxSkinController;
+    MainMenu1: TMainMenu;
+    dxnCadastros: TdxNavBarGroup;
+    dxnConsultaXML: TdxNavBarItem;
+    actUsuario: TAction;
+    actConsultaXML: TAction;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    dxnExecutar: TdxNavBarGroup;
+    actLerCaixaEmail: TAction;
+    actSalvarEmail: TAction;
+    dxnLerCaixaEmail: TdxNavBarItem;
+    dxnSalvarEmail: TdxNavBarItem;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure actFecharExecute(Sender: TObject);
+    procedure actSairExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure TimerTimer(Sender: TObject);
+    procedure stbResize(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure OrganizarJanelasemCascata1Click(Sender: TObject);
+    procedure JanelasLadoaLado1Click(Sender: TObject);
+    procedure Horizontal1Click(Sender: TObject);
+    procedure Vertical1Click(Sender: TObject);
+    procedure dxnSairClick(Sender: TObject);
+    procedure stbPanels1Click(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure actNaturezaExecute(Sender: TObject);
+    procedure actConsultaXMLExecute(Sender: TObject);
+    procedure actUsuarioExecute(Sender: TObject);
+    procedure actLerCaixaEmailExecute(Sender: TObject);
+    procedure actSalvarEmailExecute(Sender: TObject);
+  private
+    { Private declarations }
+    FFormatoBR: TFormatSettings;
+    varArquivoINI : TStringList;
+    varMapeamento : String;
+    pBanco, pHost : string;
+    Function VerODBC : String;
+    procedure DownLoad(NomeArquivo : String);
+    Function Limite( Tabela:String; Condicao:String; Maximo:Integer ): boolean;
+    procedure LerIni(Ambiente : Integer ; Var Banco : String; var Host: String; Var Usuario: String; Var Senha : String);
+    function WinExecAndWait32(FileName, WorkDir: String;
+      Visibility: integer): integer;
+    function ExecutaBAT(comando: string; NomeBat : string): boolean;
+  public
+    { Public declarations }
+    aux,  CodCli, CodCompra, FilialMatriz : String;
+    DataServer : TDateTime;
+    AcessoBtn, cVez: Integer;
+    ProgAnt : Integer ;
+    NatAjuste, UsuResp : String ;
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+  UsuFil   : String ;
+  Master   : Boolean;
+  aux, Tela : string;
+
+implementation
+
+uses Login,  udmDados, uConsultaDocumento, uUsuario;
+
+//uses  Global, SqlTableFun, MensFun , Login, DBConect, DateFun, Usuario, Parametros,
+  //    PerfilOpe, Perfil, Operacao, uImportador, ConsultaCTE,CadFilial, uGerador;
+
+{$R *.DFM}
+
+procedure CreateODBCDriver(Const
+cDSNName,cExclusive,cDescription,cDataBase,cDefaultPath,cConfigSql,cDriver: string);
+type
+  TSQLConfigDataSource = function( hwndParent: HWND; fRequest: WORD; lpszDriver: LPCSTR;
+lpszAttributes: LPCSTR ): BOOL; stdcall;
+const
+  ODBC_ADD_DSN = 1; // Adiciona uma fonte de dados (data source)
+  ODBC_CONFIG_DSN = 2; // Configura a fonte de dados (data source)
+  ODBC_REMOVE_DSN = 3; // Remove a fonte de dados (data source)
+  ODBC_ADD_SYS_DSN = 4; // Adiciona um DSN no sistema
+  ODBC_CONFIG_SYS_DSN = 5; // Configura o DSN do sistema
+  ODBC_REMOVE_SYS_DSN = 6; // Remove o DSN do sistema
+var
+  pFn: TSQLConfigDataSource;
+  hLib: LongWord;
+  strDriver: string;
+  strHome: string;
+  strAttr: string;
+  strFile: string;
+  fResult: BOOL;
+  ModName: array[0..MAX_PATH] of Char;
+  srInfo : TSearchRec;
+begin
+  Windows.GetModuleFileName( HInstance, ModName, SizeOf(ModName) );
+  strHome := ModName;
+  while ( strHome[length(strHome)] <> '\' ) do
+  Delete( strHome, length(strHome), 1 );
+  strFile := strHome + cDatabase; // Teste com access (Axes = Access)
+  hLib := LoadLibrary( pChar(cDefaultPath) ); // carregando para o diretório padrão
+  if( hLib <> NULL ) then
+  begin
+    @pFn := GetProcAddress( hLib, pChar(cConfigSql) );
+    if( @pFn <> nil ) then
+    begin
+      strDriver := cDriver;
+      strAttr := Format( 'DSN=%s'+#0+
+        'DBQ=%s'+#0+
+        'Exclusive=%s'+#0+
+        'Description=%s'+#0+#0,
+        [cDSNName,strFile,cExclusive,cDescription] );
+      fResult := pFn( 0, ODBC_ADD_SYS_DSN, @strDriver[1], @strAttr[1] );
+      if( fResult = false ) then
+        ShowMessage( 'Falha ao tentar criar o DSN (Data source).' );
+      if( FindFirst( strFile, 0, srInfo ) <> 0 ) then
+      begin
+        strDriver := cDriver;
+        strAttr := Format( 'DSN=%s'+#0+
+          'DBQ=%s'+#0+
+          'Exclusive=%s'+#0+
+          'Description= %s'+#0+#0+
+          'CREATE_DB="%s"'#0+#0,
+          [cDSNName,strFile,cExclusive,cDescription,strFile]);
+        fResult := pFn( 0, ODBC_ADD_SYS_DSN, @strDriver[1], @strAttr[1] );
+        if( fResult = false ) then
+          ShowMessage( 'Falha ao tentar criar o banco de dados' );
+      end;
+      FindClose( srInfo );
+    end;
+    FreeLibrary( hLib );
+//    if fResult then
+//      ShowMessage( 'Banco de dados criado.' );
+  end
+  else
+  begin
+    ShowMessage( 'o sistema não pode carregar a biblioteca ODBCCP32.DLL' );
+  end;
+end;
+
+function TfrmPrincipal.Limite(Tabela: String; Condicao: String; Maximo: Integer): boolean;
+begin
+  Result := True;
+  with Dados.sqlAuxiliar do
+  begin
+    Close;
+    Sql.Clear;
+    Sql.Add('select count(*) as Reg from ' + Tabela  );
+    if Condicao <> '' then
+      Sql.Add(' Where ' + Condicao );
+    Open;
+    if FieldByName('Reg').Value >= Maximo then
+    begin
+      ShowMessage('Esta é uma Cópia de Demonstração e cadastra apenas '+IntToStr(Maximo)+' registros neste módulo.'#13+#13+
+                  'Para continuar efetuando o cadastro, registre sua cópia do Sistema Gerenciador de Dados '+#13+#13+
+                  'Mais informações (0xx11) 4243-8225 - E-Mail: elias.coelho@gmail.com '#13+#13+
+                  'Este módulo não poderá cadastrar mais registros.'+#13+#13+
+                  'Porém o aplicativo continuará funcionando normalmente.'+#13+#13+
+                  'Você poderá Alterar/Consultar os dados deste Módulo.');
+      Result := False;
+    end;
+  end;
+
+
+{  demo == parametros
+  if Button = nbInsert then
+  begin
+    if ( Demo ) and ( not Limite('clientes','',10) ) then
+       Abort;
+  end;
+
+}
+
+end;
+
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+var
+   Usuario, Senha, varFolderSistema : String;
+begin
+
+   FFormatoBR := TFormatSettings.Create;
+
+   FFormatoBR.ThousandSeparator := '.';
+   FFormatoBR.DecimalSeparator := ',';
+   FFormatoBR.CurrencyDecimals := 2;
+   FFormatoBR.DateSeparator := '/';
+   FFormatoBR.ShortDateFormat := 'dd/mm/yyyy';
+   FFormatoBR.LongDateFormat := 'dd/mm/yyyy';
+   FFormatoBR.TimeSeparator := ':';
+   FFormatoBR.TimeAMString := 'AM';
+   FFormatoBR.TimePMString := 'PM';
+   FFormatoBR.ShortTimeFormat := 'hh:mm';
+   FFormatoBR.LongTimeFormat := 'hh:mm:ss';
+   FFormatoBR.CurrencyString := 'R$ ';
+   FormatSettings := FFormatoBR;
+
+   dxnCadastros.Visible       := False;
+   dxnConsulta.Visible        := False;
+   dxnExecutar.Visible        := False;
+
+
+  varArquivoINI := TStringList.Create;
+  Try
+      varFolderSistema := 'C:\AppEntradaXML\';
+      if TFile.Exists( varFolderSistema + 'EntradaXML.ini' ) then
+      begin
+        varArquivoINI.LoadFromFile(varFolderSistema  + 'EntradaXML.ini');
+        varMapeamento          := varArquivoINI.Values['Mapeamento'];
+      end;
+  Finally
+     FreeAndNil(varArquivoINI);
+  End;
+  // dxnImportar.Visible        := False;
+ //  dxnExportar.Visible        := False;
+
+   //dxnUtilitarios.Visible     := False;
+
+  // LerIni(1,pBanco,pHost,Usuario,Senha);
+
+//   if pBanco = '' then
+//   begin
+   //  Mens_MensInf('Problemas na Leitura do Arquivo SinteconXE.Ini !');
+  //   Application.Terminate;
+  //   Close;
+   //  Exit;
+  // end;
+   {
+   // INI
+   DB_Conect.SQLConnection.ConnectionName := 'ESCGestaoXE';
+   DB_Conect.SQLConnection.Params.Clear;
+   DB_Conect.SQLConnection.Params.Add('DriverName=MSSQL');
+   DB_Conect.SQLConnection.Params.Add('HostName=' + pHost);
+   DB_Conect.SQLConnection.Params.Add('DataBase=' + pBanco);
+   DB_Conect.SQLConnection.Params.Add('User_Name=' + Usuario);
+   if Senha = '474952665A2B317A54424D3D' then
+     DB_Conect.SQLConnection.Params.Add('Password=cte123');
+   DB_Conect.SQLConnection.Params.Add('BlobSize=-1');
+   DB_Conect.SQLConnection.Params.Add('ErrorResourceFile=');
+   DB_Conect.SQLConnection.Params.Add('LocaleCode=0000');
+   DB_Conect.SQLConnection.Params.Add('MSSQL TransIsolation=ReadCommited');
+   DB_Conect.SQLConnection.Params.Add('OS Authentication=False');
+
+   DB_Conect.SQLConnection.KeepConnection := false;
+
+   GDatabase := 'ESCGestaoXE' ;
+   SQLTable_Start('ESCGestaoXE',DBTYPE_SQLSERVER_70) ;
+
+   Glob_GetParFin() ;
+   }
+end;
+
+procedure TfrmPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+
+if Odd( GetKeyState(VK_CAPITAL) ) then
+   stb.Panels[3].Text := 'CAPS'
+else
+   stb.Panels[3].Text := '';
+
+if Odd( GetKeyState(VK_INSERT) ) then
+   stb.Panels[4].Text := 'INS'
+else
+   stb.Panels[4].Text := '';
+
+if Odd( GetKeyState(VK_NUMLOCK) ) then
+   stb.Panels[5].Text := 'NUM'
+else
+   stb.Panels[5].Text := '';
+
+end;
+
+procedure TfrmPrincipal.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+
+end;
+
+{-----------------------------------------------------------------------}
+{               CHECA SE EXISTE ODBC - ELIAS - 24-04-06 23:33           }
+{-----------------------------------------------------------------------}
+
+function TfrmPrincipal.VerODBC: String;
+var
+  Reg:TRegistry;
+begin
+  Result := '';
+  try
+    Reg:=TRegistry.Create;
+    Reg.RootKey:=HKEY_LOCAL_MACHINE;
+    Reg.OpenKey('SOFTWARE\ODBC\ODBC.INI\ODBC Data Sources\',true);
+    Result := Reg.ReadString('Comercial');
+    Reg.CloseKey;
+    Reg.Free;
+  except
+
+  end;
+end;
+
+{-----------------------------------------------------------------------}
+{               EXECUTADA QUANDO frmPrincipal FOR FECHADO               }
+{-----------------------------------------------------------------------}
+procedure TfrmPrincipal.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+var i: Integer;
+begin
+
+{ Fecha todas as janelas filhas, provocando a execução do evento
+  OnClose de cada uma, que verifica se o texto foi salvo ou não }
+{ Percorre as janelas filhas abertas (na ordem de abertura) e
+  fecha cada uma delas }
+{
+for i := MDIChildCount - 1 downto 0 do
+    MDIChildren[ i ].Close;
+}
+{ Processa as mensagens do Windows para atualizar o conteúdo da
+  propriedade MDIChildCount }
+Application.ProcessMessages;
+{ Se sobrou alguma janela filha aberta, não fechar a janela mãe }
+if MDIChildCount > 0 then
+begin
+  Action := caNone;
+//  Mens_MensInf( IntToStr(MDIChildCount) + ' Janela(s) Abertas, O Sistema Não Pode Ser Fechado!');
+  Exit;
+end;
+{
+if Mens_MensConf('Confirma Sair do Sistema?') <> mrOK then
+  Action := caNone;
+}
+
+end; // PROCEDURE
+
+{-----------------------------------------------------------------------}
+{                    FECHA JANELA FILHA ATIVA                           }
+{-----------------------------------------------------------------------}
+procedure TfrmPrincipal.actConsultaXMLExecute(Sender: TObject);
+begin
+   frmConsultaDocumento:=TfrmConsultaDocumento.Create(Self);
+   frmConsultaDocumento.Show;
+end;
+
+procedure TfrmPrincipal.actFecharExecute(Sender: TObject);
+begin
+{ Se não existir nenhuma janela filha aberta então saia da procedure}
+if MDIChildCount = 0 then Exit;
+{ Fecha a janela atualmente ativa }
+ActiveMDIChild.Close;
+end;
+
+
+function TfrmPrincipal.WinExecAndWait32(FileName: String; WorkDir: String; Visibility: integer): integer;
+var
+   zAppName: array[0..512] of char;
+   zCurDir: array[0..255] of char;
+   StartupInfo: TStartupInfo;
+   ProcessInfo: TProcessInformation;
+begin
+  StrPCopy(zAppName,FileName);
+  StrPCopy(zCurDir,WorkDir);
+  FillChar(StartupInfo,Sizeof(StartupInfo),#0);
+  StartupInfo.cb:=Sizeof(StartupInfo);
+  StartupInfo.dwFlags:=STARTF_USESHOWWINDOW;
+  StartupInfo.wShowWindow:=Visibility;
+
+  if not CreateProcess(nil,zAppName,nil,nil,False,CREATE_NEW_CONSOLE or NORMAL_PRIORITY_CLASS,nil,zCurDir,StartupInfo,ProcessInfo) then
+	 Result:=-1
+  else
+  begin
+	 WaitforSingleObject(ProcessInfo.hProcess,INFINITE);
+	 GetExitCodeProcess(ProcessInfo.hProcess,DWORD(Result));
+  end;
+
+end;
+
+
+function TfrmPrincipal.ExecutaBAT(comando: string; NomeBat: String): boolean;
+var
+   txt: TextFile;
+   dir: string;
+   ret: boolean;
+begin
+  ret:=False;
+  try
+
+	 dir:=ExtractFilePath(Application.ExeName);
+	 AssignFile(txt, dir  + NomeBat);
+	 Rewrite(txt);
+   writeln(txt, '@ECHO OFF');
+   writeln(txt, ' ECHO *** Inicializando Brady Data Import. Aguarde... ***');
+	 Write(txt,comando);
+
+	 CloseFile(txt);
+   //   ShowMessage(dir);
+	 if WinExecAndWait32(NomeBat,dir,SW_ShowNormal) = 0 then
+		 ret:=True;
+	   DeleteFile(dir + NomeBat);
+  finally
+	  ExecutaBAT := ret;
+  end;
+end;
+
+procedure TfrmPrincipal.actLerCaixaEmailExecute(Sender: TObject);
+var
+ varCaminho : string;
+ dir: string;
+begin
+
+    dir:=ExtractFilePath(Application.ExeName);
+    if WinExecAndWait32('BradyDataImport - FIS - XML.bat',dir,SW_ShowNormal) = 0 then
+       ShowMessage('Executada  BradyDataImport - FIS - XML.bat com Sucesso.');
+end;
+
+procedure TfrmPrincipal.actNaturezaExecute(Sender: TObject);
+begin
+
+end;
+
+{-----------------------------------------------------------------------}
+{                       SAI DA APLICAÇÃO                                }
+{-----------------------------------------------------------------------}
+procedure TfrmPrincipal.actSairExecute(Sender: TObject);
+begin
+    Close;
+end;
+
+procedure TfrmPrincipal.actSalvarEmailExecute(Sender: TObject);
+var
+ varCaminho : string;
+ dir: string;
+begin
+//   varCaminho :=  'START ' + ExtractFilePath(Application.ExeName) + 'BradyDataImport.exe -SalvarXMLNFE';
+ //  ExecutaBAT(varCaminho, 'SalvarXMLNFE.Bat');
+
+       dir:=ExtractFilePath(Application.ExeName);
+    if WinExecAndWait32('BradyDataImport - FIS - XML_BD.bat',dir,SW_ShowNormal) = 0 then
+       ShowMessage('Executada  BradyDataImport - FIS - XML_BD.bat com Sucesso.');
+
+end;
+
+procedure TfrmPrincipal.actUsuarioExecute(Sender: TObject);
+begin
+  frmCadUsuario :=  TfrmCadUsuario.Create(Self);
+  frmCadUsuario.Show;
+end;
+
+{-----------------------------------------------------------------------}
+{  PROCEDURE DO TIMER - ATUALIZA BARRA DE STATUS E BOTÕES DA BARRA  DE  }
+{  FERRAMENTAS QUE INDICAM O ESTILO DE LETRA DO TRECHO DE TEXTO ATUAL   }
+{-----------------------------------------------------------------------}
+procedure TfrmPrincipal.TimerTimer(Sender: TObject);
+var
+  Endereco : String;
+  Dia, Mes, Ano : Word;
+begin
+   Timer.Enabled := False ;
+
+
+   with Dados  do
+   begin
+      FDConnection.Params.LoadFromFile( ExtractFilePath(Application.ExeName) + '\' +  'DB-CECS2002.ini' );
+      FDConnection.Open;
+   end;
+
+  {
+   if not DB_Conect.SQLConnection.Connected then
+   begin
+     Mens_MensErro('Erro Conectando Banco de Dados!');
+     Close;
+     Exit;
+   end;
+
+    qryAux.Close;
+    qryAux.Sql.Clear;
+    qryAux.SQL.Add('select versao From Parametros  ' );
+    try
+      qryAux.Open;
+    Except
+    End;
+
+    GVersao := qryAux.FieldByName('Versao').AsString;
+
+   If ( GVersao <> '1000' ) Then
+     Begin
+       Mens_MensInf('Programa necessita de Atualizacão, clique e aguarde o DOWNLOAD !!') ;
+       Endereco := 'http://www.escsistemas.com.br/ESCGestao' + GVersao + '.exe';
+       shellExecute(Handle, 'Open', PChar(Endereco), nil, nil, sw_shownormal);
+       Application.Terminate ;
+       Exit ;
+     end;
+   }
+   frmPrincipal.Enabled := False;
+
+   FrmLogin := TFrmLogin.Create(Self) ;
+   If ( FrmLogin.Showmodal <> mrOk ) Then
+   Begin
+       FrmLogin.Close ;
+       Close ;
+       Exit ;
+   End ;
+   frmPrincipal.Enabled := True;
+
+
+   Dados.sqlAuxiliar.Close;
+   Dados.sqlAuxiliar.Sql.Clear;
+//   qryAux.SQL.Add('Select Convert(DateTime, (convert(varchar(10), getdate(), 103))) as DataServer ');
+   Dados.sqlAuxiliar.SQL.Add('Select getdate() as DataServer ');
+   Dados.sqlAuxiliar.Open;
+
+   DecodeDate(Dados.sqlAuxiliar.FieldByName('DataServer').AsDateTime, Ano, Mes, Dia);
+
+   DataServer := EncodeDate(Ano, Mes, Dia);
+   Dados.sqlAuxiliar.Close;
+
+   stb.panels[0].Text := 'Usuário - ' + FrmLogin.EdiUsuNome.Text;
+   stb.panels[1].Text := 'Servidor ' + pHost;
+   stb.panels[2].Text := 'Data de Trabalho..: ' + DateToStr(Date);
+
+   FrmLogin.Close ;
+
+   dxnCadastros.Visible := True; //( Glob_GetAccess('MENU-CAD','') ) ;
+   dxnConsulta.Visible  := True;
+   dxnExecutar.Visible  := True;
+
+   dxn.ActiveGroupIndex := 0;
+        {
+   If ( DataServer > StrToDate('2014-11-20'))  Then
+   begin
+     Application.Terminate ;
+     Exit ;
+   end;
+       }
+
+if Odd( GetKeyState(VK_CAPITAL) ) then
+   stb.Panels[3].Text := 'CAPS'
+else
+   stb.Panels[3].Text := '';
+
+if Odd( GetKeyState(VK_INSERT) ) then
+   stb.Panels[4].Text := 'INS'
+else
+   stb.Panels[4].Text := '';
+
+if Odd( GetKeyState(VK_NUMLOCK) ) then
+   stb.Panels[5].Text := 'NUM'
+else
+   stb.Panels[5].Text := '';
+
+end;
+{-----------------------------------------------------------------------}
+{ CORRIGE O TAMANHO DOS PANELS DA STATUSBAR QUANDO ELA É REDIMENSIONADA }
+{-----------------------------------------------------------------------}
+procedure TfrmPrincipal.stbResize(Sender: TObject);
+begin
+  stb.Panels[0].width := stb.Width - 180;
+end;
+
+procedure TfrmPrincipal.FormShow(Sender: TObject);
+begin
+ //  Date_FillFeriado() ;
+  MainImage.Transparent := True;
+
+  if FileExists(ExtractFileDir(Application.ExeName) + '\Fundo.jpg') then
+    MainImage.Picture.LoadFromFile(ExtractFileDir(Application.ExeName) + '\Fundo.jpg')
+  else if FileExists(ExtractFileDir(Application.ExeName) + '\Fundo.bmp') then
+    MainImage.Picture.LoadFromFile(ExtractFileDir(Application.ExeName) + '\Fundo.bmp')
+  else
+    MainImage.Picture.CleanupInstance;
+end;
+
+procedure TfrmPrincipal.FormCloseQuery(Sender: TObject;
+  var CanClose: Boolean);
+begin
+{  If ( FrmLogin <> Nil ) and (GUsuario <> '') Then
+  begin
+    canclose := false;
+
+    if Mens_MensConf('Tem Certeza Que Deseja Sair do Sistema ?') = mrOK then
+      canclose := True;
+  end;
+  }
+
+end;
+
+procedure TfrmPrincipal.OrganizarJanelasemCascata1Click(Sender: TObject);
+begin
+{ Organiza em cascata }
+  Cascade;
+end;
+
+procedure TfrmPrincipal.JanelasLadoaLado1Click(Sender: TObject);
+begin
+  { Define o modo de organização lado a lado }
+  TileMode := tbHorizontal;
+  { Organiza lado a lado }
+  Tile;
+
+end;
+
+procedure TfrmPrincipal.Horizontal1Click(Sender: TObject);
+begin
+{ Define o modo de organização lado a lado }
+TileMode := tbHorizontal;
+{ Organiza lado a lado }
+Tile;
+
+end;
+
+procedure TfrmPrincipal.Vertical1Click(Sender: TObject);
+begin
+{ Define o modo de organização lado a lado }
+TileMode := tbVertical;
+{ Organiza lado a lado }
+Tile;
+
+end;
+
+procedure TfrmPrincipal.DownLoad(NomeArquivo: String);
+begin
+
+
+end;
+
+procedure TfrmPrincipal.dxnSairClick(Sender: TObject);
+begin
+   Close;
+end;
+
+procedure TfrmPrincipal.stbPanels1Click(Sender: TObject);
+var
+  Mail : String;
+begin
+  Mail := 'mailto:marcos.jesus.external@k2@partnering.com';
+  ShellExecute(GetDesktopWindow,'open',pchar(Mail),nil,nil,sw_ShowNormal);
+end;
+
+procedure TfrmPrincipal.LerIni(Ambiente: Integer; var Banco, Host, Usuario,
+  Senha: String);
+var
+  ArqIni : TIniFile;
+begin
+  ArqIni := tIniFile.Create(ExtractFilePath(Application.ExeName) + 'SinteconXE.ini');
+  Try
+    Banco   := ArqIni.ReadString('Banco' + IntToStr(Ambiente), 'Banco', Banco);
+    Host    := ArqIni.ReadString('Banco' + IntToStr(Ambiente), 'Host', Host );
+    Usuario := ArqIni.ReadString('Banco' + IntToStr(Ambiente), 'Usuario', Usuario );
+    Senha   := ArqIni.ReadString('Banco' + IntToStr(Ambiente), 'Senha', Senha );
+  Finally
+    ArqIni.Free;
+  end;
+end;
+
+end.
+
+
+
+

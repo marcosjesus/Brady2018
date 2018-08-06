@@ -1,0 +1,273 @@
+unit DateFun ;
+
+interface
+
+Uses
+     SysUtils, Windows ;
+
+Function Date_EOM( Dt : TDateTime ): TDateTime; Export;
+Function Date_BOM( Dt : TDateTime ): TDateTime; Export;
+Function Date_BOW( Dt : TDateTime ): TDateTime; Export;
+Function Date_EOW( Dt : TDateTime ): TDateTime; Export;
+Function Date_GetProDiaUtil ( Dt : TDateTime ): TDateTime; Export ;
+Function Date_VerSemana( Dt : TDateTime ) : Integer; Export; // a qual semana do mes uma data pertence
+Function Date_GetMonthName ( Mes : Integer ) : String ; Export ;
+Function Date_GetLastDayMonth ( Mes : Integer ) : Integer ; Export ;
+Function Date_GenStrDateByMonth ( Mes : Integer ) : String ; export ;
+Function Date_GenDateByMonth ( Mes : Integer ) : TDateTime ;  Export ;
+Function Date_CheckMes ( Mes : Integer ) : Boolean ; Export ;
+Function Date_GetExtDate ( Dt : TDateTime ) : String ; Export ;
+Function Date_FillFeriado : Boolean ; Export ;
+Function Date_EhFeriado ( Dt : TDateTime ) : Boolean ; Export ;
+Function Date_Month ( Dt : TDateTime ) : Integer ; Export ;
+Function Date_Year ( Dt : TDateTime ) : Integer ; Export ;
+Function Date_ChangeDayMonth ( Dt : TDateTime ) : TDateTime ; Export ;
+Function Date_GetTimeStamp : String ; Export ;
+Function Date_NextMonth ( Dt : TDateTime; Dia: integer ) : TDateTime ; Export ;
+Function Date_TransfDate ( Dt : TDateTime ) : TDateTime ; Export ;
+
+implementation
+
+Uses
+   StrFun, NumFun, SqlTableFun ;
+
+Var
+   aDiaMesFeriado : Array Of String[4] ;
+   NumFeriados : Integer ;
+
+Function Date_EOW( Dt : TDateTime ): TDateTime;
+var
+  Dia : Integer    ;
+Begin
+  Dia := DayOfWeek( Dt )  ;
+  Dia := 7 - Dia          ;
+  Result := ( Dt + Dia )  ;
+End;
+
+Function Date_BOM( Dt : TDateTime ): TDateTime;
+var
+  Ano,Mes,Dia    : Word ;
+Begin
+  DecodeDate( Dt , Ano, Mes, Dia ) ;
+  Result := ( Dt -  Dia ) + 1      ;
+End;
+
+Function Date_BOW( Dt : TDateTime ): TDateTime;
+var
+    Dia  : Integer  ;
+Begin
+  Dia := DayOfWeek( Dt )       ;
+  Result := ( Dt - Dia ) + 1   ;
+End;
+
+Function Date_EOM( Dt : TDateTime ): TDateTime;
+//var
+ //   Num : Integer         ;
+  //  Ano1,Mes1,Dia1 : Word ;
+   // Ano2,Mes2,Dia2 : Word ;
+Begin
+  While ( (DayOfWeek(Dt) = 7) Or (DayOfWeek(Dt) = 1) Or (Date_EhFeriado(Dt)) ) Do
+      Dt := Dt + 1 ;
+{
+  DecodeDate( Dt , Ano1, Mes1, Dia1 ) ;
+  For Num := 1 To 32 Do   // 32 pq nenhum mes é maior que 32
+  Begin
+     Dt := Dt + 1 ;
+     DecodeDate( Dt , Ano2 , Mes2 , Dia2 ) ;
+     IF Mes2 <> Mes1 Then
+     Begin
+        Dt := Dt - 1 ;
+        Result := Dt    ;
+        Exit; // 1.0 dia do mes seguinte
+     End;
+  End;
+  }
+  Result := Dt    ;
+End;
+
+Function Date_GetProDiaUtil ( Dt : TDateTime ): TDateTime;
+Begin
+   While ( (DayOfWeek(Dt) = 7) Or (DayOfWeek(Dt) = 1) Or (Date_EhFeriado(Dt)) ) Do
+      Dt := Dt + 1 ;
+  Result := Dt ;
+End;
+
+Function Date_VerSemana( Dt : TDateTime ): Integer;
+var
+    Dia  : Integer ;
+    VarAno,VarMes,VarDia  : Word ;
+Begin
+  DecodeDate( Dt , VarAno , VarMes , VarDia )   ;
+  Dia := DayOfWeek( Date_BOM(Dt) )       ;
+  Result := ( 1 + Trunc( ( Dia + VarDia ) / 7 ) ) ;
+End;
+
+Function Date_GetMonthName ( Mes : Integer ) : String ;
+Begin
+   Case Mes Of
+       1  : Result := 'Janeiro' ;
+       2  : Result := 'Fevereiro' ;
+       3  : Result := 'Março' ;
+       4  : Result := 'Abril' ;
+       5  : Result := 'Maio' ;
+       6  : Result := 'Junho' ;
+       7  : Result := 'Julho' ;
+       8  : Result := 'Agosto' ;
+       9  : Result := 'Setembro' ;
+       10 : Result := 'Outubro' ;
+       11 : Result := 'Novembro' ;
+       12 : Result := 'Dezembro' ;
+   End ;
+End ;
+
+Function Date_GetLastDayMonth ( Mes : Integer ) : Integer ;
+Begin
+   Result := -1 ;
+   Case Mes Of
+       1,3,5,7,8,10,12 : Result := 31 ;
+       4,6,9,11 : Result := 30 ;
+       2 : Result := 28 ;
+   End ;
+End ;
+
+Function Date_GenStrDateByMonth ( Mes : Integer ) : String ;
+Var
+   a,m,d : Word ;
+Begin
+   DecodeDate(Date(),a,m,d) ;
+   Result := '01/' + Num_IntToStrZ(Mes,2) + '/' + Str_IntToStr(a) ;
+End ;
+
+Function Date_GenDateByMonth ( Mes : Integer ) : TDateTime ;
+Var
+   a,m,d : Word ;
+Begin
+   DecodeDate(Date(),a,m,d) ;
+   Result := Str_StrToDate( '01/' + Num_IntToStrZ(Mes,2) + '/' + Str_IntToStr(a) ) ;
+End ;
+
+Function Date_GetExtDate ( Dt : TDateTime ) : String ;
+Var
+   a,m,d : Word ;
+Begin
+   DecodeDate(Dt,a,m,d) ;
+   Result := 'São Paulo, ' + Str_IntToStr(d) + ' de ' + Date_GetMonthName(m) +
+             ' de ' + Str_IntToStr(a) ;
+End ;
+
+Function Date_CheckMes ( Mes : Integer ) : Boolean ;
+Begin
+   Result := False ;
+   If ( (Mes >= 1) And (Mes <= 12) ) Then
+       Result := True ;
+End ;
+
+Function Date_FillFeriado : Boolean ;
+Var
+   i : Integer ;
+   Tab : TSQLTableClass ;
+Begin
+   Result := False ;
+   NumFeriados := 0 ;
+   Tab := TSQLTableClass.Create ;
+   If ( Not Tab.OpenTable('Feriado') ) Then
+      Exit ;
+   If ( Not Tab.GetExecSqlSel('Select Count(*) From Feriado') ) Then
+      Exit ;
+   NumFeriados := Tab.QResult.Fields[0].AsInteger ;
+   SetLength(aDiaMesFeriado,NumFeriados) ;
+   If ( Not Tab.GetExecSqlSel('Select * From Feriado') ) Then
+      Exit ;
+   i := 0 ;
+   While ( Not Tab.QResult.Eof ) Do
+   Begin
+      aDiaMesFeriado[i] := Str_Zero(Tab.QResult.Fields[0].AsInteger,2) +
+                           Str_Zero(Tab.QResult.Fields[1].AsInteger,2) ;
+      i := i + 1 ;
+      Tab.QResult.Next ;
+   End ;
+   Tab.Destroy ;
+End ;
+
+Function Date_EhFeriado ( Dt : TDateTime ) : Boolean ;
+Var
+   a,m,d : Word ;
+   dm : String[4] ;
+   i : Integer ;
+Begin
+   Result := False ;
+   If ( NumFeriados = 0 ) Then
+      Exit ;
+   DecodeDate(Dt,a,m,d) ;
+   dm := Str_Zero(d,2) + Str_Zero(m,2) ;
+   For i:=0 To NumFeriados Do
+      If ( aDiaMesFeriado[i] = dm ) Then
+      Begin
+         Result := True ;
+         Break ;
+      End ;
+End ;
+
+Function Date_Month ( Dt : TDateTime ) : Integer ;
+Var
+   a,m,d : Word ;
+Begin
+   DecodeDate(Dt,a,m,d) ;
+   Result := m ;
+End ;
+
+Function Date_Year ( Dt : TDateTime ) : Integer ;
+Var
+   a,m,d : Word ;
+Begin
+   DecodeDate(Dt,a,m,d) ;
+   Result := a ;
+End ;
+
+Function Date_ChangeDayMonth ( Dt : TDateTime ) : TDateTime ;
+Var
+   Aux : String ;
+Begin
+   Aux := Str_DateToStr(Dt) ;
+   Aux := Copy(Aux,4,2) + '/' + Copy(Aux,1,2) + '/' + Copy(Aux,7,Length(Aux))  ;
+   Result := Str_StrToDate(Aux) ;
+End ;
+
+Function Date_GetTimeStamp : String ; Export ;
+Begin
+   Result := Str_DateToStr(Date()) + ' - ' + TimeToStr(Time()) ;
+End ;
+
+Function Date_NextMonth ( Dt : TDateTime; Dia: integer ) : TDateTime ;
+Var
+   a,m,d : Word ;
+Begin
+   DecodeDate(Dt,a,m,d) ;
+   if Dia > 0 then
+      d := Dia ;
+   inc (m) ;
+   if m > 12 then
+   begin
+     inc (a) ;
+     m := 1 ;
+   end ;
+   if d > 28 then
+   begin
+     Case M of
+       2 : d := 28 ;
+       4, 6, 9, 11 : begin
+                        if d = 31 then
+                           d := 30 ;
+                     end ;
+     end ;
+   end ;
+   Result := EncodeDate(a, m, d) ;
+End ;
+
+Function Date_TransfDate ( Dt : TDateTime ) : TDateTime ;
+Begin
+   Result := Str_StrToDate(Str_DateToStr(Dt)) ;
+End ;
+
+end.
+

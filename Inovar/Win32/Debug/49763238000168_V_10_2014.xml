@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<tns:AutoDeclaracao
+  xmlns:tns="http://www.tarea.com.br/InovarAuto/AutoDeclaracao"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <tns:retificadora>false</tns:retificadora>
+   <tns:declarante>
+      <tns:tipo_declarante>F</tns:tipo_declarante>
+      <tns:razao_social>STICKOLOR INDUSTRIA E COMERCIO DE AUTO ADESIVOS LTDA</tns:razao_social>
+      <tns:cnpj>49763238000168</tns:cnpj>
+      <tns:matriz>true</tns:matriz>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>TOYOTA DO BRASIL LTDA.</tns:razao_social>
+            <tns:cnpj>59104760000191</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>5870.32</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>TOYOTA DO BRASIL LTDA.</tns:razao_social>
+            <tns:cnpj>59104760000353</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>60508.45</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>TOYOTA DO BRASIL LTDA.</tns:razao_social>
+            <tns:cnpj>59104760000604</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>37012.92</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>MAN LATIN AMERICA INDÚSTRIA E COMÉRCIO DE VEÍCULOS</tns:razao_social>
+            <tns:cnpj>06020318000544</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>11552.52</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>MAN LATIN AMERICA INDÚSTRIA E COMÉRCIO DE VEÍCULOS</tns:razao_social>
+            <tns:cnpj>06020318000706</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>109.90</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>SVB AUTOMOTORES DO BRASIL LTDA</tns:razao_social>
+            <tns:cnpj>04463193000178</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>9195.62</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>MMC AUTOMOTORES DO BRASIL LTDA</tns:razao_social>
+            <tns:cnpj>54305743001170</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>37453.52</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA</tns:razao_social>
+            <tns:cnpj>67405936000173</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>3320.00</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>PEUGEOT-CITROEN DO BRASIL AUTOMÓVEIS LTDA</tns:razao_social>
+            <tns:cnpj>67405936000920</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>17.04</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>VOLKS AUDI</tns:razao_social>
+            <tns:cnpj>59104422010384</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>1530.00</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>VOLKSWAGEN</tns:razao_social>
+            <tns:cnpj>59104422005704</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>33024.42</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>VOLKSWAGEN</tns:razao_social>
+            <tns:cnpj>59104422002446</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>22510.09</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>VOLKSWAGEN</tns:razao_social>
+            <tns:cnpj>59104422001806</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>1435.48</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>HONDA AUTOMÓVEIS</tns:razao_social>
+            <tns:cnpj>01192333000394</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>377.00</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>HONDA AUTOMÓVEIS</tns:razao_social>
+            <tns:cnpj>01192333000122</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>380.00</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>HONDA AUTOMÓVEIS</tns:razao_social>
+            <tns:cnpj>01192333001366</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>10</tns:mes_ref>
+         <tns:ano_ref>2014</tns:ano_ref>
+         <tns:vl_total_notas>62120.50</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+
+   </tns:declarante>
+</tns:AutoDeclaracao>

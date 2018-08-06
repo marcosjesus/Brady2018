@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+ targetNamespace="http://www.tarea.com.br/InovarAuto/AutoDeclaracao" 
+ xmlns:tns="http://www.tarea.com.br/InovarAuto/AutoDeclaracao" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ elementFormDefault="qualified" 
+ attributeFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+ 
+ <xs:element name="AutoDeclaracao" type="tns:AutoDeclaracaoType"/> 
+ <xs:element name="AutoDeclaracaoResponse" type="tns:AutoDeclaracaoTypeResponse"/> 
+ 
+ <xs:complexType name="AutoDeclaracaoType"> 
+ <xs:sequence> 
+ <xs:element name="retificadora" type="xs:boolean" minOccurs="1" maxOccurs="1"/> 
+ <xs:element name="declarante" type="tns:DeclaranteType" minOccurs="1" maxOccurs="unbounded"/> 
+ </xs:sequence> 
+ </xs:complexType> 
+ 
+ <xs:complexType name="DeclaranteType"> 
+ <xs:sequence> 
+ <xs:element name="tipo_declarante" type="tns:TipoDeclaranteType" minOccurs="1" maxOccurs="1"/> 
+ <xs:element name="razao_social" type="xs:string" minOccurs="1" maxOccurs="1"/> 
+ <xs:element name="cnpj" type="xs:long" minOccurs="1" maxOccurs="1"/> 
+ <xs:element name="matriz" type="xs:boolean" minOccurs="1" maxOccurs="1"/> 
+ <xs:element name="operacao" type="tns:OperacaoType" minOccurs="1" maxOccurs="unbounded"/> 
+ </xs:sequence> 
+ </xs:complexType> 
+ 
+ <xs:complexType name="OperacaoType"> 
+ <xs:sequence> 
+ <xs:element name="natureza_operacao" type="tns:NaturezaOperacaoType" minOccurs="1" maxOccurs="1"/> 
+ <xs:element name="empresa" type="tns:EmpresaType" minOccurs="1" maxOccurs="1"/> 
+ <xs:element name="mes_ref" type="tns:MesReferenciaType" minOccurs="1" maxOccurs="1"/> 
+ <xs:element name="ano_ref" type="xs:integer" minOccurs="1" maxOccurs="1"/> 
+ <xs:element name="vl_total_notas" type="xs:double" minOccurs="1" maxOccurs="1"/> 
+ <xs:element name="vl_parc_dedutivel" type="xs:double" minOccurs="0" maxOccurs="1"/> 
+ </xs:sequence> 
+ </xs:complexType>
+ <xs:complexType name="EmpresaType"> 
+  <xs:sequence> 
+  <xs:element name="razao_social" type="xs:string" minOccurs="1" maxOccurs="1"/> 
+  <xs:element name="cnpj" type="xs:long" minOccurs="1" maxOccurs="1"/> 
+    
+  </xs:sequence> 
+  </xs:complexType> 
+  
+  <xs:complexType name="AutoDeclaracaoTypeResponse"> 
+  <xs:sequence> 
+  <xs:element name="cnpj" type="xs:long" minOccurs="1" maxOccurs="1"/> 
+  <xs:element name="data" type="xs:dateTime" minOccurs="1" maxOccurs="1"/> 
+  <xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1"/> 
+  <xs:element name="num_transacao" type="xs:string" minOccurs="1" maxOccurs="1"/> 
+  </xs:sequence> 
+  </xs:complexType> 
+  
+  <xs:simpleType name="NaturezaOperacaoType"> 
+  <xs:annotation> 
+  <xs:documentation> 
+  Indica se trata-se de uma operacao de [A]quisicao ou [V]enda. 
+  </xs:documentation> 
+  </xs:annotation> 
+  <xs:restriction base="xs:string"> 
+  <xs:enumeration value="A"/> 
+  <xs:enumeration value="V"/> 
+  </xs:restriction> 
+  </xs:simpleType> 
+  
+  <xs:simpleType name="TipoDeclaranteType"> 
+  <xs:annotation> 
+  <xs:documentation> 
+  Indica se o arquivo e de um [F]ornecedor ou [M]ontadora. 
+  </xs:documentation> 
+  </xs:annotation> 
+  <xs:restriction base="xs:string"> 
+  <xs:enumeration value="F"/> 
+  <xs:enumeration value="M"/> 
+  </xs:restriction> 
+ </xs:simpleType>
+ <xs:simpleType name="MesReferenciaType"> 
+  <xs:annotation> 
+  <xs:documentation> 
+  Valores validos para o mes de referencia. 
+  </xs:documentation> 
+  </xs:annotation> 
+  <xs:restriction base="xs:integer"> 
+  <xs:minInclusive value="1"/> 
+  <xs:maxInclusive value="12"/> 
+  </xs:restriction> 
+  </xs:simpleType> 
+</xs:schema>

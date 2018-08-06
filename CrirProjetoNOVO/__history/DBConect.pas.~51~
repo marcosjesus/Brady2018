@@ -1,0 +1,709 @@
+unit DBConect ;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  DBTables, BDE, Db, DBXMSSQL, SqlExpr, DBXOracle,  MD5, IDEA, DCPcrypt, FMTBcd,
+  DBXMySQL, IOUtils, MensFun, Funcoes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Stan.Param,
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
+
+type
+  TCredenciais = record
+    Host      : string;
+    DataBase  : string;
+    UserName  : string;
+    Password  : string;
+  end;
+
+
+type
+  TDB_Conect = class(TDataModule)
+    SQLConnection: TFDConnection;
+    sqlAux: TFDQuery;
+    sqlFunc: TFDQuery;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+    procedure ExecutaSQL(pSQL: String);
+    function AbreSQL(pSQL: String): TFDQuery;
+    function Cifra1(Buffer, KeyString: String): String;
+    function Decifra1(Buffer, KeyString: String): String;
+    function GetDecimal(Frase: String): String;
+    function GetHexa(Frase: String): String;
+    function GetQuery(ObjetoQuery: TQuery): String;
+    function MD5Hash(Buffer: String): String;
+
+
+
+
+
+  public
+    { Public declarations }
+
+    function ConvertDate(DataValue: string): TDateTime;
+
+    procedure GravaCreditoSimplesNacional(pCodFornecedor: String;
+    DataEmissao: TDateTime; Percentual: Double);
+
+    procedure LerCredenciais;
+
+    function GetComando(ObjetoQuery: TSQLQuery; bMostra : Boolean = false): String;
+
+    function ValidaEMail(const EMailIn: PChar): Boolean;
+
+    function ExisteRegistro(Tabela, Campo, Cond: String): Boolean;
+
+    function ExisteRegistroComValor(Tabela, Campo,
+      Cond: String): WideString;
+
+    procedure LogGenerico(Descricao, TipoLog: String);
+
+    procedure ExecSqlGenerico(Operacao, Tabela: String; Campos: WideString;  Valores : String; Cond:String='');
+
+    function ConsultaSQL(Tabela,Campo:String;Cond:String='';Join:String='';OrderBy:String=''):TFDQuery;
+
+    function DirExists( const Directory: string ): boolean;
+
+    function CarregaPastaXML : Boolean;
+
+    procedure doSaveLogImport(lPath, Msg: String);
+
+    function TrocarCFOP(pCFOP: String): String;
+
+  end;
+
+
+
+
+
+function StrTran(sOrigem: string; sLoc: string; sSub: string): string;
+
+var
+  DB_Conect                : TDB_Conect;
+  TD                       : TTransactionDesc;
+  Credencias               : TCredenciais;
+  varFolderSistema         : String;
+
+  // Pasta dos Arquivos XML
+  PastaSERVIDORTEMP        : String;
+  PastaRAIZ                : String;
+  PastaSERVIDORNFE_ENTRADA : String;
+  PastaSERVIDORCTE_ENTRADA : String;
+  PastaXML                 : String;
+  PastaXML_LIDO            : String;
+  PastaSERVIDORNFE_LIDO    : String;
+  PastaSERVIDORCTE_LIDO    : String;
+  PastaLOG                 : String;
+
+  Const OperacaoUpDate = 'UpDate';
+  Const OperacaoInsert = 'Insert';
+  Const OperacaoDelete = 'Delete';
+  Const OperacaoSelect = 'Select';
+
+
+implementation
+
+{$R *.DFM}
+
+Uses
+   Global ;
+
+
+Function  TDB_Conect.TrocarCFOP(pCFOP : String) : String;
+begin
+   if Copy(pCFOP,1,1) = '5' then
+      result := '1' + Copy(pCFOP,2,3)
+   else if Copy(pCFOP,1,1) = '6' then
+      result := '2' + Copy(pCFOP,2,3)
+      else if Copy(pCFOP,1,1) = '7' then
+           result := '3' + Copy(pCFOP,2,3);
+end;
+
+
+procedure TDB_Conect.LerCredenciais;
+var
+   varParam : TStringList;
+begin
+  if TFile.Exists( ExtractFilePath(Application.ExeName) + 'DB-Treinamento.ini' ) then
+  begin
+     varParam := TStringList.Create;
+     Try
+       varParam.LoadFromFile(ExtractFilePath(Application.ExeName)  + 'DB-Treinamento.ini');
+       Credencias.Host         := varParam.Values['HostName'];
+       Credencias.Username     := varParam.Values['User_Name'];
+       Credencias.Password     := varParam.Values['Password'];
+       Credencias.DataBase     := varParam.Values['DataBase'];
+
+
+     Finally
+       FreeAndNil(varParam);
+     End;
+  end;
+end;
+
+procedure TDB_Conect.doSaveLogImport(lPath,  Msg: String);
+Var
+ loLista : TStringList;
+ varDataHora : String;
+ varArquivo  : String;
+begin
+ varDataHora := FormatDateTime('ddmmyyyy',Now);
+ varArquivo  := '\log_' +  varDataHora  + '.log';
+ try
+   loLista := TStringList.Create;
+   try
+   if FileExists(lPath + varArquivo) Then
+     loLista.LoadFromFile(lPath + varArquivo);
+
+     loLista.Add(timetostr(now) + ':' + Msg);
+   except
+    on e: exception do
+      loLista.add(timetostr(now) + ': Erro ' + E.Message);
+   end;
+ Finally
+    loLista.SaveToFile(lPath + varArquivo);
+    loLista.Free;
+ end;
+
+end;
+
+
+function TDB_Conect.ConvertDate(DataValue :string) : TDateTime;
+var
+        AFormatSettings:TFormatSettings;
+        ALocaleID: integer;
+        DateTym :TdateTime;
+        DataLocal : String;
+begin
+ DataValue:=StringReplace(DataValue, '/',{OldPattern} '-', {NewPattern}
+                 [rfReplaceAll, rfIgnoreCase] {Flags:TreplaceFlags});
+  //this StringReplace must be used because with Separator  / for date
+   //occurs error
+ GetLocaleFormatSettings(ALocaleID, AFormatSettings);
+
+ AFormatSettings.ShortDateFormat:='DD-MM-YYYY';
+ DataLocal := DataValue[9]+DataValue[10]+'/'+DataValue[6]+DataValue[7]+'/'+DataValue[1]+DataValue[2]+DataValue[3]+DataValue[4];
+ DateTym:=StrToDate(DataLocal, AFormatSettings);
+ AFormatSettings.ShortDateFormat:='dd/mm/yyyy';
+ //AFormatSettings.ShortDateFormat:='MM-DD-YYYY'; //can be also used
+ DataValue:=FormatDateTime(AFormatSettings.ShortDateFormat,DateTym);
+ Result :=  StrToDate(DataValue);
+end;
+
+
+
+function TDB_Conect.DirExists( const Directory: string ): boolean;
+var
+  Code: Integer;
+begin
+  Code := GetFileAttributes(PChar(Directory));
+  Result := (Code <> -1) and (FILE_ATTRIBUTE_DIRECTORY and Code <> 0);
+end;
+
+
+function TDB_Conect.CarregaPastaXML : Boolean;
+var
+  varPASTAS : TStringList;
+begin
+      varPASTAS := TStringList.Create;
+      Try
+         Result := False;
+         if TFile.Exists( varFolderSistema + 'MLParametros.ini' ) then
+         begin
+
+           varPASTAS.LoadFromFile(varFolderSistema  + 'MLParametros.ini');
+
+           PastaRAIZ                := varPASTAS.Values['PASTARAIZ'];
+
+           if not DirExists(  PastaRAIZ  ) then
+           begin
+               if not ForceDirectories (  PastaRAIZ ) then
+                Exit;
+           end;
+           PastaSERVIDORTEMP        := varPASTAS.Values['PastaSERVIDORTEMP'];
+           if not DirExists(  PastaSERVIDORTEMP  ) then
+           begin
+               if not ForceDirectories(  PastaSERVIDORTEMP ) then
+                Exit;
+           end;
+           PastaSERVIDORNFE_ENTRADA := varPASTAS.Values['PastaSERVIDORNFE_ENTRADA'];
+           if not DirExists(  PastaSERVIDORNFE_ENTRADA  ) then
+           begin
+               if not ForceDirectories(  PastaSERVIDORNFE_ENTRADA ) then
+                Exit;
+           end;
+           PastaSERVIDORCTE_ENTRADA := varPASTAS.Values['PastaSERVIDORCTE_ENTRADA'];
+           if not DirExists(  PastaSERVIDORCTE_ENTRADA  ) then
+           begin
+               if not ForceDirectories(  PastaSERVIDORCTE_ENTRADA ) then
+                Exit;
+           end;
+
+           PastaSERVIDORNFE_LIDO    := varPASTAS.Values['PastaSERVIDORNFE_LIDO'];
+           if not DirExists(  PastaSERVIDORNFE_LIDO  ) then
+           begin
+               if not ForceDirectories(  PastaSERVIDORNFE_LIDO ) then
+                Exit;
+           end;
+           PastaSERVIDORCTE_LIDO    := varPASTAS.Values['PastaSERVIDORCTE_LIDO'];
+           if not DirExists(  PastaSERVIDORCTE_LIDO  ) then
+           begin
+               if not ForceDirectories(  PastaSERVIDORCTE_LIDO ) then
+                Exit;
+           end;
+           PastaLOG                 := varPASTAS.Values['PastaLOG'];
+           if not DirExists(  PastaLOG  ) then
+           begin
+               if not ForceDirectories(  PastaLOG ) then
+                Exit;
+           end;
+
+           PastaRAIZ                := IncludeTrailingPathDelimiter( PastaRAIZ );
+           PastaSERVIDORNFE_ENTRADA := IncludeTrailingPathDelimiter( PastaSERVIDORNFE_ENTRADA );
+           PastaSERVIDORCTE_ENTRADA := IncludeTrailingPathDelimiter( PastaSERVIDORCTE_ENTRADA );
+           PastaSERVIDORNFE_LIDO    := IncludeTrailingPathDelimiter( PastaSERVIDORNFE_LIDO );
+           PastaSERVIDORCTE_LIDO    := IncludeTrailingPathDelimiter( PastaSERVIDORCTE_LIDO );
+           PastaLOG                 := IncludeTrailingPathDelimiter( PastaLOG );
+           PastaSERVIDORTEMP        := IncludeTrailingPathDelimiter( PastaSERVIDORTEMP );
+
+           Result := True;
+         end;
+
+      Finally
+         FreeAndNil(varPASTAS);
+      End;
+end;
+
+
+procedure  TDB_Conect.GravaCreditoSimplesNacional(pCodFornecedor  : String; DataEmissao : TDateTime; Percentual : Double);
+Var
+ qryAliqSimples : TFDQuery;
+begin
+  qryAliqSimples := TFDQuery.Create(Nil);
+  Try
+    qryAliqSimples.Connection :=  DB_Conect.SQLConnection;
+    qryAliqSimples.Close;
+    qryAliqSimples.SQL.Clear;
+    qryAliqSimples.SQL.Add('Select Mes from CreditoSimplesFornecedor');
+    qryAliqSimples.SQL.Add(' Where CodFornecedor = :CodFornecedor and Mes = :Mes');
+    qryAliqSimples.ParamByName('CodFornecedor').AsString := pCodFornecedor;
+    qryAliqSimples.ParamByName('Mes').AsDate             := FirstDayOfMonth(DataEmissao, true);
+    qryAliqSimples.Open;
+    if qryAliqSimples.IsEmpty then
+    begin
+       Try
+          qryAliqSimples.Close;
+          qryAliqSimples.SQL.Clear;
+          qryAliqSimples.SQL.Add('Insert into CreditoSimplesFornecedor (CodFornecedor, Mes, CreditoPorc) values (:CodFornecedor, :Mes, :CreditoPorc)');
+          qryAliqSimples.ParamByName('CodFornecedor').AsString := pCodFornecedor;
+          qryAliqSimples.ParamByName('Mes').AsDate             := FirstDayOfMonth(DataEmissao, true);
+          qryAliqSimples.ParamByName('CreditoPorc').AsFloat    := Percentual;
+       Except
+            On E:Exception do
+           begin
+             Screen.Cursor := crDefault;
+             GCambio.ExecRollBack;
+           end;
+       End;
+
+    end
+    else
+    begin
+       Try
+         qryAliqSimples.Close;
+         qryAliqSimples.SQL.Clear;
+         qryAliqSimples.SQL.Add('Update CreditoSimplesFornecedor Set CreditoPorc = :CreditoPorc ');
+         qryAliqSimples.SQL.Add(' Where CodFornecedor = :CodFornecedor and Mes = :Mes');
+         qryAliqSimples.ParamByName('CodFornecedor').AsString := pCodFornecedor;
+         qryAliqSimples.ParamByName('Mes').AsDate             := FirstDayOfMonth(DataEmissao, true);
+         qryAliqSimples.ParamByName('CreditoPorc').AsFloat    := Percentual;
+       Except
+            On E:Exception do
+           begin
+             Screen.Cursor := crDefault;
+             GCambio.ExecRollBack;
+           end;
+       End;
+    end;
+
+    Try
+        qryAliqSimples.ExecSQL;
+    Except
+        On E:Exception do
+           begin
+             GCambio.ExecRollBack;
+             Screen.Cursor := crDefault;
+             Mens_MensErro('Erro ao Gravar Credito Simples Nacional');
+           end;
+    End;
+
+  Finally
+     FreeAndNil(qryAliqSimples);
+  End;
+end;
+
+Function TDB_Conect.GetComando(ObjetoQuery: TSQLQuery; bMostra : Boolean = false) : String;
+var
+ i        : Integer;
+ strQuery : String;
+ sGetComando : String;
+begin
+
+  strQuery := UpperCase(ObjetoQuery.SQL.Text);
+
+  For  i := 0 to ObjetoQuery.Params.Count - 1 do
+    strQuery := StrTran(strQuery,':' + UpperCase(ObjetoQuery.Params[i].Name), QuotedStr(ObjetoQuery.Params[i].Value) );
+
+   strQuery :=  StrTran(StrTran(strQuery, ''#$D#$A'', ' '), ''#$D#$A'', '');
+
+  {
+  sGetComando := ExisteRegistroComValor('PARAMETROS', 'VL_PARAM', 'NM_PARAM = ''GETCOMANDONATELA'' ');
+
+  if (sGetComando = 'S') or (sGetComando = '') Then
+     MostrarScriptnaTela := True;
+
+  if not MostrarScriptnaTela Then
+     LogWriter(GUsuario, strQuery, Tela)
+  else
+  }
+  if bMostra  then
+     ShowMessage(strQuery);
+
+  result := strQuery;
+
+end;
+
+
+function StrTran(sOrigem: string; sLoc: string; sSub: string): string;
+var
+  Aux: string;
+  Calc: integer;
+  Posicao: integer;
+begin
+//Localiza um conjunto de strings e subtitui por outro
+  Aux := sOrigem;
+  Calc := 0;
+  Posicao := Pos(sLoc, Aux);
+  while Posicao > 0 do
+  begin
+
+    Delete(Aux, Posicao, Length(sLoc));
+    Posicao := Posicao + Calc;
+    sOrigem := Copy(sOrigem, 1, Posicao - 1) + sSub +
+      Copy(sOrigem, Posicao + Length(sLoc), Length(sOrigem));
+    Calc := Calc + Length(sSub);
+    Posicao := Pos(sLoc, Aux);
+  end;
+  Result := sOrigem;
+end;
+
+
+
+
+procedure TDB_Conect.ExecSqlGenerico(Operacao, Tabela: String;
+  Campos: WideString; Valores : String ; Cond: String);
+begin
+
+     if Operacao = OperacaoInsert then
+     begin
+       ExecutaSQL(' Insert into '+Tabela+' ('+Campos+') values ('+Valores+')') ;
+//       ChaveAtual := StrToInt(ExisteRegistroComValor(Tabela, 'IDENT_CURRENT(' + QuotedStr(Tabela) + ')',''));
+     end
+     else if Operacao = OperacaoUpDate then
+     begin
+       if trim(Cond) = '' then
+         ExecutaSQL(' Update '+Tabela+' set '+Campos)
+       else ExecutaSQL(' Update '+Tabela+' set '+Campos+' where '+Cond);
+     end
+     else if Operacao = OperacaoDelete then
+     begin
+       if Cond = '' then
+         ExecutaSQL(' Delete From '+Tabela)
+       else ExecutaSQL(' Delete From '+Tabela+' where '+Cond);
+     end;
+end;
+
+function TDB_Conect.ExisteRegistroComValor(Tabela, Campo,
+  Cond: String): WideString;
+var SQL:String;
+begin
+   if Cond = '' then
+     SQL:=' Select '+Campo+' as campo from '+Tabela
+   else SQL:=' Select '+Campo+' as campo from '+Tabela+' where '+Cond;
+
+   with AbreSQL(SQL) do
+   begin
+     if not FieldByName('campo').IsNull then
+       Result:= FieldByName('campo').AsString
+     else
+       Result:= '';
+     Close;
+     Free;
+   end;
+end;
+
+
+procedure TDB_Conect.ExecutaSQL(pSQL: String);
+var QrExecuta: TFDQuery;
+begin
+  QrExecuta:= TFDQuery.Create(self);
+  try
+    QrExecuta.Connection := SQLConnection;
+    QrExecuta.SQL.Text:= pSQL;
+    Try
+      QrExecuta.ExecSQL;
+    except
+      on E: Exception do
+        raise Exception.Create('(' + E.Message + ') Erro ao Executar a instrução: ' + pSQL);
+    end;
+  finally
+    QrExecuta.Free;
+  end;
+end;
+
+procedure TDB_Conect.LogGenerico(Descricao, TipoLog: String);
+var
+ chave : integer;
+begin
+
+   ExecSqlGenerico(OperacaoInsert
+                  ,'LOGGENERICA'
+                  ,'DESCRICAO, DATA, CODUSUARIO, TIPOLOG'
+                  ,QuotedStr(Descricao) + ',' +
+                   'GETDATE()'          + ',' +
+                   'A'                  + ',' +
+                   QuotedStr(TipoLog)
+                   );
+
+end;
+
+
+function TDB_Conect.ConsultaSQL(Tabela, Campo, Cond, Join,
+  OrderBy: String): TFDQuery;
+var SQL:String;
+begin
+     if Cond = '' then
+       SQL:=' Select '+Campo+' from '+Tabela+' '+Join +' '+OrderBy
+     else SQL:=' Select '+Campo+' from '+Tabela+' '+Join+' where '+Cond+ ' '+ OrderBy;
+
+     Result := AbreSQL(SQL);
+
+end;
+
+
+function TDB_Conect.AbreSQL(pSQL: String): TFDQuery;
+var QrAbre: TFDQuery;
+begin
+ QrAbre:= TFDQuery.Create(self);
+
+ try
+  QrAbre.Connection := SQLConnection;
+  QrAbre.SQL.Text:= pSQL;
+  Try
+    QrAbre.Open;
+  except
+    on E: Exception do
+      raise Exception.Create('(' + E.Message + ') Erro ao Executar a instrução: ' + pSQL);
+  end;
+
+ Except
+  QrAbre.Free;
+ end;
+
+ Result:= QrAbre;
+
+end;
+
+
+function TDB_Conect.ExisteRegistro(Tabela, Campo, Cond: String): Boolean;
+var SQL:String;
+begin
+   if Cond = '' then
+     SQL:=' Select '+Campo+' as campo from '+Tabela
+   else SQL:=' Select '+Campo+' as campo from '+Tabela+' where '+Cond;
+
+   with AbreSQL(SQL) do
+   begin
+     if not FieldByName('campo').IsNull then
+       Result:= True
+     else Result:= False;
+     Close;
+     Free;
+   end;
+end;
+
+
+
+
+Function TDB_Conect.GetQuery(ObjetoQuery: TQuery) : String;
+var
+ i        : Integer;
+ strQuery : String;
+begin
+
+  strQuery := UpperCase(ObjetoQuery.SQL.Text);
+
+  For  i := 0 to ObjetoQuery.Params.Count - 1 do
+    strQuery := StrTran(strQuery,':' + UpperCase(ObjetoQuery.Params[i].Name), QuotedStr(ObjetoQuery.Params[i].Value) );
+
+  result := strQuery;
+
+end;
+
+
+
+Function TDB_Conect.Cifra1(Buffer : String; KeyString : String) : String;
+Var Temp : String;
+  MD5_Hash : TDCP_MD5;
+  IDEA_Buffer : TDCP_Idea;
+begin
+  IDEA_Buffer := TDCP_Idea.Create(Application);
+  Temp:=MD5Hash(KeyString);
+  IDEA_Buffer.InitStr(Temp);
+  Temp:=IDEA_Buffer.EncryptString(Buffer);
+  Result:=GetHexa(Temp);
+  IDEA_Buffer.Burn;
+  IDEA_Buffer.Free;
+end;
+
+procedure TDB_Conect.DataModuleCreate(Sender: TObject);
+begin
+   Glob_GetParFin() ;
+end;
+
+Function TDB_Conect.Decifra1(Buffer : String; KeyString : String):String;
+Var Temp : String;
+  MD5_Hash : TDCP_MD5;
+  IDEA_Buffer : TDCP_Idea;
+begin
+  Temp:=GetDecimal(Buffer);
+  IDEA_Buffer := TDCP_Idea.Create(Application);
+  IDEA_Buffer.InitStr(MD5Hash(KeyString));
+  Result:=IDEA_Buffer.DecryptString(Temp);
+  IDEA_Buffer.Burn;
+  IDEA_Buffer.Free;
+end;
+
+
+
+Function TDB_Conect.GetDecimal (Frase : String) : String;
+Var j     : integer;
+    c     : Byte;
+    s,b   : String;
+begin
+  b:='';
+  for j:= 1 to Length(Frase) do
+  begin
+    s:= copy(Frase,1,2);
+    try
+      Delete(Frase,1,2);
+    except end;
+    If length(s)<>2 then continue;
+    s:='$'+s;
+    c:=StrToInt(s);
+    b:=b+Chr(c);
+  end;
+  Result:=b;
+end;
+
+Function TDB_Conect.GetHexa (Frase: String):String;
+Var j : integer;
+    s : String;
+    c : Byte;
+begin
+  s:='';
+  For j:=1 to length(Frase) do
+  begin
+    c:=Ord(Frase[j]);
+    s:=s+IntToHex(c,2);
+  end;
+  Result:=s;
+end;
+
+Function TDB_Conect.MD5Hash(Buffer : String):String;
+Var Hash : Array[0..15] of byte;  //31
+    Temp : String;
+    f    : Byte;
+  MD5_Hash : TDCP_MD5;
+  IDEA_Buffer : TDCP_Idea;
+begin
+  For f:=0 to 15 do Hash[f]:=0;
+  Buffer:=Trim(Buffer);
+  MD5_Hash:=TDCP_MD5.Create(NIL);
+  MD5_Hash.Init;
+  MD5_Hash.UpdateStr(Buffer);
+  MD5_Hash.Final(Hash);
+  For f:=0 to 15 do Temp:=Temp+IntToHex(Hash[f],2);
+  Result:=Copy(Temp,1,32);
+  MD5_Hash.Burn;
+  MD5_Hash.Free;
+end;
+
+
+
+function TDB_Conect.ValidaEMail(const EMailIn: PChar): Boolean;
+const
+  CaraEsp: array[1..40] of string[1] =
+  ( '!','#','$','%','¨','&','*',
+  '(',')','+','=','§','¬','¢','¹','²',
+  '³','£','´','`','ç','Ç',',',';',':',
+  '<','>','~','^','?','/','','|','[',']','{','}',
+  'º','ª','°');
+var
+  i,cont   : integer;
+  EMail    : ShortString;
+begin
+  EMail := EMailIn;
+  Result := True;
+  cont := 0;
+  if EMail <> '' then
+    if (Pos('@', EMail)<>0) and (Pos('.', EMail)<>0) then    // existe @ .
+    begin
+      if (Pos('@', EMail)=1) or (Pos('@', EMail)= Length(EMail)) or (Pos('.', EMail)=1) or (Pos('.', EMail)= Length(EMail)) or (Pos(' ', EMail)<>0) then
+        Result := False
+      else                                   // @ seguido de . e vice-versa
+        if (abs(Pos('@', EMail) - Pos('.', EMail)) = 1) then
+          Result := False
+        else
+          begin
+            for i := 1 to 40 do            // se existe Caracter Especial
+              if Pos(CaraEsp[i], EMail)<>0 then
+                Result := False;
+            for i := 1 to length(EMail) do
+            begin                                 // se existe apenas 1 @
+              if EMail[i] = '@' then
+                cont := cont + 1;                    // . seguidos de .
+              if (EMail[i] = '.') and (EMail[i+1] = '.') then
+                Result := false;
+            end;
+                                   // . no f, 2ou+ @, . no i, - no i, _ no i
+            if (cont >=2) or ( EMail[length(EMail)]= '.' )
+              or ( EMail[1]= '.' ) or ( EMail[1]= '_' )
+              or ( EMail[1]= '-' )  then
+                Result := false;
+                                            // @ seguido de COM e vice-versa
+           // if (abs(Pos('@', EMail) - Pos('com', EMail)) = 1) then
+           //   Result := False;
+                                            // @ seguido de COM e vice-versa
+            if (abs(Pos('@', EMail) - Pos('.', EMail)) = 1) then
+              Result := False;
+                                                // @ seguido de - e vice-versa
+            if (abs(Pos('@', EMail) - Pos('-', EMail)) = 1) then
+              Result := False;
+                                              // @ seguido de _ e vice-versa
+            if (abs(Pos('@', EMail) - Pos('_', EMail)) = 1) then
+              Result := False;
+          end;
+    end
+    else
+      Result := False;
+
+end;
+
+
+end.
+

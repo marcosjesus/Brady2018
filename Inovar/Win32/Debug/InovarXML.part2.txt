@@ -1,0 +1,11 @@
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>%razao_social%</tns:razao_social>
+            <tns:cnpj>%cnpj%</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>%mes_ref%</tns:mes_ref>
+         <tns:ano_ref>%ano_ref%</tns:ano_ref>
+         <tns:vl_total_notas>%vl_total_notas%</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>%vl_parc_dedutivel%</tns:vl_parc_dedutivel>
+      </tns:operacao>

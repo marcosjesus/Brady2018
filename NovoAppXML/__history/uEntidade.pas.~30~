@@ -1,0 +1,338 @@
+unit uEntidade;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FCadastro, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue,
+  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinHighContrast, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinsdxStatusBarPainter, Vcl.Menus, Vcl.ExtCtrls, Vcl.StdCtrls, cxButtons,
+  dxStatusBar, Vcl.Mask, rsEdit, RseditDB,  MensFun,TestFun,Constantes,
+  Data.FMTBcd, Data.DB, Data.SqlExpr, EditBusca, SetParametro,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TFrmCadEntidade = class(TFrmCadastro)
+    Panel1: TPanel;
+    EdiCodigo: TrsSuperEdit;
+    Panel2: TPanel;
+    EdiNome: TrsSuperEdit;
+    Panel3: TPanel;
+    ediContato: TrsSuperEdit;
+    Panel4: TPanel;
+    ediDDD: TrsSuperEdit;
+    Panel5: TPanel;
+    ediEmail: TrsSuperEdit;
+    editTelefone: TrsSuperEdit;
+    EditBuscaFornecedor: TEditBusca;
+    qryAux: TFDQuery;
+    Panel11: TPanel;
+    EdiCGC: TrsSuperEdit;
+    MEdiCGC: TMaskEdit;
+    Panel6: TPanel;
+    EdiEnd: TrsSuperEdit;
+    EdiCEP: TrsSuperEdit;
+    mskCEP: TMaskEdit;
+    Panel7: TPanel;
+    EdiNum: TrsSuperEdit;
+    EdiComplemento: TrsSuperEdit;
+    Panel8: TPanel;
+    EdiCidade: TrsSuperEdit;
+    cbxUF: TComboBox;
+    EdiBairro: TrsSuperEdit;
+    EdiDescCidade: TEdit;
+    EdiUF: TrsSuperEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure ButNovoClick(Sender: TObject);
+    procedure ButSalvarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure ediDDDKeyPress(Sender: TObject; var Key: Char);
+    procedure editTelefoneKeyPress(Sender: TObject; var Key: Char);
+    procedure EditBuscaFornecedorClick(Sender: TObject);
+    procedure ButCancelarClick(Sender: TObject);
+    procedure ButExcluirClick(Sender: TObject);
+    procedure mskCEPExit(Sender: TObject);
+    procedure EdiCGCChange(Sender: TObject);
+  private
+    varSalvarCEP : Boolean;
+    { Private declarations }
+    Function Check : Boolean ; Override ;
+    function ValidaEMail(const EMailIn: String): Boolean;
+    Procedure Search ; Override ;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCadEntidade: TFrmCadEntidade;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmCadEntidade.ButCancelarClick(Sender: TObject);
+begin
+  inherited;
+  EditBuscaFornecedor.Text := '';
+  EditBuscaFornecedor.bs_KeyValues.Clear;
+end;
+
+procedure TFrmCadEntidade.ButExcluirClick(Sender: TObject);
+begin
+
+  qryAux.Close;
+  qryAux.Sql.Clear;
+  qryAux.Sql.Add('select * from tre_instrutor where emp_id = :emp_id ') ;
+  qryAux.Params.ParamByName('emp_id').AsString := EdiCodigo.AsString;
+  qryAux.Open;
+  if not qryAux.IsEmpty then
+  begin
+    Mens_MensInf('Empresa possui Instrutor relacionado. Não é possivel excluir empresa.');
+    Exit;
+  end;
+
+
+  inherited;
+
+  EditBuscaFornecedor.Text := '';
+  EditBuscaFornecedor.bs_KeyValues.Clear;
+end;
+
+procedure TFrmCadEntidade.ButNovoClick(Sender: TObject);
+begin
+  inherited;
+  qryAux.Close;
+  qryAux.Sql.Clear;
+  qryAux.Sql.Add('Select CodigoEmpresa From Parametros ') ;
+  qryAux.Open;
+  EdiCodigo.AsInteger := qryAux.FieldByName('CodigoEmpresa').AsInteger + 1 ;
+
+  EditBuscaFornecedor.Text := EdiCodigo.AsString;
+
+  EdiNome.SetFocus;
+end;
+
+procedure TFrmCadEntidade.ButSalvarClick(Sender: TObject);
+var
+  Inclui : Boolean;
+begin
+
+  if varSalvarCEP then
+  begin
+      edicep.AsInteger := SalvarCEP(mskCEP.Text,EdiEnd.Text, EdiBairro.Text, EdiCidade.Text, cbxUF.Text);
+  end;
+
+  Inclui := (VarOperacao = OPE_INCLUSAO);
+  inherited;
+
+   if (not FormOpeErro) and (Inclui) then
+  begin
+    qryAux.Close;
+    qryAux.Sql.Clear;
+    qryAux.Sql.Add('update Parametros set CodigoEmpresa = CodigoEmpresa + 1 ') ;
+    qryAux.ExecSQL;
+  end;
+
+  EditBuscaFornecedor.Text := '';
+  EditBuscaFornecedor.bs_KeyValues.Clear;
+
+
+end;
+
+function TFrmCadEntidade.Check: Boolean;
+begin
+   Result := False ;
+
+   If ( Test_IsEmptyStr(EdiNome.Text) ) Then
+   Begin
+       Mens_MensInf('É necessário informar o nome do Empresa') ;
+       EdiNome.SetFocus ;
+       Exit ;
+   End ;
+
+     // verifica CGC = CNPJ
+   if Trim(Copy(MEdiCGC.Text, 1, 1)) <> '' then
+      begin
+        If ( Test_IsEmptyStr(MEdiCGC.Text) = FALSE ) Then
+        Begin
+         EdiCGC.Text := MEdiCGC.Text;
+         If (Test_CheckCGC(MEdiCGC.Text) = FALSE) Then // cgc nao bate
+         Begin
+            Mens_MensInf('Número do CNPJ não confere.') ;
+            MEdiCGC.SetFocus ;
+            Exit ;
+         End ;
+        End;
+      end
+   else
+      EdiCGC.Text := '';
+
+   if (not (ValidaEMail(ediEmail.AsString))) then
+   begin
+     Mens_MensInf('Formato de e-mail inválido! ') ;
+     ediEmail.SetFocus;
+     Exit;
+   end;
+
+
+   Result := True ;
+end;
+
+procedure TFrmCadEntidade.EdiCGCChange(Sender: TObject);
+begin
+  inherited;
+  MEdiCGC.EditMask := '##\.###\.###\/####\-##;0;_';
+  MEdiCGC.Text := EdiCGC.AsString;
+end;
+
+procedure TFrmCadEntidade.ediDDDKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+
+  if (not ((Key in ['0'..'9',#8]))) then
+      Key:= #0;
+end;
+
+procedure TFrmCadEntidade.EditBuscaFornecedorClick(Sender: TObject);
+begin
+  inherited;
+  if ((EditBuscaFornecedor.Text <> '') and (EditBuscaFornecedor.bs_KeyValues.Count > 0)) then
+  begin
+   ediCodigo.AsInteger := StrToInt(VarToStr(EditBuscaFornecedor.bs_KeyValue));
+   if VarOperacao <> OPE_INCLUSAO then
+     ButPesquisarClick(self);
+  end;
+end;
+
+procedure TFrmCadEntidade.editTelefoneKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+
+  if (not ((Key in ['0'..'9',#8]))) then
+      Key:= #0;
+end;
+
+procedure TFrmCadEntidade.FormCreate(Sender: TObject);
+begin
+  LabCadTit.Caption := 'Fornecedor' ;
+  FormOperacao      := 'CAD_FORNECEDOR';
+  FormTabela        := 'TRE_EMPRESA' ;
+  FormChaves        := 'EMP_ID' ;
+  FormCtrlFocus     := 'EditBuscaFornecedor' ;
+  FormDataFocus     := 'EdiNome' ;
+
+  SetParametros(EditBuscaFornecedor, TipoFornecedorID);
+  inherited;
+
+end;
+
+procedure TFrmCadEntidade.FormShow(Sender: TObject);
+begin
+  inherited;
+  WindowState := wsMaximized;
+end;
+
+
+
+procedure TFrmCadEntidade.mskCEPExit(Sender: TObject);
+begin
+  varSalvarCEP := False;
+  BuscaCEP(mskCEP.Text, EdiEnd, EdiCidade, EdiBairro, EdiUF, EdiCEP);
+
+  if ((EdiEnd.Text = '') and (EdiCidade.Text = '') and (EdiBairro.Text = '') and (EdiUF.Text = '')) then
+    varSalvarCEP := True;
+
+  EdiEnd.Enabled    := EdiEnd.Text = '';
+  EdiCidade.Enabled := EdiCidade.Text = '';
+  EdiBairro.Enabled := EdiBairro.Text = '';
+  EdiUF.Enabled     := EdiUF.Text = '';
+
+  cbxUF.Enabled   := EdiUF.Enabled;
+  CbxUF.ItemIndex := CbxUF.Items.IndexOf(EdiUF.Text);
+
+  if (EdiEnd.Text <> '') and (EdiNum.Enabled) then
+    EdiNum.SetFocus;
+
+end;
+
+procedure TFrmCadEntidade.Search;
+begin
+  inherited;
+ if not FormOpeErro then
+  begin
+    mskCEP.Text := EditBuscaFornecedor.bs_KeyValues[3];
+    BuscaCEP(mskCEP.Text, EdiEnd, EdiCidade, EdiBairro, EdiUF, EdiCEP);
+    EdiEnd.Enabled    := EdiEnd.Text = '';
+    EdiCidade.Enabled := EdiCidade.Text = '';
+    EdiBairro.Enabled := EdiBairro.Text = '';
+    EdiUF.Enabled     := EdiUF.Text = '';
+
+    cbxUF.Enabled   := EdiUF.Enabled;
+    CbxUF.ItemIndex := CbxUF.Items.IndexOf(EdiUF.Text);
+   // mskCEP.Text     := EdiCEP.Text;
+  end;
+end;
+
+function TFrmCadEntidade.ValidaEMail(const EMailIn: String): Boolean;
+const
+  CaraEsp: array[1..40] of string[1] =
+  ( '!','#','$','%','¨','&','*',
+  '(',')','+','=','§','¬','¢','¹','²',
+  '³','£','´','`','ç','Ç',',',';',':',
+  '<','>','~','^','?','/','','|','[',']','{','}',
+  'º','ª','°');
+var
+  i,cont   : integer;
+  EMail    : ShortString;
+begin
+  EMail := EMailIn;
+  Result := True;
+  cont := 0;
+  if EMail <> '' then
+    if (Pos('@', EMail)<>0) and (Pos('.', EMail)<>0) then    // existe @ .
+    begin
+      if (Pos('@', EMail)=1) or (Pos('@', EMail)= Length(EMail)) or (Pos('.', EMail)=1) or (Pos('.', EMail)= Length(EMail)) or (Pos(' ', EMail)<>0) then
+        Result := False
+      else                                   // @ seguido de . e vice-versa
+        if (abs(Pos('@', EMail) - Pos('.', EMail)) = 1) then
+          Result := False
+        else
+          begin
+            for i := 1 to 40 do            // se existe Caracter Especial
+              if Pos(CaraEsp[i], EMail)<>0 then
+                Result := False;
+            for i := 1 to length(EMail) do
+            begin                                 // se existe apenas 1 @
+              if EMail[i] = '@' then
+                cont := cont + 1;                    // . seguidos de .
+              if (EMail[i] = '.') and (EMail[i+1] = '.') then
+                Result := false;
+            end;
+                                   // . no f, 2ou+ @, . no i, - no i, _ no i
+            if (cont >=2) or ( EMail[length(EMail)]= '.' )
+              or ( EMail[1]= '.' ) or ( EMail[1]= '_' )
+              or ( EMail[1]= '-' )  then
+                Result := false;
+                                            // @ seguido de COM e vice-versa
+            if (abs(Pos('@', EMail) - Pos('com', EMail)) - Pos('com.', EMail) = 1) then
+              Result := False;
+                                              // @ seguido de - e vice-versa
+            if (abs(Pos('@', EMail) - Pos('-', EMail)) = 1) then
+              Result := False;
+                                              // @ seguido de _ e vice-versa
+            if (abs(Pos('@', EMail) - Pos('_', EMail)) = 1) then
+              Result := False;
+          end;
+    end
+    else
+      Result := False;
+end;
+end.

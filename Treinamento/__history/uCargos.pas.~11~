@@ -1,0 +1,85 @@
+unit uCargos;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FCadastro, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, Vcl.ExtCtrls, Vcl.StdCtrls,
+  cxButtons, dxStatusBar, Vcl.Mask, rsEdit, RseditDB, EditBusca, SetParametro,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Constantes;
+
+type
+  TFrmCargos = class(TFrmCadastro)
+    Panel1: TPanel;
+    EdiCodigo: TrsSuperEdit;
+    EditBuscaCargo: TEditBusca;
+    Panel3: TPanel;
+    EdiNome: TrsSuperEdit;
+    sqlux: TFDQuery;
+    procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure ButNovoClick(Sender: TObject);
+    procedure EditBuscaCargoClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCargos: TFrmCargos;
+
+implementation
+
+{$R *.dfm}
+
+uses DBConect;
+
+procedure TFrmCargos.ButNovoClick(Sender: TObject);
+begin
+  inherited;
+  EdiCodigo.AsString := LastCodigo('TRE_CARGO_ID', 'TRE_CARGO', '');
+  EdiNome.Clear;
+
+  EditBuscaCargo.Text := EdiCodigo.AsString;
+  EdiNome.SetFocus; // foco no campo de Codigo.
+end;
+
+procedure TFrmCargos.EditBuscaCargoClick(Sender: TObject);
+begin
+  inherited;
+  if ((EditBuscaCargo.Text <> '') and (EditBuscaCargo.bs_KeyValues.Count > 0)) then
+  begin
+   EdiCodigo.AsString := VarToStr(EditBuscaCargo.bs_KeyValue);
+   if VarOperacao <> OPE_INCLUSAO then
+     ButPesquisarClick(Self);
+  end;
+end;
+
+procedure TFrmCargos.FormCreate(Sender: TObject);
+begin
+
+  LabCadTit.Caption := 'Cadastro de Cargo ' ;
+  FormOperacao      := 'CAD_CARGO';
+  FormTabela        := 'TRE_CARGO' ;
+  FormChaves        := 'TRE_CARGO_ID' ;
+  FormCtrlFocus     := 'EditBuscaCargo' ;
+  FormDataFocus     := 'EdiNome' ;
+
+  SetParametros(EditBuscaCargo, TipoCargo);
+
+  inherited;
+
+end;
+
+procedure TFrmCargos.FormShow(Sender: TObject);
+begin
+  inherited;
+  WindowState := wsMaximized;
+end;
+
+end.

@@ -1,0 +1,451 @@
+unit uInstrutor;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FCadastro, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue,
+  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinHighContrast, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinsdxStatusBarPainter, Vcl.Menus, Vcl.ExtCtrls, Vcl.StdCtrls, cxButtons,
+  dxStatusBar, Vcl.Mask, rsEdit, RseditDB,MensFun,TestFun,Constantes,
+  Data.FMTBcd, Data.DB, Data.SqlExpr, SetParametro, EditBusca,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxButtonEdit, Vcl.ImgList,
+  cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator,
+  cxDBData, cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxGrid, StrFun;
+
+type
+  TFrmCadInstrutor = class(TFrmCadastro)
+    Panel1: TPanel;
+    EdiCodigoEmpresa: TrsSuperEdit;
+    Panel2: TPanel;
+    EdiNome: TrsSuperEdit;
+    Panel3: TPanel;
+    ediCodigo: TrsSuperEdit;
+    EditBuscaInstrutor: TEditBusca;
+    EditBuscaFilial: TEditBusca;
+    qryAux: TFDQuery;
+    Panel11: TPanel;
+    EdiCPF: TrsSuperEdit;
+    MEdiCPF: TMaskEdit;
+    Panel6: TPanel;
+    EdiEnd: TrsSuperEdit;
+    EdiCEP: TrsSuperEdit;
+    mskCEP: TMaskEdit;
+    Panel7: TPanel;
+    EdiNum: TrsSuperEdit;
+    EdiComplemento: TrsSuperEdit;
+    Panel8: TPanel;
+    EdiCidade: TrsSuperEdit;
+    cbxUF: TComboBox;
+    EdiBairro: TrsSuperEdit;
+    EdiDescCidade: TEdit;
+    EdiUF: TrsSuperEdit;
+    Panel4: TPanel;
+    cxbEditPath: TcxButtonEdit;
+    ImageList1: TImageList;
+    btnSalvaArq: TcxButton;
+    Panel5: TPanel;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
+    cxGrid1: TcxGrid;
+    OpenDialog: TOpenDialog;
+    sqlArquivo: TFDQuery;
+    dsArquivo: TDataSource;
+    sqlArquivoCAMINHO: TStringField;
+    sqlArquivoNOMEARQUIVO: TStringField;
+    sqlArquivoDATACADASTRO: TSQLTimeStampField;
+    cxGrid1DBTableView1CAMINHO: TcxGridDBColumn;
+    cxGrid1DBTableView1NOMEARQUIVO: TcxGridDBColumn;
+    cxGrid1DBTableView1DATACADASTRO: TcxGridDBColumn;
+    cxGrid1DBTableView1Column1: TcxGridDBColumn;
+    procedure FormCreate(Sender: TObject);
+    procedure ButSalvarClick(Sender: TObject);
+    procedure ButNovoClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure EdiCodigoEmpresaKeyPress(Sender: TObject; var Key: Char);
+    procedure ButCancelarClick(Sender: TObject);
+    procedure EditBuscaInstrutorClick(Sender: TObject);
+    procedure EditBuscaFilialClick(Sender: TObject);
+    procedure ButExcluirClick(Sender: TObject);
+    procedure EditBuscaFilialExit(Sender: TObject);
+    procedure EdiCPFChange(Sender: TObject);
+    procedure mskCEPExit(Sender: TObject);
+    procedure btnSalvaArqClick(Sender: TObject);
+    procedure cxbEditPathClick(Sender: TObject);
+  private
+    varPathRede  : String;
+    varSalvarCEP : Boolean;
+    { Private declarations }
+    Function Check : Boolean ; Override ;
+    Procedure Search ; Override;
+    procedure LimpaTela;
+    function ChecarCaminhoRede : Boolean;
+    procedure AtualizaGridArquivos;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCadInstrutor: TFrmCadInstrutor;
+
+implementation
+
+{$R *.dfm}
+
+uses DBConect;
+
+procedure TFrmCadInstrutor.btnSalvaArqClick(Sender: TObject);
+var
+ varPathFull : String;
+begin
+  inherited;
+  if ((EditBuscaInstrutor.Text = '') and (EditBuscaInstrutor.bs_KeyValues.Count = 0)) then
+  begin
+       Mens_MensInf('Informe o Instrutor.');
+       exit;
+  end;
+
+  if cxbEditPath.Text = EmptyStr then
+  begin
+    Mens_MensInf('Informe o arquivo primeiro.');
+    cxbEditPath.SetFocus;
+    exit;
+  end;
+
+  if ChecarCaminhoRede Then
+  begin
+     varPathFull := varPathRede  + '\' +  Str_OnlyNumbers(MEdiCPF.Text);
+     if not DB_Conect.DirExists(  varPathFull ) then
+     begin
+         if not ForceDirectories(  varPathFull ) then
+          Exit;
+     end;
+
+     DeleteFile(PWideChar(varPathRede+'\'+ ExtractFileName(cxbEditPath.Text) ));
+     if CopyFile( PWideChar(cxbEditPath.Text), PWideChar(varPathFull+'\' + ExtractFileName(cxbEditPath.Text) ), True ) Then
+     begin
+      qryAux.Close;
+      qryAux.SQL.Clear;
+      qryAux.SQL.Add('Insert into TRE_INSTRUTOR_ARQ (INS_ID, CAMINHO, NOMEARQUIVO) Values (:INS_ID, :CAMINHO, :NOMEARQUIVO)');
+      qryAux.Params.ParamByName('INS_ID').AsString      := VarToStr(EditBuscaInstrutor.bs_KeyValue);
+      qryAux.Params.ParamByName('CAMINHO').AsString     := varPathFull;
+      qryAux.Params.ParamByName('NOMEARQUIVO').AsString := ExtractFileName(cxbEditPath.Text);
+
+      Try
+         qryAux.ExecSQL;
+      Except
+        On E:Exception do
+         begin
+           Mens_MensInf( 'Falha ao Inserir Arquivo: ' + E.Message );
+         end;
+      End;
+
+       Mens_MensInf('Arquivo copiado com sucesso.');
+       AtualizaGridArquivos;
+     end
+     else
+       Mens_MensErro('Erro ao copiar o arquivo.');
+
+  end;
+  cxbEditPath.Clear;
+
+end;
+
+procedure TFrmCadInstrutor.AtualizaGridArquivos;
+begin
+   sqlArquivo.Close;
+   sqlArquivo.Params.ParamByName('INS_ID').AsInteger := ediCodigo.AsInteger;
+   sqlArquivo.Open;
+end;
+
+procedure TFrmCadInstrutor.ButCancelarClick(Sender: TObject);
+begin
+  inherited;
+  EditBuscaInstrutor.Text :='';
+  EditBuscaInstrutor.bs_KeyValues.Clear;
+
+  EditBuscaFilial.Text := '';
+  EditBuscaFilial.bs_KeyValues.Clear;
+end;
+
+procedure TFrmCadInstrutor.ButExcluirClick(Sender: TObject);
+begin
+
+
+  qryAux.Close;
+  qryAux.Sql.Clear;
+  qryAux.Sql.Add('Select top 1 ins_id from TRE_TREINAMENTO where INS_ID = :INS_ID') ;
+  qryAux.Params.ParamByName('INS_ID').AsString := EdiCodigo.AsString;
+  qryAux.Open;
+  if not qryAux.IsEmpty then
+  begin
+    Mens_MensInf('Instrutor possui Treinamento relacionado. Não é possivel excluir instrutor.');
+    Exit;
+  end;
+
+
+  inherited;
+  EditBuscaInstrutor.Text :='';
+  EditBuscaInstrutor.bs_KeyValues.Clear;
+
+  EditBuscaFilial.Text := '';
+  EditBuscaFilial.bs_KeyValues.Clear;
+end;
+
+procedure TFrmCadInstrutor.ButNovoClick(Sender: TObject);
+begin
+  inherited;
+  qryAux.Close;
+  qryAux.Sql.Clear;
+  qryAux.Sql.Add('Select CodigoInstrutor From Parametros ') ;
+  qryAux.Open;
+  ediCodigo.AsInteger := qryAux.FieldByName('CodigoInstrutor').AsInteger + 1 ;
+  qryAux.close;
+
+  LimpaTela;
+
+  EditBuscaInstrutor.Text := ediCodigo.AsString;
+
+  MEdiCPF.SetFocus;
+end;
+
+procedure TFrmCadInstrutor.ButSalvarClick(Sender: TObject);
+var
+  Inclui : Boolean;
+begin
+  if varSalvarCEP then
+  begin
+      edicep.AsInteger := SalvarCEP(mskCEP.Text,EdiEnd.Text, EdiBairro.Text, EdiCidade.Text, cbxUF.Text);
+  end;
+
+  Inclui := (VarOperacao = OPE_INCLUSAO);
+  inherited;
+
+  if (not FormOpeErro) and (Inclui) then
+  begin
+    qryAux.Close;
+    qryAux.Sql.Clear;
+    qryAux.Sql.Add('update Parametros set CodigoInstrutor = CodigoInstrutor + 1 ') ;
+    qryAux.ExecSQL;
+
+  end;
+
+  EditBuscaInstrutor.Text :='';
+  EditBuscaInstrutor.bs_KeyValues.Clear;
+
+  EditBuscaFilial.Text := '';
+  EditBuscaFilial.bs_KeyValues.Clear;
+
+end;
+
+function TFrmCadInstrutor.Check: Boolean;
+begin
+   Result := False ;
+
+     // verifica CGC = CNPJ
+   if Trim(Copy(MEdiCPF.Text, 1, 1)) <> '' then
+      begin
+        If ( Test_IsEmptyStr(MEdiCPF.Text) = FALSE ) Then
+        Begin
+         EdiCPF.Text := MEdiCPF.Text;
+         If (Test_CheckCPF(MEdiCPF.Text) = FALSE) Then // cpf nao bate
+         Begin
+            Mens_MensInf('Número do CPF não confere.') ;
+            MEdiCPF.SetFocus ;
+            Exit ;
+         End ;
+        End;
+      end
+   else
+      EdiCPF.Text := '';
+
+
+   If ( Test_IsEmptyStr(EdiNome.Text) ) Then
+   Begin
+       Mens_MensInf('É necessário informar o nome do Instrutor') ;
+       EdiNome.SetFocus ;
+       Exit ;
+   End ;
+
+   If ( Test_IsEmptyStr(EdiCodigoEmpresa.Text) ) Then
+   Begin
+       Mens_MensInf('É necessário informar o codigo da Empresa') ;
+       EdiCodigoEmpresa.SetFocus ;
+       Exit ;
+   End ;
+
+   Result := True ;
+end;
+
+procedure TFrmCadInstrutor.cxbEditPathClick(Sender: TObject);
+begin
+  inherited;
+  if OpenDialog.Execute then
+   cxbEditPath.Text := OpenDialog.FileName;
+end;
+
+procedure TFrmCadInstrutor.EdiCPFChange(Sender: TObject);
+begin
+  inherited;
+  MEdiCPF.EditMask := '###\.###\.###\-##;0;_';
+  MEdiCPF.Text := EdiCPF.AsString;
+end;
+
+procedure TFrmCadInstrutor.EdiCodigoEmpresaKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  inherited;
+
+  if (not ((Key in ['0'..'9',#8]))) then
+      Key:= #0;
+end;
+
+
+procedure TFrmCadInstrutor.FormCreate(Sender: TObject);
+begin
+
+  LabCadTit.Caption := 'Instrutor' ;
+  FormOperacao := 'CAD_INSTRUTOR';
+  FormTabela := 'TRE_INSTRUTOR' ;
+  FormChaves := 'INS_ID' ;
+  FormCtrlFocus := 'EditBuscaInstrutor' ;
+  FormDataFocus := 'EdiNome' ;
+
+  SetParametros(EditBuscaInstrutor, TipoInstrutorID);
+  SetParametros(EditBuscaFilial, TipoFornecedor);
+  inherited;
+
+  ChecarCaminhoRede;
+
+end;
+
+function TFrmCadInstrutor.ChecarCaminhoRede : Boolean;
+begin
+  Result := False;
+  qryAux.Close;
+  qryAux.Sql.Clear;
+  qryAux.SQL.Add('select PathArqInstrutor From Parametros  ' );
+  qryAux.Open;
+
+  if qryAux.FieldByName('PathArqInstrutor').AsString <> '' then
+    varPathRede := qryAux.FieldByName('PathArqInstrutor').AsString
+  else
+  begin
+   Mens_MensInf('Diretorio base para armazenar documentos do instrutor não configurado.');
+   Exit;
+  end;
+
+  Result := True;
+end;
+
+procedure TFrmCadInstrutor.FormShow(Sender: TObject);
+begin
+  inherited;
+  WindowState := wsMaximized;
+  Panel5.Height := 370;
+end;
+
+
+procedure TFrmCadInstrutor.mskCEPExit(Sender: TObject);
+begin
+  inherited;
+  varSalvarCEP := False;
+
+  EdiEnd.Enabled    := True;
+  EdiCidade.Enabled := True;
+  EdiBairro.Enabled := True;
+  EdiUF.Enabled     := True;
+
+  BuscaCEP(mskCEP.Text, EdiEnd, EdiCidade, EdiBairro, EdiUF, EdiCEP);
+
+  if ((EdiEnd.Text = '') and (EdiCidade.Text = '') and (EdiBairro.Text = '') and (EdiUF.Text = '')) then
+  begin
+    EdiEnd.SetFocus;
+    varSalvarCEP := True;
+  end
+  else EdiNum.SetFocus;;
+
+  EdiEnd.Enabled    := EdiEnd.Text = '';
+  EdiCidade.Enabled := EdiCidade.Text = '';
+  EdiBairro.Enabled := EdiBairro.Text = '';
+  EdiUF.Enabled     := EdiUF.Text = '';
+
+  cbxUF.Enabled   := EdiUF.Enabled;
+  CbxUF.ItemIndex := CbxUF.Items.IndexOf(EdiUF.Text);
+
+  if (EdiEnd.Text <> '') and (EdiNum.Enabled) then
+    EdiNum.SetFocus;
+end;
+
+procedure TFrmCadInstrutor.LimpaTela;
+begin
+  mskCEP.Clear;
+  mskCEP.EditMask := '00000\-000;0;_';
+  EdiEnd.Clear;
+  EdiBairro.Clear;
+  EdiCidade.Clear;
+  cbxUF.ItemIndex := -1;
+end;
+
+procedure TFrmCadInstrutor.Search;
+begin
+  inherited;
+  if not FormOpeErro then
+  begin
+    EditBuscaFilial.SetValue('EMP_ID=' + QuotedStr(EdiCodigoEmpresa.AsString));
+
+    LimpaTela;
+
+    mskCEP.Text      := EditBuscaInstrutor.bs_KeyValues[4];
+    BuscaCEP(mskCEP.Text, EdiEnd, EdiCidade, EdiBairro, EdiUF, EdiCEP);
+    EdiEnd.Enabled    := EdiEnd.Text = '';
+    EdiCidade.Enabled := EdiCidade.Text = '';
+    EdiBairro.Enabled := EdiBairro.Text = '';
+    EdiUF.Enabled     := EdiUF.Text = '';
+
+    cbxUF.Enabled   := EdiUF.Enabled;
+    CbxUF.ItemIndex := CbxUF.Items.IndexOf(EdiUF.Text);
+
+    AtualizaGridArquivos;
+  end;
+end;
+
+procedure TFrmCadInstrutor.EditBuscaFilialClick(Sender: TObject);
+begin
+  inherited;
+  if ((EditBuscaFilial.Text <> '') and (EditBuscaFilial.bs_KeyValues.Count > 0)) then
+    EdiCodigoEmpresa.AsInteger :=  StrToInt(VarToStr(EditBuscaFilial.bs_KeyValue));
+end;
+
+procedure TFrmCadInstrutor.EditBuscaFilialExit(Sender: TObject);
+begin
+  inherited;
+  if ((EditBuscaFilial.Text <> '') and (EditBuscaFilial.bs_KeyValues.Count > 0)) then
+  begin
+    EdiCodigoEmpresa.AsInteger :=  StrToInt(VarToStr(EditBuscaFilial.bs_KeyValue));
+  end;
+
+end;
+
+procedure TFrmCadInstrutor.EditBuscaInstrutorClick(Sender: TObject);
+begin
+  inherited;
+  if ((EditBuscaInstrutor.Text <> '') and (EditBuscaInstrutor.bs_KeyValues.Count > 0)) then
+  begin
+    EdiCodigo.AsInteger :=  StrToInt(VarToStr(EditBuscaInstrutor.bs_KeyValue));
+    if VarOperacao <> OPE_INCLUSAO then
+      ButPesquisarClick(Self);
+  end;
+end;
+
+end.

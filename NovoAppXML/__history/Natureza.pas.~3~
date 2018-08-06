@@ -1,0 +1,761 @@
+unit Natureza ;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  fcadastro, ComCtrls, StdCtrls, Buttons, ToolWin, ExtCtrls, rsEdit, Mask,
+  rsFlyovr, RseditDB, Db, DBTables, CheckLst, jpeg, Menus,
+  cxLookAndFeelPainters, cxGraphics, dxSkinsCore, dxSkinsDefaultPainters,
+  dxSkinsdxStatusBarPainter, cxControls, dxStatusBar, cxButtons, cxLookAndFeels,
+  dxSkinBlack, dxSkinBlue, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2010Black, dxSkinOffice2010Blue, FMTBcd,
+  SqlExpr, cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit,
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxCheckBox ;
+
+type
+  TFrmNatureza = class(TFrmCadastro)
+    qryAux: TSQLQuery;
+    Panel1: TPanel;
+    EdiCodigo: TrsSuperEdit;
+    Panel2: TPanel;
+    EdiNome: TrsSuperEdit;
+    Panel3: TPanel;
+    rdbEntrada: TRadioButton;
+    rdbSaida: TRadioButton;
+    Panel5: TPanel;
+    rsSuperEdit3: TrsSuperEdit;
+    Panel10: TPanel;
+    Label7: TLabel;
+    rsSuperEdit6: TrsSuperEdit;
+    chkCalcularDifal: TCheckBox;
+    edtCalcularDifal: TrsSuperEdit;
+    Panel12: TPanel;
+    Label10: TLabel;
+    chkGerarEstoque: TCheckBox;
+    edtGerarEstoque: TrsSuperEdit;
+    edtGerarFinanceiro: TrsSuperEdit;
+    editZFM: TrsSuperEdit;
+    ediNatGrupo: TrsSuperEdit;
+    Panel4: TPanel;
+    EdiCfop: TrsSuperEdit;
+    EdiTipo: TrsSuperEdit;
+    rsSuperEdit1: TrsSuperEdit;
+    EdiFinalidade: TrsSuperEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure ButNovoClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure Search ; Override ;
+  public
+    { Public declarations }
+    Function Check : Boolean ; Override ;
+  end;
+
+var
+  FrmNatureza: TFrmNatureza;
+
+implementation
+
+{$R *.DFM}
+
+Uses
+   Global, ObjFun, MensFun, TestFun, ConsTabFun, Perfil, Constantes ;
+
+procedure TFrmNatureza.FormCreate(Sender: TObject);
+begin
+    LabCadTit.Caption := 'Natureza' ;
+    FormOperacao := 'CAD_NATUREZA' ;
+    FormTabela := 'CTE_CFOP' ;
+    FormChaves := 'CTE_CFOP_ID' ;
+    FormCtrlFocus := 'EdiCodigo' ;
+    FormDataFocus := 'EdiNome' ;
+    FormOBS       := 'NatDetalhes';
+
+    inherited;
+
+end;
+
+
+
+Function TFrmNatureza.Check : Boolean ;
+Begin
+   Result := False ;
+
+
+   if rdbEntrada.Checked then
+     EdiTipo.AsString := 'E'
+   else
+     EdiTipo.AsString := 'S';
+
+
+   if chkCalcularDifal.Checked  then
+      edtCalcularDifal.AsString := 'S'
+   else edtCalcularDifal.AsString := 'N';
+
+   if chkGerarEstoque.Checked then
+      edtGerarEstoque.AsString := 'S'
+   else edtGerarEstoque.AsString := 'N';
+
+
+
+   If ( Test_IsEmptyStr(EdiCodigo.Text) ) Then
+   Begin
+       Mens_MensInf('É Necessário Informar Código !') ;
+       EdiCodigo.SetFocus ;
+       Exit ;
+   End ;
+
+   If ( Test_IsEmptyStr(EdiNome.Text) ) Then
+   Begin
+       Mens_MensInf('É necessário informar a Descrição da Natureza de Operação !') ;
+       EdiNome.SetFocus ;
+       Exit ;
+   End ;
+
+   If ( Test_IsEmptyStr(EdiCFOP.Text) ) Then
+   Begin
+       Mens_MensInf('É necessário informar Código C.F.O.P !') ;
+       EdiCFOP.SetFocus ;
+       Exit ;
+   End ;
+
+
+   Result := True ;
+
+End ;
+
+
+procedure TFrmNatureza.search ;
+begin
+  inherited;
+
+  if Not FormOpeErro then
+  begin
+    rdbEntrada.Checked       := EdiTipo.AsString          = 'E';
+    rdbSaida.Checked         := EdiTipo.AsString          = 'S';
+
+    chkCalcularDifal.Checked := edtCalcularDifal.AsString = 'S';
+
+    chkGerarEstoque.Checked  := edtGerarEstoque.AsString  = 'S';
+
+
+  end;
+
+end;
+
+procedure TFrmNatureza.ButNovoClick(Sender: TObject);
+begin
+  inherited;
+  EdiCodigo.AsString := LastCodigo('CTE_CFOP_ID', 'CTE_CFOP', '');
+  EdiNome.SetFocus;
+end;
+
+end.
+
+
+
+Consulta da preparação para integração da natureza de operação
+
+Código	Descrição
+
+insert into nattemp values ('1000','ENTRADAS OU AQUISIÇÕES DE SERVIÇOS DO ESTADO');
+insert into nattemp values ('1100','COMPRAS PARA INDUSTRIALIZAÇÃO, COMERCIALIZAÇÃO OU PRESTAÇÃO DE SERVIÇOS');
+insert into nattemp values ('1101','Compra para industrialização');
+insert into nattemp values ('1102','Compra para comercialização');
+insert into nattemp values ('1111','Compra para industrialização de mercadoria recebida anteriormente em consignação industrial');
+insert into nattemp values ('1113','Compra para comercialização, de mercadoria recebida anteriormente em consignação mercantil');
+insert into nattemp values ('1116','Compra para industrialização originada de encomenda para recebimento futuro');
+insert into nattemp values ('1117','Compra para comercialização originada de encomenda para recebimento futuro');
+insert into nattemp values ('1118','Compra de mercadoria para comercialização pelo adquirente originário, entregue pelo vendedor remetente ao destinatário, em venda à ordem');
+insert into nattemp values ('1120','Compra para industrialização, em venda à ordem, já recebida do vendedor remetente');
+insert into nattemp values ('1121','Compra para comercialização, em venda à ordem, já recebida do vendedor remetente');
+insert into nattemp values ('1122','Compra para industrialização em que a mercadoria foi remetida pelo fornecedor ao industrializador sem transitar pelo estabelecimento adquirente');
+insert into nattemp values ('1124','Industrialização efetuada por outra empresa');
+insert into nattemp values ('1125','Industrialização efetuada por outra empresa quando a mercadoria remetida para utilização no processo de industrialização não transitou pelo estabelecimento adquirente da mercadoria');
+insert into nattemp values ('1126','Compra para utilização na prestação de serviço');
+insert into nattemp values ('1150','TRANSFERÊNCIAS PARA INDUSTRIALIZAÇÃO, COMERCIALIZAÇÃO OU PRESTAÇÃO DE SERVIÇOS');
+insert into nattemp values ('1151','Transferência para industrialização');
+insert into nattemp values ('1152','Transferência para comercialização');
+insert into nattemp values ('1153','Transferência de energia elétrica para distribuição');
+insert into nattemp values ('1154','Transferência para utilização na prestação de serviço');
+insert into nattemp values ('1200','DEVOLUÇÕES DE VENDAS DE PRODUÇÃO PRÓPRIA, DE TERCEIROS OU ANULAÇÕES DE VALORES');
+insert into nattemp values ('1201','Devolução de venda de produção do estabelecimento');
+insert into nattemp values ('1202','Devolução de venda de mercadoria adquirida ou recebida de terceiros');
+insert into nattemp values ('1203','Devolução de venda de produção do estabelecimento, destinada à Zona Franca de Manaus ou Áreas de Livre Comércio');
+insert into nattemp values ('1204','Devolução de venda de mercadoria adquirida ou recebida de terceiros, destinada à Zona Franca de Manaus ou Áreas de Livre Comércio');
+insert into nattemp values ('1205','Anulação de valor relativo à prestação de serviço de comunicação');
+insert into nattemp values ('1206','Anulação de valor relativo à prestação de serviço de transporte');
+insert into nattemp values ('1207','Anulação de valor relativo à venda de energia elétrica');
+insert into nattemp values ('1208','Devolução de produção do estabelecimento, remetida em transferência');
+insert into nattemp values ('1209','Devolução de mercadoria adquirida ou recebida de terceiros, remetida em transferência');
+insert into nattemp values ('1212','Devolução de venda no mercado interno de mercadoria industrializada e insumo importado sob o Regime Aduaneiro Especial de Entreposto Industrial sob Controle Informatizado do Sistema Público de Escrituração Digital (Recof-Sped)');
+insert into nattemp values ('1250','COMPRAS DE ENERGIA ELÉTRICA');
+insert into nattemp values ('1251','Compra de energia elétrica para distribuição ou comercialização');
+insert into nattemp values ('1252','Compra de energia elétrica por estabelecimento industrial');
+insert into nattemp values ('1253','Compra de energia elétrica por estabelecimento comercial');
+insert into nattemp values ('1254','Compra de energia elétrica por estabelecimento prestador de serviço de transporte');
+insert into nattemp values ('1255','Compra de energia elétrica por estabelecimento prestador de serviço de comunicação');
+insert into nattemp values ('1256','Compra de energia elétrica por estabelecimento de produtor rural');
+insert into nattemp values ('1257','Compra de energia elétrica para consumo por demanda contratada');
+insert into nattemp values ('1300','AQUISIÇÕES DE SERVIÇOS DE COMUNICAÇÃO');
+insert into nattemp values ('1301','Aquisição de serviço de comunicação para execução de serviço da mesma natureza');
+insert into nattemp values ('1302','Aquisição de serviço de comunicação por estabelecimento industrial');
+insert into nattemp values ('1303','Aquisição de serviço de comunicação por estabelecimento comercial');
+insert into nattemp values ('1304','Aquisição de serviço de comunicação por estabelecimento de prestador de serviço de transporte');
+insert into nattemp values ('1305','Aquisição de serviço de comunicação por estabelecimento de geradora ou de distribuidora de energia elétrica');
+insert into nattemp values ('1306','Aquisição de serviço de comunicação por estabelecimento de produtor rural');
+insert into nattemp values ('1350','AQUISIÇÕES DE SERVIÇOS DE TRANSPORTE');
+insert into nattemp values ('1351','Aquisição de serviço de transporte para execução de serviço da mesma natureza');
+insert into nattemp values ('1352','Aquisição de serviço de transporte por estabelecimento industrial');
+insert into nattemp values ('1353','Aquisição de serviço de transporte por estabelecimento comercial');
+insert into nattemp values ('1354','Aquisição de serviço de transporte por estabelecimento de prestador de serviço');
+insert into nattemp values ('1355','Aquisição de serviço de transporte por estabelecimento de geradora ou de distribuidora de energia elétrica');
+insert into nattemp values ('1356','Aquisição de serviço de transporte por estabelecimento de produtor rural');
+insert into nattemp values ('1400','ENTRADAS DE MERCADORIAS SUJEITAS AO REGIME DE SUBSTITUIÇÃO TRIBUTÁRIA');
+insert into nattemp values ('1401','Compra para industrialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('1403','Compra para comercialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('1406','Compra de bem para o ativo imobilizado cuja mercadoria está sujeita ao regime de substituição tributária');
+insert into nattemp values ('1407','Compra de mercadoria para uso ou consumo cuja mercadoria está sujeita ao regime de substituição tributária');
+insert into nattemp values ('1408','Transferência para industrialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('1409','Transferência para comercialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('1410','Devolução de venda de produção do estabelecimento em operação com produto sujeito ao regime de substituição tributária');
+insert into nattemp values ('1411','Devolução de venda de mercadoria adquirida ou recebida de terceiros em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('1414','Retorno de produção do estabelecimento, remetida para venda fora do estabelecimento em operação com produto sujeito ao regime de substituição tributária');
+insert into nattemp values ('1415','Retorno de mercadoria adquirida ou recebida de terceiros, remetida para venda fora do estabelecimento em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('1450','SISTEMAS DE INTEGRAÇÃO');
+insert into nattemp values ('1451','Retorno de animal do estabelecimento produtor');
+insert into nattemp values ('1452','Retorno de insumo não utilizado na produção');
+insert into nattemp values ('1500','ENTRADAS DE MERCADORIAS REMETIDAS COM FIM ESPECÍFICO DE EXPORTAÇÃO E EVENTUAIS DEVOLUÇÕES');
+insert into nattemp values ('1501','Entrada de mercadoria recebida com fim específico de exportação');
+insert into nattemp values ('1503','Entrada decorrente de devolução de produto remetido com fim específico de exportação, de produção do estabelecimento');
+insert into nattemp values ('1504','Entrada decorrente de devolução de mercadoria remetida com fim específico de exportação, adquirida ou recebida de terceiros');
+insert into nattemp values ('1550','OPERAÇÕES COM BENS DE ATIVO IMOBILIZADO E MATERIAIS PARA USO OU CONSUMO');
+insert into nattemp values ('1551','Compra de bem para o ativo imobilizado');
+insert into nattemp values ('1552','Transferência de bem do ativo imobilizado');
+insert into nattemp values ('1553','Devolução de venda de bem do ativo imobilizado');
+insert into nattemp values ('1554','Retorno de bem do ativo imobilizado remetido para uso fora do estabelecimento');
+insert into nattemp values ('1555','Entrada de bem do ativo imobilizado de terceiro, remetido para uso no estabelecimento');
+insert into nattemp values ('1556','Compra de material para uso ou consumo');
+insert into nattemp values ('1557','Transferência de material para uso ou consumo');
+insert into nattemp values ('1600','CRÉDITOS E RESSARCIMENTOS DE ICMS');
+insert into nattemp values ('1601','Recebimento, por transferência, de crédito de ICMS');
+insert into nattemp values ('1602','Recebimento, por transferência, de saldo credor de ICMS de outro estabelecimento da mesma empresa, para compensação de saldo devedor de ICMS');
+insert into nattemp values ('1603','Ressarcimento de ICMS retido por substituição tributária');
+insert into nattemp values ('1650','ENTRADAS DE COMBUSTíVEIS, DERIVADOS OU NcO DE PETRóLEO E LUBRIFICANTES');
+insert into nattemp values ('1651','Compra de combustivel ou lubrificante para industrializacao subsequente.');
+insert into nattemp values ('1652','Compra de combustivel ou lubrificante para comercializacao.');
+insert into nattemp values ('1653','Compra de combustivel ou lubrificante por consumidor ou usuario final.');
+insert into nattemp values ('1658','Transferencia de combustivel e lubrificante para industrializacao.');
+insert into nattemp values ('1659','Transferencia de combustivel e lubrificante para comercializacao.');
+insert into nattemp values ('1660','Devolucao de venda de combustivel ou lubrificante destinado a industrializacao subsequente.');
+insert into nattemp values ('1661','Devolucao de venda de combustivel ou lubrificante destinado a comercializacao.');
+insert into nattemp values ('1662','Devolucao de venda de combustivel ou lubrificante destinado a consumidor ou usuario final.');
+insert into nattemp values ('1663','Entrada de combustivel ou lubrificante para armazenagem.');
+insert into nattemp values ('1664','Retorno de combustivel ou lubrificante remetido para armazenagem.');
+insert into nattemp values ('1900','OUTRAS ENTRADAS DE MERCADORIAS OU AQUISIÇÕES DE SERVIÇOS');
+insert into nattemp values ('1901','Entrada para industrialização por encomenda');
+insert into nattemp values ('1902','Retorno de mercadoria remetida para industrialização por encomenda');
+insert into nattemp values ('1903','Entrada de mercadoria remetida para industrialização e não aplicada no referido processo');
+insert into nattemp values ('1904','Retorno de remessa para venda fora do estabelecimento');
+insert into nattemp values ('1905','Entrada de mercadoria recebida para depósito em depósito fechado ou armazém geral');
+insert into nattemp values ('1906','Retorno de mercadoria remetida para depósito fechado ou armazém geral');
+insert into nattemp values ('1907','Retorno simbólico de mercadoria remetida para depósito fechado ou armazém geral');
+insert into nattemp values ('1908','Entrada de bem por conta de contrato de comodato');
+insert into nattemp values ('1909','Retorno de bem remetido por conta de contrato de comodato');
+insert into nattemp values ('1910','Entrada de bonificação, doação ou brinde');
+insert into nattemp values ('1911','Entrada de amostra grátis');
+insert into nattemp values ('1912','Entrada de mercadoria ou bem recebido para demonstração');
+insert into nattemp values ('1913','Retorno de mercadoria ou bem remetido para demonstração');
+insert into nattemp values ('1914','Retorno de mercadoria ou bem remetido para exposição ou feira');
+insert into nattemp values ('1915','Entrada de mercadoria ou bem recebido para conserto ou reparo');
+insert into nattemp values ('1916','Retorno de mercadoria ou bem remetido para conserto ou reparo');
+insert into nattemp values ('1917','Entrada de mercadoria recebida em consignação mercantil ou industrial');
+insert into nattemp values ('1918','Devolução de mercadoria remetida em consignação mercantil ou industrial');
+insert into nattemp values ('1919','Devolução simbólica de mercadoria vendida ou utilizada em processo industrial, remetida anteriormente em consignação mercantil ou industrial');
+insert into nattemp values ('1920','Entrada de vasilhame ou sacaria');
+insert into nattemp values ('1921','Retorno de vasilhame ou sacaria');
+insert into nattemp values ('1922','Lançamento efetuado a título de simples faturamento decorrente de compra para recebimento futuro');
+insert into nattemp values ('1923','Entrada de mercadoria recebida do vendedor remetente, em venda à ordem');
+insert into nattemp values ('1924','Entrada para industrialização por conta e ordem do adquirente da mercadoria, quando esta não transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('1925','Retorno de mercadoria remetida para industrialização por conta e ordem do adquirente da mercadoria, quando esta não transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('1926','Lançamento efetuado a título de reclassificação de mercadoria decorrente de formação de kit ou de sua desagregação');
+insert into nattemp values ('1933','Aquisição de serviço tributado pelo ISSQN');
+insert into nattemp values ('1949','Outra entrada de mercadoria ou prestação de serviço não especificada');
+insert into nattemp values ('2000','ENTRADAS OU AQUISIÇÕES DE SERVIÇOS DE OUTROS ESTADOS');
+insert into nattemp values ('2100','COMPRAS PARA INDUSTRIALIZAÇÃO, COMERCIALIZAÇÃO OU PRESTAÇÃO DE SERVIÇOS');
+insert into nattemp values ('2101','Compra para industrialização');
+insert into nattemp values ('2102','Compra para comercialização');
+insert into nattemp values ('2111','Compra para industrialização de mercadoria recebida anteriormente em consignação industrial');
+insert into nattemp values ('2113','Compra para comercialização, de mercadoria recebida anteriormente em consignação mercantil');
+insert into nattemp values ('2116','Compra para industrialização originada de encomenda para recebimento futuro');
+insert into nattemp values ('2117','Compra para comercialização originada de encomenda para recebimento futuro');
+insert into nattemp values ('2118','Compra de mercadoria para comercialização pelo adquirente originário, entregue pelo vendedor remetente ao destinatário, em venda à ordem');
+insert into nattemp values ('2120','Compra para industrialização, em venda à ordem, já recebida do vendedor remetente');
+insert into nattemp values ('2121','Compra para comercialização, em venda à ordem, já recebida do vendedor remetente');
+insert into nattemp values ('2122','Compra para industrialização em que a mercadoria foi remetida pelo fornecedor ao industrializador sem transitar pelo estabelecimento adquirente');
+insert into nattemp values ('2124','Industrialização efetuada por outra empresa');
+insert into nattemp values ('2125','Industrialização efetuada por outra empresa quando a mercadoria remetida para utilização no processo de industrialização não transitou pelo estabelecimento adquirente da mercadoria');
+insert into nattemp values ('2126','Compra para utilização na prestação de serviço');
+insert into nattemp values ('2150','TRANSFERÊNCIAS PARA INDUSTRIALIZAÇÃO, COMERCIALIZAÇÃO OU PRESTAÇÃO DE SERVIÇOS');
+insert into nattemp values ('2151','Transferência para industrialização');
+insert into nattemp values ('2152','Transferência para comercialização');
+insert into nattemp values ('2153','Transferência de energia elétrica para distribuição');
+insert into nattemp values ('2154','Transferência para utilização na prestação de serviço');
+insert into nattemp values ('2200','DEVOLUÇÕES DE VENDAS DE PRODUÇÃO PRÓPRIA, DE TERCEIROS OU ANULAÇÕES DE VALORES');
+insert into nattemp values ('2201','Devolução de venda de produção do estabelecimento');
+insert into nattemp values ('2202','Devolução de venda de mercadoria adquirida ou recebida de terceiros');
+insert into nattemp values ('2203','Devolução de venda de produção do estabelecimento, destinada à Zona Franca de Manaus ou Áreas de Livre Comércio');
+insert into nattemp values ('2204','Devolução de venda de mercadoria adquirida ou recebida de terceiros, destinada à Zona Franca de Manaus ou Áreas de Livre Comércio');
+insert into nattemp values ('2205','Anulação de valor relativo à prestação de serviço de comunicação');
+insert into nattemp values ('2206','Anulação de valor relativo à prestação de serviço de transporte');
+insert into nattemp values ('2207','Anulação de valor relativo à venda de energia elétrica');
+insert into nattemp values ('2208','Devolução de produção do estabelecimento, remetida em transferência');
+insert into nattemp values ('2209','Devolução de mercadoria adquirida ou recebida de terceiros, remetida em transferência');
+insert into nattemp values ('2212','Devolução de venda no mercado interno de mercadoria industrializada e insumo importado sob o Regime Aduaneiro Especial de Entreposto Industrial sob Controle Informatizado do Sistema Público de Escrituração Digital (Recof-Sped)');
+insert into nattemp values ('2250','COMPRAS DE ENERGIA ELÉTRICA');
+insert into nattemp values ('2251','Compra de energia elétrica para distribuição ou comercialização');
+insert into nattemp values ('2252','Compra de energia elétrica por estabelecimento industrial');
+insert into nattemp values ('2253','Compra de energia elétrica por estabelecimento comercial');
+insert into nattemp values ('2254','Compra de energia elétrica por estabelecimento prestador de serviço de transporte');
+insert into nattemp values ('2255','Compra de energia elétrica por estabelecimento prestador de serviço de comunicação');
+insert into nattemp values ('2256','Compra de energia elétrica por estabelecimento de produtor rural');
+insert into nattemp values ('2257','Compra de energia elétrica para consumo por demanda contratada');
+insert into nattemp values ('2300','AQUISIÇÕES DE SERVIÇOS DE COMUNICAÇÃO');
+insert into nattemp values ('2301','Aquisição de serviço de comunicação para execução de serviço da mesma natureza');
+insert into nattemp values ('2302','Aquisição de serviço de comunicação por estabelecimento industrial');
+insert into nattemp values ('2303','Aquisição de serviço de comunicação por estabelecimento comercial');
+insert into nattemp values ('2304','Aquisição de serviço de comunicação por estabelecimento de prestador de serviço de transporte');
+insert into nattemp values ('2305','Aquisição de serviço de comunicação por estabelecimento de geradora ou de distribuidora de energia elétrica');
+insert into nattemp values ('2306','Aquisição de serviço de comunicação por estabelecimento de produtor rural');
+insert into nattemp values ('2350','AQUISIÇÕES DE SERVIÇOS DE TRANSPORTE');
+insert into nattemp values ('2351','Aquisição de serviço de transporte para execução de serviço da mesma natureza');
+insert into nattemp values ('2352','Aquisição de serviço de transporte por estabelecimento industrial');
+insert into nattemp values ('2353','Aquisição de serviço de transporte por estabelecimento comercial');
+insert into nattemp values ('2354','Aquisição de serviço de transporte por estabelecimento de prestador de serviço de comunicação');
+insert into nattemp values ('2355','Aquisição de serviço de transporte por estabelecimento de geradora ou de distribuidora de energia elétrica');
+insert into nattemp values ('2356','Aquisição de serviço de transporte por estabelecimento de produtor rural');
+insert into nattemp values ('2400','ENTRADAS DE MERCADORIAS SUJEITAS AO REGIME DE SUBSTITUIÇÃO TRIBUTÁRIA');
+insert into nattemp values ('2401','Compra para industrialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('2403','Compra para comercialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('2406','Compra de bem para o ativo imobilizado cuja mercadoria está sujeita ao regime de substituição tributária');
+insert into nattemp values ('2407','Compra de mercadoria para uso ou consumo cuja mercadoria está sujeita ao regime de substituição tributária');
+insert into nattemp values ('2408','Transferência para industrialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('2409','Transferência para comercialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('2410','Devolução de venda de produção do estabelecimento em operação com produto sujeito ao regime de substituição tributária');
+insert into nattemp values ('2411','Devolução de venda de mercadoria adquirida ou recebida de terceiros em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('2414','Retorno de produção do estabelecimento, remetida para venda fora do estabelecimento em operação com produto sujeito ao regime de substituição tributária');
+insert into nattemp values ('2415','Retorno de mercadoria adquirida ou recebida de terceiros, remetida para venda fora do estabelecimento em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('2500','ENTRADAS DE MERCADORIAS REMETIDAS COM FIM ESPECÍFICO DE EXPORTAÇÃO E EVENTUAIS DEVOLUÇÕES');
+insert into nattemp values ('2501','Entrada de mercadoria recebida com fim específico de exportação');
+insert into nattemp values ('2503','Entrada decorrente de devolução de produto remetido com fim específico de exportação, de produção do estabelecimento');
+insert into nattemp values ('2504','Entrada decorrente de devolução de mercadoria remetida com fim específico de exportação, adquirida ou recebida de terceiros');
+insert into nattemp values ('2550','OPERAÇÕES COM BENS DE ATIVO IMOBILIZADO E MATERIAIS PARA USO OU CONSUMO');
+insert into nattemp values ('2551','Compra de bem para o ativo imobilizado');
+insert into nattemp values ('2552','Transferência de bem do ativo imobilizado');
+insert into nattemp values ('2553','Devolução de venda de bem do ativo imobilizado');
+insert into nattemp values ('2554','Retorno de bem do ativo imobilizado remetido para uso fora do estabelecimento');
+insert into nattemp values ('2555','Entrada de bem do ativo imobilizado de terceiro, remetido para uso no estabelecimento');
+insert into nattemp values ('2556','Compra de material para uso ou consumo');
+insert into nattemp values ('2557','Transferência de material para uso ou consumo');
+insert into nattemp values ('2600','CRÉDITOS E RESSARCIMENTOS DE ICMS');
+insert into nattemp values ('2603','Ressarcimento de ICMS retido por substituição tributária');
+insert into nattemp values ('2650','ENTRADAS DE COMBUSToVEIS, DERIVADOS OU NcO DE PETRàLEO E LUBRIFICANTES');
+insert into nattemp values ('2651','Compra de combustivel ou lubrificante para industrializacao subsequente.');
+insert into nattemp values ('2652','Compra de combustivel ou lubrificante para comercializacao.');
+insert into nattemp values ('2653','Compra de combustivel ou lubrificante por consumidor ou usuario final.');
+insert into nattemp values ('2658','Transferencia de combustivel e lubrificante para industrializacao.');
+insert into nattemp values ('2659','Transferencia de combustivel e lubrificante para comercializacao.');
+insert into nattemp values ('2660','Devolucao de venda de combustivel ou lubrificante destinado a industrializacao subsequente.');
+insert into nattemp values ('2661','Devolucao de venda de combustivel ou lubrificante destinado a comercializacao.');
+insert into nattemp values ('2662','Devolucao de venda de combustivel ou lubrificante destinado a consumidor ou usuario final.');
+insert into nattemp values ('2663','Entrada de combustivel ou lubrificante para armazenagem.');
+insert into nattemp values ('2664','Retorno de combustivel ou lubrificante remetido para armazenagem.');
+insert into nattemp values ('2900','OUTRAS ENTRADAS DE MERCADORIAS OU AQUISIÇÕES DE SERVIÇOS');
+insert into nattemp values ('2901','Entrada para industrialização por encomenda');
+insert into nattemp values ('2902','Retorno de mercadoria remetida para industrialização por encomenda');
+insert into nattemp values ('2903','Entrada de mercadoria remetida para industrialização e não aplicada no referido processo');
+insert into nattemp values ('2904','Retorno de remessa para venda fora do estabelecimento');
+insert into nattemp values ('2905','Entrada de mercadoria recebida para depósito em depósito fechado ou armazém geral');
+insert into nattemp values ('2906','Retorno de mercadoria remetida para depósito fechado ou armazém geral');
+insert into nattemp values ('2907','Retorno simbólico de mercadoria remetida para depósito fechado ou armazém geral');
+insert into nattemp values ('2908','Entrada de bem por conta de contrato de comodato');
+insert into nattemp values ('2909','Retorno de bem remetido por conta de contrato de comodato');
+insert into nattemp values ('2910','Entrada de bonificação, doação ou brinde');
+insert into nattemp values ('2911','Entrada de amostra grátis');
+insert into nattemp values ('2912','Entrada de mercadoria ou bem recebido para demonstração');
+insert into nattemp values ('2913','Retorno de mercadoria ou bem remetido para demonstração');
+insert into nattemp values ('2914','Retorno de mercadoria ou bem remetido para exposição ou feira');
+insert into nattemp values ('2915','Entrada de mercadoria ou bem recebido para conserto ou reparo');
+insert into nattemp values ('2916','Retorno de mercadoria ou bem remetido para conserto ou reparo');
+insert into nattemp values ('2917','Entrada de mercadoria recebida em consignação mercantil ou industrial');
+insert into nattemp values ('2918','Devolução de mercadoria remetida em consignação mercantil ou industrial');
+insert into nattemp values ('2919','Devolução simbólica de mercadoria vendida ou utilizada em processo industrial, remetida anteriormente em consignação mercantil ou industrial');
+insert into nattemp values ('2920','Entrada de vasilhame ou sacaria');
+insert into nattemp values ('2921','Retorno de vasilhame ou sacaria');
+insert into nattemp values ('2922','Lançamento efetuado a título de simples faturamento decorrente de compra para recebimento futuro');
+insert into nattemp values ('2923','Entrada de mercadoria recebida do vendedor remetente, em venda à ordem');
+insert into nattemp values ('2924','Entrada para industrialização por conta e ordem do adquirente da mercadoria, quando esta não transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('2925','Retorno de mercadoria remetida para industrialização por conta e ordem do adquirente da mercadoria, quando esta não transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('2933','Serviços.');
+insert into nattemp values ('2949','Outra entrada de mercadoria ou prestação de serviço não especificado');
+insert into nattemp values ('3000','ENTRADAS OU AQUISIÇÕES DE SERVIÇOS DO EXTERIOR');
+insert into nattemp values ('3100','COMPRAS PARA INDUSTRIALIZAÇÃO, COMERCIALIZAÇÃO OU PRESTAÇÃO DE SERVIÇOS');
+insert into nattemp values ('3101','Compra para industrialização');
+insert into nattemp values ('3102','Compra para comercialização');
+insert into nattemp values ('3126','Compra para utilização na prestação de serviço');
+insert into nattemp values ('3127','Compra para industrialização sob o regime de "drawback"');
+insert into nattemp values ('3129','Compra para industrialização sob o Regime Aduaneiro Especial de Entreposto Industrial sob Controle Informatizado do Sistema Público de Escrituração Digital (Recof-Sped)');
+insert into nattemp values ('3200','DEVOLUÇÕES DE VENDAS DE PRODUÇÃO PRÓPRIA, DE TERCEIROS OU ANULAÇÕES DE VALORES');
+insert into nattemp values ('3201','Devolução de venda de produção do estabelecimento');
+insert into nattemp values ('3202','Devolução de venda de mercadoria adquirida ou recebida de terceiros');
+insert into nattemp values ('3205','Anulação de valor relativo à prestação de serviço de comunicação');
+insert into nattemp values ('3206','Anulação de valor relativo à prestação de serviço de transporte');
+insert into nattemp values ('3207','Anulação de valor relativo à venda de energia elétrica');
+insert into nattemp values ('3211','Devolução de venda de produção do estabelecimento sob o regime de "drawback"');
+insert into nattemp values ('3212','Devolução de venda no mercado externo de mercadoria industrializada sob o Regime Aduaneiro Especial de Entreposto Industrial sob Controle Informatizado do Sistema Público de Escrituração Digital (Recof-Sped)');
+insert into nattemp values ('3250','COMPRAS DE ENERGIA ELÉTRICA');
+insert into nattemp values ('3251','Compra de energia elétrica para distribuição ou comercialização');
+insert into nattemp values ('3300','AQUISIÇÕES DE SERVIÇOS DE COMUNICAÇÃO');
+insert into nattemp values ('3301','Aquisição de serviço de comunicação para execução de serviço da mesma natureza');
+insert into nattemp values ('3350','AQUISIÇÕES DE SERVIÇOS DE TRANSPORTE');
+insert into nattemp values ('3351','Aquisição de serviço de transporte para execução de serviço da mesma natureza');
+insert into nattemp values ('3352','Aquisição de serviço de transporte por estabelecimento industrial');
+insert into nattemp values ('3353','Aquisição de serviço de transporte por estabelecimento comercial');
+insert into nattemp values ('3354','Aquisição de serviço de transporte por estabelecimento de prestador de serviço de comunicação');
+insert into nattemp values ('3355','Aquisição de serviço de transporte por estabelecimento de geradora ou de distribuidora de energia elétrica');
+insert into nattemp values ('3356','Aquisição de serviço de transporte por estabelecimento de produtor rural');
+insert into nattemp values ('3500','ENTRADAS DE MERCADORIAS REMETIDAS COM FIM ESPECÍFICO DE EXPORTAÇÃO E EVENTUAIS DEVOLUÇÕES');
+insert into nattemp values ('3503','Devolução de mercadoria exportada que tenha sido recebida com fim específico de exportação');
+insert into nattemp values ('3550','OPERAÇÕES COM BENS DE ATIVO IMOBILIZADO E MATERIAIS PARA USO OU CONSUMO');
+insert into nattemp values ('3551','Compra de bem para o ativo imobilizado');
+insert into nattemp values ('3553','Devolução de venda de bem do ativo imobilizado');
+insert into nattemp values ('3556','Compra de material para uso ou consumo');
+insert into nattemp values ('3900','OUTRAS ENTRADAS DE MERCADORIAS OU AQUISIÇÕES DE SERVIÇOS');
+insert into nattemp values ('3930','Lançamento efetuado a título de entrada de bem sob amparo de regime especial aduaneiro de admissão temporária');
+insert into nattemp values ('3949','Outra entrada de mercadoria ou prestação de serviço não especificado');
+insert into nattemp values ('5000','SAÍDAS OU PRESTAÇÕES DE SERVIÇOS PARA O ESTADO');
+insert into nattemp values ('5100','VENDAS DE PRODUÇÃO PRÓPRIA OU DE TERCEIROS');
+insert into nattemp values ('5101','Venda de produção do estabelecimento');
+insert into nattemp values ('5102','Venda de mercadoria adquirida ou recebida de terceiros');
+insert into nattemp values ('5103','Venda de produção do estabelecimento, efetuada fora do estabelecimento');
+insert into nattemp values ('5104','Venda de mercadoria adquirida ou recebida de terceiros, efetuada fora do estabelecimento');
+insert into nattemp values ('5105','Venda de produção do estabelecimento que não deva por ele transitar');
+insert into nattemp values ('5106','Venda de mercadoria adquirida ou recebida de terceiros, que não deva por ele transitar');
+insert into nattemp values ('5109','Venda de produção do estabelecimento, destinada à Zona Franca de Manaus ou Áreas de Livre Comércio');
+insert into nattemp values ('5110','Venda de mercadoria adquirida ou recebida de terceiros, destinada à Zona Franca de Manaus ou Áreas de Livre Comércio');
+insert into nattemp values ('5111','Venda de produção do estabelecimento remetida anteriormente em consignação industrial');
+insert into nattemp values ('5112','Venda de mercadoria adquirida ou recebida de terceiros remetida anteriormente em consignação industrial');
+insert into nattemp values ('5113','Venda de produção do estabelecimento remetida anteriormente em consignação mercantil');
+insert into nattemp values ('5114','Venda de mercadoria adquirida ou recebida de terceiros remetida anteriormente em consignação mercantil');
+insert into nattemp values ('5115','Venda de mercadoria adquirida ou recebida de terceiros, recebida anteriormente em consignação mercantil');
+insert into nattemp values ('5116','Venda de produção do estabelecimento originada de encomenda para entrega futura');
+insert into nattemp values ('5117','Venda de mercadoria adquirida ou recebida de terceiros, originada de encomenda para entrega futura');
+insert into nattemp values ('5118','Venda de produção do estabelecimento entregue ao destinatário por conta e ordem do adquirente originário, em venda à ordem');
+insert into nattemp values ('5119','Venda de mercadoria adquirida ou recebida de terceiros entregue ao destinatário por conta e ordem do adquirente originário, em venda à ordem');
+insert into nattemp values ('5120','Venda de mercadoria adquirida ou recebida de terceiros entregue ao destinatário pelo vendedor remetente, em venda à ordem');
+insert into nattemp values ('5122','Venda de produção do estabelecimento remetida para industrialização, por conta e ordem do adquirente, sem transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('5123','Venda de mercadoria adquirida ou recebida de terceiros remetida para industrialização, por conta e ordem do adquirente, sem transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('5124','Industrialização efetuada para outra empresa');
+insert into nattemp values ('5125','Industrialização efetuada para outra empresa quando a mercadoria recebida para utilização no processo de industrialização não transitar pelo estabelecimento adquirente da mercadoria');
+insert into nattemp values ('5129','Venda de insumo importado e de mercadoria industrializada sob o amparo do Regime Aduaneiro Especial de Entreposto Industrial sob Controle Informatizado do Sistema Público de Escrituração Digital (Recof-Sped)');
+insert into nattemp values ('5150','TRANSFERÊNCIAS DE PRODUÇÃO PRÓPRIA OU DE TERCEIROS');
+insert into nattemp values ('5151','Transferência de produção do estabelecimento');
+insert into nattemp values ('5152','Transferência de mercadoria adquirida ou recebida de terceiros');
+insert into nattemp values ('5153','Transferência de energia elétrica');
+insert into nattemp values ('5155','Transferência de produção do estabelecimento, que não deva por ele transitar');
+insert into nattemp values ('5156','Transferência de mercadoria adquirida ou recebida de terceiros, que não deva por ele transitar');
+insert into nattemp values ('5200','DEVOLUÇÕES DE COMPRAS PARA INDUSTRIALIZAÇÃO, COMERCIALIZAÇÃO OU ANULAÇÕES DE VALORES');
+insert into nattemp values ('5201','Devolução de compra para industrialização');
+insert into nattemp values ('5202','Devolução de compra para comercialização');
+insert into nattemp values ('5205','Anulação de valor relativo a aquisição de serviço de comunicação');
+insert into nattemp values ('5206','Anulação de valor relativo a aquisição de serviço de transporte');
+insert into nattemp values ('5207','Anulação de valor relativo à compra de energia elétrica');
+insert into nattemp values ('5208','Devolução de mercadoria recebida em transferência para industrialização');
+insert into nattemp values ('5209','Devolução de mercadoria recebida em transferência para comercialização');
+insert into nattemp values ('5210','Devolução de compra para utilização na prestação de serviço');
+insert into nattemp values ('5250','VENDAS DE ENERGIA ELÉTRICA');
+insert into nattemp values ('5251','Venda de energia elétrica para distribuição ou comercialização');
+insert into nattemp values ('5252','Venda de energia elétrica para estabelecimento industrial');
+insert into nattemp values ('5253','Venda de energia elétrica para estabelecimento comercial');
+insert into nattemp values ('5254','Venda de energia elétrica para estabelecimento prestador de serviço de transporte');
+insert into nattemp values ('5255','Venda de energia elétrica para estabelecimento prestador de serviço de comunicação');
+insert into nattemp values ('5256','Venda de energia elétrica para estabelecimento de produtor rural');
+insert into nattemp values ('5257','Venda de energia elétrica para consumo por demanda contratada');
+insert into nattemp values ('5258','Venda de energia elétrica a não contribuinte');
+insert into nattemp values ('5300','PRESTAÇÕES DE SERVIÇOS DE COMUNICAÇÃO');
+insert into nattemp values ('5301','Prestação de serviço de comunicação para execução de serviço da mesma natureza');
+insert into nattemp values ('5302','Prestação de serviço de comunicação a estabelecimento industrial');
+insert into nattemp values ('5303','Prestação de serviço de comunicação a estabelecimento comercial');
+insert into nattemp values ('5304','Prestação de serviço de comunicação a estabelecimento de prestador de serviço de transporte');
+insert into nattemp values ('5305','Prestação de serviço de comunicação a estabelecimento de geradora ou de distribuidora de energia elétrica');
+insert into nattemp values ('5306','Prestação de serviço de comunicação a estabelecimento de produtor rural');
+insert into nattemp values ('5307','Prestação de serviço de comunicação a não contribuinte');
+insert into nattemp values ('5350','PRESTAÇÕES DE SERVIÇOS DE TRANSPORTE');
+insert into nattemp values ('5351','Prestação de serviço de transporte para execução de serviço da mesma natureza');
+insert into nattemp values ('5352','Prestação de serviço de transporte a estabelecimento industrial');
+insert into nattemp values ('5353','Prestação de serviço de transporte a estabelecimento comercial');
+insert into nattemp values ('5354','Prestação de serviço de transporte a estabelecimento de prestador de serviço de comunicação');
+insert into nattemp values ('5355','Prestação de serviço de transporte a estabelecimento de geradora ou de distribuidora de energia elétrica');
+insert into nattemp values ('5356','Prestação de serviço de transporte a estabelecimento de produtor rural');
+insert into nattemp values ('5357','Prestação de serviço de transporte a não contribuinte');
+insert into nattemp values ('5400','SAÍDAS DE MERCADORIAS SUJEITAS AO REGIME DE SUBSTITUIÇÃO TRIBUTÁRIA');
+insert into nattemp values ('5401','Venda de produção do estabelecimento em operação com produto sujeito ao regime de substituição tributária, na condição de contribuinte substituto');
+insert into nattemp values ('5402','Venda de produção do estabelecimento de produto sujeito ao regime de substituição tributária, em operação entre contribuintes substitutos do mesmo produto');
+insert into nattemp values ('5403','Venda de mercadoria adquirida ou recebida de terceiros em operação com mercadoria sujeita ao regime de substituição tributária, na condição de contribuinte substituto');
+insert into nattemp values ('5405','Venda de mercadoria adquirida ou recebida de terceiros em operação com mercadoria sujeita ao regime de substituição tributária, na condição de contribuinte substituído');
+insert into nattemp values ('5408','Transferência de produção do estabelecimento em operação com produto sujeito ao regime de substituição tributária');
+insert into nattemp values ('5409','Transferência de mercadoria adquirida ou recebida de terceiros em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('5410','Devolução de compra para industrialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('5411','Devolução de compra para comercialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('5412','Devolução de bem do ativo imobilizado, em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('5413','Devolução de mercadoria destinada ao uso ou consumo, em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('5414','Remessa de produção do estabelecimento para venda fora do estabelecimento em operação com produto sujeito ao regime de substituição tributária');
+insert into nattemp values ('5415','Remessa de mercadoria adquirida ou recebida de terceiros para venda fora do estabelecimento, em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('5441','Outra saída de mercadoria ou prestação de serviço não especificado');
+insert into nattemp values ('5450','SISTEMAS DE INTEGRAÇÃO');
+insert into nattemp values ('5451','Remessa de animal e de insumo para estabelecimento produtor');
+insert into nattemp values ('5500','REMESSAS COM FIM ESPECÍFICO DE EXPORTAÇÃO E EVENTUAIS DEVOLUÇÕES');
+insert into nattemp values ('5501','Remessa de produção do estabelecimento, com fim específico de exportação');
+insert into nattemp values ('5502','Remessa de mercadoria adquirida ou recebida de terceiros, com fim específico de exportação');
+insert into nattemp values ('5503','Devolução de mercadoria recebida com fim específico de exportação');
+insert into nattemp values ('5550','OPERAÇÕES COM BENS DE ATIVO IMOBILIZADO E MATERIAIS PARA USO OU CONSUMO');
+insert into nattemp values ('5551','Venda de bem do ativo imobilizado');
+insert into nattemp values ('5552','Transferência de bem do ativo imobilizado');
+insert into nattemp values ('5553','Devolução de compra de bem para o ativo imobilizado');
+insert into nattemp values ('5554','Remessa de bem do ativo imobilizado para uso fora do estabelecimento');
+insert into nattemp values ('5555','Devolução de bem do ativo imobilizado de terceiro, recebido para uso no estabelecimento');
+insert into nattemp values ('5556','Devolução de compra de material de uso ou consumo');
+insert into nattemp values ('5557','Transferência de material de uso ou consumo');
+insert into nattemp values ('5600','CRÉDITOS E RESSARCIMENTOS DE ICMS');
+insert into nattemp values ('5601','Transferência de crédito de ICMS acumulado');
+insert into nattemp values ('5602','Transferência de saldo credor de ICMS para outro estabelecimento da mesma empresa, destinado à compensação de saldo devedor de ICMS');
+insert into nattemp values ('5603','Ressarcimento de ICMS retido por substituição tributária');
+insert into nattemp values ('5650','SAiDAS DE COMBUSToVEIS, DERIVADOS OU NaO DE PETRoLEO E LUBRIFICANTES.');
+insert into nattemp values ('5651','Venda de combustivel ou lubrificante de producao do estabelecimento destinado a industrializacao subsequente.');
+insert into nattemp values ('5652','Venda de combustivel ou lubrificante de producao do estabelecimento destinado a comercializacao.');
+insert into nattemp values ('5653','Venda de combustivel ou lubrificante de producao do estabelecimento destinado a consumidor ou usuario final.');
+insert into nattemp values ('5654','Venda de combustivel ou lubrificante adquirido ou recebido de terceiros destinado a industrializacao subsequente.');
+insert into nattemp values ('5655','Venda de combustivel ou lubrificante adquirido ou recebido de terceiros destinado a comercializacao.');
+insert into nattemp values ('5656','Venda de combustivel ou lubrificante adquirido ou recebido de terceiros destinado a consumidor ou usuario final.');
+insert into nattemp values ('5657','Remessa de combustivel ou lubrificante adquirido ou recebido de terceiros para venda fora do estabelecimento.');
+insert into nattemp values ('5658','Transferencia de combustivel ou lubrificante de producao do estabelecimento');
+insert into nattemp values ('5659','Transferencia de combustivel ou lubrificante adquirido ou recebido de terceiro .');
+insert into nattemp values ('5660','Devolucao de compra de combustivel ou lubrificante adquirido para industrializacao subsequente.');
+insert into nattemp values ('5661','Devolucao de compra de combustivel ou lubrificante adquirido para comercializacao.');
+insert into nattemp values ('5662','Devolucao de compra de combustivel ou lubrificante adquirido por consumidor ou usuario final.');
+insert into nattemp values ('5663','Remessa para armazenagem de combustivel ou lubrificante.');
+insert into nattemp values ('5664','Retorno de combustivel ou lubrificante recebido para armazenagem.');
+insert into nattemp values ('5665','Retorno simb¢lico de combustivel ou lubrificante recebido para armazenagem .');
+insert into nattemp values ('5666','Remessa por conta e ordem de terceiros de combustivel ou lubrificante recebido para armazenagem.');
+insert into nattemp values ('5738','Outra saída de mercadoria ou prestação de serviço não especificado');
+insert into nattemp values ('5900','OUTRAS SAÍDAS DE MERCADORIAS OU PRESTAÇÕES DE SERVIÇOS');
+insert into nattemp values ('5901','Remessa para industrialização por encomenda');
+insert into nattemp values ('5902','Retorno de mercadoria utilizada na industrialização por encomenda');
+insert into nattemp values ('5903','Retorno de mercadoria recebida para industrialização e não aplicada no referido processo');
+insert into nattemp values ('5904','Remessa para venda fora do estabelecimento');
+insert into nattemp values ('5905','Remessa para depósito fechado ou armazém geral');
+insert into nattemp values ('5906','Retorno de mercadoria depositada em depósito fechado ou armazém geral');
+insert into nattemp values ('5907','Retorno simbólico de mercadoria depositada em depósito fechado ou armazém geral');
+insert into nattemp values ('5908','Remessa de bem por conta de contrato de comodato');
+insert into nattemp values ('5909','Retorno de bem recebido por conta de contrato de comodato');
+insert into nattemp values ('5910','Remessa em bonificação, doação ou brinde');
+insert into nattemp values ('5911','Remessa de amostra grátis');
+insert into nattemp values ('5912','Remessa de mercadoria ou bem para demonstração');
+insert into nattemp values ('5913','Retorno de mercadoria ou bem recebido para demonstração');
+insert into nattemp values ('5914','Remessa de mercadoria ou bem para exposição ou feira');
+insert into nattemp values ('5915','Remessa de mercadoria ou bem para conserto ou reparo');
+insert into nattemp values ('5916','Retorno de mercadoria ou bem recebido para conserto ou reparo');
+insert into nattemp values ('5917','Remessa de mercadoria em consignação mercantil ou industrial');
+insert into nattemp values ('5918','Devolução de mercadoria recebida em consignação mercantil ou industrial');
+insert into nattemp values ('5919','Devolução simbólica de mercadoria vendida ou utilizada em processo industrial, recebida anteriormente em consignação mercantil ou industrial');
+insert into nattemp values ('5920','Remessa de vasilhame ou sacaria');
+insert into nattemp values ('5921','Devolução de vasilhame ou sacaria');
+insert into nattemp values ('5922','Lançamento efetuado a título de simples faturamento decorrente de venda para entrega futura');
+insert into nattemp values ('5923','Remessa de mercadoria por conta e ordem de terceiros, em venda à ordem');
+insert into nattemp values ('5924','Remessa para industrialização por conta e ordem do adquirente da mercadoria, quando esta não transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('5925','Retorno de mercadoria recebida para industrialização por conta e ordem do adquirente da mercadoria, quando aquela não transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('5926','Lançamento efetuado a título de reclassificação de mercadoria decorrente de formação de kit ou de sua desagregação');
+insert into nattemp values ('5927','Lançamento efetuado a título de baixa de estoque decorrente de perda, roubo ou deterioração');
+insert into nattemp values ('5928','Lançamento efetuado a título de baixa de estoque decorrente do encerramento da atividade da empresa');
+insert into nattemp values ('5929','Lançamento efetuado em decorrência de emissão de documento fiscal relativo a operação ou prestação também registrada em equipamento Emissor de Cupom Fiscal');
+insert into nattemp values ('5931','Lançamento efetuado em decorrência da responsabilidade de retenção do imposto por substituição tributária, atribuída ao remetente ou alienante da mercadoria, pelo serviço de transporte realizado por transportador autônomo ou por transportador não ins');
+insert into nattemp values ('5932','Prestação de serviço de transporte iniciada em unidade da Federação diversa daquela onde inscrito o prestador');
+insert into nattemp values ('5949','Outra saída de mercadoria ou prestação de serviço não especificado');
+insert into nattemp values ('6000','SAÍDAS OU PRESTAÇÕES DE SERVIÇOS PARA OUTROS ESTADOS');
+insert into nattemp values ('6100','VENDAS DE PRODUÇÃO PRÓPRIA OU DE TERCEIROS');
+insert into nattemp values ('6101','Venda de produção do estabelecimento');
+insert into nattemp values ('6102','Venda de mercadoria adquirida ou recebida de terceiros');
+insert into nattemp values ('6103','Venda de produção do estabelecimento, efetuada fora do estabelecimento');
+insert into nattemp values ('6104','Venda de mercadoria adquirida ou recebida de terceiros, efetuada fora do estabelecimento');
+insert into nattemp values ('6105','Venda de produção do estabelecimento que não deva por ele transitar');
+insert into nattemp values ('6106','Venda de mercadoria adquirida ou recebida de terceiros, que não deva por ele transitar');
+insert into nattemp values ('6107','Venda de produção do estabelecimento, destinada a não contribuinte');
+insert into nattemp values ('6108','Venda de mercadoria adquirida ou recebida de terceiros, destinada a não contribuinte');
+insert into nattemp values ('6109','Venda de produção do estabelecimento, destinada à Zona Franca de Manaus ou Áreas de Livre Comércio');
+insert into nattemp values ('6110','Venda de mercadoria adquirida ou recebida de terceiros, destinada à Zona Franca de Manaus ou Áreas de Livre Comércio');
+insert into nattemp values ('6111','Venda de produção do estabelecimento remetida anteriormente em consignação industrial');
+insert into nattemp values ('6112','Venda de mercadoria adquirida ou recebida de Terceiros remetida anteriormente em consignação industrial');
+insert into nattemp values ('6113','Venda de produção do estabelecimento remetida anteriormente em consignação mercantil');
+insert into nattemp values ('6114','Venda de mercadoria adquirida ou recebida de terceiros remetida anteriormente em consignação mercantil');
+insert into nattemp values ('6115','Venda de mercadoria adquirida ou recebida de terceiros, recebida anteriormente em consignação mercantil');
+insert into nattemp values ('6116','Venda de produção do estabelecimento originada de encomenda para entrega futura');
+insert into nattemp values ('6117','Venda de mercadoria adquirida ou recebida de terceiros, originada de encomenda para entrega futura');
+insert into nattemp values ('6118','Venda de produção do estabelecimento entregue ao destinatário por conta e ordem do adquirente originário, em venda à ordem');
+insert into nattemp values ('6119','Venda de mercadoria adquirida ou recebida de terceiros entregue ao destinatário por conta e ordem do adquirente originário, em venda à ordem');
+insert into nattemp values ('6120','Venda de mercadoria adquirida ou recebida de terceiros entregue ao destinatário pelo vendedor remetente, em venda à ordem');
+insert into nattemp values ('6122','Venda de produção do estabelecimento remetida para industrialização, por conta e ordem do adquirente, sem transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('6123','Venda de mercadoria adquirida ou recebida de terceiros remetida para industrialização, por conta e ordem do adquirente, sem transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('6124','Industrialização efetuada para outra empresa');
+insert into nattemp values ('6125','Industrialização efetuada para outra empresa quando a mercadoria recebida para utilização no processo de industrialização não transitar pelo estabelecimento adquirente da mercadoria');
+insert into nattemp values ('6129','Venda de insumo importado e de mercadoria industrializada sob o amparo do Regime Aduaneiro Especial de Entreposto Industrial sob Controle Informatizado do Sistema Público de Escrituração Digital (Recof-Sped)');
+insert into nattemp values ('6150','TRANSFERÊNCIAS DE PRODUÇÃO PRÓPRIA OU DE TERCEIROS');
+insert into nattemp values ('6151','Transferência de produção do estabelecimento');
+insert into nattemp values ('6152','Transferência de mercadoria adquirida ou recebida de terceiros');
+insert into nattemp values ('6153','Transferência de energia elétrica');
+insert into nattemp values ('6155','Transferência de produção do estabelecimento, que não deva por ele transitar');
+insert into nattemp values ('6156','Transferência de mercadoria adquirida ou recebida de terceiros, que não deva por ele transitar');
+insert into nattemp values ('6200','DEVOLUÇÕES DE COMPRAS PARA INDUSTRIALIZAÇÃO, COMERCIALIZAÇÃO OU ANULAÇÕES DE VALORES');
+insert into nattemp values ('6201','Devolução de compra para industrialização');
+insert into nattemp values ('6202','Devolução de compra para comercialização');
+insert into nattemp values ('6205','Anulação de valor relativo a aquisição de serviço de comunicação');
+insert into nattemp values ('6206','Anulação de valor relativo a aquisição de serviço de transporte');
+insert into nattemp values ('6207','Anulação de valor relativo à compra de energia elétrica');
+insert into nattemp values ('6208','Devolução de mercadoria recebida em transferência para industrialização');
+insert into nattemp values ('6209','Devolução de mercadoria recebida em transferência para comercialização');
+insert into nattemp values ('6210','Devolução de compra para utilização na prestação de serviço');
+insert into nattemp values ('6250','VENDAS DE ENERGIA ELÉTRICA');
+insert into nattemp values ('6251','Venda de energia elétrica para distribuição ou comercialização');
+insert into nattemp values ('6252','Venda de energia elétrica para estabelecimento industrial');
+insert into nattemp values ('6253','Venda de energia elétrica para estabelecimento comercial');
+insert into nattemp values ('6254','Venda de energia elétrica para estabelecimento prestador de serviço de transporte');
+insert into nattemp values ('6255','Venda de energia elétrica para estabelecimento prestador de serviço de comunicação');
+insert into nattemp values ('6256','Venda de energia elétrica para estabelecimento de produtor rural');
+insert into nattemp values ('6257','Venda de energia elétrica para consumo por demanda contratada');
+insert into nattemp values ('6258','Venda de energia elétrica a não contribuinte');
+insert into nattemp values ('6300','PRESTAÇÕES DE SERVIÇOS DE COMUNICAÇÃO');
+insert into nattemp values ('6301','Prestação de serviço de comunicação para execução de serviço da mesma natureza');
+insert into nattemp values ('6302','Prestação de serviço de comunicação a estabelecimento industrial');
+insert into nattemp values ('6303','Prestação de serviço de comunicação a estabelecimento comercial');
+insert into nattemp values ('6304','Prestação de serviço de comunicação a estabelecimento de prestador de serviço de transporte');
+insert into nattemp values ('6305','Prestação de serviço de comunicação a estabelecimento de geradora ou de distribuidora de energia elétrica');
+insert into nattemp values ('6306','Prestação de serviço de comunicação a estabelecimento de produtor rural');
+insert into nattemp values ('6307','Prestação de serviço de comunicação a não contribuinte');
+insert into nattemp values ('6350','PRESTAÇÕES DE SERVIÇOS DE TRANSPORTE');
+insert into nattemp values ('6351','Prestação de serviço de transporte para execução de serviço da mesma natureza');
+insert into nattemp values ('6352','Prestação de serviço de transporte a estabelecimento industrial');
+insert into nattemp values ('6353','Prestação de serviço de transporte a estabelecimento comercial');
+insert into nattemp values ('6354','Prestação de serviço de transporte a estabelecimento de prestador de serviço de comunicação');
+insert into nattemp values ('6355','Prestação de serviço de transporte a estabelecimento de geradora ou de distribuidora de energia elétrica');
+insert into nattemp values ('6356','Prestação de serviço de transporte a estabelecimento de produtor rural');
+insert into nattemp values ('6357','Prestação de serviço de transporte a não contribuinte');
+insert into nattemp values ('6400','SAÍDAS DE MERCADORIAS SUJEITAS AO REGIME DE SUBSTITUIÇÃO TRIBUTÁRIA');
+insert into nattemp values ('6401','Venda de produção do estabelecimento em operação com produto sujeito ao regime de substituição tributária, na condição de contribuinte substituto');
+insert into nattemp values ('6402','Venda de produção do estabelecimento de produto sujeito ao regime de substituição tributária, em operação entre contribuintes substitutos do mesmo produto');
+insert into nattemp values ('6403','Venda de mercadoria adquirida ou recebida de terceiros em operação com mercadoria sujeita ao regime de substituição tributária, na condição de contribuinte substituto');
+insert into nattemp values ('6404','Venda de mercadoria sujeita ao regime de substituição tributária, cujo imposto já tenha sido retido anteriormente');
+insert into nattemp values ('6408','Transferência de produção do estabelecimento em operação com produto sujeito ao regime de substituição tributária');
+insert into nattemp values ('6409','Transferência de mercadoria adquirida ou recebida de terceiros em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('6410','Devolução de compra para industrialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('6411','Devolução de compra para comercialização em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('6412','Devolução de bem do ativo imobilizado, em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('6413','Devolução de mercadoria destinada ao uso ou consumo, em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('6414','Remessa de produção do estabelecimento para venda fora do estabelecimento em operação com produto sujeito ao regime de substituição tributária');
+insert into nattemp values ('6415','Remessa de mercadoria adquirida ou recebida de terceiros para venda fora do estabelecimento, em operação com mercadoria sujeita ao regime de substituição tributária');
+insert into nattemp values ('6500','REMESSAS COM FIM ESPECÍFICO DE EXPORTAÇÃO E EVENTUAIS DEVOLUÇÕES');
+insert into nattemp values ('6501','Remessa de produção do estabelecimento, com fim específico de exportação');
+insert into nattemp values ('6502','Remessa de mercadoria adquirida ou recebida de terceiros, com fim específico de exportação');
+insert into nattemp values ('6503','Devolução de mercadoria recebida com fim específico de exportação');
+insert into nattemp values ('6550','OPERAÇÕES COM BENS DE ATIVO IMOBILIZADO E MATERIAIS PARA USO OU CONSUMO');
+insert into nattemp values ('6551','Venda de bem do ativo imobilizado');
+insert into nattemp values ('6552','Transferência de bem do ativo imobilizado');
+insert into nattemp values ('6553','Devolução de compra de bem para o ativo imobilizado');
+insert into nattemp values ('6554','Remessa de bem do ativo imobilizado para uso fora do estabelecimento');
+insert into nattemp values ('6555','Devolução de bem do ativo imobilizado de terceiro, recebido para uso no estabelecimento');
+insert into nattemp values ('6556','Devolução de compra de material de uso ou consumo');
+insert into nattemp values ('6557','Transferência de material de uso ou consumo');
+insert into nattemp values ('6600','CRÉDITOS E RESSARCIMENTOS DE ICMS');
+insert into nattemp values ('6603','Ressarcimento de ICMS retido por substituição tributária.');
+insert into nattemp values ('6650','SAoDAS DE COMBUSToVEIS, DERIVADOS OU NcO DE PETRàLEO E LUBRIFICANTES.');
+insert into nattemp values ('6651','Venda de combustivel ou lubrificante de producao do estabelecimento destinado a industrializacao subsequente.');
+insert into nattemp values ('6652','Venda de combustivel ou lubrificante de producao do estabelecimento destinado a comercializacao.');
+insert into nattemp values ('6653','Venda de combustivel ou lubrificante de producao do estabelecimento destinado a consumidor ou usuario final.');
+insert into nattemp values ('6654','Venda de combustivel ou lubrificante adquirido ou recebido de terceiros destinado a industrializacao subsequente.');
+insert into nattemp values ('6655','Venda de combustivel ou lubrificante adquirido ou recebido de terceiros destinado a comercializacao.');
+insert into nattemp values ('6656','Venda de combustivel ou lubrificante adquirido ou recebido de terceiros destinado a consumidor ou usuario final.');
+insert into nattemp values ('6657','Remessa de combustivel ou lubrificante adquirido ou recebido de terceiros para venda fora do estabelecimento.');
+insert into nattemp values ('6658','Transferencia de combustivel ou lubrificante de producao do estabelecimento');
+insert into nattemp values ('6659','Transferencia de combustivel ou lubrificante adquirido ou recebido de terceiro .');
+insert into nattemp values ('6660','Devolucao de compra de combustivel ou lubrificante adquirido para industrializacao subsequente.');
+insert into nattemp values ('6661','Devolucao de compra de combustivel ou lubrificante adquirido para comercializacao.');
+insert into nattemp values ('6662','Devolucao de compra de combustivel ou lubrificante adquirido por consumidor ou usuario final.');
+insert into nattemp values ('6663','Remessa para armazenagem de combustivel ou lubrificante.');
+insert into nattemp values ('6664','Retorno de combustivel ou lubrificante recebido para armazenagem.');
+insert into nattemp values ('6665','Retorno simb¢lico de combustivel ou lubrificante recebido para armazenagem .');
+insert into nattemp values ('6666','Remessa por conta e ordem de terceiros de combustivel ou lubrificante recebido para armazenagem');
+insert into nattemp values ('6900','OUTRAS SAÍDAS DE MERCADORIAS OU PRESTAÇÕES DE SERVIÇOS');
+insert into nattemp values ('6901','Remessa para industrialização por encomenda');
+insert into nattemp values ('6902','Retorno de mercadoria utilizada na industrialização por encomenda');
+insert into nattemp values ('6903','Retorno de mercadoria recebida para industrialização e não aplicada no referido processo');
+insert into nattemp values ('6904','Remessa para venda fora do estabelecimento');
+insert into nattemp values ('6905','Remessa para depósito fechado ou armazém geral');
+insert into nattemp values ('6906','Retorno de mercadoria depositada em depósito fechado ou armazém geral');
+insert into nattemp values ('6907','Retorno simbólico de mercadoria depositada em depósito fechado ou armazém geral');
+insert into nattemp values ('6908','Remessa de bem por conta de contrato de comodato');
+insert into nattemp values ('6909','Retorno de bem recebido por conta de contrato de comodato');
+insert into nattemp values ('6910','Remessa em bonificação, doação ou brinde');
+insert into nattemp values ('6911','Remessa de amostra grátis');
+insert into nattemp values ('6912','Remessa de mercadoria ou bem para demonstração');
+insert into nattemp values ('6913','Retorno de mercadoria ou bem recebido para demonstração');
+insert into nattemp values ('6914','Remessa de mercadoria ou bem para exposição ou feira');
+insert into nattemp values ('6915','Remessa de mercadoria ou bem para conserto ou reparo');
+insert into nattemp values ('6916','Retorno de mercadoria ou bem recebido para conserto ou reparo');
+insert into nattemp values ('6917','Remessa de mercadoria em consignação mercantil ou industrial');
+insert into nattemp values ('6918','Devolução de mercadoria recebida em consignação mercantil ou industrial');
+insert into nattemp values ('6919','Devolução simbólica de mercadoria vendida ou utilizada em processo industrial, recebida anteriormente em consignação mercantil ou industrial');
+insert into nattemp values ('6920','Remessa de vasilhame ou sacaria');
+insert into nattemp values ('6921','Devolução de vasilhame ou sacaria');
+insert into nattemp values ('6922','Lançamento efetuado a título de simples faturamento decorrente de venda para entrega futura');
+insert into nattemp values ('6923','Remessa de mercadoria por conta e ordem de terceiros, em venda à ordem');
+insert into nattemp values ('6924','Remessa para industrialização por conta e ordem do adquirente da mercadoria, quando esta não transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('6925','Retorno de mercadoria recebida para industrialização por conta e ordem do adquirente da mercadoria, quando aquela não transitar pelo estabelecimento do adquirente');
+insert into nattemp values ('6929','Lançamento efetuado em decorrência de emissão de documento fiscal relativo a operação ou prestação também registrada em equipamento Emissor de Cupom Fiscal,ECF');
+insert into nattemp values ('6931','Lançamento efetuado em decorrência da responsabilidade de retenção do imposto por substituição tributária, atribuída ao remetente ou alienante da mercadoria, pelo serviço de transporte realizado por transportador autônomo ou por transportador não ins');
+insert into nattemp values ('6932','Prestação de serviço de transporte iniciada em unidade da Federação diversa daquela onde inscrito o prestador');
+insert into nattemp values ('6949','Outra saída de mercadoria ou prestação de serviço não especificado');
+insert into nattemp values ('7000','SAÍDAS OU PRESTAÇÕES DE SERVIÇOS PARA O EXTERIOR');
+insert into nattemp values ('7100','VENDAS DE PRODUÇÃO PRÓPRIA OU DE TERCEIROS');
+insert into nattemp values ('7101','Venda de produção do estabelecimento');
+insert into nattemp values ('7102','Venda de mercadoria adquirida ou recebida de terceiros');
+insert into nattemp values ('7105','Venda de produção do estabelecimento, que não deva por ele transitar');
+insert into nattemp values ('7106','Venda de mercadoria adquirida ou recebida de terceiros, que não deva por ele transitar');
+insert into nattemp values ('7108','Venda de mercadoria adquirida ou recebida de terceiros, destinada a não contribuinte');
+insert into nattemp values ('7127','Venda de produção do estabelecimento sob o regime de "drawback"');
+insert into nattemp values ('7129','Venda de produção do estabelecimento ao mercado externo de mercadoria industrializada sob o amparo do Regime Aduaneiro Especial de Entreposto Industrial sob Controle Informatizado do Sistema Público de Escrituração Digital (Recof-Sped)');
+insert into nattemp values ('7200','DEVOLUÇÕES DE COMPRAS PARA INDUSTRIALIZAÇÃO, COMERCIALIZAÇÃO OU ANULAÇÕES DE VALORES');
+insert into nattemp values ('7201','Devolução de compra para industrialização');
+insert into nattemp values ('7202','Devolução de compra para comercialização');
+insert into nattemp values ('7205','Anulação de valor relativo à aquisição de serviço de comunicação');
+insert into nattemp values ('7206','Anulação de valor relativo a aquisição de serviço de transporte');
+insert into nattemp values ('7207','Anulação de valor relativo à compra de energia elétrica');
+insert into nattemp values ('7210','Devolução de compra para utilização na prestação de serviço');
+insert into nattemp values ('7211','Devolução de compras para industrialização sob o regime de drawback"');
+insert into nattemp values ('7212',' Devolução de compras para industrialização sob o regime de Regime Aduaneiro Especial de Entreposto Industrial sob Controle Informatizado do Sistema Público de Escrituração Digital (Recof-Sped)');
+insert into nattemp values ('7250','VENDAS DE ENERGIA ELÉTRICA');
+insert into nattemp values ('7251','Venda de energia elétrica para o exterior');
+insert into nattemp values ('7300','PRESTAÇÕES DE SERVIÇOS DE COMUNICAÇÃO');
+insert into nattemp values ('7301','Prestação de serviço de comunicação para execução de serviço da mesma natureza');
+insert into nattemp values ('7350','PRESTAÇÕES DE SERVIÇO DE TRANSPORTE');
+insert into nattemp values ('7358','Prestação de serviço de transporte');
+insert into nattemp values ('7500','EXPORTAÇÃO DE MERCADORIAS RECEBIDAS COM FIM ESPECÍFICO DE EXPORTAÇÃO');
+insert into nattemp values ('7501','Exportação de mercadorias recebidas com fim específico de exportação');
+insert into nattemp values ('7550','OPERAÇÕES COM BENS DE ATIVO IMOBILIZADO E MATERIAIS PARA USO OU CONSUMO');
+insert into nattemp values ('7551','Venda de bem do ativo imobilizado');
+insert into nattemp values ('7553','Devolução de compra de bem para o ativo imobilizado');
+insert into nattemp values ('7556','Devolução de compra de material de uso ou consumo');
+insert into nattemp values ('7900','OUTRAS SAÍDAS DE MERCADORIAS OU PRESTAÇÕES DE SERVIÇOS');
+insert into nattemp values ('7930','Lançamento efetuado a título de devolução de bem cuja entrada tenha ocorrido sob amparo de regime especial aduaneiro de admissão temporária');
+insert into nattemp values ('7949','Outra saída de mercadoria ou prestação de serviço não especificado');
+
+
+

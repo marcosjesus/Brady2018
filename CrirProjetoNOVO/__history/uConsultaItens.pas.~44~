@@ -1,0 +1,811 @@
+unit uConsultaItens;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics,
+  Controls, Forms, Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, dxSkinsCore, dxSkinBlack, dxSkinBlue,
+   dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide,
+    dxSkinFoggy,
+  dxSkinGlassOceans,  dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin,
+   dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver,  dxSkinPumpkin, dxSkinSeven,
+  dxSkinSharp,  dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008,  dxSkinsDefaultPainters,
+  dxSkinValentine,   dxSkinXmas2008Blue,
+  dxSkinscxPCPainter, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit,
+  cxNavigator, DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,
+  ComCtrls, StdCtrls, ExtCtrls, Menus, cxButtons, ShellApi,
+  cxGridExportLink, Clipbrd,       FMTBcd, SqlExpr, Provider, DBClient, Mask,
+  rsEdit, cxGridCustomPopupMenu, cxGridPopupMenu, dxSkinsdxStatusBarPainter,
+  cxContainer, cxGroupBox, dxStatusBar, RseditDB, cxPC, cxTextEdit, cxMaskEdit,
+  cxDropDownEdit, cxCalendar ;
+
+
+Type
+   TTipoCFOP  = record
+      CFOP          : String;
+      TIPO          : String;
+      DESCRICAO     : String;
+      LANCPROD      : String;
+      LANCDIFERALIQ : String;
+      LANCDIFAL     : String;
+      procedure Inicializar;
+   end;
+
+type
+  TfrmConsultaItens = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    StatusBar1: TStatusBar;
+    EditDocumento: TLabeledEdit;
+    Page: TPageControl;
+    TabNFES: TTabSheet;
+    TabNFEE: TTabSheet;
+    GroupBox1: TGroupBox;
+    DataIni: TDateTimePicker;
+    DataFim: TDateTimePicker;
+    Label1: TLabel;
+    Label2: TLabel;
+    dsConsultaNFES: TDataSource;
+    SaveDialog: TSaveDialog;
+    Panel3: TPanel;
+    ButPesquisar: TcxButton;
+    cxButton3: TcxButton;
+    btnLimpar: TcxButton;
+    ButSair: TcxButton;
+    cxButton1: TcxButton;
+    pnlDica: TPanel;
+    Memo1: TMemo;
+    Panel4: TPanel;
+    sqlConsultaNFES: TSQLQuery;
+    cdsConsultaNFES: TClientDataSet;
+    dspConsultaNFES: TDataSetProvider;
+    EditCNPJ: TrsSuperEdit;
+    Label3: TLabel;
+    sqlConsultaNFEE: TSQLQuery;
+    cdsConsultaNFEE: TClientDataSet;
+    dsConsultaNFEE: TDataSource;
+    dspConsultaNFEE: TDataSetProvider;
+    sqlConsultaNFESNumNF: TStringField;
+    sqlConsultaNFESCodFilial: TStringField;
+    sqlConsultaNFESNome: TStringField;
+    sqlConsultaNFESCNPJ: TStringField;
+    sqlConsultaNFESdhEmi: TSQLTimeStampField;
+    sqlConsultaNFESValorTotal: TFMTBCDField;
+    sqlConsultaNFESCodProduto: TStringField;
+    sqlConsultaNFESDescProduto: TStringField;
+    sqlConsultaNFESCodCest: TStringField;
+    sqlConsultaNFESI_CFOP: TStringField;
+    sqlConsultaNFESValorUnitario: TFMTBCDField;
+    sqlConsultaNFESQtde: TFMTBCDField;
+    sqlConsultaNFESUnidadeItem: TStringField;
+    sqlConsultaNFESValorDesconto: TFMTBCDField;
+    sqlConsultaNFESValorFrete: TFMTBCDField;
+    sqlConsultaNFESVlrOutrasDespesas: TFMTBCDField;
+    sqlConsultaNFESBaseICMS: TFMTBCDField;
+    sqlConsultaNFESPorcICMS: TFMTBCDField;
+    sqlConsultaNFESValorICMS: TFMTBCDField;
+    sqlConsultaNFESBaseICMSST: TFMTBCDField;
+    sqlConsultaNFESValorICMS_ST: TFMTBCDField;
+    sqlConsultaNFESNF_TipoIPI: TStringField;
+    sqlConsultaNFESBaseIPI: TFMTBCDField;
+    sqlConsultaNFESPorcIPI: TFMTBCDField;
+    sqlConsultaNFESValorIPI: TFMTBCDField;
+    sqlConsultaNFESNF_TipoPIS: TStringField;
+    sqlConsultaNFESBasePIS: TFMTBCDField;
+    sqlConsultaNFESPorcPIS: TFMTBCDField;
+    sqlConsultaNFESValorPIS: TFMTBCDField;
+    sqlConsultaNFESNF_TipoCofins: TStringField;
+    sqlConsultaNFESBaseCOFINS: TFMTBCDField;
+    sqlConsultaNFESPorcCOFINS: TFMTBCDField;
+    sqlConsultaNFESValorCofins: TFMTBCDField;
+    cdsConsultaNFESNumNF: TStringField;
+    cdsConsultaNFESCodFilial: TStringField;
+    cdsConsultaNFESNome: TStringField;
+    cdsConsultaNFESCNPJ: TStringField;
+    cdsConsultaNFESdhEmi: TSQLTimeStampField;
+    cdsConsultaNFESValorTotal: TFMTBCDField;
+    cdsConsultaNFESCodProduto: TStringField;
+    cdsConsultaNFESDescProduto: TStringField;
+    cdsConsultaNFESCodCest: TStringField;
+    cdsConsultaNFESI_CFOP: TStringField;
+    cdsConsultaNFESValorUnitario: TFMTBCDField;
+    cdsConsultaNFESQtde: TFMTBCDField;
+    cdsConsultaNFESUnidadeItem: TStringField;
+    cdsConsultaNFESValorDesconto: TFMTBCDField;
+    cdsConsultaNFESValorFrete: TFMTBCDField;
+    cdsConsultaNFESVlrOutrasDespesas: TFMTBCDField;
+    cdsConsultaNFESBaseICMS: TFMTBCDField;
+    cdsConsultaNFESPorcICMS: TFMTBCDField;
+    cdsConsultaNFESValorICMS: TFMTBCDField;
+    cdsConsultaNFESBaseICMSST: TFMTBCDField;
+    cdsConsultaNFESValorICMS_ST: TFMTBCDField;
+    cdsConsultaNFESNF_TipoIPI: TStringField;
+    cdsConsultaNFESBaseIPI: TFMTBCDField;
+    cdsConsultaNFESPorcIPI: TFMTBCDField;
+    cdsConsultaNFESValorIPI: TFMTBCDField;
+    cdsConsultaNFESNF_TipoPIS: TStringField;
+    cdsConsultaNFESBasePIS: TFMTBCDField;
+    cdsConsultaNFESPorcPIS: TFMTBCDField;
+    cdsConsultaNFESValorPIS: TFMTBCDField;
+    cdsConsultaNFESNF_TipoCofins: TStringField;
+    cdsConsultaNFESBaseCOFINS: TFMTBCDField;
+    cdsConsultaNFESPorcCOFINS: TFMTBCDField;
+    cdsConsultaNFESValorCofins: TFMTBCDField;
+    sqlConsultaNFEENumNF: TStringField;
+    sqlConsultaNFEECodFilial: TStringField;
+    sqlConsultaNFEENome: TStringField;
+    sqlConsultaNFEECNPJ: TStringField;
+    sqlConsultaNFEEdhEmi: TSQLTimeStampField;
+    sqlConsultaNFEEValorTotal: TFMTBCDField;
+    sqlConsultaNFEECodProduto: TStringField;
+    sqlConsultaNFEEDescProduto: TStringField;
+    sqlConsultaNFEECodCest: TStringField;
+    sqlConsultaNFEEI_CFOP: TStringField;
+    sqlConsultaNFEEValorUnitario: TFMTBCDField;
+    sqlConsultaNFEEQtde: TFMTBCDField;
+    sqlConsultaNFEEUnidadeItem: TStringField;
+    sqlConsultaNFEEValorDesconto: TFMTBCDField;
+    sqlConsultaNFEEValorFrete: TFMTBCDField;
+    sqlConsultaNFEEVlrOutrasDespesas: TFMTBCDField;
+    sqlConsultaNFEEBaseICMS: TFMTBCDField;
+    sqlConsultaNFEEPorcICMS: TFMTBCDField;
+    sqlConsultaNFEEValorICMS: TFMTBCDField;
+    sqlConsultaNFEEBaseICMSST: TFMTBCDField;
+    sqlConsultaNFEEValorICMS_ST: TFMTBCDField;
+    sqlConsultaNFEENF_TipoIPI: TStringField;
+    sqlConsultaNFEEBaseIPI: TFMTBCDField;
+    sqlConsultaNFEEPorcIPI: TFMTBCDField;
+    sqlConsultaNFEEValorIPI: TFMTBCDField;
+    sqlConsultaNFEENF_TipoPIS: TStringField;
+    sqlConsultaNFEEBasePIS: TFMTBCDField;
+    sqlConsultaNFEEPorcPIS: TFMTBCDField;
+    sqlConsultaNFEEValorPIS: TFMTBCDField;
+    sqlConsultaNFEENF_TipoCofins: TStringField;
+    sqlConsultaNFEEBaseCOFINS: TFMTBCDField;
+    sqlConsultaNFEEPorcCOFINS: TFMTBCDField;
+    sqlConsultaNFEEValorCofins: TFMTBCDField;
+    cdsConsultaNFEENumNF: TStringField;
+    cdsConsultaNFEECodFilial: TStringField;
+    cdsConsultaNFEENome: TStringField;
+    cdsConsultaNFEECNPJ: TStringField;
+    cdsConsultaNFEEdhEmi: TSQLTimeStampField;
+    cdsConsultaNFEEValorTotal: TFMTBCDField;
+    cdsConsultaNFEECodProduto: TStringField;
+    cdsConsultaNFEEDescProduto: TStringField;
+    cdsConsultaNFEECodCest: TStringField;
+    cdsConsultaNFEEI_CFOP: TStringField;
+    cdsConsultaNFEEValorUnitario: TFMTBCDField;
+    cdsConsultaNFEEQtde: TFMTBCDField;
+    cdsConsultaNFEEUnidadeItem: TStringField;
+    cdsConsultaNFEEValorDesconto: TFMTBCDField;
+    cdsConsultaNFEEValorFrete: TFMTBCDField;
+    cdsConsultaNFEEVlrOutrasDespesas: TFMTBCDField;
+    cdsConsultaNFEEBaseICMS: TFMTBCDField;
+    cdsConsultaNFEEPorcICMS: TFMTBCDField;
+    cdsConsultaNFEEValorICMS: TFMTBCDField;
+    cdsConsultaNFEEBaseICMSST: TFMTBCDField;
+    cdsConsultaNFEEValorICMS_ST: TFMTBCDField;
+    cdsConsultaNFEENF_TipoIPI: TStringField;
+    cdsConsultaNFEEBaseIPI: TFMTBCDField;
+    cdsConsultaNFEEPorcIPI: TFMTBCDField;
+    cdsConsultaNFEEValorIPI: TFMTBCDField;
+    cdsConsultaNFEENF_TipoPIS: TStringField;
+    cdsConsultaNFEEBasePIS: TFMTBCDField;
+    cdsConsultaNFEEPorcPIS: TFMTBCDField;
+    cdsConsultaNFEEValorPIS: TFMTBCDField;
+    cdsConsultaNFEENF_TipoCofins: TStringField;
+    cdsConsultaNFEEBaseCOFINS: TFMTBCDField;
+    cdsConsultaNFEEPorcCOFINS: TFMTBCDField;
+    cdsConsultaNFEEValorCofins: TFMTBCDField;
+    cxGridPopupMenu1: TcxGridPopupMenu;
+    cxGrid1: TcxGrid;
+    cxGridDBTableView3: TcxGridDBTableView;
+    cxGridDBTableView4: TcxGridDBTableView;
+    cxGridDBColumn51: TcxGridDBColumn;
+    cxGridDBColumn52: TcxGridDBColumn;
+    cxGridDBColumn53: TcxGridDBColumn;
+    cxGridDBColumn54: TcxGridDBColumn;
+    cxGridDBColumn55: TcxGridDBColumn;
+    cxGridDBColumn56: TcxGridDBColumn;
+    cxGridDBColumn57: TcxGridDBColumn;
+    cxGridDBColumn58: TcxGridDBColumn;
+    cxGridDBColumn59: TcxGridDBColumn;
+    cxGridDBColumn60: TcxGridDBColumn;
+    cxGridDBColumn61: TcxGridDBColumn;
+    cxGridDBColumn62: TcxGridDBColumn;
+    cxGridDBColumn63: TcxGridDBColumn;
+    cxGridDBColumn64: TcxGridDBColumn;
+    cxGridDBColumn65: TcxGridDBColumn;
+    cxGridDBColumn66: TcxGridDBColumn;
+    cxGridDBColumn67: TcxGridDBColumn;
+    cxGridDBColumn68: TcxGridDBColumn;
+    cxGridDBColumn69: TcxGridDBColumn;
+    cxGridDBColumn70: TcxGridDBColumn;
+    cxGridDBColumn71: TcxGridDBColumn;
+    cxGridDBColumn72: TcxGridDBColumn;
+    cxGridLevel3: TcxGridLevel;
+    cxGridDBTableView3NumNF: TcxGridDBColumn;
+    cxGridDBTableView3CodFilial: TcxGridDBColumn;
+    cxGridDBTableView3Nome: TcxGridDBColumn;
+    cxGridDBTableView3CNPJ: TcxGridDBColumn;
+    cxGridDBTableView3ValorTotal: TcxGridDBColumn;
+    cxGridDBTableView3CodProduto: TcxGridDBColumn;
+    cxGridDBTableView3DescProduto: TcxGridDBColumn;
+    cxGridDBTableView3CodCest: TcxGridDBColumn;
+    cxGridDBTableView3I_CFOP: TcxGridDBColumn;
+    cxGridDBTableView3ValorUnitario: TcxGridDBColumn;
+    cxGridDBTableView3Qtde: TcxGridDBColumn;
+    cxGridDBTableView3UnidadeItem: TcxGridDBColumn;
+    cxGridDBTableView3ValorDesconto: TcxGridDBColumn;
+    cxGridDBTableView3ValorFrete: TcxGridDBColumn;
+    cxGridDBTableView3VlrOutrasDespesas: TcxGridDBColumn;
+    cxGridDBTableView3BaseICMS: TcxGridDBColumn;
+    cxGridDBTableView3PorcICMS: TcxGridDBColumn;
+    cxGridDBTableView3ValorICMS: TcxGridDBColumn;
+    cxGridDBTableView3BaseICMSST: TcxGridDBColumn;
+    cxGridDBTableView3ValorICMS_ST: TcxGridDBColumn;
+    cxGridDBTableView3NF_TipoIPI: TcxGridDBColumn;
+    cxGridDBTableView3BaseIPI: TcxGridDBColumn;
+    cxGridDBTableView3PorcIPI: TcxGridDBColumn;
+    cxGridDBTableView3ValorIPI: TcxGridDBColumn;
+    cxGridDBTableView3NF_TipoPIS: TcxGridDBColumn;
+    cxGridDBTableView3BasePIS: TcxGridDBColumn;
+    cxGridDBTableView3PorcPIS: TcxGridDBColumn;
+    cxGridDBTableView3ValorPIS: TcxGridDBColumn;
+    cxGridDBTableView3NF_TipoCofins: TcxGridDBColumn;
+    cxGridDBTableView3BaseCOFINS: TcxGridDBColumn;
+    cxGridDBTableView3PorcCOFINS: TcxGridDBColumn;
+    cxGridDBTableView3ValorCofins: TcxGridDBColumn;
+    cxGridDBTableView3dhEmi: TcxGridDBColumn;
+    PageItem: TcxPageControl;
+    tbsGrade: TcxTabSheet;
+    tbsEdit: TcxTabSheet;
+    cxGrid2: TcxGrid;
+    cxGridDBTableView1: TcxGridDBTableView;
+    cxGridDBTableView1NumNF: TcxGridDBColumn;
+    cxGridDBTableView1CodFilial: TcxGridDBColumn;
+    cxGridDBTableView1Nome: TcxGridDBColumn;
+    cxGridDBTableView1CNPJ: TcxGridDBColumn;
+    cxGridDBTableView1dhEmi: TcxGridDBColumn;
+    cxGridDBTableView1ValorTotal: TcxGridDBColumn;
+    cxGridDBTableView1CodProduto: TcxGridDBColumn;
+    cxGridDBTableView1DescProduto: TcxGridDBColumn;
+    cxGridDBTableView1CodCest: TcxGridDBColumn;
+    cxGridDBTableView1I_CFOP: TcxGridDBColumn;
+    cxGridDBTableView1ValorUnitario: TcxGridDBColumn;
+    cxGridDBTableView1Qtde: TcxGridDBColumn;
+    cxGridDBTableView1UnidadeItem: TcxGridDBColumn;
+    cxGridDBTableView1ValorDesconto: TcxGridDBColumn;
+    cxGridDBTableView1ValorFrete: TcxGridDBColumn;
+    cxGridDBTableView1VlrOutrasDespesas: TcxGridDBColumn;
+    cxGridDBTableView1BaseICMS: TcxGridDBColumn;
+    cxGridDBTableView1PorcICMS: TcxGridDBColumn;
+    cxGridDBTableView1ValorICMS: TcxGridDBColumn;
+    cxGridDBTableView1BaseICMSST: TcxGridDBColumn;
+    cxGridDBTableView1ValorICMS_ST: TcxGridDBColumn;
+    cxGridDBTableView1NF_TipoIPI: TcxGridDBColumn;
+    cxGridDBTableView1BaseIPI: TcxGridDBColumn;
+    cxGridDBTableView1PorcIPI: TcxGridDBColumn;
+    cxGridDBTableView1ValorIPI: TcxGridDBColumn;
+    cxGridDBTableView1NF_TipoPIS: TcxGridDBColumn;
+    cxGridDBTableView1BasePIS: TcxGridDBColumn;
+    cxGridDBTableView1PorcPIS: TcxGridDBColumn;
+    cxGridDBTableView1ValorPIS: TcxGridDBColumn;
+    cxGridDBTableView1NF_TipoCofins: TcxGridDBColumn;
+    cxGridDBTableView1BaseCOFINS: TcxGridDBColumn;
+    cxGridDBTableView1PorcCOFINS: TcxGridDBColumn;
+    cxGridDBTableView1ValorCofins: TcxGridDBColumn;
+    cxGridDBTableView2: TcxGridDBTableView;
+    cxGridDBColumn15: TcxGridDBColumn;
+    cxGridDBColumn16: TcxGridDBColumn;
+    cxGridDBColumn17: TcxGridDBColumn;
+    cxGridDBColumn18: TcxGridDBColumn;
+    cxGridDBColumn19: TcxGridDBColumn;
+    cxGridDBColumn20: TcxGridDBColumn;
+    cxGridDBColumn21: TcxGridDBColumn;
+    cxGridDBColumn22: TcxGridDBColumn;
+    cxGridDBColumn23: TcxGridDBColumn;
+    cxGridDBColumn24: TcxGridDBColumn;
+    cxGridDBColumn25: TcxGridDBColumn;
+    cxGridDBColumn26: TcxGridDBColumn;
+    cxGridDBColumn27: TcxGridDBColumn;
+    cxGridDBColumn28: TcxGridDBColumn;
+    cxGridDBColumn29: TcxGridDBColumn;
+    cxGridDBColumn30: TcxGridDBColumn;
+    cxGridDBColumn31: TcxGridDBColumn;
+    cxGridDBColumn32: TcxGridDBColumn;
+    cxGridDBColumn33: TcxGridDBColumn;
+    cxGridDBColumn34: TcxGridDBColumn;
+    cxGridDBColumn35: TcxGridDBColumn;
+    cxGridDBColumn36: TcxGridDBColumn;
+    cxGridLevel1: TcxGridLevel;
+    PanFundo: TPanel;
+    PanTitulo: TPanel;
+    ImaBarraSup: TImage;
+    LabCadTit: TLabel;
+    EdiDatabaseName: TEdit;
+    EdiKeyValue: TrsDBSuperEdit;
+    StatusBar: TdxStatusBar;
+    Panel27: TPanel;
+    cxButton4: TcxButton;
+    ButSalvar: TcxButton;
+    Panel13: TPanel;
+    Edit2: TEdit;
+    ediNCM_Det: TrsSuperEdit;
+    editCodProduto: TrsSuperEdit;
+    EditDesc_Produto: TrsSuperEdit;
+    Panel26: TPanel;
+    ediQtde_Det: TrsSuperEdit;
+    ediTotal_Det: TrsSuperEdit;
+    ediValor_Det: TrsSuperEdit;
+    Panel28: TPanel;
+    rsSuperEdit15: TrsSuperEdit;
+    ediPorcICMS_Det: TrsSuperEdit;
+    editcsticms_det: TrsSuperEdit;
+    edivaloricms_det: TrsSuperEdit;
+    EditvwBaseICMS: TrsSuperEdit;
+    Panel18: TPanel;
+    rsSuperEdit4: TrsSuperEdit;
+    ediPorcProvPartICMS: TrsSuperEdit;
+    edifcp: TrsSuperEdit;
+    ediVlrICMSRemtente: TrsSuperEdit;
+    ediVlrICMSDestinatario: TrsSuperEdit;
+    Panel31: TPanel;
+    rsSuperEdit6: TrsSuperEdit;
+    ediPorcIPI_Det: TrsSuperEdit;
+    edicstipi_Det: TrsSuperEdit;
+    edivaloripi_det: TrsSuperEdit;
+    PorcIVAAjus_Det: TrsSuperEdit;
+    EditvwBaseIPI: TrsSuperEdit;
+    Panel33: TPanel;
+    rsSuperEdit7: TrsSuperEdit;
+    ediPorcPIS_Det: TrsSuperEdit;
+    edicstpis_det: TrsSuperEdit;
+    edivalorpis_det: TrsSuperEdit;
+    EditvwBasePIS: TrsSuperEdit;
+    Panel34: TPanel;
+    rsSuperEdit9: TrsSuperEdit;
+    ediPorcCofins_Det: TrsSuperEdit;
+    edicstcofins_det: TrsSuperEdit;
+    edivalorcofins_det: TrsSuperEdit;
+    EditvwBaseCOFINS: TrsSuperEdit;
+    Panel35: TPanel;
+    rsSuperEdit10: TrsSuperEdit;
+    PorcIcmsST_Det: TrsSuperEdit;
+    ediValorICMSST_Det: TrsSuperEdit;
+    PorcIVA_Det: TrsSuperEdit;
+    EditvwBaseICMSST: TrsSuperEdit;
+    Panel5: TPanel;
+    cxGroupBox1: TcxGroupBox;
+    editNumNF: TrsSuperEdit;
+    editFornecedor: TrsSuperEdit;
+    TimerPerfil: TTimer;
+    DataEntrega_Det: TcxDateEdit;
+    sqlConsultaNFEETipoNF: TStringField;
+    sqlConsultaNFEENCM: TStringField;
+    sqlConsultaNFEEPorcProvICMSPartilha: TFMTBCDField;
+    sqlConsultaNFEEVlrFCP: TFMTBCDField;
+    sqlConsultaNFEEVlrICMSUFRemetente: TFMTBCDField;
+    sqlConsultaNFEEVlrICMSUFDestino: TFMTBCDField;
+    sqlConsultaNFEENF_TipoICMS: TStringField;
+    sqlConsultaNFEEICMS_Inter: TFMTBCDField;
+    sqlConsultaNFEENF_IVA_ST: TFMTBCDField;
+    sqlConsultaNFEEVlrSeguro: TFMTBCDField;
+    cdsConsultaNFEETipoNF: TStringField;
+    cdsConsultaNFEENCM: TStringField;
+    cdsConsultaNFEEPorcProvICMSPartilha: TFMTBCDField;
+    cdsConsultaNFEEVlrFCP: TFMTBCDField;
+    cdsConsultaNFEEVlrICMSUFRemetente: TFMTBCDField;
+    cdsConsultaNFEEVlrICMSUFDestino: TFMTBCDField;
+    cdsConsultaNFEENF_TipoICMS: TStringField;
+    cdsConsultaNFEEICMS_Inter: TFMTBCDField;
+    cdsConsultaNFEENF_IVA_ST: TFMTBCDField;
+    cdsConsultaNFEEVlrSeguro: TFMTBCDField;
+    sqlConsultaNFEEIVA_Original: TFMTBCDField;
+    cdsConsultaNFEEIVA_Original: TFMTBCDField;
+    Panel6: TPanel;
+    ediValorFrete_Det: TrsSuperEdit;
+    ediValorSeguro_Det: TrsSuperEdit;
+    ediValorOutrasDespesas_Det: TrsSuperEdit;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    ediCFOP_Det: TrsSuperEdit;
+    editDescCFOP: TEdit;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ButPesquisarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure cxGrid2DBTableView1DblClick(Sender: TObject);
+    procedure cxGrid1DBTableView1DblClick(Sender: TObject);
+    procedure cxButton3Click(Sender: TObject);
+    procedure btnLimparClick(Sender: TObject);
+    procedure ButSairClick(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure cxGridDBTableView1CellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure cxButton4Click(Sender: TObject);
+    procedure CarregaCFOP(pCFOP : String);
+    procedure ediCFOP_DetExit(Sender: TObject);
+  private
+    { Private declarations }
+    TipoCFOP : TTipoCFOP;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmConsultaItens: TfrmConsultaItens;
+
+implementation
+
+{$R *.dfm}
+
+uses DBConect, MensFun;
+
+procedure TfrmConsultaItens.btnLimparClick(Sender: TObject);
+begin
+  Page.ActivePage := TabNFES;
+  editCNPJ.Text := '';
+  EditDocumento.Text := '';
+  DataIni.Date := Now-7;
+  DataFim.Date := Now;
+  sqlConsultaNFEE.Close;
+  cdsConsultaNFES.Close;
+end;
+
+procedure TfrmConsultaItens.ButPesquisarClick(Sender: TObject);
+Var
+ Filtro : String;
+begin
+
+  if ((editCNPJ.Text = '') and (EditDocumento.Text = '' )) then
+    Filtro := ' and dhEmi between :DataINI and :DataFIM'
+  else
+  begin
+
+     if editCNPJ.Text <> '' then
+     begin
+         Filtro := Filtro + ' and CNPJ = :CNPJ ';
+     end;
+
+     if ((EditDocumento.Text <> '') and   (editCNPJ.Text = '')) then
+     begin
+        Filtro := Filtro + ' and NumNF = :NumNF ';
+     end
+     else  if ((editCNPJ.Text <> '') and (EditDocumento.Text <> '')) then
+     begin
+        Filtro := Filtro + ' And NumNF = :NumNF ';
+     end;
+
+  end;
+
+  Screen.Cursor := crHourGlass;
+
+
+  if Page.ActivePage = TabNFES then
+  begin
+    cdsConsultaNFES.Close;
+    sqlConsultaNFES.Close;
+    sqlConsultaNFES.SQL.Clear;
+    sqlConsultaNFES.SQL.Add('Select * From VW_NFEITENS Where TipoNF = ''S'' ');
+    sqlConsultaNFES.SQL.Add(Filtro);
+
+    if ((editCNPJ.Text = '') and (EditDocumento.Text = '' )) then
+    begin
+      sqlConsultaNFES.Params.ParamByName('DataINI').AsDateTime :=  DataIni.DateTime;
+      sqlConsultaNFES.Params.ParamByName('DataFIM').AsDateTime :=  DataFim.DateTime;
+    end
+    else
+    begin
+
+       if editCNPJ.Text <> '' then
+       begin
+         sqlConsultaNFES.Params.ParamByName('CNPJ').AsString :=  editCNPJ.Text;
+       end;
+
+       if ((EditDocumento.Text <> '') and   (editCNPJ.Text = '')) then
+       begin
+          sqlConsultaNFES.Params.ParamByName('NumNF').AsString :=  EditDocumento.Text;
+       end
+       else if ((editCNPJ.Text <> '') and (EditDocumento.Text <> '')) then
+       begin
+         sqlConsultaNFES.Params.ParamByName('NumNF').AsString :=  EditDocumento.Text;
+       end;
+
+    end;
+
+    cdsConsultaNFES.Open;
+
+
+    if cdsConsultaNFES.IsEmpty then
+      Application.MessageBox('Dados de NF-e não encontrados.', 'Consultar - NF-e', mb_iconinformation +  MB_OK);
+
+
+  end
+  else if Page.ActivePage = TabNFEE then
+        begin
+            cdsConsultaNFEE.Close;
+            sqlConsultaNFEE.Close;
+            sqlConsultaNFEE.SQL.Clear;
+            sqlConsultaNFEE.SQL.Add('Select * From VW_NFEITENS Where TipoNF = ''E''  ');
+            sqlConsultaNFEE.SQL.Add(Filtro);
+
+            if ((editCNPJ.Text = '') and (EditDocumento.Text = '' )) then
+            begin
+              sqlConsultaNFEE.Params.ParamByName('DataINI').AsDateTime :=  DataIni.DateTime;
+              sqlConsultaNFEE.Params.ParamByName('DataFIM').AsDateTime :=  DataFim.DateTime;
+            end
+            else
+            begin
+
+               if editCNPJ.Text <> '' then
+               begin
+                 sqlConsultaNFEE.Params.ParamByName('CNPJ').AsString :=  editCNPJ.Text;
+               end;
+
+               if ((EditDocumento.Text <> '') and   (editCNPJ.Text = '')) then
+               begin
+                  sqlConsultaNFEE.Params.ParamByName('NumNF').AsString :=  EditDocumento.Text;
+               end
+               else if ((editCNPJ.Text <> '') and (EditDocumento.Text <> '')) then
+               begin
+                 sqlConsultaNFEE.Params.ParamByName('NumNF').AsString :=  EditDocumento.Text;
+               end;
+
+            end;
+
+            cdsConsultaNFEE.Open;
+
+
+            if cdsConsultaNFEE.IsEmpty then
+              Application.MessageBox('Dados de NF-e não encontrados.', 'Consultar - NF-e', mb_iconinformation +  MB_OK);
+
+
+       end;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfrmConsultaItens.ButSairClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmConsultaItens.CarregaCFOP(pCFOP: String);
+var
+ sqlCFOP : TSQLQuery;
+begin
+   sqlCFOP := TSQLQuery.Create(Nil);
+   Try
+      sqlCFOP.SQLConnection := DB_Conect.SQLConnection;
+      sqlCFOP.Close;
+      sqlCFOP.SQL.Clear;
+      sqlCFOP.SQL.Add('Select ');
+      sqlCFOP.SQL.Add('CFOP, ');
+      sqlCFOP.SQL.Add('TIPO, ');
+      sqlCFOP.SQL.Add('DESCRICAO, ');
+      sqlCFOP.SQL.Add('LANCPROD, ');
+      sqlCFOP.SQL.Add('LANCDIFERALIQ,  ');
+      sqlCFOP.SQL.Add('LANCDIFAL ');
+      sqlCFOP.SQL.Add('From CTE_CFOP  ');
+      sqlCFOP.SQL.Add('Where CFOP = :CFOP ');
+      sqlCFOP.ParamByName('CFOP').AsString := pCFOP;
+      sqlCFOP.Open;
+      if not sqlCFOP.IsEmpty then
+      begin
+          TipoCFOP.Inicializar;
+          TipoCFOP.CFOP          := sqlCFOP.FieldByName('CFOP').AsString;
+          TipoCFOP.TIPO          := sqlCFOP.FieldByName('TIPO').AsString;
+          TipoCFOP.DESCRICAO     := sqlCFOP.FieldByName('DESCRICAO').AsString;
+          TipoCFOP.LANCPROD      := sqlCFOP.FieldByName('LANCPROD').AsString;
+          TipoCFOP.LANCDIFERALIQ := sqlCFOP.FieldByName('LANCDIFERALIQ').AsString;
+          TipoCFOP.LANCDIFAL     := sqlCFOP.FieldByName('LANCDIFAL').AsString;
+          editDescCFOP.Text      := TipoCFOP.DESCRICAO;
+      end
+      else
+        Mens_MensInf('CFOP não encontrado.');
+   Finally
+     FreeAndNil(sqlCFOP);
+   End;
+end;
+
+procedure TfrmConsultaItens.cxButton1Click(Sender: TObject);
+begin
+   pnlDica.Visible := not pnlDica.Visible;
+end;
+
+procedure TfrmConsultaItens.cxButton3Click(Sender: TObject);
+begin
+
+  SaveDialog.InitialDir := GetCurrentDir;
+  if Page.ActivePage = TabNFES Then
+  begin
+    if cdsConsultaNFES.IsEmpty then
+    begin
+        Application.MessageBox('Não há dados de NF-e para serem exportados.', 'Exportar para Excel - NFe', mb_iconinformation +  MB_OK);
+        Exit;
+    end;
+
+    if SaveDialog.Execute then
+       ExportGridToExcel(SaveDialog.FileName, cxGrid1, True, True);
+  end
+  else
+  begin
+
+    if cdsConsultaNFEE.IsEmpty then
+    begin
+        Application.MessageBox('Não há dados de NF-e para serem exportados.', 'Exportar para Excel - NFe', mb_iconinformation +  MB_OK);
+        Exit;
+    end;
+
+    if SaveDialog.Execute then
+       ExportGridToExcel(SaveDialog.FileName, cxGrid2, True, True);
+  end;
+end;
+
+procedure TfrmConsultaItens.cxButton4Click(Sender: TObject);
+begin
+   PageItem.ActivePage := tbsGrade;
+end;
+
+procedure TfrmConsultaItens.cxGrid1DBTableView1DblClick(Sender: TObject);
+Var
+ sURL : String;
+ sChave : String;
+begin
+  {//sURL := 'http://www.nfe.fazenda.gov.br/portal/consulta.aspx?tipoConsulta=completa&tipoConteudo=XbSeqxE8pl8=&nfe=' + sqlConsultaNFECHAVE.AsString;
+  sChave := '';
+  if Clipboard.HasFormat(CF_TEXT) then
+    sChave := Clipboard.AsText;
+
+  if Length(sChave) <> 44 then
+     MessageDlg('Tamanho da Chave NF-e Incompativel', mtInformation, [mbOK], 0)
+  else
+  begin
+    sURL := 'https://www.danfeonline.com.br/';
+    ShellExecute(Handle,'open',pChar(sURL),nil,nil,SW_SHOW)
+  end
+   }
+end;
+
+procedure TfrmConsultaItens.cxGrid2DBTableView1DblClick(Sender: TObject);
+Var
+ sURL : String;
+ sChave : String;
+begin
+  {
+  sChave := '';
+  if Clipboard.HasFormat(CF_TEXT) then
+    sChave := Clipboard.AsText;
+
+  if Length(sChave) <> 44 then
+     MessageDlg('Tamanho da Chave CT-e Incompativel', mtInformation, [mbOK], 0)
+  else
+  begin
+    sURL := 'https://www.danfeonline.com.br/';
+    ShellExecute(Handle,'open',pChar(sURL),nil,nil,SW_SHOW)
+  end
+   }
+end;
+
+procedure TfrmConsultaItens.cxGridDBTableView1CellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  if not cdsConsultaNFEE.IsEmpty then
+  begin
+
+     editNumNF.Text               := cdsConsultaNFEENumNF.AsString;
+     editFornecedor.Text          := cdsConsultaNFEENome.AsString;
+     editCodProduto.Text          := cdsConsultaNFEECodProduto.AsString;
+     DataEntrega_Det.Date         := cdsConsultaNFEEdhEmi.AsDateTime;
+     EditDesc_Produto.Text        := cdsConsultaNFEEDescProduto.AsString;
+     ediNCM_Det.Text              := cdsConsultaNFEENCM.AsString;
+
+     EdiQtde_Det.Value             := cdsConsultaNFEEQtde.AsFloat;
+     EdiValor_Det.Value            := cdsConsultaNFEEValorUnitario.AsFloat;
+     ediTotal_Det.Value            := cdsConsultaNFEEValorTotal.AsFloat;
+     ediLiquido_Det.Value          := cdsConsultaNFEEValorUnitario.AsFloat;
+     ediCFOP_Det.AsString          := cdsConsultaNFEEI_CFOP.AsString;
+
+     if ediCFOP_Det.Text <> '' then
+        CarregaCFOP(ediCFOP_Det.AsString);
+
+     edicstipi_Det.AsString        := cdsConsultaNFEENF_TipoIPI.AsString;
+     ediPorcIPI_Det.Value          := cdsConsultaNFEEPorcIPI.AsFloat;
+     edivaloripi_det.Value         := cdsConsultaNFEEValorIPI.AsFloat;
+
+
+     edicstpis_det.AsString        := cdsConsultaNFEENF_TipoPIS.AsString;
+     ediPorcPIS_Det.Value          := cdsConsultaNFEEPorcPIS.AsFloat;
+     edivalorpis_det.Value         := cdsConsultaNFEEValorPIS.AsFloat;
+
+     edicstcofins_det.AsString     := cdsConsultaNFEENF_TipoCofins.AsString;
+     ediPorcCofins_Det.Value       := cdsConsultaNFEEPorcCOFINS.AsFloat;
+     edivalorcofins_det.Value      := cdsConsultaNFEEValorCofins.AsFloat;
+
+
+     ediPorcProvPartICMS.Value     := cdsConsultaNFEEPorcProvICMSPartilha .AsFloat;
+     edifcp.Value                  := cdsConsultaNFEEVlrFCP.AsFloat;
+     ediVlrICMSRemtente.Value      := cdsConsultaNFEEVlrICMSUFRemetente.AsFloat;
+     ediVlrICMSDestinatario.Value  := cdsConsultaNFEEVlrICMSUFDestino.AsFloat;
+
+     editcsticms_det.AsString      := cdsConsultaNFEENF_TipoICMS.AsString;
+
+     ediPorcICMS_Det.Value         := cdsConsultaNFEEPorcICMS.AsFloat;
+     PorcIcmsST_Det.Value          := cdsConsultaNFEEICMS_Inter.AsFloat;
+
+     edivaloricms_det.Value        := cdsConsultaNFEEValorICMS.AsFloat;
+     //edicsticmsst_det.AsString     := dmBaseDocFiscal.cdsConsultaNFEEP_TipoICMS.AsString;
+     ediValorICMSST_Det.Value      := cdsConsultaNFEEValorICMS_ST.AsFloat;
+     PorcIVA_Det.Value             := cdsConsultaNFEEIVA_Original.AsFloat;
+     PorcIVAAjus_Det.Value         := cdsConsultaNFEENF_IVA_ST.AsFloat;
+     ediValorFrete_Det.Value       := cdsConsultaNFEEValorFrete.AsFloat;
+     ediValorSeguro_Det.Value      := cdsConsultaNFEEVlrSeguro.AsFloat;
+     ediValorOutrasDespesas_Det.Value := cdsConsultaNFEEVlrOutrasDespesas.AsFloat;
+
+     EditvwBaseICMS.Value          := cdsConsultaNFEEBaseICMS.AsFloat;
+     EditvwBaseICMSST.Value        := cdsConsultaNFEEBaseICMSST.AsFloat;
+     EditvwBaseIPI.Value           := cdsConsultaNFEEBaseIPI.AsFloat;
+     EditvwBasePIS.Value           := cdsConsultaNFEEBasePIS.AsFloat;
+     EditvwBaseCOFINS.Value        := cdsConsultaNFEEBaseCOFINS.AsFloat;
+
+
+    PageItem.ActivePage   := tbsEdit;
+  end;
+
+end;
+
+procedure TfrmConsultaItens.ediCFOP_DetExit(Sender: TObject);
+begin
+  if ediCFOP_Det.Text <> '' then
+     CarregaCFOP(ediCFOP_Det.AsString);
+end;
+
+procedure TfrmConsultaItens.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  Self := NIL;
+end;
+
+procedure TfrmConsultaItens.FormCreate(Sender: TObject);
+begin
+
+  Page.ActivePage := TabNFES;
+  PageItem.ActivePage := tbsGrade;
+  DataIni.Date := Now-7;
+  DataFim.Date := Now;
+  editCNPJ.Text := '';
+
+  EditCNPJ.CT_Sql.Clear;
+  EditCNPJ.CT_Sql.Add('Select distinct CNPJCPF, xNome, xFant from CTE_EMITENTE Order by xNome');
+
+end;
+
+procedure TfrmConsultaItens.FormShow(Sender: TObject);
+begin
+  EditCNPJ.SetFocus;
+end;
+
+{ TTipoCFOP }
+
+procedure TTipoCFOP.Inicializar;
+begin
+   CFOP          := '';
+   TIPO          := '';
+   DESCRICAO     := '';
+   LANCPROD      := '';
+   LANCDIFERALIQ := '';
+   LANCDIFAL     := '';
+end;
+
+end.

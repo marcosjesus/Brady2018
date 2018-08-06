@@ -1,0 +1,82 @@
+unit uEditaItem;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, FCadastro, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinsdxStatusBarPainter, Menus, cxContainer, cxEdit,
+  ExtCtrls, cxGroupBox, StdCtrls, cxButtons, dxStatusBar, Mask, rsEdit, RseditDB;
+
+type
+  TFrmEditaItem = class(TFrmCadastro)
+    Panel13: TPanel;
+    Edit2: TEdit;
+    ediNCM_Det: TrsSuperEdit;
+    Panel26: TPanel;
+    lblUnidade_Det: TLabel;
+    ediQtde_Det: TrsSuperEdit;
+    ediTotal_Det: TrsSuperEdit;
+    ediValor_Det: TrsSuperEdit;
+    ediLiquido_Det: TrsSuperEdit;
+    Panel28: TPanel;
+    rsSuperEdit15: TrsSuperEdit;
+    ediPorcICMS_Det: TrsSuperEdit;
+    editcsticms_det: TrsSuperEdit;
+    edivaloricms_det: TrsSuperEdit;
+    EditvwBaseICMS: TrsSuperEdit;
+    Panel18: TPanel;
+    rsSuperEdit4: TrsSuperEdit;
+    ediPorcProvPartICMS: TrsSuperEdit;
+    edifcp: TrsSuperEdit;
+    ediVlrICMSRemtente: TrsSuperEdit;
+    ediVlrICMSDestinatario: TrsSuperEdit;
+    Panel31: TPanel;
+    rsSuperEdit6: TrsSuperEdit;
+    ediPorcIPI_Det: TrsSuperEdit;
+    edicstipi_Det: TrsSuperEdit;
+    edivaloripi_det: TrsSuperEdit;
+    PorcIVAAjus_Det: TrsSuperEdit;
+    EditvwBaseIPI: TrsSuperEdit;
+    Panel33: TPanel;
+    rsSuperEdit7: TrsSuperEdit;
+    ediPorcPIS_Det: TrsSuperEdit;
+    edicstpis_det: TrsSuperEdit;
+    edivalorpis_det: TrsSuperEdit;
+    EditvwBasePIS: TrsSuperEdit;
+    Panel34: TPanel;
+    rsSuperEdit9: TrsSuperEdit;
+    ediPorcCofins_Det: TrsSuperEdit;
+    edicstcofins_det: TrsSuperEdit;
+    edivalorcofins_det: TrsSuperEdit;
+    EditvwBaseCOFINS: TrsSuperEdit;
+    Panel35: TPanel;
+    rsSuperEdit10: TrsSuperEdit;
+    PorcIcmsST_Det: TrsSuperEdit;
+    ediValorICMSST_Det: TrsSuperEdit;
+    PorcIVA_Det: TrsSuperEdit;
+    EditvwBaseICMSST: TrsSuperEdit;
+    Panel4: TPanel;
+    EdiCfop: TrsSuperEdit;
+    rsSuperEdit1: TrsSuperEdit;
+    rsSuperEdit2: TrsSuperEdit;
+    cxGroupBox1: TcxGroupBox;
+    Fornecedor: TLabeledEdit;
+    NumeroNF: TLabeledEdit;
+    LabeledEdit1: TLabeledEdit;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmEditaItem: TFrmEditaItem;
+
+implementation
+
+{$R *.dfm}
+
+end.

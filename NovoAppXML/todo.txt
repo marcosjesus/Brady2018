@@ -1,0 +1,56 @@
+--filtro por planta
+--exportação para excel
+--abrir url danfe online
+
+--tratar carta de correcao e salva na pasta nfe
+schedula serviço de e-mail
+colocar botao para rodar serviço manual de e-mail
+
+
+
+Processo para Ler E-mails com Nota Fiscal de Entrada no formato XML.
+
+Servidor de Aplicação : 
+CECS2013
+
+Servior de Banco de Dados:
+cECS2002
+
+
+
+No servidor de aplicação (CECS2013), o programa roda na pasta c:\appEntradaXML
+
+O programa que executa a tarefa de ler os arquivos xml e armazenar em pasta
+possue o nome de BradyDataImport.
+
+O parametro utilizado dentro do programa BradyDataImport possue o nome de -RecebeEmailNFE
+
+O programa BradyDataImport tambem é responsavel por gravar as informações no banco de dados, 
+no servidor cECS2002, na base de dados de nome : EntradaXML.
+
+
+O programa BradyDataimport necessita de 2 arquivos auxiliares para sua execução, que são:
+
+EntradaXML
+DB-CECS2002
+
+No Arquivo EntradaXML, contem a mapeamento das pastas a serem armazenadas os arquivos xmls e outros não identificados como arquivo xml.
+O mapeamento das pastas estão contidas no drive E:, no servidor CECS2013.
+
+No Arquivo DB-CECS2002, contem a conexão com o banco de dados, no servidor DB-CECS2002
+
+
+do Processo:
+
+O programa executa a leitura nas pastas INBOX e SPAM.
+
+O programa executa primeiro a leitura do e-mail configurado no arquivo EntradaXML, e armazena-os nas suas
+respectivas pastas, sendo arquivos XMLs de NFe, na pasta E:\AppEntradaXML\NFe_Entrada;
+e os arquivos XMLs de CTe, na pasta E:\AppEntradaXML\CTe_Entrada.
+
+
+Ao término da leitura das pastas de e-mail, o programa grava as informações na base de dados.
+
+
+
+

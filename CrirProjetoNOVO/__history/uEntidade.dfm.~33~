@@ -1,0 +1,633 @@
+inherited FrmCadEntidade: TFrmCadEntidade
+  Caption = 'Cadastro de Entidade/Empresa Respons'#225'vel'
+  ClientWidth = 915
+  ExplicitWidth = 931
+  ExplicitHeight = 512
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited PanFundo: TPanel
+    Width = 915
+    inherited PanTitulo: TPanel
+      Width = 911
+      TabOrder = 9
+      inherited ImaBarraSup: TImage
+        Width = 907
+      end
+    end
+    inherited StatusBar: TdxStatusBar
+      Width = 911
+    end
+    inherited Panel27: TPanel
+      Width = 911
+      TabOrder = 11
+    end
+    object Panel1: TPanel
+      Tag = -2
+      Left = 5
+      Top = 8
+      Width = 907
+      Height = 27
+      Alignment = taLeftJustify
+      BevelInner = bvLowered
+      Caption = '  C'#243'digo'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      object EdiCodigo: TrsSuperEdit
+        Tag = -2
+        Left = 482
+        Top = 3
+        Width = 0
+        Height = 22
+        TagName = 'EMP_ID'
+        CT_Titulo = 'Consulta de Cursos'
+        CT_TableName = 'TRE_EMPRESA'
+        CT_DataBaseName = 'dbdSGD'
+        CT_NumFields = 2
+        CT_ColTit = 'C'#243'digo;Nome da Empresa'
+        CT_ColField = 'EMP_ID;EMP_NOMEMPRESA'
+        CT_RetField1 = 0
+        CT_RetControl1 = EdiCodigo
+        CT_RetField2 = 1
+        CT_Test = False
+        CT_ConsTab = True
+        CT_KeyValue = EdiCodigo
+        CT_Search = False
+        MaxLength = 15
+        Text = ''
+        CharCase = ecUpperCase
+        TabOrder = 0
+        Visible = False
+      end
+      object EditBuscaFornecedor: TEditBusca
+        Left = 130
+        Top = 3
+        Width = 145
+        Height = 22
+        TabOrder = 1
+        OnClick = EditBuscaFornecedorClick
+        ClickOnArrow = True
+        ClickOnReturn = False
+        bs_HeightForm = 0
+        bs_WidthForm = 0
+        bs_SetCPF = False
+        bs_SetCNPJ = False
+        bs_SetPlaca = False
+        bs_LoadConsulta = False
+        bs_Distinct = False
+        bs_SetColor = False
+        bs_NomeCor = clBlack
+        bs_IndiceCampo = 0
+        bs_Imagem = False
+        bs_HideTop = False
+        bs_Top100 = False
+      end
+    end
+    object Panel2: TPanel
+      Tag = -1
+      Left = 5
+      Top = 36
+      Width = 907
+      Height = 27
+      Alignment = taLeftJustify
+      BevelInner = bvLowered
+      Caption = '  Nome do Fornecedor'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      object EdiNome: TrsSuperEdit
+        Tag = -1
+        Left = 130
+        Top = 3
+        Width = 507
+        Height = 22
+        TagName = 'EMP_NOMEMPRESA'
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        MaxLength = 100
+        Text = ''
+        CharCase = ecUpperCase
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+      end
+    end
+    object Panel3: TPanel
+      Tag = -1
+      Left = 5
+      Top = 177
+      Width = 907
+      Height = 27
+      Alignment = taLeftJustify
+      BevelInner = bvLowered
+      Caption = ' Contato'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 6
+      object ediContato: TrsSuperEdit
+        Tag = -1
+        Left = 130
+        Top = 3
+        Width = 507
+        Height = 22
+        TagName = 'nomecontato'
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        MaxLength = 50
+        Text = ''
+        CharCase = ecUpperCase
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+      end
+    end
+    object Panel4: TPanel
+      Tag = -1
+      Left = 5
+      Top = 205
+      Width = 907
+      Height = 27
+      Alignment = taLeftJustify
+      BevelInner = bvLowered
+      Caption = ' Telefone'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 7
+      object ediDDD: TrsSuperEdit
+        Tag = -1
+        Left = 130
+        Top = 3
+        Width = 31
+        Height = 22
+        TagName = 'ddd'
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        MaxLength = 2
+        Text = ''
+        CharCase = ecUpperCase
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        OnKeyPress = ediDDDKeyPress
+      end
+      object editTelefone: TrsSuperEdit
+        Tag = -1
+        Left = 164
+        Top = 3
+        Width = 111
+        Height = 22
+        TagName = 'telefone'
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        MaxLength = 10
+        Text = ''
+        CharCase = ecUpperCase
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+        OnKeyPress = editTelefoneKeyPress
+      end
+    end
+    object Panel5: TPanel
+      Tag = -1
+      Left = 5
+      Top = 232
+      Width = 907
+      Height = 27
+      Alignment = taLeftJustify
+      BevelInner = bvLowered
+      Caption = '  Email'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 8
+      object ediEmail: TrsSuperEdit
+        Tag = -1
+        Left = 130
+        Top = 3
+        Width = 507
+        Height = 22
+        TagName = 'email'
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        MaxLength = 80
+        Text = ''
+        CharCase = ecLowerCase
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+      end
+    end
+    object Panel11: TPanel
+      Tag = -1
+      Left = 5
+      Top = 64
+      Width = 907
+      Height = 28
+      Alignment = taLeftJustify
+      BevelInner = bvLowered
+      Caption = '  CNPJ                                         '
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      object EdiCGC: TrsSuperEdit
+        Tag = -1
+        Left = 240
+        Top = 5
+        Width = 37
+        Height = 22
+        TabStop = False
+        TagName = 'CNPJ'
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        MaxLength = 18
+        Text = ''
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+        Visible = False
+        OnChange = EdiCGCChange
+      end
+      object MEdiCGC: TMaskEdit
+        Left = 130
+        Top = 3
+        Width = 169
+        Height = 22
+        EditMask = '##\.###\.###\/####\-##;0;_'
+        MaxLength = 18
+        TabOrder = 0
+        Text = ''
+      end
+    end
+    object Panel6: TPanel
+      Tag = -1
+      Left = 5
+      Top = 93
+      Width = 907
+      Height = 27
+      Alignment = taLeftJustify
+      BevelInner = bvLowered
+      Caption = 
+        '  Cep                                                           ' +
+        '        Endere'#231'o      '
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      object EdiEnd: TrsSuperEdit
+        Left = 288
+        Top = 2
+        Width = 349
+        Height = 22
+        Hint = 'Endere'#231'o de Faturamento'
+        Options = [soAutoAlign, soAllowspaces, soEnterToTab]
+        TagName = '0'
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        MaxLength = 100
+        Text = ''
+        CharCase = ecUpperCase
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+      end
+      object EdiCEP: TrsSuperEdit
+        Tag = -1
+        Left = 139
+        Top = 3
+        Width = 52
+        Height = 22
+        TabStop = False
+        TagName = 'IDCEP'
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        Text = ''
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        OnChange = EdiCEPChange
+      end
+      object mskCEP: TMaskEdit
+        Left = 130
+        Top = 2
+        Width = 65
+        Height = 22
+        Hint = 'Endere'#231'o de Faturamento'
+        EditMask = '00000\-000;0;_'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        MaxLength = 9
+        ParentFont = False
+        TabOrder = 0
+        Text = ''
+        OnExit = mskCEPExit
+      end
+    end
+    object Panel7: TPanel
+      Tag = -1
+      Left = 5
+      Top = 121
+      Width = 907
+      Height = 27
+      Alignment = taLeftJustify
+      BevelInner = bvLowered
+      Caption = 
+        '  Nr'#186'                                                           ' +
+        ' Complemento'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      object EdiNum: TrsSuperEdit
+        Tag = -1
+        Left = 130
+        Top = 3
+        Width = 62
+        Height = 22
+        Hint = 'Endere'#231'o de Faturamento'
+        TagName = 'EndNum'
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        MaxLength = 15
+        Text = ''
+        CharCase = ecUpperCase
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+      end
+      object EdiComplemento: TrsSuperEdit
+        Tag = -1
+        Left = 288
+        Top = 3
+        Width = 349
+        Height = 22
+        TagName = 'Complemento'
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        MaxLength = 25
+        Text = ''
+        CharCase = ecUpperCase
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+      end
+    end
+    object Panel8: TPanel
+      Tag = -1
+      Left = 4
+      Top = 149
+      Width = 907
+      Height = 27
+      Alignment = taLeftJustify
+      BevelInner = bvLowered
+      Caption = 
+        '  Bairro                                                        ' +
+        '                                  Cidade                        ' +
+        '                                                U.F.            ' +
+        '       '
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 5
+      object EdiCidade: TrsSuperEdit
+        Left = 358
+        Top = 2
+        Width = 184
+        Height = 22
+        Options = [soAutoAlign, soAllowspaces, soEnterToTab]
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        MaxLength = 25
+        Text = ''
+        CharCase = ecUpperCase
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+      end
+      object cbxUF: TComboBox
+        Tag = -1
+        Left = 590
+        Top = 3
+        Width = 48
+        Height = 22
+        Style = csDropDownList
+        TabOrder = 2
+        Items.Strings = (
+          'AC'
+          'AL'
+          'AM'
+          'AP'
+          'BA'
+          'CE'
+          'DF'
+          'ES'
+          'GO'
+          'MA'
+          'MG'
+          'MS'
+          'MT'
+          'PA'
+          'PB'
+          'PE'
+          'PI'
+          'PR'
+          'RJ'
+          'RN'
+          'RO'
+          'RR'
+          'RS'
+          'SC'
+          'SE'
+          'SP'
+          'TO')
+      end
+      object EdiBairro: TrsSuperEdit
+        Left = 130
+        Top = 2
+        Width = 174
+        Height = 22
+        Options = [soAutoAlign, soAllowspaces, soEnterToTab]
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        MaxLength = 30
+        Text = ''
+        CharCase = ecUpperCase
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+      end
+      object EdiDescCidade: TEdit
+        Left = 684
+        Top = 3
+        Width = 0
+        Height = 22
+        TabStop = False
+        Color = 14931644
+        Enabled = False
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 3
+        Visible = False
+      end
+      object EdiUF: TrsSuperEdit
+        Left = 610
+        Top = 8
+        Width = 0
+        Height = 22
+        CT_NumFields = 0
+        CT_RetField1 = 0
+        CT_RetField2 = 0
+        CT_Test = False
+        CT_ConsTab = False
+        CT_Search = False
+        Text = ''
+        TabOrder = 4
+        Visible = False
+      end
+    end
+  end
+  inherited TimerPerfil: TTimer
+    Left = 666
+    Top = 74
+  end
+  object qryAux: TFDQuery
+    Connection = DB_Conect.SQLConnection
+    Left = 816
+    Top = 296
+  end
+end

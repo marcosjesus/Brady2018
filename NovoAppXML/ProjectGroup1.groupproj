@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{94A6A53E-1370-4B36-A7C0-6A387CA87E16}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="EntradaXML.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="EntradaXML">
+        <MSBuild Projects="EntradaXML.dproj"/>
+    </Target>
+    <Target Name="EntradaXML:Clean">
+        <MSBuild Projects="EntradaXML.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="EntradaXML:Make">
+        <MSBuild Projects="EntradaXML.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="EntradaXML"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="EntradaXML:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="EntradaXML:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

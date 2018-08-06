@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FDBS Version="9">
+  <Manager UpdatesRegistry="True">
+    <TableList>
+      <Table Name="FDMemTableParametrosConexao" TabID="0" EnforceConstraints="False" MinimumCapacity="50" CheckNotNull="False">
+        <ColumnList>
+          <Column Name="servidor" SourceID="1" DataType="AnsiString" Size="50" Searchable="True" AllowNull="True" Base="True" OAllowNull="True" OInUpdate="True" OInWhere="True" OriginColName="servidor" SourceSize="50"/>
+          <Column Name="arquivo" SourceID="2" DataType="AnsiString" Size="50" Searchable="True" AllowNull="True" Base="True" OAllowNull="True" OInUpdate="True" OInWhere="True" OriginColName="arquivo" SourceSize="50"/>
+          <Column Name="usuario" SourceID="3" DataType="AnsiString" Size="50" Searchable="True" AllowNull="True" Base="True" OAllowNull="True" OInUpdate="True" OInWhere="True" OriginColName="usuario" SourceSize="50"/>
+          <Column Name="senha" SourceID="4" DataType="AnsiString" Size="50" Searchable="True" AllowNull="True" Base="True" OAllowNull="True" OInUpdate="True" OInWhere="True" OriginColName="senha" SourceSize="50"/>
+        </ColumnList>
+        <ConstraintList Enforce="False"/>
+        <ViewList/>
+        <TableRowList_Updates/>
+      </Table>
+    </TableList>
+    <RelationList/>
+    <UpdatesJournal/>
+  </Manager>
+</FDBS>

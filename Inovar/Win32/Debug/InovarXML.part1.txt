@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<tns:AutoDeclaracao
+  xmlns:tns="http://www.tarea.com.br/InovarAuto/AutoDeclaracao"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <tns:retificadora>false</tns:retificadora>
+   <tns:declarante>
+      <tns:tipo_declarante>F</tns:tipo_declarante>
+      <tns:razao_social>W.H.B DO BRASIL LTDA</tns:razao_social>
+      <tns:cnpj>01111039000491</tns:cnpj>
+      <tns:matriz>false</tns:matriz>
+%%itens%%
+   </tns:declarante>
+</tns:AutoDeclaracao>

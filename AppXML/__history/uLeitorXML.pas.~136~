@@ -1,0 +1,647 @@
+unit uLeitorXML;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinBlueprint,
+  dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
+  dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic,
+  dxSkinSharp, dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinsDefaultPainters,
+  dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint, dxSkinXmas2008Blue,
+  dxRibbonBackstageView, IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack,
+  IdSSL, IdSSLOpenSSL, IdIMAP4, IdMessage, IdBaseComponent, IdComponent,
+  IdTCPConnection, IdTCPClient, IdExplicitTLSClientServerBase, IdMessageClient,
+  IdSMTPBase, IdSMTP, dxSkinscxPCPainter, dxBarBuiltInMenu,
+  dxSkinsdxStatusBarPainter, Vcl.Grids, Vcl.ExtCtrls, dxStatusBar, cxPC,
+  Vcl.StdCtrls, IdAttachment, cxContainer, cxEdit, Vcl.ComCtrls, dxCore,
+  cxDateUtils, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar, cxCustomData,
+  cxStyles, cxTL, cxTLdxBarBuiltInMenu, cxInplaceContainer, ACBrNFe, ACBrBase,
+  ACBrDFe, ACBrCTe, SQLTimST, System.IOUtils, Xml.xmldom, Xml.XMLIntf,
+  Xml.Win.msxmldom, Xml.XMLDoc;
+
+type
+  TFR_LeitorXML = class(TForm)
+    IdSMTP1: TIdSMTP;
+    msgxml: TIdMessage;
+    IdIMAP41: TIdIMAP4;
+    IdSSLIOHandlerSocketOpenSSL1: TIdSSLIOHandlerSocketOpenSSL;
+    cxPageControl1: TcxPageControl;
+    cxTabSheet1: TcxTabSheet;
+    dxStatusBar1: TdxStatusBar;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    btnConsultaEmail: TButton;
+    Label1: TLabel;
+    DtInicio: TcxDateEdit;
+    ACBrCTe: TACBrCTe;
+    ACBrNFe: TACBrNFe;
+    tlNFe: TcxTreeList;
+    cxTreeList1Column1: TcxTreeListColumn;
+    cxTreeList1Column2: TcxTreeListColumn;
+    cxTreeList1Column3: TcxTreeListColumn;
+    cxTreeList1Column4: TcxTreeListColumn;
+    cxTreeList1Column5: TcxTreeListColumn;
+    cxTreeList1Column6: TcxTreeListColumn;
+    XMLDoc: TXMLDocument;
+    procedure FormCreate(Sender: TObject);
+    procedure btnConsultaEmailClick(Sender: TObject);
+
+  private
+    { Private declarations }
+        varUsersFolders : TStringList;
+        varSMTP         : TStringList;
+    //    varFolderServidor : String;
+    procedure CarregaContaEmail;
+    procedure ExecutaLeitura;
+    function ComparaData(DataFiltro, DataEmail : TDateTime): Boolean;
+    procedure MoverMensagem(TheUID: string);
+    procedure CarregaGrid;
+    function DirExists(const Directory: string): boolean;
+    procedure CarregaEntradaXML;
+    procedure LerCartaCorrecao;
+  public
+    { Public declarations }
+
+
+  // Pastas utilizadas para Leitura de XML (NFE e CTE)
+  PastaINBOX               : String;
+  PastaLIDO                : String;
+
+  PastaSERVIDORTEMP        : String;
+
+  PastaSERVIDORNFE_ENTRADA : String;
+  PastaSERVIDORCTE_ENTRADA : String;
+  PastaXML                 : String;
+  PastaXML_LIDO            : String;
+  PastaSERVIDORNFE_LIDO    : String;
+  PastaSERVIDORCTE_LIDO    : String;
+  PastaLOG                 : String;
+  varFolderSistema         : String;
+  end;
+
+var
+  FR_LeitorXML: TFR_LeitorXML;
+
+implementation
+
+{$R *.dfm}
+
+uses udmDados;
+
+
+procedure TFR_LeitorXML.LerCartaCorrecao;
+begin
+end;
+
+procedure TFR_LeitorXML.btnConsultaEmailClick(Sender: TObject);
+var
+ bRet : Boolean;
+ i    : Integer;
+ varXML : string;
+
+begin
+
+     CarregaGrid;
+     {
+     IdSSLIOHandlerSocketOpenSSL1.Host := IdIMAP41.Host;
+     IdSSLIOHandlerSocketOpenSSL1.Port := IdIMAP41.Port;
+     IdSSLIOHandlerSocketOpenSSL1.Destination := IdSSLIOHandlerSocketOpenSSL1.Host + ':' + IntToStr(IdSSLIOHandlerSocketOpenSSL1.Port);
+     IdSSLIOHandlerSocketOpenSSL1.MaxLineLength := MaxInt;
+
+     IdSSLIOHandlerSocketOpenSSL1.SSLOptions.Method := sslvTLSv1;
+
+     IdIMAP41.IOHandler := IdSSLIOHandlerSocketOpenSSL1;
+
+     IdIMAP41.UseTLS := utUseImplicitTLS;
+
+     Try
+       IdIMAP41.Connect ();
+    except
+     on E: Exception do
+        begin
+         Application.MessageBox( PWideChar(E.Message), 'Não foi possivel Conectar no Servidor de Email', MB_ICONERROR+MB_OK );
+         Exit;
+        end;
+     End;
+
+     ExecutaLeitura;
+      }
+       {
+      ListBox1.Clear;
+      bRet := IdIMAP41.ListMailBoxes(varUsersFolders);
+      if bRet = False then begin
+          ShowMessage('Failed to retrieve folder names!');
+
+      for i := 0 to varUsersFolders.Count-1 do begin
+          ListBox1.Items.Add(varUsersFolders[i]);
+      end;
+     // Button1.Caption := 'Disconnect';
+      Screen.Cursor := crDefault;
+
+        }
+end;
+
+procedure TFR_LeitorXML.FormCreate(Sender: TObject);
+begin
+  varUsersFolders := TStringList.Create;
+  CarregaContaEmail;
+
+  CarregaGrid;
+  {
+  StringGrid1.Cells[0, 0] := 'Relative number';
+  StringGrid1.Cells[1, 0] := 'UID';
+  StringGrid1.Cells[2, 0] := 'Read?';
+  StringGrid1.Cells[3, 0] := 'Subject';
+  StringGrid1.ColWidths[0] := 100;
+  StringGrid1.ColWidths[1] := 100;
+  StringGrid1.ColWidths[2] := 50;
+  StringGrid1.ColWidths[3] := 600;
+  StringGrid1.RowCount := 2;
+  StringGrid1.Cells[0, 1] := '';
+  StringGrid1.Cells[1, 1] := '';
+  StringGrid1.Cells[2, 1] := '';
+  StringGrid1.Cells[3, 1] := '';
+   }
+  DtInicio.Date := Now;
+end;
+
+
+procedure TFR_LeitorXML.CarregaEntradaXML;
+begin
+
+  varFolderSistema := 'C:\AppEntradaXML\';
+  varSMTP     := TStringList.Create;
+
+  Try
+
+      if TFile.Exists( varFolderSistema + 'EntradaXML.ini' ) then
+      begin
+
+        varSMTP.LoadFromFile(varFolderSistema  + 'EntradaXML.ini');
+
+        PastaSERVIDORTEMP        := varSMTP.Values['PastaSERVIDORTEMP'];
+        PastaSERVIDORNFE_ENTRADA := varSMTP.Values['PastaSERVIDORNFE_ENTRADA'];
+        PastaSERVIDORCTE_ENTRADA := varSMTP.Values['PastaSERVIDORCTE_ENTRADA'];
+        PastaSERVIDORNFE_LIDO    := varSMTP.Values['PastaSERVIDORNFE_LIDO'];
+        PastaSERVIDORCTE_LIDO    := varSMTP.Values['PastaSERVIDORCTE_LIDO'];
+        PastaLOG                 := varSMTP.Values['PastaLOG'];
+
+        PastaSERVIDORNFE_ENTRADA := IncludeTrailingPathDelimiter( PastaSERVIDORNFE_ENTRADA );
+        PastaSERVIDORCTE_ENTRADA := IncludeTrailingPathDelimiter( PastaSERVIDORCTE_ENTRADA );
+        PastaSERVIDORNFE_LIDO    := IncludeTrailingPathDelimiter( PastaSERVIDORNFE_LIDO );
+        PastaSERVIDORCTE_LIDO    := IncludeTrailingPathDelimiter( PastaSERVIDORCTE_LIDO );
+        PastaLOG                 := IncludeTrailingPathDelimiter( PastaLOG );
+
+      end
+      else
+      begin
+         Writeln( varFolderSistema + 'EntradaXML.ini' + 'Arquivo de Configuração de Conta de E-mail não encontrado.' );
+         Exit;
+      end;
+  Finally
+      FreeAndNil(varSMTP);
+  End;
+end;
+
+
+procedure TFR_LeitorXML.CarregaContaEmail;
+begin
+  varSMTP := TStringList.Create;
+  if FileExists(ExtractFilePath(Application.ExeName)  + 'EntradaXML.ini') then
+  begin
+
+    varSMTP.LoadFromFile(ExtractFilePath(Application.ExeName)  + 'EntradaXML.ini');
+    //varFolderServidor := varSMTP.Values['PASTASERVIDOR'];
+   // varFolderServidor := IncludeTrailingPathDelimiter( varFolderServidor );
+    IdIMAP41.Host     := varSMTP.Values['HOST'];
+    IdIMAP41.Username := varSMTP.Values['USER'];
+    IdIMAP41.Password := varSMTP.Values['PWD'];
+    IdIMAP41.Port     := StrToInt(varSMTP.Values['PORT']);
+
+  end
+  else
+  begin
+
+      ShowMessage('Arquivo de Configuração de Conta de E-mail não encontrado. ');
+
+  end;
+end;
+
+procedure TFR_LeitorXML.ExecutaLeitura;
+var
+    TheFlags    : TIdMessageFlagsSet;
+    varSearch   : array of TIdIMAP4SearchRec;
+    TheUID      : string;
+    i,j, nCount : integer;
+    varMailBoxName, varXML, varTmp,  varToday, varDataEmail : string;
+
+begin
+
+    Screen.Cursor := crHourGlass;
+    varMailBoxName :=  varSMTP.Values['PASTAINBOXNFE'];
+    if IdIMAP41.SelectMailBox(varMailBoxName) = False then begin
+        Screen.Cursor := crDefault;
+        ShowMessage('Erro ao selecionar Pasta '+varMailBoxName);
+        Exit;
+    end;
+
+
+    SetLength(varSearch,1);
+    varSearch[0].SearchKey := skUnseen;
+    if not IdIMAP41.SearchMailBox (varSearch) then
+       raise Exception.Create('Erro na pesquisa da caixa postal');
+
+
+    // nCount := IdIMAP41.MailBox.TotalMsgs;
+
+     nCount := High(IdIMAP41.MailBox.SearchResult);
+
+    if nCount = 0 then begin
+       { StringGrid1.RowCount := 2;
+        StringGrid1.Cells[0, 1] := '';
+        StringGrid1.Cells[1, 1] := '';
+        StringGrid1.Cells[2, 1] := '';
+        StringGrid1.Cells[3, 1] := '';
+        }
+        ShowMessage('Não há mensagens na pasta '+varMailBoxName);
+    end else begin
+
+       // StringGrid1.RowCount := nCount + 1;
+        for i := 0 to  High(IdIMAP41.MailBox.SearchResult)  do begin
+
+            IdIMAP41.GetUID(i+1, TheUID);
+
+            IdIMAP41.Retrieve(i+1,msgxml);
+
+            if (ComparaData(DtInicio.Date, msgxml.date)) Then
+            begin
+
+              IdIMAP41.UIDRetrieveFlags(TheUID, TheFlags);
+              IdIMAP41.UIDRetrieveHeader(TheUID, msgxml);
+            {
+              StringGrid1.Cells[0, i+1] := IntToStr(i+1);
+              StringGrid1.Cells[1, i+1] := TheUID;
+              if mfSeen in TheFlags then begin
+                  StringGrid1.Cells[2, i+1] := 'Yes';
+              end else begin
+                  StringGrid1.Cells[2, i+1] := 'No';
+              end;
+              StringGrid1.Cells[3, i+1] := msgxml.Subject;
+             }
+              for j := 0 to pred(msgxml.MessageParts.Count) do
+              begin
+
+                if (msgxml.MessageParts.Items[j] is TIdAttachment) then
+                begin
+
+                  varXML := TIdAttachment(msgxml.MessageParts.Items[j]).FileName;
+               //   varTmp := varFolderServidor + '\' + varXML;
+
+                  if lowercase(ExtractFileExt(varTmp)) = '.xml' then
+                    TIdAttachment(msgxml.MessageParts.Items[j]).SaveToFile(varTmp);
+
+                end;
+              end;
+            end;
+            //MoverMensagem(TheUID);
+            msgxml.Clear;
+
+
+        end;
+    end;
+    IdIMAP41.Disconnect;
+    Screen.Cursor := crDefault;
+
+end;
+
+//USER=nfebrady@bradycorp.com
+//PWD=7URUs6udrasP
+
+
+function TFR_LeitorXML.DirExists( const Directory: string ): boolean;
+var
+  Code: Integer;
+begin
+  Code := GetFileAttributes(PChar(Directory));
+  Result := (Code <> -1) and (FILE_ATTRIBUTE_DIRECTORY and Code <> 0);
+end;
+
+procedure TFR_LeitorXML.CarregaGrid;
+var
+  lContinua    : boolean;
+  sr           : TSearchRec;
+  searchResult : integer;
+  i,x,n        : Integer;
+  loNode       : TcxTreeListNode;
+  cct : integer;
+  bLog         : Boolean;
+  varTipoNota  : smallint;
+  lPathSemProtocolo, lPathExistente : String;
+  NodePai, xMotivo , tpEvento, xEvento,   dhRegEvento,  nProt : IXMLNode;
+
+begin
+  CarregaEntradaXML;
+
+  bLog := False;
+  //btnLog.Visible := False;
+  try
+    try
+
+      tlNFe.Clear;
+
+      if Trim( PastaSERVIDORNFE_ENTRADA ) <> '' then
+      begin
+          if not DirExists( PastaSERVIDORNFE_ENTRADA ) then
+            begin
+              lContinua := False;
+              //btnImportar.Enabled  := False;
+              Application.MessageBox(pchar('Caminho ' + PastaSERVIDORNFE_ENTRADA + ' não encontrado!!!'), 'AppXML', MB_ICONINFORMATION );
+
+            end
+          else
+            begin
+              lContinua := True;
+              if not DirExists(  PastaSERVIDORNFE_ENTRADA  ) then
+                begin
+                  if not CreateDir(  PastaSERVIDORNFE_ENTRADA ) then
+                    lContinua := False;
+                end;
+
+              if not lContinua  then
+                begin
+                //  btnImportar.Enabled  := False;
+                  Application.MessageBox( pChar('Falha o verificar caminho ' + PastaSERVIDORNFE_ENTRADA) , 'AppXML', MB_ICONINFORMATION );
+
+                end;
+            end
+      end;
+
+      if lContinua then
+        begin
+
+          //lPath := IncludeTrailingPathDelimiter( lPath );
+          //lblLocal.Caption := 'Local: ' + lPath;
+         { with Dados.sqlAuxiliar do
+          begin
+              Close;
+              SQL.Clear;
+              SQL.Add(' SELECT cCT FROM XML_IMPORTADA  ');
+              SQL.Add(' WHERE cCT  = :cCT ');
+              SQL.Add(' and DataEmissao  = :DataEmissao ');
+              SQL.Add(' and nCT = :nCT ');
+              SQL.Add(' and CHCTE = :CHCTE ');
+              SQL.Add(' and TipoXML = :TipoXML ');
+
+          end;
+          }
+          loNode := nil;
+          tlNFe.Clear;
+          I := 0;
+          X := 0;
+          searchResult := FindFirst( PastaSERVIDORNFE_ENTRADA + '*.XML', faAnyFile, sr );
+          while searchResult = 0 do
+            begin
+
+              if sr.Name[1] <> '.' then
+              begin
+                loNode := tlNfe.Add;
+                loNode.Values[4] := sr.Name;
+              end;
+
+
+              TACBrCTe(ACBrCTe).Conhecimentos.Clear;
+              ACBrNFe.NotasFiscais.Clear;
+              varTipoNota := -1;
+              if TACBrCTe(ACBrCTe).Conhecimentos.LoadFromFile(PastaSERVIDORNFE_ENTRADA +  sr.Name ) then
+                 varTipoNota := 0;
+              if  ACBrNFe.NotasFiscais.LoadFromFile( PastaSERVIDORNFE_ENTRADA +  sr.Name ) Then
+                 varTipoNota := 1;
+
+              if varTipoNota = -1 then
+               begin
+                   XMLDoc.XML.Clear;
+                   XMLDoc.LoadFromFile(PastaSERVIDORNFE_ENTRADA +  sr.Name);
+                   XMLDoc.Active;
+                   NodePai := XMLDoc.DocumentElement.childNodes.First.ChildNodes.FindNode('infEvento');
+                   xMotivo
+                   tpEvento
+                   xEvento
+                   dhRegEvento
+                   nProt
+                  ShowMessage( NodePai.ChildNodes['chNFe'].Text);
+               end;
+
+              if (varTipoNota = 0) then
+              begin
+                try
+                 // TACBrCTe(ACBrCTe).Conhecimentos.LoadFromFile(varFolderServidor +  sr.Name );
+
+
+                  with ACBrCTe.Conhecimentos.Items[n].CTe do
+                   begin
+                     { with Dados.sqlAuxiliar do
+                      begin
+                        Close;
+                        ParamByName('cCT').asInteger               := ide.cCT;
+                        ParamByName('DataEmissao').AsSQLTimeStamp  := DateTimeToSQLTimeStamp(Ide.dhEmi);
+                        ParamByName('nCT').AsString                := IntToStr(Ide.nCT);
+                        ParamByName('CHCTE').AsString              := procCTe.chCTe;
+                        ParamByName('TipoXML').AsString            := 'CTE';
+                        Open;
+                      end;
+                      }
+                      loNode.Values[0] := 'CT-e';
+                      loNode.Values[1] := Ide.dhEmi;
+                      loNode.Values[2] := Ide.nCT;
+                      loNode.Values[3] := procCTe.chCTe;
+                      loNode.Values[5] := 'Importar';
+
+                      if procCTe.nProt = '' then
+                      begin
+                         loNode.Values[5] := 'Sem Protocolo';
+                         MoveFile( PWideChar(  PastaSERVIDORNFE_ENTRADA +  sr.Name ) , PWideChar( lPathSemProtocolo +  sr.Name ) );
+                         bLog := True;
+                         //DB_Conect.doSaveLog(lPathLog, 'Sem Protocolo ' +  PWideChar(  lPathSemProtocolo +  sr.Name ));
+                         searchResult := FindNext(sr);
+                         Inc(X);
+                         Continue;
+                      end;
+
+                      if not Dados.sqlAuxiliar.IsEmpty then
+                      begin
+                         loNode.Values[5] := 'Existente';
+                         MoveFile( PWideChar(  PastaSERVIDORNFE_ENTRADA +  sr.Name ) , PWideChar( lPathExistente +  sr.Name ) );
+                         bLog := True;
+                         //DB_Conect.doSaveLog(lPathLog, 'Existente ' +  PWideChar(  lPathExistente +  sr.Name ));
+                         searchResult := FindNext(sr);
+                         Inc(X);
+                         Continue;
+                      end;
+
+                    end;
+                except
+                 // btnImportar.Enabled  := False;
+                  bLog := True;
+                  //DB_Conect.doSaveLog(lPathLog, ' Arquivo ' + rgXML.Properties.Items[rgXML.ItemIndex].Caption  + ' Inválido ' + PWideChar(  lPath +  sr.Name ));
+                  Continue;
+                end;
+
+              end
+              else
+              begin
+                try
+                   // ACBrNFe.NotasFiscais.LoadFromFile( varFolderServidor +  sr.Name );
+                    with ACBrNFe.NotasFiscais.Items[0].NFe do
+                    begin
+                      {with Dados.sqlAuxiliar do
+                      begin
+                        Close;
+                        ParamByName('cCT').AsString                := IntToStr( Ide.nNF );
+                        ParamByName('DataEmissao').AsSQLTimeStamp  := DateTimeToSQLTimeStamp(Ide.dEmi);
+                        ParamByName('nCT').AsString                := IntToStr( Ide.nNF );
+                        ParamByName('CHCTE').AsString              := procNFe.chNFe;
+                        ParamByName('TipoXML').AsString            := 'NFE';
+                        Open;
+                      end;
+                      }
+                      loNode.Values[0] := 'NF-e';
+                      loNode.Values[1] := Ide.dEmi;
+                      loNode.Values[2] := Ide.nNF;
+                      loNode.Values[3] := procNFe.chNFe;
+                      loNode.Values[5] := 'Importar';
+
+                      if (procNFe.nProt = '') then
+                      begin
+                        loNode.Values[5] := 'Sem Protocolo';
+                         MoveFile( PWideChar(  PastaSERVIDORNFE_ENTRADA +  sr.Name ) , PWideChar( lPathSemProtocolo +  sr.Name ) );
+                         searchResult := FindNext(sr);
+                         Inc(X);
+                         bLog := True;
+                         //DB_Conect.doSaveLog(lPathLog, 'Sem Protocolo ' +  PWideChar(  lPathSemProtocolo +  sr.Name ));
+                         Continue;
+                      end;
+                     {
+                      if not Dados.sqlAuxiliar.IsEmpty then
+                      begin
+                        loNode.Values[5] := 'Existente';
+                         MoveFile( PWideChar(  varFolderServidor +  sr.Name ) , PWideChar( lPathExistente +  sr.Name ) );
+                         searchResult := FindNext(sr);
+                         Inc(X);
+                         bLog := True;
+                        // DB_Conect.doSaveLog(lPathLog, 'Existente ' +  PWideChar(  lPathExistente +  sr.Name ));
+                         Continue;
+                      end;
+                      }
+                    end;
+
+                except
+                 // btnImportar.Enabled  := False;
+                  bLog := True;
+                //  DB_Conect.doSaveLog(lPathLog, ' Arquivo ' + rgXML.Properties.Items[rgXML.ItemIndex].Caption  + ' Inválido ' + PWideChar(  lPath +  sr.Name ));
+                  Continue;
+                end;
+              end;
+
+              Inc(i);
+
+              searchResult := FindNext(sr);
+            end;
+          findClose(sr);
+
+        end;
+    finally
+    //  btnImportar.Enabled  := tlNfe.Count > 0;
+    end;
+
+   //AguardandoProcesso(frmImportador, False);
+   if bLog then
+   begin
+     Application.MessageBox( 'Há erro na leitura do XML. Clique no Botão Log de Erro de Importação' , 'AppXML', MB_ICONINFORMATION );
+    // btnLog.Visible := True;
+   end;
+
+  except
+    on E:Exception do
+      begin
+      //  btnImportar.Enabled  := False;
+       Application.MessageBox( pChar( 'Erro Desconhecido ao Localizar arquivos.!' + #13 + E.Message ), 'AppXML', MB_ICONERROR );
+
+      end;
+  end;
+//  lblTotalReg.Visible := True;
+ // lblTotalReg.Caption := rgXML.Properties.Items[rgXML.ItemIndex].Caption + ' à Importar.: ' + IntToStr(i);
+ // lblTotalImp.Visible := True;
+ // lblTotalImp.Caption := rgXML.Properties.Items[rgXML.ItemIndex].Caption + ' Importado(s) Anteriormente.: ' + IntToStr(x);
+//  EditFilial.Enabled  := False;
+
+
+end;
+
+procedure TFR_LeitorXML.MoverMensagem( TheUID: string);
+begin
+    //Delete selected message..
+   // if StringGrid1.Selection.Top > 0 then begin
+        Screen.Cursor := crHourGlass;
+       // TheUID := StringGrid1.Cells[1, StringGrid1.Selection.Top];
+        if IdIMAP41.UIDCopyMsg(TheUID, 'Viagem' )= True then
+        begin
+            if IdIMAP41.UIDDeleteMsg(TheUID) = True then begin
+                if IdIMAP41.ExpungeMailBox = True then begin
+                    Screen.Cursor := crDefault;
+                    ShowMessage('Successfully deleted message - select another mailbox then reselect this mailbox to see its omission');
+                end else begin
+                    Screen.Cursor := crDefault;
+                    ShowMessage('Succeeded in setting delete flag on message, but expunge failed - is this a read-only mailbox?');
+                end;
+            end else begin
+                Screen.Cursor := crDefault;
+                ShowMessage('Failed to set delete flag on message - is this a read-only mailbox?');
+            end;
+        end;
+   // end;
+end;
+
+function TFR_LeitorXML.ComparaData(DataFiltro, DataEmail : TDateTime) : Boolean;
+var
+    varDataFiltro, varDataEmail : TDate;
+begin
+    varDataFiltro := Trunc(DataFiltro);
+    varDataEmail := Trunc(DataEmail);
+
+    Result := varDataEmail >= varDataFiltro;
+
+end;
+
+end.
+
+
+ {
+ with imap do
+  begin
+   Username:= 'whatever@gmail.com';
+   Password:= ....;
+   Connect;
+   if SelectMailBox('[Gmail]/sent items') then
+    begin
+     i:= MailBox.TotalMsgs;
+     retrieve (i, email);
+     while datetostr (email.date) = today do
+      begin
+       lb.items.add (email.subject + ' ' + datetostr (email.date));
+       dec (i);
+       retrieve (i, email)
+      end
+    end;
+   Disconnect;
+  end;
+  }

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<tns:AutoDeclaracao
+  xmlns:tns="http://www.tarea.com.br/InovarAuto/AutoDeclaracao"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <tns:retificadora>false</tns:retificadora>
+   <tns:declarante>
+      <tns:tipo_declarante>F</tns:tipo_declarante>
+      <tns:razao_social>W.H.B DO BRASIL LTDA</tns:razao_social>
+      <tns:cnpj>01111039000491</tns:cnpj>
+      <tns:matriz>false</tns:matriz>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>MMC AUTOMOTORES DO BRASIL LTDA - GO</tns:razao_social>
+            <tns:cnpj>54305743001170</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>03</tns:mes_ref>
+         <tns:ano_ref>2016</tns:ano_ref>
+         <tns:vl_total_notas>18827.96</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>290.14</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>PEUGEOT CITROEN DO BRASIL AUTOMOVEIS LTDA / Porto </tns:razao_social>
+            <tns:cnpj>67405936000173</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>03</tns:mes_ref>
+         <tns:ano_ref>2016</tns:ano_ref>
+         <tns:vl_total_notas>40932.58</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>420.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>VOLKS AUDI / Curitiba - PR</tns:razao_social>
+            <tns:cnpj>59104422010384</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>03</tns:mes_ref>
+         <tns:ano_ref>2016</tns:ano_ref>
+         <tns:vl_total_notas>11768.67</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.00</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>VOLKSWAGEN SBC - SP</tns:razao_social>
+            <tns:cnpj>59104422005704</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>03</tns:mes_ref>
+         <tns:ano_ref>2016</tns:ano_ref>
+         <tns:vl_total_notas>27533.62</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>58.05</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>VOLKSWAGEN TAUBATÉ - SP</tns:razao_social>
+            <tns:cnpj>59104422002446</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>03</tns:mes_ref>
+         <tns:ano_ref>2016</tns:ano_ref>
+         <tns:vl_total_notas>34996.55</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>104.89</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>HONDA AUTOMÓVEIS - Paulinia - SP</tns:razao_social>
+            <tns:cnpj>01192333001366</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>03</tns:mes_ref>
+         <tns:ano_ref>2016</tns:ano_ref>
+         <tns:vl_total_notas>118248.31</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>5774.71</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>TOYOTA DO BRASIL LTDA</tns:razao_social>
+            <tns:cnpj>59104760000191</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>03</tns:mes_ref>
+         <tns:ano_ref>2016</tns:ano_ref>
+         <tns:vl_total_notas>5425.63</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>226.11</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>TOYOTA DO BRASIL LTDA</tns:razao_social>
+            <tns:cnpj>59104760000353</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>03</tns:mes_ref>
+         <tns:ano_ref>2016</tns:ano_ref>
+         <tns:vl_total_notas>34716.64</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.51</tns:vl_parc_dedutivel>
+      </tns:operacao>
+      <tns:operacao>
+         <tns:natureza_operacao>V</tns:natureza_operacao>
+         <tns:empresa>
+            <tns:razao_social>TOYOTA DO BRASIL LTDA</tns:razao_social>
+            <tns:cnpj>59104760000604</tns:cnpj>
+         </tns:empresa>
+         <tns:mes_ref>03</tns:mes_ref>
+         <tns:ano_ref>2016</tns:ano_ref>
+         <tns:vl_total_notas>44451.43</tns:vl_total_notas>
+         <tns:vl_parc_dedutivel>0.72</tns:vl_parc_dedutivel>
+      </tns:operacao>
+
+   </tns:declarante>
+</tns:AutoDeclaracao>

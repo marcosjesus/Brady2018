@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2018/05/05 07:33:03.000.005,C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\DBConect.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\udmDados.pas</Transaction>
+    <Transaction>2018/05/05 07:33:03.000.005,C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\DBConect.dfm=C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\udmDados.dfm</Transaction>
+    <Transaction>2018/05/07 09:00:32.000.508,=C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\FGrid.pas</Transaction>
+    <Transaction>2018/05/07 09:00:32.000.378,=C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\FCadastro.pas</Transaction>
+    <Transaction>2018/05/07 09:00:32.000.619,=C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\FrmPrBs.pas</Transaction>
+    <Transaction>2018/05/07 09:04:56.000.036,=C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\Unit2.pas</Transaction>
+    <Transaction>2018/05/07 09:05:50.000.032,C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\uCadCFOPCC.pas=C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\Unit2.pas</Transaction>
+    <Transaction>2018/05/07 09:05:50.000.032,C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\uCadCFOPCC.dfm=C:\Users\K2-User\CIEL-IT-PROJECTS\NovoAppXML\Unit2.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

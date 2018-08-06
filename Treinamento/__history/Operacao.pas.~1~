@@ -1,0 +1,62 @@
+unit Operacao ;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  fcadastro, ComCtrls, StdCtrls, Buttons, ToolWin, ExtCtrls, rsEdit, Mask,
+  dbtables, rsFlyovr, RseditDB, jpeg, Menus, cxLookAndFeelPainters,
+  cxGraphics, dxSkinsCore, dxSkinsDefaultPainters,
+  dxSkinsdxStatusBarPainter, cxControls, dxStatusBar, cxButtons ;
+
+type
+  TFrmOperacao = class(TFrmCadastro)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    EdiNome: TrsSuperEdit;
+    EdiCodigo: TrsSuperEdit;
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+//    Function Check : Boolean ; Override ;
+  end;
+
+var
+  FrmOperacao: TFrmOperacao;
+
+implementation
+
+{$R *.DFM}
+
+Uses
+   Global, ObjFun, MensFun, TestFun, ConsTabFun, StrFun, Constantes ;
+
+procedure TFrmOperacao.FormCreate(Sender: TObject);
+begin
+    LabCadTit.Caption := 'Cadastro das Operações' ;
+    FormOperacao := 'SIS_OPERACAO' ;
+    FormTabela := 'Operacao' ;
+    FormChaves := 'CodOperacao' ;
+    FormCtrlFocus := 'EdiCodigo' ;
+    FormDataFocus := 'EdiNome' ;
+    inherited;
+end;
+
+(*
+Function TFrmOperacao.Check : Boolean ;
+Begin
+    Result := False ;
+    If ( Test_IsEmptyStr(EdiNome.Text) ) Then
+    Begin
+        Mens_MensInf('Informe a descrição da operação') ;
+        EdiNome.SetFocus ;
+        Exit ;
+    End ;
+    Result := True ;
+End ;
+*)
+
+end.
+

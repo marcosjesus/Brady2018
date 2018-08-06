@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2017/05/29 22:55:14.000.606,=C:\Users\elias\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/05/29 23:36:06.000.866,=C:\Users\elias\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/11/22 16:19:49.000.490,C:\Users\elias\Documents\RAD Studio\Projects\Project1.dproj=C:\ProjetosXE  - Sintecon\CasaDaBoia\branches\Release1\DataImport\MLDataImport.dproj</Transaction>
+    <Transaction>2017/11/22 19:46:36.000.340,=C:\ProjetosXE  - Sintecon\CasaDaBoia\branches\Release1\DBConect.pas</Transaction>
+    <Transaction>2017/11/22 20:02:11.000.580,=C:\ProjetosXE  - Sintecon\CasaDaBoia\branches\Release1\uUtils.pas</Transaction>
+    <Transaction>2017/11/22 20:12:11.000.227,=C:\ProjetosXE  - Sintecon\CasaDaBoia\branches\Release1\Md5.pas</Transaction>
+    <Transaction>2017/11/22 20:12:35.000.745,=C:\ProjetosXE  - Sintecon\CasaDaBoia\branches\Release1\IDEA.pas</Transaction>
+    <Transaction>2017/11/22 20:13:09.000.780,=C:\ProjetosXE  - Sintecon\CasaDaBoia\branches\Release1\DCPcrypt.pas</Transaction>
+    <Transaction>2017/11/22 20:14:11.000.127,=C:\ProjetosXE  - Sintecon\CasaDaBoia\branches\Release1\DCPconst.pas</Transaction>
+    <Transaction>2017/11/22 20:14:26.000.297,=C:\ProjetosXE  - Sintecon\CasaDaBoia\branches\Release1\Base64.pas</Transaction>
+    <Transaction>2017/11/22 20:15:28.000.508,=C:\ProjetosXE  - Sintecon\CasaDaBoia\branches\Release1\Sha1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,163 @@
+unit uEditaItem;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, FCadastro, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinsdxStatusBarPainter, Menus, cxContainer, cxEdit,
+  ExtCtrls, cxGroupBox, StdCtrls, cxButtons, dxStatusBar, Mask, rsEdit, RseditDB,
+  SqlExpr;
+
+type
+  TFrmEditaItem = class(TFrmCadastro)
+    Panel13: TPanel;
+    Edit2: TEdit;
+    ediNCM_Det: TrsSuperEdit;
+    Panel26: TPanel;
+    lblUnidade_Det: TLabel;
+    ediQtde_Det: TrsSuperEdit;
+    ediTotal_Det: TrsSuperEdit;
+    ediValor_Det: TrsSuperEdit;
+    ediLiquido_Det: TrsSuperEdit;
+    Panel28: TPanel;
+    rsSuperEdit15: TrsSuperEdit;
+    ediPorcICMS_Det: TrsSuperEdit;
+    editcsticms_det: TrsSuperEdit;
+    edivaloricms_det: TrsSuperEdit;
+    EditvwBaseICMS: TrsSuperEdit;
+    Panel18: TPanel;
+    rsSuperEdit4: TrsSuperEdit;
+    ediPorcProvPartICMS: TrsSuperEdit;
+    edifcp: TrsSuperEdit;
+    ediVlrICMSRemtente: TrsSuperEdit;
+    ediVlrICMSDestinatario: TrsSuperEdit;
+    Panel31: TPanel;
+    rsSuperEdit6: TrsSuperEdit;
+    ediPorcIPI_Det: TrsSuperEdit;
+    edicstipi_Det: TrsSuperEdit;
+    edivaloripi_det: TrsSuperEdit;
+    PorcIVAAjus_Det: TrsSuperEdit;
+    EditvwBaseIPI: TrsSuperEdit;
+    Panel33: TPanel;
+    rsSuperEdit7: TrsSuperEdit;
+    ediPorcPIS_Det: TrsSuperEdit;
+    edicstpis_det: TrsSuperEdit;
+    edivalorpis_det: TrsSuperEdit;
+    EditvwBasePIS: TrsSuperEdit;
+    Panel34: TPanel;
+    rsSuperEdit9: TrsSuperEdit;
+    ediPorcCofins_Det: TrsSuperEdit;
+    edicstcofins_det: TrsSuperEdit;
+    edivalorcofins_det: TrsSuperEdit;
+    EditvwBaseCOFINS: TrsSuperEdit;
+    Panel35: TPanel;
+    rsSuperEdit10: TrsSuperEdit;
+    PorcIcmsST_Det: TrsSuperEdit;
+    ediValorICMSST_Det: TrsSuperEdit;
+    PorcIVA_Det: TrsSuperEdit;
+    EditvwBaseICMSST: TrsSuperEdit;
+    Panel4: TPanel;
+    EdiCfop: TrsSuperEdit;
+    rsSuperEdit1: TrsSuperEdit;
+    rsSuperEdit2: TrsSuperEdit;
+    cxGroupBox1: TcxGroupBox;
+    Fornecedor: TLabeledEdit;
+    NumeroNF: TLabeledEdit;
+    LabeledEdit1: TLabeledEdit;
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmEditaItem: TFrmEditaItem;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmEditaItem.FormShow(Sender: TObject);
+Var
+ sqlItem : TSQLQuery;
+begin
+  inherited;
+
+   cmbGrupo_Det.KeyValue        := dmBaseDocFiscal.cdsItemPedVendaCodGrupo.asString;
+   DataEntrega_Det.Date         := dmBaseDocFiscal.cdsItemPedVendaDataEntrega.AsDateTime;
+   ediProduto_Det.SetValue('P.CodProdInterno = ' + QuotedStr(dmBaseDocFiscal.cdsItemPedVendaCodProduto.AsString));
+
+   if ediProduto_Det.Text <> EmptyStr then
+   begin
+     cmbGrupo_Det.KeyValue := ediProduto_Det.bs_KeyValues[6];
+     ediNCM_Det.Text       := ediProduto_Det.bs_KeyValues[7];
+   end;
+   dmBaseProduto.FazSQL_CSTpeloRegime(GRegimeTrib);
+
+   sqlItem := TSQLQuery.Create(Nil);
+   Try
+     sqlItem.SQLConnection := DB_Conect.SQLConnection;
+     sqlItem.Close;
+     sqlItem.SQL.Clear;
+     sqlItem.SQL.Add('Select CSTPIS, CSTCOFINS from Natureza With (NOLOCK) Where CFOP = :CFOP ');
+     sqlItem.ParamByName('CFOP').AsString := dmBaseDocFiscal.cdsItemOrcamentoCFOP.AsString;
+     sqlItem.Open;
+
+     EdiQtde_Det.Value            := dmBaseDocFiscal.cdsItemPedVendaQtde.AsFloat;
+     EdiValor_Det.Value           := dmBaseDocFiscal.cdsItemPedVendaValorUnitario.AsFloat;
+     ediTotal_Det.Value           := dmBaseDocFiscal.cdsItemPedVendaValorTotal.AsFloat;
+     ediLiquido_Det.Value         := dmBaseDocFiscal.cdsItemPedVendaValorLiquido.AsFloat;
+     ediCFOP_Det.AsString         := dmBaseDocFiscal.cdsItemPedVendaCFOP.AsString;
+
+
+     edicstipi_Det.AsString       := dmBaseDocFiscal.cdsItemPedVendaP_TipoIPI.AsString;
+     ediPorcIPI_Det.Value         := dmBaseDocFiscal.cdsItemPedVendaPorcIPI.AsFloat;
+     edivaloripi_det.Value        := dmBaseDocFiscal.cdsItemPedVendaValorIPI.AsFloat;
+
+
+     edicstpis_det.AsString       := sqlNatureza.FieldByName('CSTPIS').AsString;
+     ediPorcPIS_Det.Value         := dmBaseDocFiscal.cdsItemPedVendaPorcPIS.AsFloat;
+     edivalorpis_det.Value        := dmBaseDocFiscal.cdsItemPedVendaValorPIS.AsFloat;
+
+     edicstcofins_det.AsString    := sqlNatureza.FieldByName('CSTCOFINS').AsString;
+     ediPorcCofins_Det.Value      := dmBaseDocFiscal.cdsItemPedVendaPorcCOFINS.AsFloat;
+     edivalorcofins_det.Value     := dmBaseDocFiscal.cdsItemPedVendaValorCofins.AsFloat;
+
+
+     ediPorcProvPartICMS.Value    := dmBaseDocFiscal.cdsItemPedVendaPorcProvICMSPartilha.AsFloat;
+     edifcp.Value                 := dmBaseDocFiscal.cdsItemPedVendaVlrFCP.AsFloat;
+     ediVlrICMSRemtente.Value     := dmBaseDocFiscal.cdsItemPedVendaVlrICMSUFRemetente.AsFloat;
+     ediVlrICMSDestinatario.Value := dmBaseDocFiscal.cdsItemPedVendaVlrICMSUFDestino.AsFloat;
+
+     editcsticms_det.AsString      := dmBaseDocFiscal.cdsItemPedVendaP_TipoICMS.AsString;
+
+     ediPorcICMS_Det.Value         := dmBaseDocFiscal.cdsItemPedVendaPorcICMS.AsFloat;
+     PorcIcmsST_Det.Value          := dmBaseDocFiscal.cdsItemPedVendaICMS_Inter.AsFloat;
+
+     edivaloricms_det.Value        := dmBaseDocFiscal.cdsItemPedVendaValorICMS.AsFloat;
+     //edicsticmsst_det.AsString     := dmBaseDocFiscal.cdsItemPedVendaP_TipoICMS.AsString;
+     ediValorICMSST_Det.Value      := dmBaseDocFiscal.cdsItemPedVendaValorICMS_ST.AsFloat;
+     PorcIVA_Det.Value             := dmBaseDocFiscal.cdsItemPedVendaIVA_Original.AsFloat;
+     PorcIVAAjus_Det.Value         := dmBaseDocFiscal.cdsItemPedVendaP_IVA_ST.AsFloat;
+     ediValorFrete_Det.Value       := dmBaseDocFiscal.cdsItemPedVendaVlrFrete.AsFloat;
+     ediValorSeguro_Det.Value      := dmBaseDocFiscal.cdsItemPedVendaVlrSeguro.AsFloat;
+     ediValorOutrasDespesas_Det.Value := dmBaseDocFiscal.cdsItemPedVendaVlrOutrasDespesas.AsFloat;
+
+     EditvwBaseICMS.Value          := dmBaseDocFiscal.cdsItemPedVendaBaseICMS.AsFloat;
+     EditvwBaseICMSST.Value        := dmBaseDocFiscal.cdsItemPedVendaBaseICMSST.AsFloat;
+     EditvwBaseIPI.Value           := dmBaseDocFiscal.cdsItemPedVendaBaseIPI.AsFloat;
+     EditvwBasePIS.Value           := dmBaseDocFiscal.cdsItemPedVendaBasePIS.AsFloat;
+     EditvwBaseCOFINS.Value        := dmBaseDocFiscal.cdsItemPedVendaBaseCOFINS.AsFloat;
+
+
+   Finally
+      FreeAndNil(sqlItem);
+   End;
+
+end;
+
+end.

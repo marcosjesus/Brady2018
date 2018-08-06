@@ -1,0 +1,162 @@
+unit CadCurso;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, FCadastro, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue,
+  dxSkinBlueprint, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinHighContrast, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinsdxStatusBarPainter, Vcl.Menus, Vcl.ExtCtrls, Vcl.StdCtrls, cxButtons,
+  dxStatusBar, Vcl.Mask, rsEdit, RseditDB, Data.FMTBcd, Data.DB, Data.SqlExpr,
+  MensFun,TestFun,Constantes, EditBusca, SetParametro, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TFrmCadCurso = class(TFrmCadastro)
+    Panel1: TPanel;
+    EdiCodigo: TrsSuperEdit;
+    Panel2: TPanel;
+    EdiNome: TrsSuperEdit;
+    Panel3: TPanel;
+    rsSuperEdit1: TrsSuperEdit;
+    EditBuscaCurso: TEditBusca;
+    qryAux: TFDQuery;
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure ButNovoClick(Sender: TObject);
+    procedure ButSalvarClick(Sender: TObject);
+    procedure ButCancelarClick(Sender: TObject);
+    procedure EditBuscaCursoClick(Sender: TObject);
+    procedure ButExcluirClick(Sender: TObject);
+  private
+    { Private declarations }
+    Function Check : Boolean ; Override ;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrmCadCurso: TFrmCadCurso;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrmCadCurso.ButCancelarClick(Sender: TObject);
+begin
+  inherited;
+  EditBuscaCurso.Text := '';
+  EditBuscaCurso.bs_KeyValues.Clear;
+
+end;
+
+procedure TFrmCadCurso.ButExcluirClick(Sender: TObject);
+begin
+
+  qryAux.Close;
+  qryAux.Sql.Clear;
+  qryAux.Sql.Add('Select top 1 CUR_ID from TRE_TREINAMENTO where CUR_ID = :CUR_ID') ;
+  qryAux.Params.ParamByName('CUR_ID').AsString := EdiCodigo.AsString;
+  qryAux.Open;
+  if not qryAux.IsEmpty then
+  begin
+    Mens_MensInf('Curso possui Treinamento relacionado. Não é possivel excluir curso.');
+    Exit;
+  end;
+  inherited;
+  EditBuscaCurso.Text := '';
+  EditBuscaCurso.bs_KeyValues.Clear;
+end;
+
+procedure TFrmCadCurso.ButNovoClick(Sender: TObject);
+begin
+  inherited;
+  qryAux.Close;
+  qryAux.Sql.Clear;
+  qryAux.Sql.Add('Select CodigoCurso From Parametros ') ;
+  qryAux.Open;
+  EdiCodigo.AsInteger := qryAux.FieldByName('CodigoCurso').AsInteger + 1 ;
+  qryAux.close;
+
+  EditBuscaCurso.Text := EdiCodigo.AsString;
+
+  EdiNome.SetFocus;
+end;
+
+procedure TFrmCadCurso.ButSalvarClick(Sender: TObject);
+var
+  Inclui : Boolean;
+begin
+
+  Inclui := (VarOperacao = OPE_INCLUSAO);
+  inherited;
+
+  if (not FormOpeErro) and (Inclui) then
+  begin
+    qryAux.Close;
+    qryAux.Sql.Clear;
+    qryAux.Sql.Add('update Parametros set CodigoCurso = CodigoCurso + 1 ') ;
+    qryAux.ExecSQL;
+  end;
+  EditBuscaCurso.Text := '';
+  EditBuscaCurso.bs_KeyValues.Clear;
+
+
+end;
+
+function TFrmCadCurso.Check: Boolean;
+begin
+   Result := False ;
+
+   If ( Test_IsEmptyStr(EdiNome.Text) ) Then
+   Begin
+       Mens_MensInf('É necessário informar o nome do curso') ;
+       EdiNome.SetFocus ;
+       Exit ;
+   End ;
+
+   Result := True ;
+end;
+
+procedure TFrmCadCurso.EditBuscaCursoClick(Sender: TObject);
+begin
+  inherited;
+  if ((EditBuscaCurso.Text <> '') and (EditBuscaCurso.bs_KeyValues.Count > 0)) then
+  begin
+    EdiCodigo.AsInteger :=  StrToInt(VarToStr(EditBuscaCurso.bs_KeyValue));
+    if VarOperacao <> OPE_INCLUSAO then
+     ButPesquisarClick(Self);
+  end;
+end;
+
+procedure TFrmCadCurso.FormCreate(Sender: TObject);
+begin
+
+  LabCadTit.Caption := 'Curso' ;
+  FormOperacao := 'CAD_CURSO';
+  FormTabela := 'TRE_CURSO' ;
+  FormChaves := 'CUR_ID' ;
+  FormCtrlFocus := 'EditBuscaCurso' ;
+  FormDataFocus := 'EdiNome' ;
+
+  SetParametros(EditBuscaCurso, TipoCursoID);
+
+  inherited;
+
+end;
+
+procedure TFrmCadCurso.FormShow(Sender: TObject);
+begin
+  inherited;
+  WindowState := wsMaximized;
+end;
+
+end.

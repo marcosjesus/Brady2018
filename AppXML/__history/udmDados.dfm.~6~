@@ -1,0 +1,23 @@
+object Dados: TDados
+  OldCreateOrder = False
+  Height = 356
+  Width = 502
+  object FDConnection: TFDConnection
+    Params.Strings = (
+      'SERVER=GHOS2023'
+      'User_Name=AppSOP'
+      'Password=SOPApp1!'
+      'ApplicationName=Brady'
+      'DATABASE=AppSOP'
+      'MARS=yes'
+      'LoginTimeout=300'
+      'DriverID=MSSQL')
+    Left = 103
+    Top = 145
+  end
+  object sqlAuxiliar: TFDQuery
+    Connection = FDConnection
+    Left = 104
+    Top = 216
+  end
+end

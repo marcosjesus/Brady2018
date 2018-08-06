@@ -1,0 +1,78 @@
+object DB_Conect: TDB_Conect
+  OldCreateOrder = False
+  Height = 356
+  Width = 502
+  object FDConnection: TFDConnection
+    Params.Strings = (
+      'SERVER=ALUGACOM-PC\SqlExpress'
+      'User_Name=cte'
+      'Password=cte123'
+      'DATABASE=EntradaXML'
+      'ApplicationName=Brady'
+      'MARS=yes'
+      'LoginTimeout=300'
+      'DriverID=MSSQL')
+    LoginPrompt = False
+    Left = 47
+    Top = 25
+  end
+  object sqlAuxiliar: TFDQuery
+    Connection = FDConnection
+    Left = 48
+    Top = 80
+  end
+  object sqlAux: TFDQuery
+    Connection = FDConnection
+    Left = 48
+    Top = 152
+  end
+  object sqlAux180: TFDQuery
+    Connection = FDConnection
+    Left = 48
+    Top = 240
+  end
+  object sqlAux180Itens: TFDQuery
+    Connection = FDConnection
+    Left = 168
+    Top = 208
+  end
+  object sql155: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'select * from SPCT_155 where 1 = 1')
+    Left = 288
+    Top = 72
+  end
+  object sql250: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'select * from SPCT_250 where 1 = 1')
+    Left = 288
+    Top = 144
+  end
+  object sqlGeral: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'select * from SPCT_GERAL where 1 = 1')
+    Left = 288
+    Top = 216
+    object sqlGeralSPCT_GERAL_ID: TFDAutoIncField
+      FieldName = 'SPCT_GERAL_ID'
+      Origin = 'SPCT_GERAL_ID'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlGeralLINHA: TStringField
+      FieldName = 'LINHA'
+      Origin = 'LINHA'
+      Size = 500
+    end
+  end
+  object sql200: TFDQuery
+    Connection = FDConnection
+    SQL.Strings = (
+      'select * from SPCT_200 where 1 = 1')
+    Left = 352
+    Top = 264
+  end
+end

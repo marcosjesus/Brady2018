@@ -1,0 +1,52 @@
+program IntegraMagento;
+
+{$APPTYPE CONSOLE}
+
+{$R *.res}
+
+uses
+  System.SysUtils,
+  ActiveX,
+  WSMagento in 'WSMagento.pas',
+  Soap.InvokeRegistry,
+  Soap.Rio,
+  Soap.SOAPHTTPClient;
+
+
+var
+  HTTPRIOX: THTTPRIO;
+  varLoginResposta : loginResponseParam;
+
+procedure Login(User, PassWord : String);
+var
+ varMagento      : Mage_Api_Model_Server_Wsi_HandlerPortType;
+ varParametro    : loginParam;
+ varStartSession : startSessionResponseParam;
+begin
+
+   Try
+
+     CoInitialize(nil);
+
+     HTTPRIOX              := THTTPRIO.Create(nil);
+     varMagento            := GetMage_Api_Model_Server_Wsi_HandlerPortType(False, '', HTTPRIOX);
+     varParametro          := loginParam.Create;;
+     varParametro.username := User;
+     varParametro.apiKey   := PassWord;
+
+     varLoginResposta      := varMagento.login(varParametro);
+     varStartSession       := varMagento.startSession;
+   Finally
+     FreeAndNil(varParametro);
+     CoUninitialize;
+   End;
+end;
+
+begin
+  try
+     Login('sap_user','!user_sap*@32');
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
+end.
